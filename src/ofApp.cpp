@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 void ofApp::setup(){
-
+    network.setup();
 }
 
 void ofApp::update(){
