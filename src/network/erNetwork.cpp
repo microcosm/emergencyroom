@@ -2,65 +2,61 @@
 
 void erNetwork::setup(){
     drawingEnabled = false;
-
     ofSetVerticalSync(true);
     ofSetLogLevel(OF_LOG_VERBOSE);
-    
+
     player.load("test-sound.mp3");
     player.setLoop(false);
-    
+
     if(finder.setup()){
         finderStartTime = 0;
     }else{
         ofLogError("ofApp") << "failed to start finder";
         statusText = "failed to start finder";
-        
     }
+
     statusText = "";
-    
     serverPortOffset = 0;
-    
+
     ofAddListener(ofEvents().update, this, &erNetwork::update);
     ofAddListener(ofEvents().draw, this, &erNetwork::draw);
 }
 
 void erNetwork::update(ofEventArgs& updateArgs){
-    unsigned long long now = ofGetElapsedTimeMillis();
+    now = ofGetElapsedTimeMillis();
+
     if(!server.isConnected() && !client.isConnected() && !finder.isRunning()){
-        if(finder.setup()){
-        }else{
+        if(!finder.setup()){
             statusText += "\nfailed to start finder";
         }
-        
     }
+
     if(finder.isRunning()){
         if(finder.doesServerFound()){
             statusText = "server found";
-            
             finder.close();
             if(client.setup(finder.getServerInfo().ip, finder.getServerInfo().port)){
                 player.setPan(-1);
                 ofAddListener(client.messageReceived, this, &erNetwork::onMessageReceived);
                 ofAddListener(client.connectionLost, this, &erNetwork::onClientConnectionLost);
             }
-            
         }
-        
+
         if(now > finderStartTime+FINDER_TIMEOUT){
-            // server finder timeout
-            
-            // i will be server
+            //server finder timeout
+
+            //i will be server
             if(server.setup(SYNC_TCP_PORT+serverPortOffset)){
                 statusText = "i am server";
                 player.setPan(1);
-                //				ofRemoveListener(finder.serverFound, this, &ofApp::onServerFound);
+                //ofRemoveListener(finder.serverFound, this, &ofApp::onServerFound);
                 finder.close();
                 
                 if(client.isCalibrated()){
                     server.setTimeOffsetMillis(client.getSyncedElapsedTimeMillis()-ofGetElapsedTimeMillis());
                 }
             }else{
-                // failed to start server. still try to find server
+                //failed to start server. still try to find server
                 statusText = "server failed to start. maybe given address is already in use?";
                 finderStartTime = now;
                 server.close();
@@ -71,9 +67,9 @@ void erNetwork::update(ofEventArgs& updateArgs){
         server.update();
         
         if(server.hasClients()){
-            if (server.getSyncedElapsedTimeMillis()%SOUND_PLAYER_INTERVAL < lastUpdateTime%SOUND_PLAYER_INTERVAL) {
+            if(server.getSyncedElapsedTimeMillis()%SOUND_PLAYER_INTERVAL < lastUpdateTime%SOUND_PLAYER_INTERVAL) {
                 bool bPlay = false;
-                for (auto & client : server.getClients()) {
+                for(auto& client : server.getClients()) {
                     if(client->isCalibrated()){
                         bPlay = true;
                         client->send("PLAY "+ofToString(server.getSyncedElapsedTimeMillis()+SOUND_PLAYER_DELAY));
@@ -84,7 +80,7 @@ void erNetwork::update(ofEventArgs& updateArgs){
                 }
             }
         }
-        
+
         lastUpdateTime = server.getSyncedElapsedTimeMillis();
     }
 }

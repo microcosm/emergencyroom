@@ -16,9 +16,7 @@ public:
     virtual void update(ofEventArgs& updateArgs);
     virtual void draw(ofEventArgs& updateArgs);
     void enableDrawing();
-
     void keyPressed(int key);
-
     void onMessageReceived(string & message);
     void onServerFound(IpAndPort & info);
     void onClientConnectionLost();
@@ -33,4 +31,5 @@ public:
     string statusText;
     int serverPortOffset;
     bool drawingEnabled;
+    unsigned long long now;
 };
