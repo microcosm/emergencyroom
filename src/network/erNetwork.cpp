@@ -1,7 +1,8 @@
 #include "erNetwork.h"
 
 void erNetwork::setup(){
-    ofBackground(0);
+    drawingEnabled = false;
+
     ofSetVerticalSync(true);
     ofSetLogLevel(OF_LOG_VERBOSE);
     
@@ -88,6 +89,27 @@ void erNetwork::update(ofEventArgs& updateArgs){
     }
 }
 
+void erNetwork::draw(ofEventArgs& updateArgs){
+    if(drawingEnabled){
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString(statusText, 50, 30);
+        if(finder.isRunning()){
+            ofDrawBitmapString("trying to find server: " + ofToString((finderStartTime+FINDER_TIMEOUT)-ofGetElapsedTimeMillis()), 50, 50);
+            ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
+        }else if(client.isConnected()){
+            client.drawStatus();
+            ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
+        }else if(server.isConnected()){
+            server.drawStatus();
+            ofDrawBitmapString(ofToString(server.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
+        }
+    }
+}
+
+void erNetwork::enableDrawing(){
+    drawingEnabled = true;
+}
+
 void erNetwork::onMessageReceived(string & message){
     const string messagePlay = "PLAY ";
     if(message.find(messagePlay) == 0 && client.isCalibrated()){
@@ -105,24 +127,4 @@ void erNetwork::onClientConnectionLost(){
     }else{
         statusText += "\nfailed to start finder";
     }
-}
-
-void erNetwork::draw(ofEventArgs& updateArgs){
-    ofSetColor(255);
-    ofDrawBitmapString(statusText , 50, 30);
-    if(finder.isRunning()){
-        ofDrawBitmapString("trying to find server: "+ ofToString((finderStartTime+FINDER_TIMEOUT)-ofGetElapsedTimeMillis()) , 50, 50);
-        ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
-    }else if(client.isConnected()){
-        client.drawStatus();
-        ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
-    }else if(server.isConnected()){
-        server.drawStatus();
-        ofDrawBitmapString(ofToString(server.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
-    }
-    
-    //	if(client.isConnected()){
-    //	}else if(server.isConnected()){
-    //		ofDrawBitmapString(ofToString(server.getSyncedElapsedTimeMillis()), 200, 30);
-    //	}
 }

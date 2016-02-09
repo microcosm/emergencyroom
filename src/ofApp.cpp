@@ -2,6 +2,7 @@
 
 void ofApp::setup(){
     network.setup();
+    network.enableDrawing();
 }
 
 void ofApp::update(){
