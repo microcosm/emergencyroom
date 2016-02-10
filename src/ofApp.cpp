@@ -3,6 +3,10 @@
 void ofApp::setup(){
     network.setup();
     network.enableDrawing();
+    ofAddListener(network.getClient()->messageReceived, this, &ofApp::onMessageReceived);
+
+    player.load("test-sound.mp3");
+    player.setLoop(false);
 }
 
 void ofApp::update(){
@@ -13,13 +17,23 @@ void ofApp::draw(){
 
 }
 
+void ofApp::onMessageReceived(string& message){
+    const string messagePlay = "PLAY ";
+    if(message.find(messagePlay) == 0 && network.isClientReady()){
+        time = ofToInt(message.substr(messagePlay.length()));
+        player.play(network.getClientDelay(time));
+    }
+}
+
 void ofApp::keyPressed(int key){
 
 }
 
 void ofApp::keyReleased(int key){
     if(network.isRunningServer()){
-        network.playTestSound();
+        if(network.broadcast("PLAY ", SOUND_PLAYER_DELAY)){
+            player.play(SOUND_PLAYER_DELAY);
+        }
     }
 }
 

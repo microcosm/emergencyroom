@@ -6,9 +6,6 @@ void erNetwork::setup(){
     ofSetVerticalSync(true);
     ofSetLogLevel(OF_LOG_VERBOSE);
 
-    player.load("test-sound.mp3");
-    player.setLoop(false);
-
     if(finder.setup()){
         finderStartTime = 0;
     }else{
@@ -38,7 +35,6 @@ void erNetwork::update(ofEventArgs& updateArgs){
             finder.close();
             if(client.setup(finder.getServerInfo().ip, finder.getServerInfo().port)){
                 role = NETWORK_ROLE_CLIENT;
-                ofAddListener(client.messageReceived, this, &erNetwork::onMessageReceived);
                 ofAddListener(client.connectionLost, this, &erNetwork::onConnectionLost);
             }
         }
@@ -90,19 +86,17 @@ void erNetwork::enableDrawing(){
     drawingEnabled = true;
 }
 
-void erNetwork::playTestSound(){
+bool erNetwork::broadcast(string message, int delay){
+    bool broadcastSuccessful = false;
     if(server.hasClients()){
-        bool bPlay = false;
         for(auto& client : server.getClients()) {
             if(client->isCalibrated()){
-                bPlay = true;
-                client->send("PLAY "+ofToString(server.getSyncedElapsedTimeMillis()+SOUND_PLAYER_DELAY));
+                broadcastSuccessful = true;
+                client->send(message + ofToString(server.getSyncedElapsedTimeMillis() + delay));
             }
         }
-        if(bPlay){
-            player.play(SOUND_PLAYER_DELAY);
-        }
     }
+    return broadcastSuccessful;
 }
 
 bool erNetwork::isRunningClient(){
@@ -113,15 +107,19 @@ bool erNetwork::isRunningServer(){
     return role == NETWORK_ROLE_SERVER;
 }
 
-//Client
-void erNetwork::onMessageReceived(string& message){
-    const string messagePlay = "PLAY ";
-    if(message.find(messagePlay) == 0 && client.isCalibrated()){
-        int time = ofToInt(message.substr(messagePlay.length()));
-        player.play(time - client.getSyncedElapsedTimeMillis());
-    }
+bool erNetwork::isClientReady(){
+    return client.isCalibrated();
 }
 
+int erNetwork::getClientDelay(int serverDelay){
+    return serverDelay - client.getSyncedElapsedTimeMillis();
+}
+
+ofxNetworkSyncClient* erNetwork::getClient(){
+    return &client;
+}
+
+//Client
 void erNetwork::onConnectionLost(){
     statusText = "lost connection to server";
     client.close();

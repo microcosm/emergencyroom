@@ -3,12 +3,15 @@
 #include "ofMain.h"
 #include "erNetwork.h"
 
+#define SOUND_PLAYER_DELAY 1000
+
 class ofApp : public ofBaseApp{
 
 public:
     void setup();
     void update();
     void draw();
+    void onMessageReceived(string & message);
 
     void keyPressed(int key);
     void keyReleased(int key);
@@ -23,4 +26,6 @@ public:
     void gotMessage(ofMessage msg);
 
     erNetwork network;
+    ofSoundPlayerDelayed player;
+    int time;
 };
