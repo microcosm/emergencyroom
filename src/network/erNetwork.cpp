@@ -36,9 +36,8 @@ void erNetwork::update(ofEventArgs& updateArgs){
             statusText = "server found";
             finder.close();
             if(client.setup(finder.getServerInfo().ip, finder.getServerInfo().port)){
-                player.setPan(-1);
                 ofAddListener(client.messageReceived, this, &erNetwork::onMessageReceived);
-                ofAddListener(client.connectionLost, this, &erNetwork::onClientConnectionLost);
+                ofAddListener(client.connectionLost, this, &erNetwork::onConnectionLost);
             }
         }
 
@@ -48,7 +47,6 @@ void erNetwork::update(ofEventArgs& updateArgs){
             //i will be server
             if(server.setup(SYNC_TCP_PORT+serverPortOffset)){
                 statusText = "i am server";
-                player.setPan(1);
                 //ofRemoveListener(finder.serverFound, this, &ofApp::onServerFound);
                 finder.close();
                 
@@ -65,23 +63,6 @@ void erNetwork::update(ofEventArgs& updateArgs){
         }
     }else if(server.isConnected()){
         server.update();
-        
-        if(server.hasClients()){
-            if(server.getSyncedElapsedTimeMillis()%SOUND_PLAYER_INTERVAL < lastUpdateTime%SOUND_PLAYER_INTERVAL) {
-                bool bPlay = false;
-                for(auto& client : server.getClients()) {
-                    if(client->isCalibrated()){
-                        bPlay = true;
-                        client->send("PLAY "+ofToString(server.getSyncedElapsedTimeMillis()+SOUND_PLAYER_DELAY));
-                    }
-                }
-                if(bPlay){
-                    player.play(SOUND_PLAYER_DELAY);
-                }
-            }
-        }
-
-        lastUpdateTime = server.getSyncedElapsedTimeMillis();
     }
 }
 
@@ -106,7 +87,23 @@ void erNetwork::enableDrawing(){
     drawingEnabled = true;
 }
 
-void erNetwork::onMessageReceived(string & message){
+void erNetwork::playTestSound(){
+    if(server.hasClients()){
+        bool bPlay = false;
+        for(auto& client : server.getClients()) {
+            if(client->isCalibrated()){
+                bPlay = true;
+                client->send("PLAY "+ofToString(server.getSyncedElapsedTimeMillis()+SOUND_PLAYER_DELAY));
+            }
+        }
+        if(bPlay){
+            player.play(SOUND_PLAYER_DELAY);
+        }
+    }
+}
+
+//Client
+void erNetwork::onMessageReceived(string& message){
     const string messagePlay = "PLAY ";
     if(message.find(messagePlay) == 0 && client.isCalibrated()){
         int time = ofToInt(message.substr(messagePlay.length()));
@@ -114,8 +111,8 @@ void erNetwork::onMessageReceived(string & message){
     }
 }
 
-void erNetwork::onClientConnectionLost(){
-    statusText = "client lost connection";
+void erNetwork::onConnectionLost(){
+    statusText = "lost connection to server";
     client.close();
     // retry to find server
     if(finder.setup()){

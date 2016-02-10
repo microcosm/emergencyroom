@@ -18,7 +18,7 @@ void ofApp::keyPressed(int key){
 }
 
 void ofApp::keyReleased(int key){
-
+    network.playTestSound();
 }
 
 void ofApp::mouseMoved(int x, int y){
