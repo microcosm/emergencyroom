@@ -1,6 +1,7 @@
 #include "erNetwork.h"
 
 void erNetwork::setup(){
+    role = NETWORK_ROLE_UNDEFINED;
     drawingEnabled = false;
     ofSetVerticalSync(true);
     ofSetLogLevel(OF_LOG_VERBOSE);
@@ -36,6 +37,7 @@ void erNetwork::update(ofEventArgs& updateArgs){
             statusText = "server found";
             finder.close();
             if(client.setup(finder.getServerInfo().ip, finder.getServerInfo().port)){
+                role = NETWORK_ROLE_CLIENT;
                 ofAddListener(client.messageReceived, this, &erNetwork::onMessageReceived);
                 ofAddListener(client.connectionLost, this, &erNetwork::onConnectionLost);
             }
@@ -46,6 +48,7 @@ void erNetwork::update(ofEventArgs& updateArgs){
 
             //i will be server
             if(server.setup(SYNC_TCP_PORT+serverPortOffset)){
+                role = NETWORK_ROLE_SERVER;
                 statusText = "i am server";
                 //ofRemoveListener(finder.serverFound, this, &ofApp::onServerFound);
                 finder.close();
@@ -100,6 +103,14 @@ void erNetwork::playTestSound(){
             player.play(SOUND_PLAYER_DELAY);
         }
     }
+}
+
+bool erNetwork::isRunningClient(){
+    return role == NETWORK_ROLE_CLIENT;
+}
+
+bool erNetwork::isRunningServer(){
+    return role == NETWORK_ROLE_SERVER;
 }
 
 //Client

@@ -9,6 +9,12 @@
 #define SOUND_PLAYER_DELAY 1000
 #define SOUND_PLAYER_INTERVAL 2000
 
+enum erNetworkRole {
+    NETWORK_ROLE_UNDEFINED,
+    NETWORK_ROLE_CLIENT,
+    NETWORK_ROLE_SERVER
+};
+
 class erNetwork{
     
 public:
@@ -17,6 +23,8 @@ public:
     virtual void draw(ofEventArgs& updateArgs);
     void enableDrawing();
     void playTestSound();
+    bool isRunningClient();
+    bool isRunningServer();
     void keyPressed(int key);
     void onMessageReceived(string & message);
     void onServerFound(IpAndPort & info);
@@ -27,8 +35,8 @@ public:
     ofxNetworkSyncServer server;
     ofSoundPlayerDelayed player;
 
+    erNetworkRole role;
     int finderStartTime;
-
     string statusText;
     int serverPortOffset;
     bool drawingEnabled;
