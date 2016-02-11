@@ -20,7 +20,7 @@ public:
     virtual void update(ofEventArgs& updateArgs);
     virtual void draw(ofEventArgs& updateArgs);
     void enableDrawing();
-    bool broadcast(string message, int delay);
+    bool broadcast(string command, int delay);
     bool isRunningClient();
     bool isRunningServer();
     bool isClientReady();

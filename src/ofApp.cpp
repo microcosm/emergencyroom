@@ -18,9 +18,9 @@ void ofApp::draw(){
 }
 
 void ofApp::onMessageReceived(string& message){
-    const string messagePlay = "PLAY ";
-    if(message.find(messagePlay) == 0 && network.isClientReady()){
-        time = ofToInt(message.substr(messagePlay.length()));
+    parts = ofSplitString(message, " ");
+    if(parts.size() == 2 && parts[0] == TEST_COMMAND && network.isClientReady()){
+        time = ofToInt(parts[1]);
         player.play(network.getClientDelay(time));
     }
 }
@@ -31,7 +31,7 @@ void ofApp::keyPressed(int key){
 
 void ofApp::keyReleased(int key){
     if(network.isRunningServer()){
-        if(network.broadcast("PLAY ", SOUND_PLAYER_DELAY)){
+        if(key == 't' && network.broadcast(TEST_COMMAND, SOUND_PLAYER_DELAY)){
             player.play(SOUND_PLAYER_DELAY);
         }
     }

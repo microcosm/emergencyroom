@@ -86,13 +86,13 @@ void erNetwork::enableDrawing(){
     drawingEnabled = true;
 }
 
-bool erNetwork::broadcast(string message, int delay){
+bool erNetwork::broadcast(string command, int delay){
     bool broadcastSuccessful = false;
     if(server.hasClients()){
         for(auto& client : server.getClients()) {
             if(client->isCalibrated()){
                 broadcastSuccessful = true;
-                client->send(message + ofToString(server.getSyncedElapsedTimeMillis() + delay));
+                client->send(command + " " + ofToString(server.getSyncedElapsedTimeMillis() + delay));
             }
         }
     }

@@ -4,6 +4,7 @@
 #include "erNetwork.h"
 
 #define SOUND_PLAYER_DELAY 1000
+#define TEST_COMMAND "TEST"
 
 class ofApp : public ofBaseApp{
 
@@ -28,4 +29,5 @@ public:
     erNetwork network;
     ofSoundPlayerDelayed player;
     int time;
+    vector<string> parts;
 };
