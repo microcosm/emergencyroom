@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxNetworkSync.h"
-#include "ofSoundPlayerDelayed.h"
 
 #define SYNC_TCP_PORT 12345
 #define FINDER_TIMEOUT 10000

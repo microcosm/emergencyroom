@@ -1,2 +1,3 @@
-ofxNetworkSync
+ofxHapPlayer
 ofxNetwork
+ofxNetworkSync

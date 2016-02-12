@@ -6,30 +6,42 @@ void ofApp::setup(){
     network.enableDrawing();
     ofAddListener(network.getClient()->messageReceived, this, &ofApp::onMessageReceived);
 
-    player.load("test-sound.mp3");
-    player.setLoop(false);
+    soundPlayer.load("test/audio.mp3");
+    soundPlayer.setLoop(false);
+    videoPlayer.load("test/video.mov");
+    videoPlayer.setLoopState(OF_LOOP_NONE);
 }
 
 void ofApp::update(){
-
+    videoPlayer.update();
 }
 
 void ofApp::draw(){
-
+    if(videoPlayer.isLoaded()){
+        videoPlayer.draw(10, 120);
+    }
 }
 
 void ofApp::onMessageReceived(string& message){
     messageParts = ofSplitString(message, " ");
     if(messageParts.size() == 2 && messageParts[0] == TEST_COMMAND && network.isClientReady()){
         time = ofToInt(messageParts[1]);
-        player.play(network.getClientDelay(time));
+        time = network.getClientDelay(time);
+        soundPlayer.play(time);
+        videoPlayer.play(time);
     }
     if(messageParts.size() == 3 && messageParts[0] == PLAY_COMMAND && network.isClientReady()){
         time = ofToInt(messageParts[1]);
+        time = network.getClientDelay(time);
         argumentParts = ofSplitString(messageParts[2], ",");
         variableParts = ofSplitString(argumentParts[0], "=");
-        player.setSpeed(ofToFloat(variableParts[1]));
-        player.play(network.getClientDelay(time));
+        speed = ofToFloat(variableParts[1]);
+        soundPlayer.setSpeed(speed);
+        soundPlayer.play(time);
+
+        videoPlayer.setPosition(0);
+        videoPlayer.setSpeed(speed);
+        videoPlayer.play(time);
     }
 }
 
@@ -39,16 +51,24 @@ void ofApp::keyPressed(int key){
 
 void ofApp::keyReleased(int key){
     if(network.isRunningServer()){
-        if(key == 't' && network.flood(TEST_COMMAND, SOUND_PLAYER_DELAY)){
-            player.play(SOUND_PLAYER_DELAY);
+        if(key == 't' && network.flood(TEST_COMMAND, DEFAULT_DELAY)){
+            soundPlayer.play(DEFAULT_DELAY);
+            videoPlayer.setPosition(0);
+            videoPlayer.play(DEFAULT_DELAY);
         }
-        if(key == '1' && network.target(1, PLAY_COMMAND, "speed=0.5", SOUND_PLAYER_DELAY)){
-            player.setSpeed(0.5);
-            player.play(SOUND_PLAYER_DELAY);
+        if(key == '1' && network.target(1, PLAY_COMMAND, "speed=0.5", DEFAULT_DELAY)){
+            soundPlayer.setSpeed(0.5);
+            soundPlayer.play(DEFAULT_DELAY);
+            videoPlayer.setPosition(0);
+            videoPlayer.setSpeed(0.5);
+            videoPlayer.play(DEFAULT_DELAY);
         }
-        if(key == '2' && network.target(2, PLAY_COMMAND, "speed=2", SOUND_PLAYER_DELAY)){
-            player.setSpeed(2);
-            player.play(SOUND_PLAYER_DELAY);
+        if(key == '2' && network.target(2, PLAY_COMMAND, "speed=2", DEFAULT_DELAY)){
+            soundPlayer.setSpeed(2);
+            soundPlayer.play(DEFAULT_DELAY);
+            videoPlayer.setPosition(0);
+            videoPlayer.setSpeed(0.5);
+            videoPlayer.play(DEFAULT_DELAY);
         }
     }
 }

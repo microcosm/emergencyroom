@@ -2,8 +2,10 @@
 
 #include "ofMain.h"
 #include "erNetwork.h"
+#include "ofSoundPlayerDelayed.h"
+#include "ofxHapPlayerDelayed.h"
 
-#define SOUND_PLAYER_DELAY 1000
+#define DEFAULT_DELAY 1000
 #define TEST_COMMAND "TEST"
 #define PLAY_COMMAND "PLAY"
 
@@ -27,8 +29,11 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
+protected:
     erNetwork network;
-    ofSoundPlayerDelayed player;
+    ofSoundPlayerDelayed soundPlayer;
+    ofxHapPlayerDelayed videoPlayer;
     int time;
+    float speed;
     vector<string> messageParts, argumentParts, variableParts;
 };

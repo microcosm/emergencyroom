@@ -6,8 +6,8 @@
 //
 //
 
-#ifndef ofxNetworkSyncServerExample_ofSoundPlayerDelayed_h
-#define ofxNetworkSyncServerExample_ofSoundPlayerDelayed_h
+#ifndef emergencyroom_ofSoundPlayerDelayed_h
+#define emergencyroom_ofSoundPlayerDelayed_h
 
 #include "ofMain.h"
 
