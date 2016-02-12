@@ -17,10 +17,12 @@ class erNetwork{
     
 public:
     void setup();
+    void setNumChannels(int _numChannels);
     virtual void update(ofEventArgs& updateArgs);
     virtual void draw(ofEventArgs& updateArgs);
     void enableDrawing();
-    bool broadcast(string command, int delay);
+    bool flood(string command, int delay);
+    bool target(int target, string command, string arguments, int delay);
     bool isRunningClient();
     bool isRunningServer();
     bool isClientReady();
@@ -30,14 +32,16 @@ public:
     void onServerFound(IpAndPort& info);
     void onConnectionLost();
 
+protected:
+    void send(string message, ofxNetworkSyncClientState* client);
+    string format(string command, int delay, string arguments="");
     ofxNetworkSyncServerFinder finder;
     ofxNetworkSyncClient client;
     ofxNetworkSyncServer server;
-
     erNetworkRole role;
-    int finderStartTime;
+
     string statusText;
-    int serverPortOffset;
-    bool drawingEnabled, broadcastSuccessful;
+    int finderStartTime, serverPortOffset, numChannels;
+    bool drawingEnabled, success;
     unsigned long long now;
 };

@@ -2,6 +2,7 @@
 
 void erNetwork::setup(){
     role = NETWORK_ROLE_UNDEFINED;
+    numChannels = 1;
     drawingEnabled = false;
     ofSetVerticalSync(true);
     ofSetLogLevel(OF_LOG_VERBOSE);
@@ -18,6 +19,10 @@ void erNetwork::setup(){
 
     ofAddListener(ofEvents().update, this, &erNetwork::update);
     ofAddListener(ofEvents().draw, this, &erNetwork::draw);
+}
+
+void erNetwork::setNumChannels(int _numChannels){
+    numChannels = _numChannels;
 }
 
 void erNetwork::update(ofEventArgs& updateArgs){
@@ -86,17 +91,28 @@ void erNetwork::enableDrawing(){
     drawingEnabled = true;
 }
 
-bool erNetwork::broadcast(string command, int delay){
-    bool broadcastSuccessful = false;
+bool erNetwork::flood(string command, int delay){
+    success = false;
     if(server.hasClients()){
         for(auto& client : server.getClients()) {
-            if(client->isCalibrated()){
-                broadcastSuccessful = true;
-                client->send(command + " " + ofToString(server.getSyncedElapsedTimeMillis() + delay));
+            send(format(command, delay), client);
+        }
+    }
+    return success;
+}
+
+bool erNetwork::target(int target, string command, string arguments, int delay){
+    success = false;
+    if(server.hasClients()){
+        vector<ofxNetworkSyncClientState*>& clients = server.getClients();
+        if(target > 0 && target <= clients.size()){
+            for(int i = target; i <= clients.size(); i+=numChannels) {
+                ofxNetworkSyncClientState* client = clients[i-1];
+                send(format(command, delay, arguments), client);
             }
         }
     }
-    return broadcastSuccessful;
+    return success;
 }
 
 bool erNetwork::isRunningClient(){
@@ -119,7 +135,6 @@ ofxNetworkSyncClient* erNetwork::getClient(){
     return &client;
 }
 
-//Client
 void erNetwork::onConnectionLost(){
     statusText = "lost connection to server";
     client.close();
@@ -129,4 +144,18 @@ void erNetwork::onConnectionLost(){
     }else{
         statusText += "\nfailed to start finder";
     }
+}
+
+void erNetwork::send(string message, ofxNetworkSyncClientState* client){
+    if(client->isCalibrated()){
+        success = true;
+        client->send(message);
+    }
+}
+
+string erNetwork::format(string command, int delay, string arguments){
+    string formatted = command + " ";
+    formatted += ofToString(server.getSyncedElapsedTimeMillis() + delay);
+    formatted += arguments.length() > 0 ? " " + arguments : "";
+    return formatted;
 }

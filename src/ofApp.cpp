@@ -2,6 +2,7 @@
 
 void ofApp::setup(){
     network.setup();
+    network.setNumChannels(2);
     network.enableDrawing();
     ofAddListener(network.getClient()->messageReceived, this, &ofApp::onMessageReceived);
 
@@ -18,9 +19,16 @@ void ofApp::draw(){
 }
 
 void ofApp::onMessageReceived(string& message){
-    parts = ofSplitString(message, " ");
-    if(parts.size() == 2 && parts[0] == TEST_COMMAND && network.isClientReady()){
-        time = ofToInt(parts[1]);
+    messageParts = ofSplitString(message, " ");
+    if(messageParts.size() == 2 && messageParts[0] == TEST_COMMAND && network.isClientReady()){
+        time = ofToInt(messageParts[1]);
+        player.play(network.getClientDelay(time));
+    }
+    if(messageParts.size() == 3 && messageParts[0] == PLAY_COMMAND && network.isClientReady()){
+        time = ofToInt(messageParts[1]);
+        argumentParts = ofSplitString(messageParts[2], ",");
+        variableParts = ofSplitString(argumentParts[0], "=");
+        player.setSpeed(ofToFloat(variableParts[1]));
         player.play(network.getClientDelay(time));
     }
 }
@@ -31,7 +39,15 @@ void ofApp::keyPressed(int key){
 
 void ofApp::keyReleased(int key){
     if(network.isRunningServer()){
-        if(key == 't' && network.broadcast(TEST_COMMAND, SOUND_PLAYER_DELAY)){
+        if(key == 't' && network.flood(TEST_COMMAND, SOUND_PLAYER_DELAY)){
+            player.play(SOUND_PLAYER_DELAY);
+        }
+        if(key == '1' && network.target(1, PLAY_COMMAND, "speed=0.5", SOUND_PLAYER_DELAY)){
+            player.setSpeed(0.5);
+            player.play(SOUND_PLAYER_DELAY);
+        }
+        if(key == '2' && network.target(2, PLAY_COMMAND, "speed=2", SOUND_PLAYER_DELAY)){
+            player.setSpeed(2);
             player.play(SOUND_PLAYER_DELAY);
         }
     }

@@ -5,6 +5,7 @@
 
 #define SOUND_PLAYER_DELAY 1000
 #define TEST_COMMAND "TEST"
+#define PLAY_COMMAND "PLAY"
 
 class ofApp : public ofBaseApp{
 
@@ -29,5 +30,5 @@ public:
     erNetwork network;
     ofSoundPlayerDelayed player;
     int time;
-    vector<string> parts;
+    vector<string> messageParts, argumentParts, variableParts;
 };
