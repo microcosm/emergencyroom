@@ -93,23 +93,19 @@ void erNetwork::enableDrawing(){
 
 bool erNetwork::flood(string command, int delay){
     success = false;
-    if(server.hasClients()){
-        for(auto& client : server.getClients()) {
-            send(format(command, delay), client);
-        }
+    for(auto& client : server.getClients()) {
+        send(format(command, delay), client);
     }
     return success;
 }
 
 bool erNetwork::target(int target, string command, string arguments, int delay){
     success = false;
-    if(server.hasClients()){
-        vector<ofxNetworkSyncClientState*>& clients = server.getClients();
-        if(target > 0 && target <= clients.size()){
-            for(int i = target; i <= clients.size(); i+=numChannels) {
-                ofxNetworkSyncClientState* client = clients[i-1];
-                send(format(command, delay, arguments), client);
-            }
+    vector<ofxNetworkSyncClientState*>& clients = server.getClients();
+    if(target > 0 && target <= clients.size()){
+        for(int i = target; i <= clients.size(); i+=numChannels) {
+            ofxNetworkSyncClientState* client = clients[i-1];
+            send(format(command, delay, arguments), client);
         }
     }
     return success;
