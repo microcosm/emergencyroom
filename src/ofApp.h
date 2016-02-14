@@ -5,7 +5,7 @@
 #include "ofSoundPlayerDelayed.h"
 #include "ofxHapPlayerDelayed.h"
 
-#define DEFAULT_DELAY 1000
+#define DEFAULT_DELAY 3000
 #define TEST_COMMAND "TEST"
 #define PLAY_COMMAND "PLAY"
 
@@ -15,6 +15,7 @@ public:
     void setup();
     void update();
     void draw();
+    void play(int delay, float speed);
     void onMessageReceived(string & message);
 
     void keyPressed(int key);
@@ -33,7 +34,7 @@ protected:
     erNetwork network;
     ofSoundPlayerDelayed soundPlayer;
     ofxHapPlayerDelayed videoPlayer;
-    int time;
+    int delay;
     float speed;
     vector<string> messageParts, argumentParts, variableParts;
 };

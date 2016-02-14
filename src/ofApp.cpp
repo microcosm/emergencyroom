@@ -22,26 +22,29 @@ void ofApp::draw(){
     }
 }
 
+void ofApp::play(int delay, float speed){
+    soundPlayer.setSpeed(speed);
+    soundPlayer.play(delay);
+    videoPlayer.stop();
+    videoPlayer.setSpeed(speed);
+    videoPlayer.setPosition(0);
+    videoPlayer.play(delay);
+}
+
 void ofApp::onMessageReceived(string& message){
     messageParts = ofSplitString(message, " ");
     if(messageParts.size() == 2 && messageParts[0] == TEST_COMMAND && network.isClientReady()){
-        time = ofToInt(messageParts[1]);
-        time = network.getClientDelay(time);
-        soundPlayer.play(time);
-        videoPlayer.play(time);
+        delay = ofToInt(messageParts[1]);
+        delay = network.getClientDelay(delay);
+        play(delay, 1);
     }
     if(messageParts.size() == 3 && messageParts[0] == PLAY_COMMAND && network.isClientReady()){
-        time = ofToInt(messageParts[1]);
-        time = network.getClientDelay(time);
+        delay = ofToInt(messageParts[1]);
+        delay = network.getClientDelay(delay);
         argumentParts = ofSplitString(messageParts[2], ",");
         variableParts = ofSplitString(argumentParts[0], "=");
         speed = ofToFloat(variableParts[1]);
-        soundPlayer.setSpeed(speed);
-        soundPlayer.play(time);
-
-        videoPlayer.setPosition(0);
-        videoPlayer.setSpeed(speed);
-        videoPlayer.play(time);
+        play(delay, speed);
     }
 }
 
@@ -52,23 +55,13 @@ void ofApp::keyPressed(int key){
 void ofApp::keyReleased(int key){
     if(network.isRunningServer()){
         if(key == 't' && network.flood(TEST_COMMAND, DEFAULT_DELAY)){
-            soundPlayer.play(DEFAULT_DELAY);
-            videoPlayer.setPosition(0);
-            videoPlayer.play(DEFAULT_DELAY);
+            play(DEFAULT_DELAY, 1);
         }
         if(key == '1' && network.target(1, PLAY_COMMAND, "speed=0.5", DEFAULT_DELAY)){
-            soundPlayer.setSpeed(0.5);
-            soundPlayer.play(DEFAULT_DELAY);
-            videoPlayer.setPosition(0);
-            videoPlayer.setSpeed(0.5);
-            videoPlayer.play(DEFAULT_DELAY);
+            play(DEFAULT_DELAY, 0.5);
         }
         if(key == '2' && network.target(2, PLAY_COMMAND, "speed=2", DEFAULT_DELAY)){
-            soundPlayer.setSpeed(2);
-            soundPlayer.play(DEFAULT_DELAY);
-            videoPlayer.setPosition(0);
-            videoPlayer.setSpeed(0.5);
-            videoPlayer.play(DEFAULT_DELAY);
+            play(DEFAULT_DELAY, 2);
         }
     }
 }
