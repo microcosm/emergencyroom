@@ -15,12 +15,14 @@ enum erNetworkRole {
 class erNetwork{
     
 public:
-    void setup();
+    void setup(int _defaultDelay);
     void setNumChannels(int _numChannels);
     virtual void update(ofEventArgs& updateArgs);
     virtual void draw(ofEventArgs& updateArgs);
     void enableDrawing();
+    bool flood(string command);
     bool flood(string command, int delay);
+    bool target(int target, string command, string arguments);
     bool target(int target, string command, string arguments, int delay);
     bool isRunningClient();
     bool isRunningServer();
@@ -40,7 +42,7 @@ protected:
     erNetworkRole role;
 
     string statusText;
-    int finderStartTime, serverPortOffset, numChannels;
+    int defaultDelay, finderStartTime, serverPortOffset, numChannels;
     bool drawingEnabled, success;
     unsigned long long now;
 };

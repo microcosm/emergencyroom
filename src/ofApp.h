@@ -16,7 +16,7 @@ public:
     void setup();
     void update();
     void draw();
-    void play(int delay, float speed);
+    void play(float speed, int delay=DEFAULT_DELAY);
     void messageReceived(string & message);
     void keyReleased(int key);
 

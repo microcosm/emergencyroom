@@ -1,8 +1,9 @@
 #include "erNetwork.h"
 
-void erNetwork::setup(){
+void erNetwork::setup(int _defaultDelay){
     role = NETWORK_ROLE_UNDEFINED;
     numChannels = 1;
+    defaultDelay = _defaultDelay;
     drawingEnabled = false;
     ofSetVerticalSync(true);
     ofSetLogLevel(OF_LOG_VERBOSE);
@@ -91,12 +92,20 @@ void erNetwork::enableDrawing(){
     drawingEnabled = true;
 }
 
+bool erNetwork::flood(string command){
+    return flood(command, defaultDelay);
+}
+
 bool erNetwork::flood(string command, int delay){
     success = false;
     for(auto& client : server.getClients()) {
         send(format(command, delay), client);
     }
     return success;
+}
+
+bool erNetwork::target(int target, string command, string arguments){
+    return this->target(target, command, arguments, defaultDelay);
 }
 
 bool erNetwork::target(int target, string command, string arguments, int delay){

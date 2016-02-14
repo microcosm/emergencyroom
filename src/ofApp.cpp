@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 void ofApp::setup(){
-    network.setup();
+    network.setup(DEFAULT_DELAY);
     network.setNumChannels(2);
     network.enableDrawing();
     ofAddListener(network.getClient()->messageReceived, this, &ofApp::messageReceived);
@@ -22,7 +22,7 @@ void ofApp::draw(){
     }
 }
 
-void ofApp::play(int delay, float speed){
+void ofApp::play(float speed, int delay){
     soundPlayer.setSpeed(speed);
     soundPlayer.schedule(delay);
     videoPlayer.setSpeed(speed);
@@ -34,7 +34,7 @@ void ofApp::messageReceived(string& message){
     if(messageParts.size() == 2 && messageParts[0] == TEST_COMMAND && network.isClientReady()){
         delay = ofToInt(messageParts[1]);
         delay = network.getClientDelay(delay);
-        play(delay, 1);
+        play(1, delay);
     }
     if(messageParts.size() == 3 && messageParts[0] == PLAY_COMMAND && network.isClientReady()){
         delay = ofToInt(messageParts[1]);
@@ -42,20 +42,20 @@ void ofApp::messageReceived(string& message){
         argumentParts = ofSplitString(messageParts[2], ",");
         variableParts = ofSplitString(argumentParts[0], "=");
         speed = ofToFloat(variableParts[1]);
-        play(delay, speed);
+        play(speed, delay);
     }
 }
 
 void ofApp::keyReleased(int key){
     if(network.isRunningServer()){
-        if(key == 't' && network.flood(TEST_COMMAND, DEFAULT_DELAY)){
-            play(DEFAULT_DELAY, 1);
+        if(key == 't' && network.flood(TEST_COMMAND)){
+            play(1);
         }
-        if(key == '1' && network.target(1, PLAY_COMMAND, "speed=0.5", DEFAULT_DELAY)){
-            play(DEFAULT_DELAY, 0.5);
+        if(key == '1' && network.target(1, PLAY_COMMAND, "speed=0.5")){
+            play(0.5);
         }
-        if(key == '2' && network.target(2, PLAY_COMMAND, "speed=2", DEFAULT_DELAY)){
-            play(DEFAULT_DELAY, 2);
+        if(key == '2' && network.target(2, PLAY_COMMAND, "speed=2")){
+            play(2);
         }
     }
 }
