@@ -36,6 +36,8 @@ public:
 protected:
     void send(string message, ofxNetworkSyncClientState* client);
     string format(string command, int delay, string arguments="");
+    void setLogLevels(ofLogLevel level);
+
     ofxNetworkSyncServerFinder finder;
     ofxNetworkSyncClient client;
     ofxNetworkSyncServer server;

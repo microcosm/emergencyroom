@@ -1,12 +1,13 @@
 #include "erNetwork.h"
 
 void erNetwork::setup(int _defaultDelay){
+    defaultDelay = _defaultDelay;
     role = NETWORK_ROLE_UNDEFINED;
     numChannels = 1;
-    defaultDelay = _defaultDelay;
     drawingEnabled = false;
-    ofSetVerticalSync(true);
-    ofSetLogLevel(OF_LOG_VERBOSE);
+    statusText = "";
+    serverPortOffset = 0;
+    setLogLevels(OF_LOG_ERROR);
 
     if(finder.setup()){
         finderStartTime = 0;
@@ -14,9 +15,6 @@ void erNetwork::setup(int _defaultDelay){
         ofLogError("ofApp") << "failed to start finder";
         statusText = "failed to start finder";
     }
-
-    statusText = "";
-    serverPortOffset = 0;
 
     ofAddListener(ofEvents().update, this, &erNetwork::update);
     ofAddListener(ofEvents().draw, this, &erNetwork::draw);
@@ -163,4 +161,13 @@ string erNetwork::format(string command, int delay, string arguments){
     formatted += ofToString(server.getSyncedElapsedTimeMillis() + delay);
     formatted += arguments.length() > 0 ? " " + arguments : "";
     return formatted;
+}
+
+void erNetwork::setLogLevels(ofLogLevel level){
+    ofSetLogLevel("erNetwork", level);
+    ofSetLogLevel("ofxNetworkSyncClient", level);
+    ofSetLogLevel("ofxNetworkSyncClientState", level);
+    ofSetLogLevel("ofxNetworkSyncServer", level);
+    ofSetLogLevel("ofxNetworkSyncServerFinder", level);
+    ofSetLogLevel("ofxNetworkSyncUdp", level);
 }
