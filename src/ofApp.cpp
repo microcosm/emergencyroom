@@ -8,7 +8,7 @@ void ofApp::setup(){
 
     soundPlayer.load("test/audio.mp3");
     soundPlayer.setLoop(false);
-    videoPlayer.load("test/video.mov");
+    videoPlayer.load("test/fingers.mov");
     videoPlayer.setLoopState(OF_LOOP_NONE);
 }
 
@@ -24,11 +24,9 @@ void ofApp::draw(){
 
 void ofApp::play(int delay, float speed){
     soundPlayer.setSpeed(speed);
-    soundPlayer.play(delay);
-    videoPlayer.stop();
+    soundPlayer.schedule(delay);
     videoPlayer.setSpeed(speed);
-    videoPlayer.setPosition(0);
-    videoPlayer.play(delay);
+    videoPlayer.schedule(delay);
 }
 
 void ofApp::onMessageReceived(string& message){

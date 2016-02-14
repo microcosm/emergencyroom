@@ -2,8 +2,9 @@
 
 #include "ofMain.h"
 #include "erNetwork.h"
-#include "ofSoundPlayerDelayed.h"
-#include "ofxHapPlayerDelayed.h"
+#include "erSyncedSoundPlayer.h"
+#include "erSyncedVideoPlayer.h"
+#include "erSyncedHapPlayer.h"
 
 #define DEFAULT_DELAY 3000
 #define TEST_COMMAND "TEST"
@@ -32,8 +33,8 @@ public:
 
 protected:
     erNetwork network;
-    ofSoundPlayerDelayed soundPlayer;
-    ofxHapPlayerDelayed videoPlayer;
+    erSyncedSoundPlayer soundPlayer;
+    erSyncedVideoPlayer videoPlayer;
     int delay;
     float speed;
     vector<string> messageParts, argumentParts, variableParts;

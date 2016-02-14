@@ -66,8 +66,10 @@
 		32E29776FF92D1BC8C61E38C /* ofxNetworkSyncServerFinder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNetworkSyncServerFinder.h; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSyncServerFinder.h; sourceTree = SOURCE_ROOT; };
 		35BB9BB90DBABFD3B39F8DB6 /* ofxUDPManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUDPManager.cpp; path = ../../../addons/ofxNetwork/src/ofxUDPManager.cpp; sourceTree = SOURCE_ROOT; };
 		4B1A217C1373D539F9E2880E /* HapSupport.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = HapSupport.h; path = ../../../addons/ofxHapPlayer/libs/HapSupport/src/HapSupport.h; sourceTree = SOURCE_ROOT; };
-		84C288261C6DA407007C34E5 /* ofSoundPlayerDelayed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofSoundPlayerDelayed.h; sourceTree = "<group>"; };
-		84C288271C6DA407007C34E5 /* ofxHapPlayerDelayed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHapPlayerDelayed.h; sourceTree = "<group>"; };
+		848FA7851C7010EF00B1E12B /* erSyncedMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedMediaPlayer.h; sourceTree = "<group>"; };
+		848FA7861C70FA3300B1E12B /* erSyncedHapPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedHapPlayer.h; sourceTree = "<group>"; };
+		84C288261C6DA407007C34E5 /* erSyncedSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedSoundPlayer.h; sourceTree = "<group>"; };
+		84C288271C6DA407007C34E5 /* erSyncedVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedVideoPlayer.h; sourceTree = "<group>"; };
 		84C288291C6DA407007C34E5 /* erNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erNetwork.cpp; sourceTree = "<group>"; };
 		84C2882A1C6DA407007C34E5 /* erNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erNetwork.h; sourceTree = "<group>"; };
 		8F0B766E21C2F9C9079D8181 /* ofxNetworkSyncClient.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxNetworkSyncClient.cpp; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSyncClient.cpp; sourceTree = SOURCE_ROOT; };
@@ -173,8 +175,10 @@
 		84C288251C6DA407007C34E5 /* media */ = {
 			isa = PBXGroup;
 			children = (
-				84C288261C6DA407007C34E5 /* ofSoundPlayerDelayed.h */,
-				84C288271C6DA407007C34E5 /* ofxHapPlayerDelayed.h */,
+				848FA7861C70FA3300B1E12B /* erSyncedHapPlayer.h */,
+				848FA7851C7010EF00B1E12B /* erSyncedMediaPlayer.h */,
+				84C288261C6DA407007C34E5 /* erSyncedSoundPlayer.h */,
+				84C288271C6DA407007C34E5 /* erSyncedVideoPlayer.h */,
 			);
 			path = media;
 			sourceTree = "<group>";
