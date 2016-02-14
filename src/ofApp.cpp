@@ -4,7 +4,7 @@ void ofApp::setup(){
     network.setup();
     network.setNumChannels(2);
     network.enableDrawing();
-    ofAddListener(network.getClient()->messageReceived, this, &ofApp::onMessageReceived);
+    ofAddListener(network.getClient()->messageReceived, this, &ofApp::messageReceived);
 
     soundPlayer.load("test/audio.mp3");
     soundPlayer.setLoop(false);
@@ -29,7 +29,7 @@ void ofApp::play(int delay, float speed){
     videoPlayer.schedule(delay);
 }
 
-void ofApp::onMessageReceived(string& message){
+void ofApp::messageReceived(string& message){
     messageParts = ofSplitString(message, " ");
     if(messageParts.size() == 2 && messageParts[0] == TEST_COMMAND && network.isClientReady()){
         delay = ofToInt(messageParts[1]);
@@ -46,10 +46,6 @@ void ofApp::onMessageReceived(string& message){
     }
 }
 
-void ofApp::keyPressed(int key){
-
-}
-
 void ofApp::keyReleased(int key){
     if(network.isRunningServer()){
         if(key == 't' && network.flood(TEST_COMMAND, DEFAULT_DELAY)){
@@ -62,40 +58,4 @@ void ofApp::keyReleased(int key){
             play(DEFAULT_DELAY, 2);
         }
     }
-}
-
-void ofApp::mouseMoved(int x, int y){
-
-}
-
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-void ofApp::mouseExited(int x, int y){
-
-}
-
-void ofApp::windowResized(int w, int h){
-
-}
-
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-void ofApp::dragEvent(ofDragInfo dragInfo){
-
 }
