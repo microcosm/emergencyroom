@@ -5,7 +5,7 @@ void ofApp::setup(){
     network.setNumChannels(2);
     network.enableDrawing();
     translater = network.getTranslater();
-    ofAddListener(network.getClient()->messageReceived, this, &ofApp::messageReceived);
+    ofAddListener(network.clientMessageReceived(), this, &ofApp::messageReceived);
 
     soundPlayer.load("test/audio.mp3");
     soundPlayer.setLoop(false);

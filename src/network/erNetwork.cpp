@@ -117,8 +117,8 @@ bool erNetwork::isRunningServer(){
     return role == NETWORK_ROLE_SERVER;
 }
 
-ofxNetworkSyncClient* erNetwork::getClient(){
-    return &client;
+ofEvent<string>& erNetwork::clientMessageReceived(){
+    return client.messageReceived;
 }
 
 erTranslater* erNetwork::getTranslater(){

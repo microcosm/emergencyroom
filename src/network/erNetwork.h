@@ -26,7 +26,7 @@ public:
     bool target(int target, erPlayParams params);
     bool isRunningClient();
     bool isRunningServer();
-    ofxNetworkSyncClient* getClient();
+    ofEvent<string>& clientMessageReceived();
     erTranslater* getTranslater();
     void onConnectionLost();
 
