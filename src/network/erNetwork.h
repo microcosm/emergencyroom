@@ -5,8 +5,8 @@
 #include "erPlayParams.h"
 #include "erTranslater.h"
 
-#define SYNC_TCP_PORT 12345
-#define FINDER_TIMEOUT 10000
+#define SYNC_TCP_PORT 15001
+#define FINDER_TIMEOUT 5000
 
 enum erNetworkRole {
     NETWORK_ROLE_UNDEFINED,
