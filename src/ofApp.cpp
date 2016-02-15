@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 void ofApp::setup(){
-    network.setup(DEFAULT_DELAY);
+    network.setup();
     network.setNumChannels(2);
     network.enableDrawing();
     ofAddListener(network.getClient()->messageReceived, this, &ofApp::messageReceived);
@@ -29,33 +29,34 @@ void ofApp::play(float speed, int delay){
     videoPlayer.schedule(delay);
 }
 
+void ofApp::play(){
+    soundPlayer.execute(params);
+    videoPlayer.execute(params);
+}
+
 void ofApp::messageReceived(string& message){
-    messageParts = ofSplitString(message, " ");
-    if(messageParts.size() == 2 && messageParts[0] == TEST_COMMAND && network.isClientReady()){
-        delay = ofToInt(messageParts[1]);
-        delay = network.getClientDelay(delay);
-        play(1, delay);
-    }
-    if(messageParts.size() == 3 && messageParts[0] == PLAY_COMMAND && network.isClientReady()){
-        delay = ofToInt(messageParts[1]);
-        delay = network.getClientDelay(delay);
-        argumentParts = ofSplitString(messageParts[2], ",");
-        variableParts = ofSplitString(argumentParts[0], "=");
-        speed = ofToFloat(variableParts[1]);
-        play(speed, delay);
-    }
+    params = network.getPlayParams(message);
+    if(params.isTestCommand() || params.isPlayCommand()) play();
 }
 
 void ofApp::keyReleased(int key){
     if(network.isRunningServer()){
-        if(key == 't' && network.flood(TEST_COMMAND)){
-            play(1);
+        if(key == 't'){
+            params.newTestCommand();
+            network.flood(params);
+            play();
         }
-        if(key == '1' && network.target(1, PLAY_COMMAND, "speed=0.5")){
-            play(0.5);
+        if(key == '1'){
+            params.newPlayCommand();
+            params.setSpeed(0.5);
+            network.target(1, params);
+            play();
         }
-        if(key == '2' && network.target(2, PLAY_COMMAND, "speed=2")){
-            play(2);
+        if(key == '2'){
+            params.newPlayCommand();
+            params.setSpeed(2);
+            network.target(2, params);
+            play();
         }
     }
 }

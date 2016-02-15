@@ -8,6 +8,7 @@ class erSyncedVideoPlayer : public ofVideoPlayer, public erSyncedMediaPlayer{
     }
 
     void beginPlayback(){
+        setSpeed(params.getSpeed());
         play();
     }
 };

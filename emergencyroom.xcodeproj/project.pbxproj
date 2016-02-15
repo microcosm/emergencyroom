@@ -12,6 +12,7 @@
 		4F8E626A89171340CD443246 /* ofxNetworkSyncClientState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2764E88534D16132D046A838 /* ofxNetworkSyncClientState.cpp */; };
 		66CA411C5A9664E27326BF36 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C085E327DAB912CFA2A443D /* ofxTCPServer.cpp */; };
 		7F585AF2B65D8530346361B7 /* ofxNetworkSyncServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B083D03FE2DC108B2FF592D6 /* ofxNetworkSyncServer.cpp */; };
+		848FA78D1C7125FE00B1E12B /* erPlayParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 848FA78B1C7125FE00B1E12B /* erPlayParams.cpp */; };
 		84C2882B1C6DA407007C34E5 /* erNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84C288291C6DA407007C34E5 /* erNetwork.cpp */; };
 		960D20B191346612D5C05A6A /* ofxTCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF88F02779DD820913ACEA06 /* ofxTCPClient.cpp */; };
 		9DECE28DE972DD39553DD35C /* ofxHapPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3A8B29F47FD67274D82443D /* ofxHapPlayer.cpp */; };
@@ -68,6 +69,8 @@
 		4B1A217C1373D539F9E2880E /* HapSupport.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = HapSupport.h; path = ../../../addons/ofxHapPlayer/libs/HapSupport/src/HapSupport.h; sourceTree = SOURCE_ROOT; };
 		848FA7851C7010EF00B1E12B /* erSyncedMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedMediaPlayer.h; sourceTree = "<group>"; };
 		848FA7861C70FA3300B1E12B /* erSyncedHapPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedHapPlayer.h; sourceTree = "<group>"; };
+		848FA78B1C7125FE00B1E12B /* erPlayParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erPlayParams.cpp; sourceTree = "<group>"; };
+		848FA78C1C7125FE00B1E12B /* erPlayParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erPlayParams.h; sourceTree = "<group>"; };
 		84C288261C6DA407007C34E5 /* erSyncedSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedSoundPlayer.h; sourceTree = "<group>"; };
 		84C288271C6DA407007C34E5 /* erSyncedVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedVideoPlayer.h; sourceTree = "<group>"; };
 		84C288291C6DA407007C34E5 /* erNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erNetwork.cpp; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 		84C288251C6DA407007C34E5 /* media */ = {
 			isa = PBXGroup;
 			children = (
+				848FA78B1C7125FE00B1E12B /* erPlayParams.cpp */,
+				848FA78C1C7125FE00B1E12B /* erPlayParams.h */,
 				848FA7861C70FA3300B1E12B /* erSyncedHapPlayer.h */,
 				848FA7851C7010EF00B1E12B /* erSyncedMediaPlayer.h */,
 				84C288261C6DA407007C34E5 /* erSyncedSoundPlayer.h */,
@@ -384,6 +389,7 @@
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				9DECE28DE972DD39553DD35C /* ofxHapPlayer.cpp in Sources */,
 				D58D428A766F04E0F7BE51A5 /* HapSupport.c in Sources */,
+				848FA78D1C7125FE00B1E12B /* erPlayParams.cpp in Sources */,
 				960D20B191346612D5C05A6A /* ofxTCPClient.cpp in Sources */,
 				125506CD3E5F428AAFE5CC65 /* ofxTCPManager.cpp in Sources */,
 				66CA411C5A9664E27326BF36 /* ofxTCPServer.cpp in Sources */,

@@ -1,9 +1,12 @@
 #pragma once
 #include "ofMain.h"
+#include "erPlayParams.h"
 
 class erSyncedMediaPlayer : public ofThread{
 
+protected:
     int playTime;
+    erPlayParams params;
 
     void threadedFunction(){
         int delay = playTime - ofGetElapsedTimeMillis();
@@ -19,5 +22,10 @@ public:
     void schedule(int delay){
         playTime = ofGetElapsedTimeMillis() + delay;
         startThread(true);
+    }
+
+    void execute(erPlayParams _params){
+        params = _params;
+        schedule(params.getDelay());
     }
 };

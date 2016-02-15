@@ -1,7 +1,6 @@
 #include "erNetwork.h"
 
-void erNetwork::setup(int _defaultDelay){
-    defaultDelay = _defaultDelay;
+void erNetwork::setup(){
     role = NETWORK_ROLE_UNDEFINED;
     numChannels = 1;
     drawingEnabled = false;
@@ -90,29 +89,21 @@ void erNetwork::enableDrawing(){
     drawingEnabled = true;
 }
 
-bool erNetwork::flood(string command){
-    return flood(command, defaultDelay);
-}
-
-bool erNetwork::flood(string command, int delay){
+bool erNetwork::flood(erPlayParams params){
     success = false;
     for(auto& client : server.getClients()) {
-        send(format(command, delay), client);
+        send(format(params.getCommandStr(), params.getDelay(), params.getArgumentStr()), client);
     }
     return success;
 }
 
-bool erNetwork::target(int target, string command, string arguments){
-    return this->target(target, command, arguments, defaultDelay);
-}
-
-bool erNetwork::target(int target, string command, string arguments, int delay){
+bool erNetwork::target(int target, erPlayParams params){
     success = false;
     vector<ofxNetworkSyncClientState*>& clients = server.getClients();
     if(target > 0 && target <= clients.size()){
         for(int i = target; i <= clients.size(); i+=numChannels) {
             ofxNetworkSyncClientState* client = clients[i-1];
-            send(format(command, delay, arguments), client);
+            send(format(params.getCommandStr(), params.getDelay(), params.getArgumentStr()), client);
         }
     }
     return success;
@@ -124,10 +115,6 @@ bool erNetwork::isRunningClient(){
 
 bool erNetwork::isRunningServer(){
     return role == NETWORK_ROLE_SERVER;
-}
-
-bool erNetwork::isClientReady(){
-    return client.isCalibrated();
 }
 
 int erNetwork::getClientDelay(int serverDelay){
@@ -147,6 +134,23 @@ void erNetwork::onConnectionLost(){
     }else{
         statusText += "\nfailed to start finder";
     }
+}
+
+erPlayParams erNetwork::getPlayParams(string& messageStr){
+    erPlayParams params;
+    messageParts = ofSplitString(messageStr, " ");
+
+    if(client.isCalibrated() && messageParts.size() >= 2){
+        params.newCommand(messageParts[0]);
+        params.setDelay(getClientDelay(ofToInt(messageParts[1])));
+        if(messageParts.size() == 3){
+            argumentParts = ofSplitString(messageParts[2], ",");
+            variableParts = ofSplitString(argumentParts[0], "=");
+            params.setSpeed(ofToFloat(variableParts[1]));
+        }
+    }
+
+    return params;
 }
 
 void erNetwork::send(string message, ofxNetworkSyncClientState* client){

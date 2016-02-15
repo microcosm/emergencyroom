@@ -9,6 +9,7 @@ class erSyncedHapPlayer : public ofxHapPlayer, public erSyncedMediaPlayer{
     }
 
     void beginPlayback(){
+        setSpeed(params.getSpeed());
         setPosition(0);
         play();
     }

@@ -4,6 +4,7 @@
 
 class erSyncedSoundPlayer : public ofSoundPlayer, public erSyncedMediaPlayer{
     void beginPlayback(){
+        setSpeed(params.getSpeed());
         play();
     }
 };
