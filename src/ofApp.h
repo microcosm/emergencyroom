@@ -19,6 +19,7 @@ public:
 
 protected:
     erNetwork network;
+    erTranslater* translater;
     erSyncedSoundPlayer soundPlayer;
     erSyncedVideoPlayer videoPlayer;
     erPlayParams params;

@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxNetworkSync.h"
 #include "erPlayParams.h"
+#include "erTranslater.h"
 
 #define SYNC_TCP_PORT 12345
 #define FINDER_TIMEOUT 10000
@@ -25,26 +26,22 @@ public:
     bool target(int target, erPlayParams params);
     bool isRunningClient();
     bool isRunningServer();
-    int getClientDelay(int serverDelay);
     ofxNetworkSyncClient* getClient();
-    void keyPressed(int key);
-    void onServerFound(IpAndPort& info);
+    erTranslater* getTranslater();
     void onConnectionLost();
-    erPlayParams getPlayParams(string& messageStr);
 
 protected:
-    void send(string message, ofxNetworkSyncClientState* client);
-    string format(string command, int delay, string arguments="");
+    void send(erPlayParams& params, ofxNetworkSyncClientState* client);
     void setLogLevels(ofLogLevel level);
 
     ofxNetworkSyncServerFinder finder;
     ofxNetworkSyncClient client;
     ofxNetworkSyncServer server;
     erNetworkRole role;
+    erTranslater translater;
 
     string statusText;
     int finderStartTime, serverPortOffset, numChannels;
     bool drawingEnabled, success;
     unsigned long long now;
-    vector<string> messageParts, argumentParts, variableParts;
 };

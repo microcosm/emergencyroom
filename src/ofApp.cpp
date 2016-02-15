@@ -4,6 +4,7 @@ void ofApp::setup(){
     network.setup();
     network.setNumChannels(2);
     network.enableDrawing();
+    translater = network.getTranslater();
     ofAddListener(network.getClient()->messageReceived, this, &ofApp::messageReceived);
 
     soundPlayer.load("test/audio.mp3");
@@ -35,7 +36,7 @@ void ofApp::play(){
 }
 
 void ofApp::messageReceived(string& message){
-    params = network.getPlayParams(message);
+    params = translater->toParams(message);
     if(params.isTestCommand() || params.isPlayCommand()) play();
 }
 

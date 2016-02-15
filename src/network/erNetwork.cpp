@@ -7,6 +7,7 @@ void erNetwork::setup(){
     statusText = "";
     serverPortOffset = 0;
     setLogLevels(OF_LOG_ERROR);
+    translater.setup(&client, &server);
 
     if(finder.setup()){
         finderStartTime = 0;
@@ -49,7 +50,6 @@ void erNetwork::update(ofEventArgs& updateArgs){
             if(server.setup(SYNC_TCP_PORT+serverPortOffset)){
                 role = NETWORK_ROLE_SERVER;
                 statusText = "i am server";
-                //ofRemoveListener(finder.serverFound, this, &ofApp::onServerFound);
                 finder.close();
                 
                 if(client.isCalibrated()){
@@ -92,7 +92,7 @@ void erNetwork::enableDrawing(){
 bool erNetwork::flood(erPlayParams params){
     success = false;
     for(auto& client : server.getClients()) {
-        send(format(params.getCommandStr(), params.getDelay(), params.getArgumentStr()), client);
+        send(params, client);
     }
     return success;
 }
@@ -103,7 +103,7 @@ bool erNetwork::target(int target, erPlayParams params){
     if(target > 0 && target <= clients.size()){
         for(int i = target; i <= clients.size(); i+=numChannels) {
             ofxNetworkSyncClientState* client = clients[i-1];
-            send(format(params.getCommandStr(), params.getDelay(), params.getArgumentStr()), client);
+            send(params, client);
         }
     }
     return success;
@@ -117,12 +117,12 @@ bool erNetwork::isRunningServer(){
     return role == NETWORK_ROLE_SERVER;
 }
 
-int erNetwork::getClientDelay(int serverDelay){
-    return serverDelay - client.getSyncedElapsedTimeMillis();
-}
-
 ofxNetworkSyncClient* erNetwork::getClient(){
     return &client;
+}
+
+erTranslater* erNetwork::getTranslater(){
+    return &translater;
 }
 
 void erNetwork::onConnectionLost(){
@@ -136,35 +136,11 @@ void erNetwork::onConnectionLost(){
     }
 }
 
-erPlayParams erNetwork::getPlayParams(string& messageStr){
-    erPlayParams params;
-    messageParts = ofSplitString(messageStr, " ");
-
-    if(client.isCalibrated() && messageParts.size() >= 2){
-        params.newCommand(messageParts[0]);
-        params.setDelay(getClientDelay(ofToInt(messageParts[1])));
-        if(messageParts.size() == 3){
-            argumentParts = ofSplitString(messageParts[2], ",");
-            variableParts = ofSplitString(argumentParts[0], "=");
-            params.setSpeed(ofToFloat(variableParts[1]));
-        }
-    }
-
-    return params;
-}
-
-void erNetwork::send(string message, ofxNetworkSyncClientState* client){
+void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
     if(client->isCalibrated()){
         success = true;
-        client->send(message);
+        client->send(translater.toMessage(params));
     }
-}
-
-string erNetwork::format(string command, int delay, string arguments){
-    string formatted = command + " ";
-    formatted += ofToString(server.getSyncedElapsedTimeMillis() + delay);
-    formatted += arguments.length() > 0 ? " " + arguments : "";
-    return formatted;
 }
 
 void erNetwork::setLogLevels(ofLogLevel level){
