@@ -23,13 +23,6 @@ void ofApp::draw(){
     }
 }
 
-void ofApp::play(float speed, int delay){
-    soundPlayer.setSpeed(speed);
-    soundPlayer.schedule(delay);
-    videoPlayer.setSpeed(speed);
-    videoPlayer.schedule(delay);
-}
-
 void ofApp::play(){
     soundPlayer.execute(params);
     videoPlayer.execute(params);
