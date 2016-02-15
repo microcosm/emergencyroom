@@ -18,8 +18,9 @@ void ofApp::update(){
 }
 
 void ofApp::draw(){
-    if(videoPlayer.isLoaded()){
-        videoPlayer.draw(10, 120);
+    ofClear(ofColor::black);
+    if(videoPlayer.isPlaying()){
+        videoPlayer.draw(0, 0, ofGetWidth(), ofGetHeight());
     }
 }
 

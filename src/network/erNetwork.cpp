@@ -70,6 +70,9 @@ void erNetwork::update(ofEventArgs& updateArgs){
 
 void erNetwork::draw(ofEventArgs& updateArgs){
     if(drawingEnabled){
+        ofFill();
+        ofSetColor(ofColor::black, 100);
+        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
         ofSetColor(ofColor::white);
         ofDrawBitmapString(statusText, 50, 30);
         if(finder.isRunning()){
