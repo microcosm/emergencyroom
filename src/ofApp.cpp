@@ -1,37 +1,27 @@
 #include "ofApp.h"
 
 void ofApp::setup(){
+    mediaManager.setup();
     network.setup();
     network.setNumChannels(2);
     network.toggleDrawing();
     translater = network.getTranslater();
     ofAddListener(network.clientMessageReceived(), this, &ofApp::messageReceived);
-
-    soundPlayer.load("test/audio.mp3");
-    soundPlayer.setLoop(false);
-    videoPlayer.load("test/fingers.mov");
-    videoPlayer.setLoopState(OF_LOOP_NONE);
 }
 
 void ofApp::update(){
-    videoPlayer.update();
+    
 }
 
 void ofApp::draw(){
-    ofClear(ofColor::black);
-    if(videoPlayer.isPlaying()){
-        videoPlayer.draw(0, 0, ofGetWidth(), ofGetHeight());
-    }
-}
-
-void ofApp::play(){
-    soundPlayer.execute(params);
-    videoPlayer.execute(params);
+    
 }
 
 void ofApp::messageReceived(string& message){
     params = translater->toParams(message);
-    if(params.isPlayable()) play();
+    if(params.isPlayable()){
+        mediaManager.play(params);
+    }
 }
 
 void ofApp::keyReleased(int key){
@@ -39,19 +29,19 @@ void ofApp::keyReleased(int key){
         if(key == 't'){
             params.newTestCommand();
             network.flood(params);
-            play();
+            mediaManager.play(params);
         }
         if(key == '1'){
             params.newPlayCommand();
             params.setSpeed(0.5);
             network.target(1, params);
-            play();
+            mediaManager.play(params);
         }
         if(key == '2'){
             params.newPlayCommand();
             params.setSpeed(2);
             network.target(2, params);
-            play();
+            mediaManager.play(params);
         }
     }
     if(key == 'f'){

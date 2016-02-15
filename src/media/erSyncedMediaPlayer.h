@@ -4,17 +4,6 @@
 
 class erSyncedMediaPlayer : public ofThread{
 
-protected:
-    int playTime;
-    erPlayParams params;
-
-    void threadedFunction(){
-        int delay = playTime - ofGetElapsedTimeMillis();
-        beforeSleep();
-        ofSleepMillis(delay);
-        beginPlayback();
-    }
-
 public:
     virtual void beforeSleep(){};
     virtual void beginPlayback(){};
@@ -27,5 +16,16 @@ public:
     void execute(erPlayParams _params){
         params = _params;
         schedule(params.getDelay());
+    }
+
+protected:
+    int playTime;
+    erPlayParams params;
+
+    void threadedFunction(){
+        int delay = playTime - ofGetElapsedTimeMillis();
+        beforeSleep();
+        ofSleepMillis(delay);
+        beginPlayback();
     }
 };
