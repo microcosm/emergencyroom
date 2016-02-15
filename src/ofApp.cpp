@@ -54,4 +54,7 @@ void ofApp::keyReleased(int key){
             play();
         }
     }
+    if(key == 'f'){
+        ofToggleFullscreen();
+    }
 }
