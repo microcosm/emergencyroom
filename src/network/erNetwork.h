@@ -21,7 +21,7 @@ public:
     void setNumChannels(int _numChannels);
     virtual void update(ofEventArgs& updateArgs);
     virtual void draw(ofEventArgs& updateArgs);
-    void enableDrawing();
+    void toggleDrawing();
     bool flood(erPlayParams params);
     bool target(int target, erPlayParams params);
     bool isRunningClient();

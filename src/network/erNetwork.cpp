@@ -88,8 +88,8 @@ void erNetwork::draw(ofEventArgs& updateArgs){
     }
 }
 
-void erNetwork::enableDrawing(){
-    drawingEnabled = true;
+void erNetwork::toggleDrawing(){
+    drawingEnabled = !drawingEnabled;
 }
 
 bool erNetwork::flood(erPlayParams params){

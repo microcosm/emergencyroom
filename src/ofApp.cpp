@@ -3,7 +3,7 @@
 void ofApp::setup(){
     network.setup();
     network.setNumChannels(2);
-    network.enableDrawing();
+    network.toggleDrawing();
     translater = network.getTranslater();
     ofAddListener(network.clientMessageReceived(), this, &ofApp::messageReceived);
 
@@ -56,5 +56,8 @@ void ofApp::keyReleased(int key){
     }
     if(key == 'f'){
         ofToggleFullscreen();
+    }
+    if(key == 'd'){
+        network.toggleDrawing();
     }
 }
