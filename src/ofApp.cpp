@@ -30,7 +30,7 @@ void ofApp::play(){
 
 void ofApp::messageReceived(string& message){
     params = translater->toParams(message);
-    if(params.isTestCommand() || params.isPlayCommand()) play();
+    if(params.isPlayable()) play();
 }
 
 void ofApp::keyReleased(int key){

@@ -29,6 +29,10 @@ bool erPlayParams::isPlayCommand(){
     return command == ER_COMMAND_PLAY;
 }
 
+bool erPlayParams::isPlayable(){
+    return isTestCommand() || isPlayCommand();
+}
+
 erCommand erPlayParams::getCommand(){
     return command;
 }

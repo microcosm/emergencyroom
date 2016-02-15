@@ -19,6 +19,7 @@ public:
     void newPlayCommand();
     bool isTestCommand();
     bool isPlayCommand();
+    bool isPlayable();
     erCommand getCommand();
     string getCommandStr();
     void setDelay(int _delay);
