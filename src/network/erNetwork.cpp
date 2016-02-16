@@ -128,6 +128,10 @@ erTranslater* erNetwork::getTranslater(){
     return &translater;
 }
 
+int erNetwork::getNumChannels(){
+    return numChannels;
+}
+
 void erNetwork::onConnectionLost(){
     statusText = "lost connection to server";
     client.close();

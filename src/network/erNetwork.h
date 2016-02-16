@@ -28,6 +28,7 @@ public:
     bool isRunningServer();
     ofEvent<string>& clientMessageReceived();
     erTranslater* getTranslater();
+    int getNumChannels();
     void onConnectionLost();
 
 protected:

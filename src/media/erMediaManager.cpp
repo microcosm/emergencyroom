@@ -35,6 +35,10 @@ void erMediaManager::draw(ofEventArgs& args){
     }
 }
 
+vector<string> erMediaManager::getVideoCollections(){
+    return videoCollections;
+}
+
 void erMediaManager::loadTestMedia(){
     testSoundPlayer.load(ER_TEST_SOUND);
     testSoundPlayer.setLoop(false);
@@ -55,8 +59,11 @@ void erMediaManager::loadProductionMedia(){
 void erMediaManager::loadDirectory(string path){
     subDir = ofDirectory(path);
     subDir.allowExt(ER_ALLOWED_EXTENSIONS);
-    for(auto const& file : subDir){
-        pushVideo(file);
+    if(subDir.listDir() > 0){
+        registerVideoCollection(subDir);
+        for(auto const& file : subDir){
+            pushVideo(file);
+        }
     }
 }
 
@@ -68,7 +75,17 @@ void erMediaManager::pushVideo(const ofFile file){
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
 }
 
-string erMediaManager::getRelativePath(string& absolutePath){
+void erMediaManager::registerVideoCollection(ofDirectory& directory){
+    string folder = getBottomLevelFolder(directory.getAbsolutePath());
+    videoCollections.push_back(folder);
+}
+
+string erMediaManager::getRelativePath(string absolutePath){
     vector<string> components = ofSplitString(absolutePath, "/");
     return components.at(components.size() - 2) + "/" + components.at(components.size() - 1);
+}
+
+string erMediaManager::getBottomLevelFolder(string absolutePath){
+    vector<string> components = ofSplitString(absolutePath, "/");
+    return components.at(components.size() - 1);
 }

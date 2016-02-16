@@ -5,8 +5,7 @@ void ofApp::setup(){
     network.setup();
     network.setNumChannels(2);
     network.toggleDrawing();
-    translater = network.getTranslater();
-    ofAddListener(network.clientMessageReceived(), this, &ofApp::messageReceived);
+    sequencer.setup(&network, &mediaManager);
 }
 
 void ofApp::update(){
@@ -15,13 +14,6 @@ void ofApp::update(){
 
 void ofApp::draw(){
     
-}
-
-void ofApp::messageReceived(string& message){
-    params = translater->toParams(message);
-    if(params.isPlayable()){
-        mediaManager.play(params);
-    }
 }
 
 void ofApp::keyReleased(int key){

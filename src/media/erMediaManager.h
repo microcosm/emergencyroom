@@ -18,15 +18,19 @@ public:
     void play(erPlayParams params);
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
+    vector<string> getVideoCollections();
 protected:
     void loadTestMedia();
     void loadProductionMedia();
     void loadDirectory(string path);
     void pushVideo(const ofFile file);
-    string getRelativePath(string& absolutePath);
+    void registerVideoCollection(ofDirectory& directory);
+    string getRelativePath(string absolutePath);
+    string getBottomLevelFolder(string absolutePath);
     erSyncedSoundPlayer testSoundPlayer;
     erSyncedVideoPlayer testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
+    vector<string> videoCollections;
     ofDirectory mediaDir, subDir;
     string path, absolutePath;
 };
