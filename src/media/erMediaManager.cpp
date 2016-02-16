@@ -1,35 +1,68 @@
 #include "erMediaManager.h"
 
 void erMediaManager::setup(){
-    loadTestVideos();
+    loadTestMedia();
+    loadProductionMedia();
     ofAddListener(ofEvents().update, this, &erMediaManager::update);
     ofAddListener(ofEvents().draw, this, &erMediaManager::draw);
 }
 
 void erMediaManager::play(erPlayParams params){
-    if(params.isTestCommand()) {
-        soundPlayers[0]->execute(params);
-        videoPlayers[0]->execute(params);
+    if(params.isPlayCommand()) {
+        cout << "play something" << endl;
+    }else if(params.isTestCommand()) {
+        testSoundPlayer.execute(params);
+        testVideoPlayer.execute(params);
     }
 }
 
 void erMediaManager::update(ofEventArgs& args){
-    videoPlayers[0]->update();
+    testVideoPlayer.update();
+    for(auto const& player : videoPlayers){
+        player.second->update();
+    }
 }
 
 void erMediaManager::draw(ofEventArgs& args){
     ofClear(ofColor::black);
-    if(videoPlayers[0]->isPlaying()){
-        videoPlayers[0]->draw(0, 0, ofGetWidth(), ofGetHeight());
+    if(testVideoPlayer.isPlaying()){
+        testVideoPlayer.draw(0, 0, ofGetWidth(), ofGetHeight());
+    }
+    for(auto const& player : videoPlayers){
+        if(player.second->isPlaying()){
+            player.second->draw(0, 0, ofGetWidth(), ofGetHeight());
+        }
     }
 }
 
-void erMediaManager::loadTestVideos(){
-    soundPlayers.push_back(ofPtr<erSyncedSoundPlayer>(new erSyncedSoundPlayer));
-    soundPlayers[0]->load(ER_TEST_SOUND);
-    soundPlayers[0]->setLoop(false);
+void erMediaManager::loadTestMedia(){
+    testSoundPlayer.load(ER_TEST_SOUND);
+    testSoundPlayer.setLoop(false);
 
-    videoPlayers.push_back(ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer));
-    videoPlayers[0]->load(ER_TEST_VIDEO);
-    videoPlayers[0]->setLoopState(OF_LOOP_NONE);
+    testVideoPlayer.load(ER_TEST_VIDEO);
+    testVideoPlayer.setLoopState(OF_LOOP_NONE);
+}
+
+void erMediaManager::loadProductionMedia(){
+    mediaDir = ofDirectory(ER_PRODUCTION_MEDIA_PATH);
+    for(auto const& item : mediaDir){
+        if(item.isDirectory()){
+            loadDirectory(item.getAbsolutePath());
+        }
+    }
+}
+
+void erMediaManager::loadDirectory(string path){
+    subDir = ofDirectory(path);
+    subDir.allowExt(ER_ALLOWED_EXTENSIONS);
+    for(auto const& file : subDir){
+        pushVideo(file);
+    }
+}
+
+void erMediaManager::pushVideo(const ofFile file){
+    path = file.getAbsolutePath();
+    videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
+    videoPlayers[path]->load(path);
+    videoPlayers[path]->setLoopState(OF_LOOP_NONE);
 }
