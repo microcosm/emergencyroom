@@ -9,7 +9,7 @@
 #define ER_TEST_VIDEO "test/fingers.mov"
 #define ER_TEST_HAP "test/video.mov"
 #define ER_PRODUCTION_MEDIA_PATH "dropbox/ER-Media/"
-#define ER_ALLOWED_EXTENSIONS "avi"
+#define ER_ALLOWED_EXTENSIONS "mov"
 
 class erMediaManager{
 

@@ -33,14 +33,14 @@ void ofApp::keyReleased(int key){
         }
         if(key == '1'){
             params.newPlayCommand();
-            params.setPath("green/anti-fingers.avi");
+            params.setPath("green/anti-fingers.mov");
             params.setSpeed(0.5);
             network.target(1, params);
             mediaManager.play(params);
         }
         if(key == '2'){
             params.newPlayCommand();
-            params.setPath("purple/flip-fingers.avi");
+            params.setPath("purple/flip-fingers.mov");
             params.setSpeed(2);
             network.target(2, params);
             mediaManager.play(params);
