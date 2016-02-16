@@ -22,8 +22,10 @@ public:
     bool isPlayable();
     erCommand getCommand();
     string getCommandStr();
+    void setPath(string _path);
     void setDelay(int _delay);
     void setSpeed(float _speed);
+    string getPath();
     int getDelay();
     float getSpeed();
     string getArgumentStr();
@@ -33,5 +35,6 @@ protected:
     erCommand command;
     int delay;
     float speed;
+    string path;
 };
 

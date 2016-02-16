@@ -47,12 +47,20 @@ string erPlayParams::getCommandStr(){
     }
 }
 
+void erPlayParams::setPath(string _path){
+    path = _path;
+}
+
 void erPlayParams::setDelay(int _delay){
     delay = _delay;
 }
 
 void erPlayParams::setSpeed(float _speed){
     speed = _speed;
+}
+
+string erPlayParams::getPath(){
+    return path;
 }
 
 int erPlayParams::getDelay(){

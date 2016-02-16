@@ -23,9 +23,10 @@ protected:
     void loadProductionMedia();
     void loadDirectory(string path);
     void pushVideo(const ofFile file);
+    string getRelativePath(string& absolutePath);
     erSyncedSoundPlayer testSoundPlayer;
     erSyncedVideoPlayer testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
     ofDirectory mediaDir, subDir;
-    string path;
+    string path, absolutePath;
 };

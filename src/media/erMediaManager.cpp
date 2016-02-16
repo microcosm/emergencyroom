@@ -9,7 +9,7 @@ void erMediaManager::setup(){
 
 void erMediaManager::play(erPlayParams params){
     if(params.isPlayCommand()) {
-        cout << "play something" << endl;
+        cout << "play " << params.getPath() << endl;
     }else if(params.isTestCommand()) {
         testSoundPlayer.execute(params);
         testVideoPlayer.execute(params);
@@ -61,8 +61,14 @@ void erMediaManager::loadDirectory(string path){
 }
 
 void erMediaManager::pushVideo(const ofFile file){
-    path = file.getAbsolutePath();
+    absolutePath = file.getAbsolutePath();
+    path = getRelativePath(absolutePath);
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
-    videoPlayers[path]->load(path);
+    videoPlayers[path]->load(absolutePath);
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
+}
+
+string erMediaManager::getRelativePath(string& absolutePath){
+    vector<string> components = ofSplitString(absolutePath, "/");
+    return components.at(components.size() - 2);
 }
