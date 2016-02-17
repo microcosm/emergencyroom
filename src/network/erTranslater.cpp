@@ -15,6 +15,8 @@ erPlayParams erTranslater::toParams(string& messageStr){
         if(messageParts.size() == 3){
             argumentParts = ofSplitString(messageParts[2], ",");
             variableParts = ofSplitString(argumentParts[0], "=");
+            params.setPath(variableParts[1]);
+            variableParts = ofSplitString(argumentParts[1], "=");
             params.setSpeed(ofToFloat(variableParts[1]));
         }
     }

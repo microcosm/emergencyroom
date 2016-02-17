@@ -39,6 +39,10 @@ vector<string> erMediaManager::getVideoCollections(){
     return videoCollections;
 }
 
+map<string,vector<string>> erMediaManager::getCollectionsToVideos(){
+    return collectionsToVideos;
+}
+
 void erMediaManager::loadTestMedia(){
     testSoundPlayer.load(ER_TEST_SOUND);
     testSoundPlayer.setLoop(false);
@@ -60,32 +64,34 @@ void erMediaManager::loadDirectory(string path){
     subDir = ofDirectory(path);
     subDir.allowExt(ER_ALLOWED_EXTENSIONS);
     if(subDir.listDir() > 0){
-        registerVideoCollection(subDir);
+        folder = getBottomLevelFolder(subDir);
+        registerVideoCollection(folder);
         for(auto const& file : subDir){
-            pushVideo(file);
+            registerVideo(folder, file);
         }
     }
 }
 
-void erMediaManager::pushVideo(const ofFile file){
-    absolutePath = file.getAbsolutePath();
-    path = getRelativePath(absolutePath);
+void erMediaManager::registerVideo(string& folder, const ofFile file){
+    path = getRelativePath(file);
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
-    videoPlayers[path]->load(absolutePath);
+    videoPlayers[path]->load(file.getAbsolutePath());
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
+    collectionsToVideos[folder].push_back(path);
 }
 
-void erMediaManager::registerVideoCollection(ofDirectory& directory){
-    string folder = getBottomLevelFolder(directory.getAbsolutePath());
+void erMediaManager::registerVideoCollection(string& folder){
     videoCollections.push_back(folder);
+    vector<string> videos;
+    collectionsToVideos[folder] = videos;
 }
 
-string erMediaManager::getRelativePath(string absolutePath){
-    vector<string> components = ofSplitString(absolutePath, "/");
+string erMediaManager::getRelativePath(const ofFile file){
+    vector<string> components = ofSplitString(file.getAbsolutePath(), "/");
     return components.at(components.size() - 2) + "/" + components.at(components.size() - 1);
 }
 
-string erMediaManager::getBottomLevelFolder(string absolutePath){
-    vector<string> components = ofSplitString(absolutePath, "/");
+string erMediaManager::getBottomLevelFolder(const ofDirectory directory){
+    vector<string> components = ofSplitString(directory.getAbsolutePath(), "/");
     return components.at(components.size() - 1);
 }
