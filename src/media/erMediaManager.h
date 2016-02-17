@@ -21,6 +21,7 @@ public:
     vector<string> getVideoCollections();
     map<string,vector<string>> getCollectionsToVideos();
 protected:
+    void ensureSymlinkExists();
     void loadTestMedia();
     void loadProductionMedia();
     void loadDirectory(string path);

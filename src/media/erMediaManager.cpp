@@ -1,6 +1,7 @@
 #include "erMediaManager.h"
 
 void erMediaManager::setup(){
+    ensureSymlinkExists();
     loadTestMedia();
     loadProductionMedia();
     ofAddListener(ofEvents().update, this, &erMediaManager::update);
@@ -41,6 +42,12 @@ vector<string> erMediaManager::getVideoCollections(){
 
 map<string,vector<string>> erMediaManager::getCollectionsToVideos(){
     return collectionsToVideos;
+}
+
+void erMediaManager::ensureSymlinkExists(){
+    if(!ofFile::doesFileExist("dropbox")){
+        ofSystem("ln -s ~/Dropbox/ ../../../data/dropbox");
+    }
 }
 
 void erMediaManager::loadTestMedia(){
