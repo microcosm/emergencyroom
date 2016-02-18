@@ -7,4 +7,4 @@ extern bool erFileLoggingEnabled;
 bool isFileLogging();
 void enableFileLogging(bool isServer);
 void disableFileLogging();
-void erLog(string message);
+void erLog(string methodSignature, string message);

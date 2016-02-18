@@ -23,6 +23,6 @@ void disableFileLogging(){
     }
 }
 
-void erLog(string message){
-    ofLog(OF_LOG_NOTICE, ofGetTimestampString() + ": " + message);
+void erLog(string methodSignature, string message){
+    ofLog(OF_LOG_NOTICE, ofGetTimestampString() + ": " + methodSignature + " " + message);
 }

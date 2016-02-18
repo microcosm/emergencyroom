@@ -29,6 +29,7 @@ void erSequencer::update(ofEventArgs& updateArgs){
 }
 
 void erSequencer::messageReceived(string& message){
+    erLog("erSequencer::messageReceived(string&message)", message);
     params = translater->toParams(message);
     if(params.isPlayable()){
         mediaManager->play(params);
@@ -51,6 +52,7 @@ void erSequencer::playNewVideos(){
     network->target(currentChannel, params);
     mediaManager->play(params);
     incrementCurrentChannel();
+    erLog("erSequencer::playNewVideos()", params.getArgumentStr());
 }
 
 void erSequencer::assignCollectionsToChannels(){

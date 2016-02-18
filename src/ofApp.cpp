@@ -21,9 +21,6 @@ void ofApp::draw(){
 }
 
 void ofApp::keyReleased(int key){
-    if(key == 'l'){
-        erLog("test log " + ofToString(ofRandom(200)));
-    }
     if(network.isRunningServer()){
         if(key == 't'){
             params.newTestCommand();
@@ -36,6 +33,7 @@ void ofApp::keyReleased(int key){
             params.setSpeed(0.5);
             network.target(1, params);
             mediaManager.play(params);
+            erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
         if(key == '2'){
             params.newPlayCommand();
@@ -43,6 +41,7 @@ void ofApp::keyReleased(int key){
             params.setSpeed(2);
             network.target(2, params);
             mediaManager.play(params);
+            erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
     }
     if(key == 'f'){
