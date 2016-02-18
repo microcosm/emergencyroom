@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erSequencer.h"
+#include "erLogger.h"
 
 class ofApp : public ofBaseApp{
 

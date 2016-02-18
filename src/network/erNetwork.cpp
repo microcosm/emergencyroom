@@ -120,6 +120,10 @@ bool erNetwork::isRunningServer(){
     return role == NETWORK_ROLE_SERVER;
 }
 
+bool erNetwork::isRunning(){
+    return isRunningClient() || isRunningServer();
+}
+
 ofEvent<string>& erNetwork::clientMessageReceived(){
     return client.messageReceived;
 }

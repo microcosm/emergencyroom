@@ -26,6 +26,7 @@ public:
     bool target(int target, erPlayParams params);
     bool isRunningClient();
     bool isRunningServer();
+    bool isRunning();
     ofEvent<string>& clientMessageReceived();
     erTranslater* getTranslater();
     int getNumChannels();

@@ -9,7 +9,11 @@ void ofApp::setup(){
 }
 
 void ofApp::update(){
-    
+    if(network.isRunning()){
+        enableFileLogging(network.isRunningServer());
+    }else{
+        disableFileLogging();
+    }
 }
 
 void ofApp::draw(){
@@ -17,6 +21,9 @@ void ofApp::draw(){
 }
 
 void ofApp::keyReleased(int key){
+    if(key == 'l'){
+        erLog("test log " + ofToString(ofRandom(200)));
+    }
     if(network.isRunningServer()){
         if(key == 't'){
             params.newTestCommand();
