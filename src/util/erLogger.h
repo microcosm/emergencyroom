@@ -4,7 +4,6 @@
 extern string erProgramId;
 extern bool erFileLoggingEnabled;
 
-bool isFileLogging();
-void enableFileLogging(bool isServer);
-void disableFileLogging();
+void erEnableFileLogging(bool isServer);
+void erDisableFileLogging();
 void erLog(string methodSignature, string message);

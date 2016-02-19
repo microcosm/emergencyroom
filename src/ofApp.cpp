@@ -10,9 +10,9 @@ void ofApp::setup(){
 
 void ofApp::update(){
     if(network.isRunning()){
-        enableFileLogging(network.isRunningServer());
+        erEnableFileLogging(network.isRunningServer());
     }else{
-        disableFileLogging();
+        erDisableFileLogging();
     }
 }
 

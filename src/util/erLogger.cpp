@@ -3,11 +3,7 @@
 string erProgramId;
 bool erFileLoggingEnabled = false;
 
-bool isFileLogging(){
-    return erFileLoggingEnabled;
-}
-
-void enableFileLogging(bool isServer){
+void erEnableFileLogging(bool isServer){
     if(!erFileLoggingEnabled){
         erProgramId = ofToString(ofRandom(1000, 9999));
         erFileLoggingEnabled = true;
@@ -16,7 +12,7 @@ void enableFileLogging(bool isServer){
     }
 }
 
-void disableFileLogging(){
+void erDisableFileLogging(){
     if(erFileLoggingEnabled){
         erFileLoggingEnabled = false;
         ofLogToConsole();
