@@ -1,6 +1,7 @@
 #include "ofApp.h"
 
 void ofApp::setup(){
+    ofSetWindowShape(420, 300);
     mediaManager.setup();
     network.setup();
     network.setNumChannels(2);

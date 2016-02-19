@@ -4,7 +4,7 @@ void erSequencer::setup(erNetwork* _network, erMediaManager* _mediaManager){
     network = _network;
     mediaManager = _mediaManager;
     serverJustStarted = true;
-    currentChannel = 0;
+    currentChannel = 1;
 
     translater = network->getTranslater();
     videoCollections = mediaManager->getVideoCollections();
@@ -48,16 +48,19 @@ void erSequencer::runServerTasks(){
 void erSequencer::playNewVideos(){
     params.newPlayCommand();
     params.setPath(chooseVideo(currentChannel));
-    params.setSpeed(ofRandom(0.75, 0.25));
+    //params.setSpeed(ofRandom(0.75, 0.25));
+    params.setSpeed(1);
     network->target(currentChannel, params);
     mediaManager->play(params);
+    erLog("erSequencer::playNewVideos()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
     incrementCurrentChannel();
-    erLog("erSequencer::playNewVideos()", params.getArgumentStr());
 }
 
 void erSequencer::assignCollectionsToChannels(){
+    erLog("erSequencer::assignCollectionsToChannels()", "Assigning collections to channels");
     for(int i = 0; i < channelsToCollections.size(); i++){
         channelsToCollections[i] = selectCollection();
+        erLog("erSequencer::assignCollectionsToChannels()", "channelsToCollections[i] = " + channelsToCollections[i]);
     }
 }
 
@@ -67,12 +70,12 @@ string erSequencer::selectCollection(){
 
 void erSequencer::incrementCurrentChannel(){
     currentChannel++;
-    if(currentChannel >= channelsToCollections.size()){
-        currentChannel = 0;
+    if(currentChannel > channelsToCollections.size()){
+        currentChannel = 1;
     }
 }
 
 string erSequencer::chooseVideo(int currentChannel){
-    videos = &collectionsToVideos[channelsToCollections[currentChannel]];
+    videos = &collectionsToVideos[channelsToCollections[currentChannel - 1]];
     return videos->at((int)ofRandom(videos->size()));
 }
