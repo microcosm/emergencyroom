@@ -29,7 +29,7 @@ void erSequencer::update(ofEventArgs& updateArgs){
 }
 
 void erSequencer::messageReceived(string& message){
-    erLog("erSequencer::messageReceived(string&message)", message);
+    erLog("erSequencer::messageReceived(string& message)", message);
     params = translater->toParams(message);
     if(params.isPlayable()){
         mediaManager->play(params);
