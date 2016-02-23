@@ -16,6 +16,7 @@ class erMediaManager{
 public:
     void setup();
     void play(erPlayParams params);
+    void render(erPlayParams params);
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     vector<string> getVideoCollections();
@@ -36,4 +37,5 @@ protected:
     map<string,vector<string>> collectionsToVideos;
     ofDirectory mediaDir, subDir;
     string path, folder;
+    bool rendering = false;
 };

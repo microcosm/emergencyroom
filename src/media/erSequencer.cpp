@@ -33,6 +33,8 @@ void erSequencer::messageReceived(string& message){
     params = translater->toParams(message);
     if(params.isPlayable()){
         mediaManager->play(params);
+    }else if(params.isGraphicCommand()){
+        mediaManager->render(params);
     }
 }
 
@@ -41,12 +43,12 @@ void erSequencer::runServerTasks(){
         assignCollectionsToChannels();
     }
     if(ofGetFrameNum() % ER_VIDEO_LENGTH == 0){
-        playNewVideos();
+        //playNewVideos();
     }
 }
 
 void erSequencer::playNewVideos(){
-    params.newPlayCommand();
+    params.newVideoCommand();
     params.setPath(chooseVideo(currentChannel));
     //params.setSpeed(ofRandom(0.75, 0.25));
     params.setSpeed(1);

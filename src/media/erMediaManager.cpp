@@ -9,12 +9,16 @@ void erMediaManager::setup(){
 }
 
 void erMediaManager::play(erPlayParams params){
-    if(params.isPlayCommand()){
+    if(params.isVideoCommand()){
         videoPlayers[params.getPath()]->execute(params);
     }else if(params.isTestCommand()){
         testSoundPlayer.execute(params);
         testVideoPlayer.execute(params);
     }
+}
+
+void erMediaManager::render(erPlayParams params){
+    rendering = true;
 }
 
 void erMediaManager::update(ofEventArgs& args){
@@ -33,6 +37,10 @@ void erMediaManager::draw(ofEventArgs& args){
         if(player.second->isPlaying()){
             player.second->draw(0, 0, ofGetWidth(), ofGetHeight());
         }
+    }
+    if(rendering){
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString("RENDERING", 20, 20);
     }
 }
 

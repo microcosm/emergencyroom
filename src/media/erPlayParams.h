@@ -1,12 +1,14 @@
 #pragma once
 #include "ofMain.h"
 
-#define ER_COMMAND_STR_PLAY "PLAY"
+#define ER_COMMAND_STR_VIDEO "VIDEO"
+#define ER_COMMAND_STR_GRAPHIC "GRAPHIC"
 #define ER_COMMAND_STR_TEST "TEST"
 #define ER_COMMAND_STR_UNKNOWN "UNKNOWN"
 
 enum erCommand{
-    ER_COMMAND_PLAY,
+    ER_COMMAND_VIDEO,
+    ER_COMMAND_GRAPHIC,
     ER_COMMAND_TEST,
     ER_COMMAND_UNKNOWN
 };
@@ -16,9 +18,11 @@ class erPlayParams{
 public:
     void newCommand(string commandStr);
     void newTestCommand();
-    void newPlayCommand();
+    void newGraphicCommand();
+    void newVideoCommand();
     bool isTestCommand();
-    bool isPlayCommand();
+    bool isVideoCommand();
+    bool isGraphicCommand();
     bool isPlayable();
     erCommand getCommand();
     string getCommandStr();

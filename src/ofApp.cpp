@@ -11,9 +11,9 @@ void ofApp::setup(){
 
 void ofApp::update(){
     if(network.isRunning()){
-        erEnableFileLogging(network.isRunningServer());
+        //erEnableFileLogging(network.isRunningServer());
     }else{
-        erDisableFileLogging();
+        //erDisableFileLogging();
     }
 }
 
@@ -29,7 +29,7 @@ void ofApp::keyReleased(int key){
             mediaManager.play(params);
         }
         if(key == '1'){
-            params.newPlayCommand();
+            params.newVideoCommand();
             params.setPath("green/anti-fingers.mov");
             params.setSpeed(0.5);
             network.target(1, params);
@@ -37,10 +37,17 @@ void ofApp::keyReleased(int key){
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
         if(key == '2'){
-            params.newPlayCommand();
+            params.newVideoCommand();
             params.setPath("purple/flip-fingers.mov");
             params.setSpeed(2);
             network.target(2, params);
+            mediaManager.play(params);
+            erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
+        }
+        if(key == '9'){
+            params.newGraphicCommand();
+            params.setPath("test");
+            network.target(1, params);
             mediaManager.play(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
