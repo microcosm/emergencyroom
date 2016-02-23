@@ -4,6 +4,7 @@
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
 #include "erSyncedHapPlayer.h"
+#include "erSeaLevelViz.h"
 
 #define ER_TEST_SOUND "test/audio.mp3"
 #define ER_TEST_VIDEO "test/fingers.mov"
@@ -37,5 +38,5 @@ protected:
     map<string,vector<string>> collectionsToVideos;
     ofDirectory mediaDir, subDir;
     string path, folder;
-    bool rendering = false;
+    erSeaLevelViz seaLevelViz;
 };

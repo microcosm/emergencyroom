@@ -6,6 +6,7 @@ void erMediaManager::setup(){
     loadProductionMedia();
     ofAddListener(ofEvents().update, this, &erMediaManager::update);
     ofAddListener(ofEvents().draw, this, &erMediaManager::draw);
+    seaLevelViz.setup();
 }
 
 void erMediaManager::play(erPlayParams params){
@@ -18,7 +19,7 @@ void erMediaManager::play(erPlayParams params){
 }
 
 void erMediaManager::render(erPlayParams params){
-    rendering = true;
+    
 }
 
 void erMediaManager::update(ofEventArgs& args){
@@ -37,10 +38,6 @@ void erMediaManager::draw(ofEventArgs& args){
         if(player.second->isPlaying()){
             player.second->draw(0, 0, ofGetWidth(), ofGetHeight());
         }
-    }
-    if(rendering){
-        ofSetColor(ofColor::white);
-        ofDrawBitmapString("RENDERING", 20, 20);
     }
 }
 
