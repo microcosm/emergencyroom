@@ -9,8 +9,8 @@
 #define ER_TEST_SOUND "test/audio.mp3"
 #define ER_TEST_VIDEO "test/fingers.mov"
 #define ER_TEST_HAP "test/video.mov"
-#define ER_PRODUCTION_MEDIA_PATH "dropbox/ER-Media/"
-#define ER_ALLOWED_EXTENSIONS "mov"
+#define ER_PRODUCTION_MEDIA_PATH "dropbox/ER-Media/live/"
+#define ER_ALLOWED_EXTENSIONS "mov,mp4"
 
 class erMediaManager{
 
@@ -29,6 +29,7 @@ protected:
     void loadDirectory(string path);
     void registerVideo(string& folder, const ofFile file);
     void registerVideoCollection(string& folder);
+    ofDirectory& loadMediaDir(string path);
     string getRelativePath(const ofFile file);
     string getBottomLevelFolder(const ofDirectory file);
     erSyncedSoundPlayer testSoundPlayer;
@@ -36,7 +37,7 @@ protected:
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
     vector<string> videoCollections;
     map<string,vector<string>> collectionsToVideos;
-    ofDirectory mediaDir, subDir;
+    ofDirectory productionDir, mediaDir;
     string path, folder;
     erSeaLevelViz seaLevelViz;
 };

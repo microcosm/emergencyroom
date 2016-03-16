@@ -64,8 +64,8 @@ void erMediaManager::loadTestMedia(){
 }
 
 void erMediaManager::loadProductionMedia(){
-    mediaDir = ofDirectory(ER_PRODUCTION_MEDIA_PATH);
-    for(auto const& item : mediaDir){
+    productionDir = ofDirectory(ER_PRODUCTION_MEDIA_PATH);
+    for(auto const& item : productionDir){
         if(item.isDirectory()){
             loadDirectory(item.getAbsolutePath());
         }
@@ -73,12 +73,11 @@ void erMediaManager::loadProductionMedia(){
 }
 
 void erMediaManager::loadDirectory(string path){
-    subDir = ofDirectory(path);
-    subDir.allowExt(ER_ALLOWED_EXTENSIONS);
-    if(subDir.listDir() > 0){
-        folder = getBottomLevelFolder(subDir);
+    mediaDir = loadMediaDir(path);
+    if(mediaDir.listDir() > 0){
+        folder = getBottomLevelFolder(mediaDir);
         registerVideoCollection(folder);
-        for(auto const& file : subDir){
+        for(auto const& file : mediaDir){
             registerVideo(folder, file);
         }
     }
@@ -106,4 +105,12 @@ string erMediaManager::getRelativePath(const ofFile file){
 string erMediaManager::getBottomLevelFolder(const ofDirectory directory){
     vector<string> components = ofSplitString(directory.getAbsolutePath(), "/");
     return components.at(components.size() - 1);
+}
+
+ofDirectory& erMediaManager::loadMediaDir(string path){
+    mediaDir = ofDirectory(path);
+    for(auto const& ext : ofSplitString(ER_ALLOWED_EXTENSIONS, ",")){
+        mediaDir.allowExt(ext);
+    }
+    return mediaDir;
 }
