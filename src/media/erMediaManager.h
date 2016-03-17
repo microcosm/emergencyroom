@@ -3,7 +3,6 @@
 #include "erPlayParams.h"
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
-#include "erSyncedHapPlayer.h"
 #include "erSeaLevelViz.h"
 
 #define ER_TEST_SOUND "test/audio.mp3"

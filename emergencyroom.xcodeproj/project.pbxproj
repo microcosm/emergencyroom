@@ -19,9 +19,7 @@
 		84B591B21C75794D00B3E078 /* erLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84B591B11C75794D00B3E078 /* erLogger.cpp */; };
 		84C2882B1C6DA407007C34E5 /* erNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84C288291C6DA407007C34E5 /* erNetwork.cpp */; };
 		960D20B191346612D5C05A6A /* ofxTCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF88F02779DD820913ACEA06 /* ofxTCPClient.cpp */; };
-		9DECE28DE972DD39553DD35C /* ofxHapPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3A8B29F47FD67274D82443D /* ofxHapPlayer.cpp */; };
 		B4FEB5A31C7C13EF00F58182 /* erSeaLevelViz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4FEB5A11C7C13EF00F58182 /* erSeaLevelViz.cpp */; };
-		D58D428A766F04E0F7BE51A5 /* HapSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 061A451497285ADBAF4C6AC5 /* HapSupport.c */; };
 		E2564CF7DDB3713772BB682E /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35BB9BB90DBABFD3B39F8DB6 /* ofxUDPManager.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
@@ -59,7 +57,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		061A451497285ADBAF4C6AC5 /* HapSupport.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 30; name = HapSupport.c; path = ../../../addons/ofxHapPlayer/libs/HapSupport/src/HapSupport.c; sourceTree = SOURCE_ROOT; };
 		169017F380AE9BCB2363CE6D /* ofxNetworkSyncUdp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxNetworkSyncUdp.cpp; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSyncUdp.cpp; sourceTree = SOURCE_ROOT; };
 		18311BF02098EB4BE7529B10 /* ofxNetworkSyncUdp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNetworkSyncUdp.h; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSyncUdp.h; sourceTree = SOURCE_ROOT; };
 		1C085E327DAB912CFA2A443D /* ofxTCPServer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTCPServer.cpp; path = ../../../addons/ofxNetwork/src/ofxTCPServer.cpp; sourceTree = SOURCE_ROOT; };
@@ -71,7 +68,6 @@
 		319ACB64CA7A04632C526909 /* ofxNetworkSync.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNetworkSync.h; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSync.h; sourceTree = SOURCE_ROOT; };
 		32E29776FF92D1BC8C61E38C /* ofxNetworkSyncServerFinder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNetworkSyncServerFinder.h; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSyncServerFinder.h; sourceTree = SOURCE_ROOT; };
 		35BB9BB90DBABFD3B39F8DB6 /* ofxUDPManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUDPManager.cpp; path = ../../../addons/ofxNetwork/src/ofxUDPManager.cpp; sourceTree = SOURCE_ROOT; };
-		4B1A217C1373D539F9E2880E /* HapSupport.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = HapSupport.h; path = ../../../addons/ofxHapPlayer/libs/HapSupport/src/HapSupport.h; sourceTree = SOURCE_ROOT; };
 		848FA78B1C7125FE00B1E12B /* erPlayParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erPlayParams.cpp; sourceTree = "<group>"; };
 		848FA78C1C7125FE00B1E12B /* erPlayParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erPlayParams.h; sourceTree = "<group>"; };
 		849307AC1C72215600EC5B31 /* erTranslater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erTranslater.cpp; sourceTree = "<group>"; };
@@ -89,11 +85,8 @@
 		9BD9306FA0CD44E6C12E6433 /* ofxNetworkSyncClientState.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNetworkSyncClientState.h; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSyncClientState.h; sourceTree = SOURCE_ROOT; };
 		9CE370D41F355BAC17335D71 /* ofxNetworkSyncServer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNetworkSyncServer.h; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSyncServer.h; sourceTree = SOURCE_ROOT; };
 		A35A179D62CF710592C978D1 /* ofxNetworkSyncConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNetworkSyncConstants.h; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSyncConstants.h; sourceTree = SOURCE_ROOT; };
-		A9816531495AFFBC1BB87CF3 /* ofxHapPlayer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxHapPlayer.h; path = ../../../addons/ofxHapPlayer/src/ofxHapPlayer.h; sourceTree = SOURCE_ROOT; };
 		B083D03FE2DC108B2FF592D6 /* ofxNetworkSyncServer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxNetworkSyncServer.cpp; path = ../../../addons/ofxNetworkSync/src/ofxNetworkSyncServer.cpp; sourceTree = SOURCE_ROOT; };
-		B3A8B29F47FD67274D82443D /* ofxHapPlayer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxHapPlayer.cpp; path = ../../../addons/ofxHapPlayer/src/ofxHapPlayer.cpp; sourceTree = SOURCE_ROOT; };
 		B4FEB59A1C7BD8A900F58182 /* ofxCsvStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxCsvStream.h; sourceTree = "<group>"; };
-		B4FEB59C1C7C139900F58182 /* erSyncedHapPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedHapPlayer.h; sourceTree = "<group>"; };
 		B4FEB59D1C7C139900F58182 /* erSyncedMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedMediaPlayer.h; sourceTree = "<group>"; };
 		B4FEB59E1C7C139900F58182 /* erSyncedSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedSoundPlayer.h; sourceTree = "<group>"; };
 		B4FEB59F1C7C139900F58182 /* erSyncedVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedVideoPlayer.h; sourceTree = "<group>"; };
@@ -125,15 +118,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		123746A97018087522D6BDFF /* ofxHapPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				BBDADACACB6EAB5BEDA05FDE /* src */,
-				79FD7615976472BC2D2C3851 /* libs */,
-			);
-			name = ofxHapPlayer;
-			sourceTree = "<group>";
-		};
 		18240ECCE4076FB0833A8578 /* ofxNetwork */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,36 +143,11 @@
 			name = src;
 			sourceTree = "<group>";
 		};
-		3EFBEBB524E8213B0F907A59 /* HapSupport */ = {
-			isa = PBXGroup;
-			children = (
-				80399878C64616FD40831C0E /* src */,
-			);
-			name = HapSupport;
-			sourceTree = "<group>";
-		};
 		6948EE371B920CB800B5AC1A /* local_addons */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = local_addons;
-			sourceTree = "<group>";
-		};
-		79FD7615976472BC2D2C3851 /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				3EFBEBB524E8213B0F907A59 /* HapSupport */,
-			);
-			name = libs;
-			sourceTree = "<group>";
-		};
-		80399878C64616FD40831C0E /* src */ = {
-			isa = PBXGroup;
-			children = (
-				061A451497285ADBAF4C6AC5 /* HapSupport.c */,
-				4B1A217C1373D539F9E2880E /* HapSupport.h */,
-			);
-			name = src;
 			sourceTree = "<group>";
 		};
 		84B591AD1C7572D000B3E078 /* util */ = {
@@ -247,7 +206,6 @@
 		B4FEB59B1C7C139900F58182 /* video */ = {
 			isa = PBXGroup;
 			children = (
-				B4FEB59C1C7C139900F58182 /* erSyncedHapPlayer.h */,
 				B4FEB59D1C7C139900F58182 /* erSyncedMediaPlayer.h */,
 				B4FEB59E1C7C139900F58182 /* erSyncedSoundPlayer.h */,
 				B4FEB59F1C7C139900F58182 /* erSyncedVideoPlayer.h */,
@@ -269,20 +227,10 @@
 			isa = PBXGroup;
 			children = (
 				B4FEB5981C7BD8A900F58182 /* ofxCsvStream */,
-				123746A97018087522D6BDFF /* ofxHapPlayer */,
 				18240ECCE4076FB0833A8578 /* ofxNetwork */,
 				DF19DA6AFB065663E82F05F4 /* ofxNetworkSync */,
 			);
 			name = addons;
-			sourceTree = "<group>";
-		};
-		BBDADACACB6EAB5BEDA05FDE /* src */ = {
-			isa = PBXGroup;
-			children = (
-				B3A8B29F47FD67274D82443D /* ofxHapPlayer.cpp */,
-				A9816531495AFFBC1BB87CF3 /* ofxHapPlayer.h */,
-			);
-			name = src;
 			sourceTree = "<group>";
 		};
 		DF19DA6AFB065663E82F05F4 /* ofxNetworkSync */ = {
@@ -457,8 +405,6 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
-				9DECE28DE972DD39553DD35C /* ofxHapPlayer.cpp in Sources */,
-				D58D428A766F04E0F7BE51A5 /* HapSupport.c in Sources */,
 				848FA78D1C7125FE00B1E12B /* erPlayParams.cpp in Sources */,
 				84B591B21C75794D00B3E078 /* erLogger.cpp in Sources */,
 				849307B11C727DEB00EC5B31 /* erMediaManager.cpp in Sources */,
