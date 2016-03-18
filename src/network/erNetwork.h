@@ -6,7 +6,7 @@
 #include "erTranslater.h"
 
 #define SYNC_TCP_PORT 15001
-#define FINDER_TIMEOUT 5000
+#define FINDER_TIMEOUT 15000
 
 enum erNetworkRole {
     NETWORK_ROLE_UNDEFINED,
