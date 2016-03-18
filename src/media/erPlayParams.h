@@ -23,6 +23,7 @@ public:
     bool isTestCommand();
     bool isVideoCommand();
     bool isGraphicCommand();
+    bool isKnownCommand();
     bool isPlayable();
     erCommand getCommand();
     string getCommandStr();

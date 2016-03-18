@@ -11,17 +11,25 @@ erPlayParams erTranslater::toParams(string& messageStr){
 
     if(client->isCalibrated() && messageParts.size() >= 2){
         params.newCommand(messageParts[0]);
-        params.setDelay(getClientDelay(ofToInt(messageParts[1])));
-        if(messageParts.size() == 3){
-            argumentParts = ofSplitString(messageParts[2], ",");
-            variableParts = ofSplitString(argumentParts[0], "=");
-            params.setPath(variableParts[1]);
-            variableParts = ofSplitString(argumentParts[1], "=");
-            params.setSpeed(ofToFloat(variableParts[1]));
+
+        if(params.isPlayable()){
+            parseParams(params, messageParts);
         }
     }
 
     return params;
+}
+
+erPlayParams erTranslater::parseParams(erPlayParams& params, vector<string>& messageParts){
+    params.setDelay(getClientDelay(ofToInt(messageParts[1])));
+    if(messageParts.size() == 3){
+        argumentParts = ofSplitString(messageParts[2], ",");
+        variableParts = ofSplitString(argumentParts[0], "=");
+        params.setPath(variableParts[1]);
+        variableParts = ofSplitString(argumentParts[1], "=");
+        params.setSpeed(ofToFloat(variableParts[1]));
+    }
+    erLog("erSequencer::parseParams(erPlayParams& params, vector<string>& messageParts)", "[Command: " + params.getCommandStr() + " | Delay: " + ofToString(params.getDelay()) + " | Speed: " + ofToString(params.getSpeed()) + " | Path: " + params.getPath() + "]");
 }
 
 string erTranslater::toMessage(erPlayParams& params){

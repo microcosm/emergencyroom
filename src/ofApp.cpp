@@ -11,9 +11,9 @@ void ofApp::setup(){
 
 void ofApp::update(){
     if(network.isRunning()){
-        //erEnableFileLogging(network.isRunningServer());
+        erEnableFileLogging(network.isRunningServer());
     }else{
-        //erDisableFileLogging();
+        erDisableFileLogging();
     }
 }
 

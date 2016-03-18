@@ -40,6 +40,10 @@ bool erPlayParams::isGraphicCommand(){
     return command == ER_COMMAND_GRAPHIC;
 }
 
+bool erPlayParams::isKnownCommand(){
+    return command != ER_COMMAND_UNKNOWN;
+}
+
 bool erPlayParams::isPlayable(){
     return isTestCommand() || isVideoCommand();
 }
