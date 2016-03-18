@@ -43,7 +43,7 @@ void erSequencer::runServerTasks(){
         assignCollectionsToChannels();
     }
     if(ofGetFrameNum() % ER_VIDEO_LENGTH == 0){
-        //playNewVideos();
+        playNewVideos();
     }
 }
 
