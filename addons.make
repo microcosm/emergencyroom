@@ -1,3 +1,3 @@
-ofxHapPlayer
+ofxCsvStream
 ofxNetwork
 ofxNetworkSync
