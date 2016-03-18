@@ -16,4 +16,5 @@ protected:
     erNetwork network;
     erSequencer sequencer;
     erPlayParams params;
+    bool test = false;
 };

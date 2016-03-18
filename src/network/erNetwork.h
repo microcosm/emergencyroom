@@ -31,7 +31,8 @@ public:
     ofEvent<string>& clientMessageReceived();
     erTranslater* getTranslater();
     int getNumChannels();
-    void onConnectionLost();
+    void onClientConnectionLost();
+    void onClientMessageReceived(string& message);
 
 protected:
     void send(erPlayParams& params, ofxNetworkSyncClientState* client);
@@ -44,7 +45,7 @@ protected:
     erNetworkRole role;
     erTranslater translater;
 
-    string statusText;
+    string statusText, clientChannel;
     bool serverRequested;
     int numClients, previousNumClients;
     int finderStartTime, serverPortOffset, numChannels;

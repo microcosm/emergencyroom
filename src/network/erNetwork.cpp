@@ -8,6 +8,7 @@ void erNetwork::setup(){
     serverPortOffset = 0;
     serverRequested = false;
     numClients, previousNumClients = 0;
+    clientChannel = -1;
     setLogLevels(OF_LOG_ERROR);
     translater.setup(&client, &server);
 
@@ -41,7 +42,8 @@ void erNetwork::update(ofEventArgs& updateArgs){
             finder.close();
             if(client.setup(finder.getServerInfo().ip, finder.getServerInfo().port)){
                 role = NETWORK_ROLE_CLIENT;
-                ofAddListener(client.connectionLost, this, &erNetwork::onConnectionLost);
+                ofAddListener(client.connectionLost, this, &erNetwork::onClientConnectionLost);
+                ofAddListener(client.messageReceived, this, &erNetwork::onClientMessageReceived);
             }
         }
 
@@ -89,6 +91,7 @@ void erNetwork::draw(ofEventArgs& updateArgs){
         }else if(client.isConnected()){
             client.drawStatus();
             ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
+            ofDrawBitmapString(clientChannel, 50, ofGetHeight()-35);
         }else if(server.isConnected()){
             server.drawStatus();
             ofDrawBitmapString(ofToString(server.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
@@ -148,7 +151,7 @@ int erNetwork::getNumChannels(){
     return numChannels;
 }
 
-void erNetwork::onConnectionLost(){
+void erNetwork::onClientConnectionLost(){
     statusText = "lost connection to server";
     client.close();
     // retry to find server
@@ -156,6 +159,12 @@ void erNetwork::onConnectionLost(){
         finderStartTime = ofGetElapsedTimeMillis();
     }else{
         statusText += "\nfailed to start finder";
+    }
+}
+
+void erNetwork::onClientMessageReceived(string& message){
+    if(message.substr(0, 7) == "CHANNEL"){
+        clientChannel = message;
     }
 }
 
@@ -169,9 +178,7 @@ void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
 void erNetwork::sendChannelUpdates(){
     int i = 0;
     for(auto& client : server.getClients()) {
-        if(client->isCalibrated()){
-            client->send("CHANNEL " + ofToString(i % numChannels));
-        }
+        client->send("CHANNEL " + ofToString(i % numChannels));
         i++;
     }
 }
