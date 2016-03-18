@@ -51,6 +51,10 @@ void ofApp::keyReleased(int key){
             mediaManager.play(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
+    }else{
+        if(key == 's'){
+            network.requestServer();
+        }
     }
     if(key == 'f'){
         ofToggleFullscreen();

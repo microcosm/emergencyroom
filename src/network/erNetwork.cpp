@@ -6,6 +6,7 @@ void erNetwork::setup(){
     drawingEnabled = false;
     statusText = "";
     serverPortOffset = 0;
+    serverRequested = false;
     setLogLevels(OF_LOG_ERROR);
     translater.setup(&client, &server);
 
@@ -43,8 +44,9 @@ void erNetwork::update(ofEventArgs& updateArgs){
             }
         }
 
-        if(now > finderStartTime+FINDER_TIMEOUT){
+        if(now > finderStartTime+FINDER_TIMEOUT || serverRequested){
             //server finder timeout
+            serverRequested = false;
 
             //i will be server
             if(server.setup(SYNC_TCP_PORT+serverPortOffset)){
@@ -90,6 +92,10 @@ void erNetwork::draw(ofEventArgs& updateArgs){
 
 void erNetwork::toggleDrawing(){
     drawingEnabled = !drawingEnabled;
+}
+
+void erNetwork::requestServer(){
+    serverRequested = true;
 }
 
 bool erNetwork::flood(erPlayParams params){

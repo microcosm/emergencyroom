@@ -22,6 +22,7 @@ public:
     virtual void update(ofEventArgs& updateArgs);
     virtual void draw(ofEventArgs& updateArgs);
     void toggleDrawing();
+    void requestServer();
     bool flood(erPlayParams params);
     bool target(int target, erPlayParams params);
     bool isRunningClient();
@@ -43,6 +44,7 @@ protected:
     erTranslater translater;
 
     string statusText;
+    bool serverRequested;
     int finderStartTime, serverPortOffset, numChannels;
     bool drawingEnabled, success;
     unsigned long long now;
