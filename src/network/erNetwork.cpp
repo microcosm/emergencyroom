@@ -7,6 +7,7 @@ void erNetwork::setup(){
     statusText = "";
     serverPortOffset = 0;
     serverRequested = false;
+    numClients, previousNumClients = 0;
     setLogLevels(OF_LOG_ERROR);
     translater.setup(&client, &server);
 
@@ -67,6 +68,11 @@ void erNetwork::update(ofEventArgs& updateArgs){
         }
     }else if(server.isConnected()){
         server.update();
+        numClients = server.getClients().size();
+        if(numClients != previousNumClients){
+            sendChannelUpdates();
+        }
+        previousNumClients = numClients;
     }
 }
 
@@ -157,6 +163,16 @@ void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
     if(client->isCalibrated()){
         success = true;
         client->send(translater.toMessage(params));
+    }
+}
+
+void erNetwork::sendChannelUpdates(){
+    int i = 0;
+    for(auto& client : server.getClients()) {
+        if(client->isCalibrated()){
+            client->send("CHANNEL " + ofToString(i % numChannels));
+        }
+        i++;
     }
 }
 

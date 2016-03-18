@@ -35,6 +35,7 @@ public:
 
 protected:
     void send(erPlayParams& params, ofxNetworkSyncClientState* client);
+    void sendChannelUpdates();
     void setLogLevels(ofLogLevel level);
 
     ofxNetworkSyncServerFinder finder;
@@ -45,6 +46,7 @@ protected:
 
     string statusText;
     bool serverRequested;
+    int numClients, previousNumClients;
     int finderStartTime, serverPortOffset, numChannels;
     bool drawingEnabled, success;
     unsigned long long now;
