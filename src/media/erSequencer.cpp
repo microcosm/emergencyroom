@@ -43,19 +43,18 @@ void erSequencer::runServerTasks(){
         assignCollectionsToChannels();
     }
     if(ofGetFrameNum() % ER_VIDEO_LENGTH == 0){
-        playNewVideos();
+        playNewVideo();
+        incrementCurrentChannel();
     }
 }
 
-void erSequencer::playNewVideos(){
+void erSequencer::playNewVideo(){
     params.newVideoCommand();
     params.setPath(chooseVideo(currentChannel));
-    //params.setSpeed(ofRandom(0.75, 0.25));
     params.setSpeed(1);
     network->target(currentChannel, params);
     mediaManager->play(params);
     erLog("erSequencer::playNewVideos()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
-    incrementCurrentChannel();
 }
 
 void erSequencer::assignCollectionsToChannels(){

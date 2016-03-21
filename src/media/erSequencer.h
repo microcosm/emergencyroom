@@ -16,7 +16,7 @@ public:
     void messageReceived(string& messageStr);
 protected:
     void runServerTasks();
-    void playNewVideos();
+    void playNewVideo();
     void assignCollectionsToChannels();
     string selectCollection();
     void incrementCurrentChannel();
