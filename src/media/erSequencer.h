@@ -15,20 +15,14 @@ public:
     virtual void update(ofEventArgs& updateArgs);
     void messageReceived(string& messageStr);
 protected:
-    void runServerTasks();
     void playNewVideo();
-    void assignCollectionsToChannels();
-    string selectCollection();
+    string chooseVideo();
     void incrementCurrentChannel();
-    string chooseVideo(int currentChannel);
     erNetwork* network;
     erTranslater* translater;
     erMediaManager* mediaManager;
     erPlayParams params;
-    int delay, numCollections, currentChannel;
+    int currentChannel, numChannels;
     float speed;
-    bool serverJustStarted;
-    vector<string> channelsToCollections, videoCollections;
-    map<string,vector<string>> collectionsToVideos;
-    vector<string>* videos;
+    vector<string> allVideos;
 };

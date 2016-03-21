@@ -49,6 +49,10 @@ map<string,vector<string>> erMediaManager::getCollectionsToVideos(){
     return collectionsToVideos;
 }
 
+vector<string> erMediaManager::getAllVideos(){
+    return allVideos;
+}
+
 void erMediaManager::ensureSymlinkExists(){
     if(!ofFile::doesFileExist("dropbox")){
         ofSystem("ln -s ~/Dropbox/ ../../../data/dropbox");
@@ -89,6 +93,7 @@ void erMediaManager::registerVideo(string& folder, const ofFile file){
     videoPlayers[path]->load(file.getAbsolutePath());
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
     collectionsToVideos[folder].push_back(path);
+    allVideos.push_back(path);
 }
 
 void erMediaManager::registerVideoCollection(string& folder){

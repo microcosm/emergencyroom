@@ -21,6 +21,7 @@ public:
     virtual void draw(ofEventArgs& args);
     vector<string> getVideoCollections();
     map<string,vector<string>> getCollectionsToVideos();
+    vector<string> getAllVideos();
 protected:
     void ensureSymlinkExists();
     void loadTestMedia();
@@ -36,6 +37,7 @@ protected:
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
     vector<string> videoCollections;
     map<string,vector<string>> collectionsToVideos;
+    vector<string> allVideos;
     ofDirectory productionDir, mediaDir;
     string path, folder;
     erSeaLevelViz seaLevelViz;

@@ -3,28 +3,19 @@
 void erSequencer::setup(erNetwork* _network, erMediaManager* _mediaManager){
     network = _network;
     mediaManager = _mediaManager;
-    serverJustStarted = true;
     currentChannel = 1;
+    numChannels = _network->getNumChannels();
 
     translater = network->getTranslater();
-    videoCollections = mediaManager->getVideoCollections();
-    channelsToCollections.resize(network->getNumChannels());
-    collectionsToVideos = mediaManager->getCollectionsToVideos();
-    numCollections = videoCollections.size();
+    allVideos = mediaManager->getAllVideos();
 
     ofAddListener(ofEvents().update, this, &erSequencer::update);
     ofAddListener(network->clientMessageReceived(), this, &erSequencer::messageReceived);
 }
 
 void erSequencer::update(ofEventArgs& updateArgs){
-    if(network->isRunningServer()){
-        if(serverJustStarted){
-            assignCollectionsToChannels();
-        }
-        runServerTasks();
-        serverJustStarted = false;
-    }else{
-        serverJustStarted = true;
+    if(network->isRunningServer() && ofGetFrameNum() % ER_VIDEO_LENGTH == 0){
+        playNewVideo();
     }
 }
 
@@ -38,45 +29,25 @@ void erSequencer::messageReceived(string& message){
     }
 }
 
-void erSequencer::runServerTasks(){
-    if(ofGetFrameNum() % ER_COLLECTION_LENGTH == 0){
-        assignCollectionsToChannels();
-    }
-    if(ofGetFrameNum() % ER_VIDEO_LENGTH == 0){
-        playNewVideo();
-        incrementCurrentChannel();
-    }
-}
-
 void erSequencer::playNewVideo(){
     params.newVideoCommand();
-    params.setPath(chooseVideo(currentChannel));
+    params.setPath(chooseVideo());
     params.setSpeed(1);
     network->target(currentChannel, params);
     mediaManager->play(params);
-    erLog("erSequencer::playNewVideos()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
+    erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
+    incrementCurrentChannel();
 }
 
-void erSequencer::assignCollectionsToChannels(){
-    erLog("erSequencer::assignCollectionsToChannels()", "Assigning collections to channels");
-    for(int i = 0; i < channelsToCollections.size(); i++){
-        channelsToCollections[i] = selectCollection();
-        erLog("erSequencer::assignCollectionsToChannels()", "channelsToCollections[i] = " + channelsToCollections[i]);
-    }
-}
-
-string erSequencer::selectCollection(){
-    return videoCollections[floor(ofRandom(numCollections))];
+string erSequencer::chooseVideo(){
+    int index = (int)floor(ofRandom(allVideos.size()));
+    index = index == allVideos.size() ? index - 1 : index;
+    return allVideos.at(index);
 }
 
 void erSequencer::incrementCurrentChannel(){
     currentChannel++;
-    if(currentChannel > channelsToCollections.size()){
+    if(currentChannel > numChannels){
         currentChannel = 1;
     }
-}
-
-string erSequencer::chooseVideo(int currentChannel){
-    videos = &collectionsToVideos[channelsToCollections[currentChannel - 1]];
-    return videos->at((int)ofRandom(videos->size()));
 }
