@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "erMedia.h"
 #include "erNetwork.h"
+#define SCREEN_MARGIN 20
 
 class erMediaRenderer{
 
@@ -11,9 +12,10 @@ public:
     virtual void draw(ofEventArgs& args);
     
 protected:
+    void calculatePreviewSize();
     void drawClient();
     void drawServer();
     erMedia* media;
     erNetwork* network;
-    int numChannels;
+    int numChannels, width, height;
 };

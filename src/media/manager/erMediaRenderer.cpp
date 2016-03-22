@@ -5,6 +5,7 @@ void erMediaRenderer::setup(erMedia* _media, erNetwork* _network, int _numChanne
     network = _network;
     numChannels = _numChannels;
 
+    calculatePreviewSize();
     ofAddListener(ofEvents().update, this, &erMediaRenderer::update);
     ofAddListener(ofEvents().draw, this, &erMediaRenderer::draw);
 }
@@ -24,6 +25,11 @@ void erMediaRenderer::draw(ofEventArgs& args){
     }
 }
 
+void erMediaRenderer::calculatePreviewSize(){
+    width = (ofGetWidth() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
+    height = (ofGetHeight() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
+}
+
 void erMediaRenderer::drawClient(){
     ofClear(ofColor::black);
     if(media->testVideoPlayer.isPlaying()){
@@ -38,12 +44,13 @@ void erMediaRenderer::drawClient(){
 
 void erMediaRenderer::drawServer(){
     ofClear(ofColor::black);
-    if(media->testVideoPlayer.isPlaying()){
-        media->testVideoPlayer.draw(20, 20, ofGetWidth() - 40, ofGetHeight() - 40);
-    }
-    for(auto const& player : media->videoPlayers){
-        if(player.second->isPlaying()){
-            player.second->draw(20, 20, ofGetWidth() - 40, ofGetHeight() - 40);
+    ofSetColor(ofColor::white);
+    for(int x = 0; x < 3; x++){
+        for(int y = 0; y < 3; y++){
+            ofDrawRectangle(
+                SCREEN_MARGIN * (x + 1) + width * x,
+                SCREEN_MARGIN * (y + 1) + height * y,
+                width, height);
         }
     }
 }
