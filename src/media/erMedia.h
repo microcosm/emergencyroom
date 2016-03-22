@@ -1,7 +1,9 @@
 #pragma once
 #include "ofMain.h"
+#include "erNetwork.h"
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
+#include "erMediaRenderer.h"
 
 #define ER_TEST_SOUND "test/audio.mp3"
 #define ER_TEST_VIDEO "test/fingers.mov"
@@ -13,6 +15,7 @@ class erMedia{
 
 public:
     void setup();
+    void play(erPlayParams params);
 
     erSyncedSoundPlayer testSoundPlayer;
     erSyncedVideoPlayer testVideoPlayer;

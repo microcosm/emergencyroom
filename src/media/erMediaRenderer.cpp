@@ -1,7 +1,6 @@
 #include "erMediaRenderer.h"
 
-void erMediaRenderer::setup(erMedia* _media, erNetwork* _network, int _numChannels){
-    media = _media;
+void erMediaRenderer::setup(erNetwork* _network, int _numChannels){
     network = _network;
     numChannels = _numChannels;
 
@@ -10,9 +9,21 @@ void erMediaRenderer::setup(erMedia* _media, erNetwork* _network, int _numChanne
     ofAddListener(ofEvents().draw, this, &erMediaRenderer::draw);
 }
 
+void erMediaRenderer::setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer){
+    testSoundPlayer = _testSoundPlayer;
+}
+
+void erMediaRenderer::setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer){
+    testVideoPlayer = _testVideoPlayer;
+}
+
+void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){
+    videoPlayers = _videoPlayers;
+}
+
 void erMediaRenderer::update(ofEventArgs& args){
-    media->testVideoPlayer.update();
-    for(auto const& player : media->videoPlayers){
+    testVideoPlayer->update();
+    for(auto const& player : *videoPlayers){
         player.second->update();
     }
 }
@@ -32,10 +43,10 @@ void erMediaRenderer::calculatePreviewSize(){
 
 void erMediaRenderer::drawClient(){
     ofClear(ofColor::black);
-    if(media->testVideoPlayer.isPlaying()){
-        media->testVideoPlayer.draw(0, 0, ofGetWidth(), ofGetHeight());
+    if(testVideoPlayer->isPlaying()){
+        testVideoPlayer->draw(0, 0, ofGetWidth(), ofGetHeight());
     }
-    for(auto const& player : media->videoPlayers){
+    for(auto const& player : *videoPlayers){
         if(player.second->isPlaying()){
             player.second->draw(0, 0, ofGetWidth(), ofGetHeight());
         }
@@ -44,8 +55,8 @@ void erMediaRenderer::drawClient(){
 
 void erMediaRenderer::drawServer(){
     ofClear(ofColor::black);
-    if(media->testVideoPlayer.isPlaying()){
-        media->testVideoPlayer.draw(SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - SCREEN_MARGIN * 2, ofGetHeight() - SCREEN_MARGIN * 2);
+    if(testVideoPlayer->isPlaying()){
+        testVideoPlayer->draw(SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - SCREEN_MARGIN * 2, ofGetHeight() - SCREEN_MARGIN * 2);
     }
 
     ofSetColor(ofColor::white);

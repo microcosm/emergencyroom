@@ -1,13 +1,12 @@
 #include "erSequencer.h"
 
-void erSequencer::setup(erNetwork* _network, erMediaManager* _mediaManager){
+void erSequencer::setup(erNetwork* _network, erMedia* _media){
     network = _network;
-    mediaManager = _mediaManager;
+    media = _media;
     currentChannel = 1;
     numChannels = _network->getNumChannels();
 
     translater = network->getTranslater();
-    allVideos = mediaManager->getAllVideos();
 
     ofAddListener(ofEvents().update, this, &erSequencer::update);
     ofAddListener(network->clientMessageReceived(), this, &erSequencer::messageReceived);
@@ -23,10 +22,10 @@ void erSequencer::messageReceived(string& message){
     erLog("erSequencer::messageReceived(string& message)", message);
     params = translater->toParams(message);
     if(params.isPlayable()){
-        mediaManager->play(params);
-    }else if(params.isGraphicCommand()){
-        mediaManager->render(params);
-    }
+        media->play(params);
+    }/*else if(params.isGraphicCommand()){
+        media->render(params);
+    }*/
 }
 
 void erSequencer::playNewVideo(){
@@ -34,15 +33,15 @@ void erSequencer::playNewVideo(){
     params.setPath(chooseVideo());
     params.setSpeed(1);
     network->target(currentChannel, params);
-    mediaManager->play(params);
+    media->play(params);
     erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
     incrementCurrentChannel();
 }
 
 string erSequencer::chooseVideo(){
-    int index = (int)floor(ofRandom(allVideos.size()));
-    index = index == allVideos.size() ? index - 1 : index;
-    return allVideos.at(index);
+    int index = (int)floor(ofRandom(media->allVideos.size()));
+    index = index == media->allVideos.size() ? index - 1 : index;
+    return media->allVideos.at(index);
 }
 
 void erSequencer::incrementCurrentChannel(){

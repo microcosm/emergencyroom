@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erSequencer.h"
+#include "erMediaRenderer.h"
 #include "erLogger.h"
 
 #define NUM_CHANNELS 2
@@ -14,7 +15,8 @@ public:
     void keyReleased(int key);
 
 protected:
-    erMediaManager mediaManager;
+    erMedia media;
+    erMediaRenderer renderer;
     erNetwork network;
     erSequencer sequencer;
     erPlayParams params;

@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B47EF6A61CA15049003B3B83 /* erMedia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6A41CA15049003B3B83 /* erMedia.cpp */; };
-		B47EF6B41CA153F9003B3B83 /* erMediaRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B21CA153F9003B3B83 /* erMediaRenderer.cpp */; };
-		B48604ED1C9B90F600629452 /* erMediaManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604D81C9B90F600629452 /* erMediaManager.cpp */; };
+		B47EF6BC1CA16CD8003B3B83 /* erMedia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMedia.cpp */; };
+		B47EF6BD1CA16CD8003B3B83 /* erMediaRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6BA1CA16CD8003B3B83 /* erMediaRenderer.cpp */; };
 		B48604EE1C9B90F600629452 /* erPlayParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DA1C9B90F600629452 /* erPlayParams.cpp */; };
 		B48604EF1C9B90F600629452 /* erSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DC1C9B90F600629452 /* erSequencer.cpp */; };
 		B48604F01C9B90F600629452 /* erSeaLevelViz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604E31C9B90F600629452 /* erSeaLevelViz.cpp */; };
@@ -59,12 +58,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B47EF6A41CA15049003B3B83 /* erMedia.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMedia.cpp; sourceTree = "<group>"; };
-		B47EF6A51CA15049003B3B83 /* erMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMedia.h; sourceTree = "<group>"; };
-		B47EF6B21CA153F9003B3B83 /* erMediaRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaRenderer.cpp; sourceTree = "<group>"; };
-		B47EF6B31CA153F9003B3B83 /* erMediaRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaRenderer.h; sourceTree = "<group>"; };
-		B48604D81C9B90F600629452 /* erMediaManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaManager.cpp; sourceTree = "<group>"; };
-		B48604D91C9B90F600629452 /* erMediaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaManager.h; sourceTree = "<group>"; };
+		B47EF6B81CA16CD8003B3B83 /* erMedia.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMedia.cpp; sourceTree = "<group>"; };
+		B47EF6B91CA16CD8003B3B83 /* erMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMedia.h; sourceTree = "<group>"; };
+		B47EF6BA1CA16CD8003B3B83 /* erMediaRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaRenderer.cpp; sourceTree = "<group>"; };
+		B47EF6BB1CA16CD8003B3B83 /* erMediaRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaRenderer.h; sourceTree = "<group>"; };
 		B48604DA1C9B90F600629452 /* erPlayParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erPlayParams.cpp; sourceTree = "<group>"; };
 		B48604DB1C9B90F600629452 /* erPlayParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erPlayParams.h; sourceTree = "<group>"; };
 		B48604DC1C9B90F600629452 /* erSequencer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSequencer.cpp; sourceTree = "<group>"; };
@@ -131,27 +128,17 @@
 			name = local_addons;
 			sourceTree = "<group>";
 		};
-		B47EF6A01CA14D82003B3B83 /* manager */ = {
-			isa = PBXGroup;
-			children = (
-				B47EF6A41CA15049003B3B83 /* erMedia.cpp */,
-				B47EF6A51CA15049003B3B83 /* erMedia.h */,
-				B47EF6B21CA153F9003B3B83 /* erMediaRenderer.cpp */,
-				B47EF6B31CA153F9003B3B83 /* erMediaRenderer.h */,
-			);
-			path = manager;
-			sourceTree = "<group>";
-		};
 		B48604D71C9B90F600629452 /* media */ = {
 			isa = PBXGroup;
 			children = (
-				B48604D81C9B90F600629452 /* erMediaManager.cpp */,
-				B48604D91C9B90F600629452 /* erMediaManager.h */,
+				B47EF6B81CA16CD8003B3B83 /* erMedia.cpp */,
+				B47EF6B91CA16CD8003B3B83 /* erMedia.h */,
+				B47EF6BA1CA16CD8003B3B83 /* erMediaRenderer.cpp */,
+				B47EF6BB1CA16CD8003B3B83 /* erMediaRenderer.h */,
 				B48604DA1C9B90F600629452 /* erPlayParams.cpp */,
 				B48604DB1C9B90F600629452 /* erPlayParams.h */,
 				B48604DC1C9B90F600629452 /* erSequencer.cpp */,
 				B48604DD1C9B90F600629452 /* erSequencer.h */,
-				B47EF6A01CA14D82003B3B83 /* manager */,
 				B48604DE1C9B90F600629452 /* video */,
 				B48604E21C9B90F600629452 /* visualizations */,
 			);
@@ -421,14 +408,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B47EF6BC1CA16CD8003B3B83 /* erMedia.cpp in Sources */,
 				B48605031C9B911800629452 /* ofxNetworkSyncServer.cpp in Sources */,
-				B47EF6A61CA15049003B3B83 /* erMedia.cpp in Sources */,
 				B48605151C9B911F00629452 /* ofxTCPManager.cpp in Sources */,
-				B47EF6B41CA153F9003B3B83 /* erMediaRenderer.cpp in Sources */,
 				B48605021C9B911800629452 /* ofxNetworkSyncClientState.cpp in Sources */,
 				B48604F21C9B90F600629452 /* erTranslater.cpp in Sources */,
 				B48605171C9B911F00629452 /* ofxUDPManager.cpp in Sources */,
-				B48604ED1C9B90F600629452 /* erMediaManager.cpp in Sources */,
 				B48604F31C9B90F600629452 /* erLogger.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				B48605141C9B911F00629452 /* ofxTCPClient.cpp in Sources */,
@@ -439,6 +424,7 @@
 				B48605161C9B911F00629452 /* ofxTCPServer.cpp in Sources */,
 				B48605011C9B911800629452 /* ofxNetworkSyncClient.cpp in Sources */,
 				B48605041C9B911800629452 /* ofxNetworkSyncUdp.cpp in Sources */,
+				B47EF6BD1CA16CD8003B3B83 /* erMediaRenderer.cpp in Sources */,
 				B48604F11C9B90F600629452 /* erNetwork.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

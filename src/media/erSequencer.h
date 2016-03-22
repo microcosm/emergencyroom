@@ -1,7 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erNetwork.h"
-#include "erMediaManager.h"
+#include "erMedia.h"
 #include "erPlayParams.h"
 #include "erLogger.h"
 
@@ -11,7 +11,7 @@
 class erSequencer{
 
 public:
-    void setup(erNetwork* _network, erMediaManager* _mediaManager);
+    void setup(erNetwork* _network, erMedia* _media);
     virtual void update(ofEventArgs& updateArgs);
     void messageReceived(string& messageStr);
 protected:
@@ -20,9 +20,8 @@ protected:
     void incrementCurrentChannel();
     erNetwork* network;
     erTranslater* translater;
-    erMediaManager* mediaManager;
+    erMedia* media;
     erPlayParams params;
     int currentChannel, numChannels;
     float speed;
-    vector<string> allVideos;
 };
