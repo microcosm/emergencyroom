@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B47EF6A61CA15049003B3B83 /* erMedia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6A41CA15049003B3B83 /* erMedia.cpp */; };
 		B48604ED1C9B90F600629452 /* erMediaManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604D81C9B90F600629452 /* erMediaManager.cpp */; };
 		B48604EE1C9B90F600629452 /* erPlayParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DA1C9B90F600629452 /* erPlayParams.cpp */; };
 		B48604EF1C9B90F600629452 /* erSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DC1C9B90F600629452 /* erSequencer.cpp */; };
@@ -57,6 +58,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B47EF6A41CA15049003B3B83 /* erMedia.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMedia.cpp; sourceTree = "<group>"; };
+		B47EF6A51CA15049003B3B83 /* erMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMedia.h; sourceTree = "<group>"; };
 		B48604D81C9B90F600629452 /* erMediaManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaManager.cpp; sourceTree = "<group>"; };
 		B48604D91C9B90F600629452 /* erMediaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaManager.h; sourceTree = "<group>"; };
 		B48604DA1C9B90F600629452 /* erPlayParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erPlayParams.cpp; sourceTree = "<group>"; };
@@ -125,6 +128,15 @@
 			name = local_addons;
 			sourceTree = "<group>";
 		};
+		B47EF6A01CA14D82003B3B83 /* manager */ = {
+			isa = PBXGroup;
+			children = (
+				B47EF6A41CA15049003B3B83 /* erMedia.cpp */,
+				B47EF6A51CA15049003B3B83 /* erMedia.h */,
+			);
+			path = manager;
+			sourceTree = "<group>";
+		};
 		B48604D71C9B90F600629452 /* media */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +146,7 @@
 				B48604DB1C9B90F600629452 /* erPlayParams.h */,
 				B48604DC1C9B90F600629452 /* erSequencer.cpp */,
 				B48604DD1C9B90F600629452 /* erSequencer.h */,
+				B47EF6A01CA14D82003B3B83 /* manager */,
 				B48604DE1C9B90F600629452 /* video */,
 				B48604E21C9B90F600629452 /* visualizations */,
 			);
@@ -404,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B48605031C9B911800629452 /* ofxNetworkSyncServer.cpp in Sources */,
+				B47EF6A61CA15049003B3B83 /* erMedia.cpp in Sources */,
 				B48605151C9B911F00629452 /* ofxTCPManager.cpp in Sources */,
 				B48605021C9B911800629452 /* ofxNetworkSyncClientState.cpp in Sources */,
 				B48604F21C9B90F600629452 /* erTranslater.cpp in Sources */,
