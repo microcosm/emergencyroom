@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "erMedia.h"
 #include "erNetwork.h"
-#define SCREEN_MARGIN 20
+#define SCREEN_MARGIN 10
 
 class erMediaRenderer{
 
@@ -17,5 +17,6 @@ protected:
     void drawServer();
     erMedia* media;
     erNetwork* network;
-    int numChannels, width, height;
+    int numChannels, width, height, x, y, currentChannel;
+    string currentChannelStr;
 };
