@@ -1,8 +1,8 @@
 #include "erMediaManager.h"
 
-void erMediaManager::setup(){
+void erMediaManager::setup(int numChannels, erNetwork* network){
     media.setup();
-    renderer.setup(&media);
+    renderer.setup(&media, network, numChannels);
     seaLevelViz.setup();
 }
 
