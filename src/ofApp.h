@@ -3,6 +3,8 @@
 #include "erSequencer.h"
 #include "erLogger.h"
 
+#define NUM_CHANNELS 2
+
 class ofApp : public ofBaseApp{
 
 public:

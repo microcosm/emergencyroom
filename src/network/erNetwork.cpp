@@ -1,8 +1,8 @@
 #include "erNetwork.h"
 
-void erNetwork::setup(){
+void erNetwork::setup(int _numChannels){
     role = NETWORK_ROLE_UNDEFINED;
-    numChannels = 1;
+    numChannels = _numChannels;
     drawingEnabled = false;
     statusText = "";
     serverPortOffset = 0;
@@ -21,10 +21,6 @@ void erNetwork::setup(){
 
     ofAddListener(ofEvents().update, this, &erNetwork::update);
     ofAddListener(ofEvents().draw, this, &erNetwork::draw);
-}
-
-void erNetwork::setNumChannels(int _numChannels){
-    numChannels = _numChannels;
 }
 
 void erNetwork::update(ofEventArgs& updateArgs){

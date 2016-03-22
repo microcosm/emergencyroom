@@ -3,8 +3,7 @@
 void ofApp::setup(){
     ofSetWindowShape(420, 300);
     mediaManager.setup();
-    network.setup();
-    network.setNumChannels(2);
+    network.setup(NUM_CHANNELS);
     network.toggleDrawing();
     sequencer.setup(&network, &mediaManager);
 }

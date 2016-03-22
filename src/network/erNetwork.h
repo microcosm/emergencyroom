@@ -17,8 +17,7 @@ enum erNetworkRole {
 class erNetwork{
     
 public:
-    void setup();
-    void setNumChannels(int _numChannels);
+    void setup(int _numChannels);
     virtual void update(ofEventArgs& updateArgs);
     virtual void draw(ofEventArgs& updateArgs);
     void toggleDrawing();
