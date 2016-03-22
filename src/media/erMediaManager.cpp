@@ -2,8 +2,7 @@
 
 void erMediaManager::setup(){
     media.setup();
-    ofAddListener(ofEvents().update, this, &erMediaManager::update);
-    ofAddListener(ofEvents().draw, this, &erMediaManager::draw);
+    renderer.setup(&media);
     seaLevelViz.setup();
 }
 
@@ -18,25 +17,6 @@ void erMediaManager::play(erPlayParams params){
 
 void erMediaManager::render(erPlayParams params){
     //Render graphics / dataviz
-}
-
-void erMediaManager::update(ofEventArgs& args){
-    media.testVideoPlayer.update();
-    for(auto const& player : media.videoPlayers){
-        player.second->update();
-    }
-}
-
-void erMediaManager::draw(ofEventArgs& args){
-    ofClear(ofColor::black);
-    if(media.testVideoPlayer.isPlaying()){
-        media.testVideoPlayer.draw(0, 0, ofGetWidth(), ofGetHeight());
-    }
-    for(auto const& player : media.videoPlayers){
-        if(player.second->isPlaying()){
-            player.second->draw(0, 0, ofGetWidth(), ofGetHeight());
-        }
-    }
 }
 
 vector<string> erMediaManager::getVideoCollections(){

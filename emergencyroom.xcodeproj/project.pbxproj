@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B47EF6A61CA15049003B3B83 /* erMedia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6A41CA15049003B3B83 /* erMedia.cpp */; };
+		B47EF6B41CA153F9003B3B83 /* erMediaRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B21CA153F9003B3B83 /* erMediaRenderer.cpp */; };
 		B48604ED1C9B90F600629452 /* erMediaManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604D81C9B90F600629452 /* erMediaManager.cpp */; };
 		B48604EE1C9B90F600629452 /* erPlayParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DA1C9B90F600629452 /* erPlayParams.cpp */; };
 		B48604EF1C9B90F600629452 /* erSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DC1C9B90F600629452 /* erSequencer.cpp */; };
@@ -60,6 +61,8 @@
 /* Begin PBXFileReference section */
 		B47EF6A41CA15049003B3B83 /* erMedia.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMedia.cpp; sourceTree = "<group>"; };
 		B47EF6A51CA15049003B3B83 /* erMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMedia.h; sourceTree = "<group>"; };
+		B47EF6B21CA153F9003B3B83 /* erMediaRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaRenderer.cpp; sourceTree = "<group>"; };
+		B47EF6B31CA153F9003B3B83 /* erMediaRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaRenderer.h; sourceTree = "<group>"; };
 		B48604D81C9B90F600629452 /* erMediaManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaManager.cpp; sourceTree = "<group>"; };
 		B48604D91C9B90F600629452 /* erMediaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaManager.h; sourceTree = "<group>"; };
 		B48604DA1C9B90F600629452 /* erPlayParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erPlayParams.cpp; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 			children = (
 				B47EF6A41CA15049003B3B83 /* erMedia.cpp */,
 				B47EF6A51CA15049003B3B83 /* erMedia.h */,
+				B47EF6B21CA153F9003B3B83 /* erMediaRenderer.cpp */,
+				B47EF6B31CA153F9003B3B83 /* erMediaRenderer.h */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -419,6 +424,7 @@
 				B48605031C9B911800629452 /* ofxNetworkSyncServer.cpp in Sources */,
 				B47EF6A61CA15049003B3B83 /* erMedia.cpp in Sources */,
 				B48605151C9B911F00629452 /* ofxTCPManager.cpp in Sources */,
+				B47EF6B41CA153F9003B3B83 /* erMediaRenderer.cpp in Sources */,
 				B48605021C9B911800629452 /* ofxNetworkSyncClientState.cpp in Sources */,
 				B48604F21C9B90F600629452 /* erTranslater.cpp in Sources */,
 				B48605171C9B911F00629452 /* ofxUDPManager.cpp in Sources */,
