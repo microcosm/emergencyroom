@@ -1,9 +1,28 @@
 #include "erMediaLoader.h"
 
-void erMediaLoader::setup(){
+void erMediaLoader::setup(erNetwork* _network){
+    network = _network;
     ensureSymlinkExists();
     loadTestMedia();
-    loadProductionMedia();
+    ofAddListener(ofEvents().update, this, &erMediaLoader::update);
+}
+
+void erMediaLoader::update(ofEventArgs& args){
+    if(network->justBecameClient()){
+        loadLiveMedia();
+    }else if(network->justBecameServer()){
+        loadPreviewMedia();
+    }
+}
+
+void erMediaLoader::loadLiveMedia(){
+    productionDir = ofDirectory(ER_LIVE_MEDIA_PATH);
+    loadMedia();
+}
+
+void erMediaLoader::loadPreviewMedia(){
+    productionDir = ofDirectory(ER_PREVIEW_MEDIA_PATH);
+    loadMedia();
 }
 
 void erMediaLoader::ensureSymlinkExists(){
@@ -20,8 +39,15 @@ void erMediaLoader::loadTestMedia(){
     testVideoPlayer.setLoopState(OF_LOOP_NONE);
 }
 
-void erMediaLoader::loadProductionMedia(){
-    productionDir = ofDirectory(ER_PRODUCTION_MEDIA_PATH);
+void erMediaLoader::eraseMedia(){
+    allVideos.clear();
+    videoCollections.clear();
+    collectionsToVideos.clear();
+    videoPlayers.clear();
+}
+
+void erMediaLoader::loadMedia(){
+    eraseMedia();
     for(auto const& item : productionDir){
         if(item.isDirectory()){
             loadDirectory(item.getAbsolutePath());

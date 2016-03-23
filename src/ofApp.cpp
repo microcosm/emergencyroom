@@ -3,7 +3,7 @@
 void ofApp::setup(){
     ofSetWindowShape(420, 300);
 
-    mediaLoader.setup();
+    mediaLoader.setup(&network);
     renderer.setup(&network, NUM_CHANNELS);
     renderer.setTestSoundPlayer(&mediaLoader.testSoundPlayer);
     renderer.setTestVideoPlayer(&mediaLoader.testVideoPlayer);

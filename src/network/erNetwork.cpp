@@ -24,6 +24,7 @@ void erNetwork::setup(int _numChannels){
 }
 
 void erNetwork::update(ofEventArgs& updateArgs){
+    previousRole = role;
     now = ofGetElapsedTimeMillis();
 
     if(!server.isConnected() && !client.isConnected() && !finder.isRunning()){
@@ -123,6 +124,14 @@ bool erNetwork::target(int target, erPlayParams params){
     return success;
 }
 
+bool erNetwork::wasRunningClient(){
+    return previousRole == NETWORK_ROLE_CLIENT;
+}
+
+bool erNetwork::wasRunningServer(){
+    return previousRole == NETWORK_ROLE_SERVER;
+}
+
 bool erNetwork::isRunningClient(){
     return role == NETWORK_ROLE_CLIENT;
 }
@@ -133,6 +142,14 @@ bool erNetwork::isRunningServer(){
 
 bool erNetwork::isRunning(){
     return isRunningClient() || isRunningServer();
+}
+
+bool erNetwork::justBecameClient(){
+    return isRunningClient() && !wasRunningClient();
+}
+
+bool erNetwork::justBecameServer(){
+    return isRunningServer() && !wasRunningServer();
 }
 
 ofEvent<string>& erNetwork::clientMessageReceived(){

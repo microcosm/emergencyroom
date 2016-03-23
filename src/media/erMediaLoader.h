@@ -8,24 +8,29 @@
 #define ER_TEST_SOUND "test/audio.mp3"
 #define ER_TEST_VIDEO "test/fingers.mov"
 #define ER_TEST_HAP "test/video.mov"
-#define ER_PRODUCTION_MEDIA_PATH "dropbox/ER-Media/live/"
+#define ER_LIVE_MEDIA_PATH "dropbox/ER-Media/live/"
+#define ER_PREVIEW_MEDIA_PATH "dropbox/ER-Media/preview/"
 #define ER_ALLOWED_EXTENSIONS "mov,mp4"
 
 class erMediaLoader{
 
 public:
-    void setup();
+    void setup(erNetwork* _network);
+    virtual void update(ofEventArgs& args);
+    void loadLiveMedia();
+    void loadPreviewMedia();
 
     erSyncedSoundPlayer testSoundPlayer;
     erSyncedVideoPlayer testVideoPlayer;
-    map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
 
+    map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
     vector<string> allVideos, videoCollections;
     map<string,vector<string>> collectionsToVideos;
 protected:
     void ensureSymlinkExists();
     void loadTestMedia();
-    void loadProductionMedia();
+    void eraseMedia();
+    void loadMedia();
     void loadDirectory(string path);
     void registerVideo(string& folder, const ofFile file);
     void registerVideoCollection(string& folder);
@@ -35,4 +40,5 @@ protected:
 
     ofDirectory productionDir, mediaDir;
     string path, folder;
+    erNetwork* network;
 };

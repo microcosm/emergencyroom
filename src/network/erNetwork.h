@@ -24,9 +24,13 @@ public:
     void requestServer();
     bool flood(erPlayParams params);
     bool target(int target, erPlayParams params);
+    bool wasRunningClient();
+    bool wasRunningServer();
     bool isRunningClient();
     bool isRunningServer();
     bool isRunning();
+    bool justBecameClient();
+    bool justBecameServer();
     ofEvent<string>& clientMessageReceived();
     erTranslater* getTranslater();
     int getNumChannels();
@@ -41,7 +45,7 @@ protected:
     ofxNetworkSyncServerFinder finder;
     ofxNetworkSyncClient client;
     ofxNetworkSyncServer server;
-    erNetworkRole role;
+    erNetworkRole role, previousRole;
     erTranslater translater;
 
     string statusText, clientChannel;
