@@ -11,7 +11,7 @@ class ofApp : public ofBaseApp{
 public:
     void setup();
     void update();
-    void draw();
+    virtual void draw(ofEventArgs& args);
     void keyReleased(int key);
 
 protected:
@@ -21,4 +21,5 @@ protected:
     erSequencer sequencer;
     erPlayParams params;
     bool test = false;
+    bool missingVideos = false;
 };

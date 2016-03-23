@@ -2,8 +2,9 @@
 
 void erMediaLoader::setup(erNetwork* _network){
     network = _network;
-    ensureSymlinkExists();
+    ensureMediaSymlinkExists();
     loadTestMedia();
+    validateMedia();
     ofAddListener(ofEvents().update, this, &erMediaLoader::update);
 }
 
@@ -25,9 +26,41 @@ void erMediaLoader::loadPreviewMedia(){
     loadMedia();
 }
 
-void erMediaLoader::ensureSymlinkExists(){
+bool erMediaLoader::hasMissingVideos(){
+    return missingVideos.size() > 0;
+}
+
+void erMediaLoader::ensureMediaSymlinkExists(){
     if(!ofFile::doesFileExist("dropbox")){
         ofSystem("ln -s ~/Dropbox/ ../../../data/dropbox");
+    }
+}
+
+void erMediaLoader::validateMedia(){
+    productionDir = ofDirectory(ER_PREVIEW_MEDIA_PATH);
+    for(auto const& item : productionDir){
+        if(item.isDirectory()){
+            validateCollectionDir(item.getAbsolutePath());
+        }
+    }
+}
+
+void erMediaLoader::validateCollectionDir(string path){
+    collectionDir = loadCollectionDir(path);
+    if(collectionDir.listDir() > 0){
+        collection = getCollectionName(collectionDir);
+        for(auto const& video : collectionDir){
+            validateVideo(video);
+        }
+    }
+}
+
+void erMediaLoader::validateVideo(const ofFile video){
+    path = video.getAbsolutePath();
+    ofStringReplace(path, ER_PREVIEW_DIR, ER_LIVE_DIR);
+    ofFile livePath(path);
+    if(!livePath.exists()){
+        missingVideos.push_back(getRelativePath(livePath));
     }
 }
 
@@ -56,29 +89,29 @@ void erMediaLoader::loadMedia(){
 }
 
 void erMediaLoader::loadDirectory(string path){
-    mediaDir = loadMediaDir(path);
-    if(mediaDir.listDir() > 0){
-        folder = getBottomLevelFolder(mediaDir);
-        registerVideoCollection(folder);
-        for(auto const& file : mediaDir){
-            registerVideo(folder, file);
+    collectionDir = loadCollectionDir(path);
+    if(collectionDir.listDir() > 0){
+        collection = getCollectionName(collectionDir);
+        registerCollection(collection);
+        for(auto const& video : collectionDir){
+            registerVideo(collection, video);
         }
     }
 }
 
-void erMediaLoader::registerVideo(string& folder, const ofFile file){
-    path = getRelativePath(file);
+void erMediaLoader::registerVideo(string& collection, const ofFile video){
+    path = getRelativePath(video);
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
-    videoPlayers[path]->load(file.getAbsolutePath());
+    videoPlayers[path]->load(video.getAbsolutePath());
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
-    collectionsToVideos[folder].push_back(path);
+    collectionsToVideos[collection].push_back(path);
     allVideos.push_back(path);
 }
 
-void erMediaLoader::registerVideoCollection(string& folder){
-    videoCollections.push_back(folder);
+void erMediaLoader::registerCollection(string& collection){
+    videoCollections.push_back(collection);
     vector<string> videos;
-    collectionsToVideos[folder] = videos;
+    collectionsToVideos[collection] = videos;
 }
 
 string erMediaLoader::getRelativePath(const ofFile file){
@@ -86,15 +119,15 @@ string erMediaLoader::getRelativePath(const ofFile file){
     return components.at(components.size() - 2) + "/" + components.at(components.size() - 1);
 }
 
-string erMediaLoader::getBottomLevelFolder(const ofDirectory directory){
+string erMediaLoader::getCollectionName(const ofDirectory directory){
     vector<string> components = ofSplitString(directory.getAbsolutePath(), "/");
     return components.at(components.size() - 1);
 }
 
-ofDirectory& erMediaLoader::loadMediaDir(string path){
-    mediaDir = ofDirectory(path);
+ofDirectory& erMediaLoader::loadCollectionDir(string path){
+    collectionDir = ofDirectory(path);
     for(auto const& ext : ofSplitString(ER_ALLOWED_EXTENSIONS, ",")){
-        mediaDir.allowExt(ext);
+        collectionDir.allowExt(ext);
     }
-    return mediaDir;
+    return collectionDir;
 }

@@ -4,6 +4,7 @@ void ofApp::setup(){
     ofSetWindowShape(420, 300);
 
     mediaLoader.setup(&network);
+    missingVideos = mediaLoader.hasMissingVideos();
     renderer.setup(&network, NUM_CHANNELS);
     renderer.setTestSoundPlayer(&mediaLoader.testSoundPlayer);
     renderer.setTestVideoPlayer(&mediaLoader.testVideoPlayer);
@@ -12,6 +13,7 @@ void ofApp::setup(){
     sequencer.setup(&network, &mediaLoader, &renderer);
 
     network.toggleDrawing();
+    ofAddListener(ofEvents().draw, this, &ofApp::draw);
 }
 
 void ofApp::update(){
@@ -22,8 +24,17 @@ void ofApp::update(){
     }
 }
 
-void ofApp::draw(){
-    
+void ofApp::draw(ofEventArgs& args){
+    if(missingVideos){
+        ofSetColor(ofColor::black);
+        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString("Missing from live folder", 20, 30);
+        int i = 1;
+        for(const auto video : mediaLoader.missingVideos){
+            ofDrawBitmapString(video, 20, 30 + 20 * i++);
+        }
+    }
 }
 
 void ofApp::keyReleased(int key){
