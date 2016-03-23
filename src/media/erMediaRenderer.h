@@ -5,6 +5,7 @@
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
 #define SCREEN_MARGIN 10
+#define DOUBLE_SCREEN_MARGIN 20
 
 class erMediaRenderer{
 
@@ -20,11 +21,13 @@ protected:
     void calculatePreviewSize();
     void drawClient();
     void drawServer();
+    void drawTestVideoPlayer(int x, int y, int width, int height);
+    void drawPreviewBorder(int xi, int yi);
     erNetwork* network;
     erSyncedSoundPlayer* testSoundPlayer;
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
 
-    int numChannels, width, height, x, y, currentChannel;
+    int numChannels, previewBorderWidth, previewBorderHeight, x, y, currentChannel;
     string currentChannelStr;
 };

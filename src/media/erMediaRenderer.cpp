@@ -37,15 +37,13 @@ void erMediaRenderer::draw(ofEventArgs& args){
 }
 
 void erMediaRenderer::calculatePreviewSize(){
-    width = (ofGetWidth() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
-    height = (ofGetHeight() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
+    previewBorderWidth = (ofGetWidth() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
+    previewBorderHeight = (ofGetHeight() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
 }
 
 void erMediaRenderer::drawClient(){
     ofClear(ofColor::black);
-    if(testVideoPlayer->isPlaying()){
-        testVideoPlayer->draw(0, 0, ofGetWidth(), ofGetHeight());
-    }
+    drawTestVideoPlayer(0, 0, ofGetWidth(), ofGetHeight());
     for(auto const& player : *videoPlayers){
         if(player.second->isPlaying()){
             player.second->draw(0, 0, ofGetWidth(), ofGetHeight());
@@ -55,23 +53,29 @@ void erMediaRenderer::drawClient(){
 
 void erMediaRenderer::drawServer(){
     ofClear(ofColor::black);
-    if(testVideoPlayer->isPlaying()){
-        testVideoPlayer->draw(SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - SCREEN_MARGIN * 2, ofGetHeight() - SCREEN_MARGIN * 2);
-    }
-
+    drawTestVideoPlayer(SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - DOUBLE_SCREEN_MARGIN, ofGetHeight() - DOUBLE_SCREEN_MARGIN);
+    
     ofSetColor(ofColor::white);
     ofNoFill();
 
     currentChannel = 1;
     for(int xi = 0; xi < 3; xi++){
         for(int yi = 0; yi < 3; yi++){
-            x = SCREEN_MARGIN * (xi + 1) + width * xi;
-            y = SCREEN_MARGIN * (yi + 1) + height * yi;
-
-            ofDrawRectangle(x, y, width, height);
-
-            currentChannelStr = "CHANNEL " + ofToString(currentChannel++);
-            ofDrawBitmapString(currentChannelStr, x + SCREEN_MARGIN, y + SCREEN_MARGIN + SCREEN_MARGIN);
+            drawPreviewBorder(xi, yi);
         }
     }
+}
+
+void erMediaRenderer::drawTestVideoPlayer(int x, int y, int width, int height){
+    if(testVideoPlayer->isPlaying()){
+        testVideoPlayer->draw(x, y, width, height);
+    }
+}
+
+void erMediaRenderer::drawPreviewBorder(int xi, int yi){
+    x = SCREEN_MARGIN * (xi + 1) + previewBorderWidth * xi;
+    y = SCREEN_MARGIN * (yi + 1) + previewBorderHeight * yi;
+    ofDrawRectangle(x, y, previewBorderWidth, previewBorderHeight);
+    currentChannelStr = "CHANNEL " + ofToString(currentChannel++);
+    ofDrawBitmapString(currentChannelStr, x + SCREEN_MARGIN, y + SCREEN_MARGIN + SCREEN_MARGIN);
 }
