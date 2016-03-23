@@ -15,7 +15,6 @@ class erMedia{
 
 public:
     void setup();
-    void play(erPlayParams params);
 
     erSyncedSoundPlayer testSoundPlayer;
     erSyncedVideoPlayer testVideoPlayer;

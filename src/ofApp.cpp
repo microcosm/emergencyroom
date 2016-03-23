@@ -9,7 +9,7 @@ void ofApp::setup(){
     renderer.setTestVideoPlayer(&media.testVideoPlayer);
     renderer.setVideoPlayers(&media.videoPlayers);
     network.setup(NUM_CHANNELS);
-    sequencer.setup(&network, &media);
+    sequencer.setup(&network, &media, &renderer);
 
     network.toggleDrawing();
 }
@@ -31,14 +31,14 @@ void ofApp::keyReleased(int key){
         if(key == 't'){
             params.newTestCommand();
             network.flood(params);
-            media.play(params);
+            renderer.play(params);
         }
         if(key == '1'){
             params.newVideoCommand();
             params.setPath("green/anti-fingers.mov");
             params.setSpeed(0.5);
             network.target(1, params);
-            media.play(params);
+            renderer.play(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
         if(key == '2'){
@@ -46,14 +46,14 @@ void ofApp::keyReleased(int key){
             params.setPath("purple/flip-fingers.mov");
             params.setSpeed(2);
             network.target(2, params);
-            media.play(params);
+            renderer.play(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
         if(key == '9'){
             params.newGraphicCommand();
             params.setPath("test");
             network.target(1, params);
-            media.play(params);
+            renderer.play(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
     }else{

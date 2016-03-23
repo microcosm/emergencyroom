@@ -6,15 +6,6 @@ void erMedia::setup(){
     loadProductionMedia();
 }
 
-void erMedia::play(erPlayParams params){
-    if(params.isVideoCommand()){
-        videoPlayers[params.getPath()]->execute(params);
-    }else if(params.isTestCommand()){
-        testSoundPlayer.execute(params);
-        testVideoPlayer.execute(params);
-    }
-}
-
 void erMedia::ensureSymlinkExists(){
     if(!ofFile::doesFileExist("dropbox")){
         ofSystem("ln -s ~/Dropbox/ ../../../data/dropbox");

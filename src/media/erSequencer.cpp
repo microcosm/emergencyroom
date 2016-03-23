@@ -1,11 +1,12 @@
 #include "erSequencer.h"
 
-void erSequencer::setup(erNetwork* _network, erMedia* _media){
+void erSequencer::setup(erNetwork* _network, erMedia* _media, erMediaRenderer* _renderer){
     network = _network;
     media = _media;
-    currentChannel = 1;
-    numChannels = _network->getNumChannels();
+    renderer = _renderer;
 
+    currentChannel = 1;
+    numChannels = network->getNumChannels();
     translater = network->getTranslater();
 
     ofAddListener(ofEvents().update, this, &erSequencer::update);
@@ -22,10 +23,8 @@ void erSequencer::messageReceived(string& message){
     erLog("erSequencer::messageReceived(string& message)", message);
     params = translater->toParams(message);
     if(params.isPlayable()){
-        media->play(params);
-    }/*else if(params.isGraphicCommand()){
-        media->render(params);
-    }*/
+        renderer->play(params);
+    }
 }
 
 void erSequencer::playNewVideo(){
@@ -33,7 +32,7 @@ void erSequencer::playNewVideo(){
     params.setPath(chooseVideo());
     params.setSpeed(1);
     network->target(currentChannel, params);
-    media->play(params);
+    renderer->play(params);
     erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
     incrementCurrentChannel();
 }

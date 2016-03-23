@@ -9,18 +9,6 @@ void erMediaRenderer::setup(erNetwork* _network, int _numChannels){
     ofAddListener(ofEvents().draw, this, &erMediaRenderer::draw);
 }
 
-void erMediaRenderer::setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer){
-    testSoundPlayer = _testSoundPlayer;
-}
-
-void erMediaRenderer::setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer){
-    testVideoPlayer = _testVideoPlayer;
-}
-
-void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){
-    videoPlayers = _videoPlayers;
-}
-
 void erMediaRenderer::update(ofEventArgs& args){
     testVideoPlayer->update();
     for(auto const& player : *videoPlayers){
@@ -36,6 +24,27 @@ void erMediaRenderer::draw(ofEventArgs& args){
     }
 }
 
+void erMediaRenderer::play(erPlayParams params){
+    if(params.isVideoCommand()){
+        videoPlayers->at(params.getPath())->execute(params);
+    }else if(params.isTestCommand()){
+        testSoundPlayer->execute(params);
+        testVideoPlayer->execute(params);
+    }
+}
+
+void erMediaRenderer::setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer){
+    testSoundPlayer = _testSoundPlayer;
+}
+
+void erMediaRenderer::setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer){
+    testVideoPlayer = _testVideoPlayer;
+}
+
+void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){
+    videoPlayers = _videoPlayers;
+}
+
 void erMediaRenderer::calculatePreviewSize(){
     previewBorderWidth = (ofGetWidth() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
     previewBorderHeight = (ofGetHeight() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
@@ -43,17 +52,14 @@ void erMediaRenderer::calculatePreviewSize(){
 
 void erMediaRenderer::drawClient(){
     ofClear(ofColor::black);
-    drawTestVideoPlayer(0, 0, ofGetWidth(), ofGetHeight());
+    drawVideo(testVideoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
     for(auto const& player : *videoPlayers){
-        if(player.second->isPlaying()){
-            player.second->draw(0, 0, ofGetWidth(), ofGetHeight());
-        }
+        drawVideo(player.second.get(), 0, 0, ofGetWidth(), ofGetHeight());
     }
 }
 
 void erMediaRenderer::drawServer(){
     ofClear(ofColor::black);
-    drawTestVideoPlayer(SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - DOUBLE_SCREEN_MARGIN, ofGetHeight() - DOUBLE_SCREEN_MARGIN);
     
     ofSetColor(ofColor::white);
     ofNoFill();
@@ -61,21 +67,24 @@ void erMediaRenderer::drawServer(){
     currentChannel = 1;
     for(int xi = 0; xi < 3; xi++){
         for(int yi = 0; yi < 3; yi++){
-            drawPreviewBorder(xi, yi);
+            drawPreviewBorder(xi, yi, currentChannel);
+            currentChannel++;
         }
     }
+
+    drawVideo(testVideoPlayer, SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - DOUBLE_SCREEN_MARGIN, ofGetHeight() - DOUBLE_SCREEN_MARGIN);
 }
 
-void erMediaRenderer::drawTestVideoPlayer(int x, int y, int width, int height){
-    if(testVideoPlayer->isPlaying()){
-        testVideoPlayer->draw(x, y, width, height);
+void erMediaRenderer::drawVideo(erSyncedVideoPlayer* player, int x, int y, int width, int height){
+    if(player->isPlaying()){
+        player->draw(x, y, width, height);
     }
 }
 
-void erMediaRenderer::drawPreviewBorder(int xi, int yi){
+void erMediaRenderer::drawPreviewBorder(int xi, int yi, int channel){
     x = SCREEN_MARGIN * (xi + 1) + previewBorderWidth * xi;
     y = SCREEN_MARGIN * (yi + 1) + previewBorderHeight * yi;
     ofDrawRectangle(x, y, previewBorderWidth, previewBorderHeight);
-    currentChannelStr = "CHANNEL " + ofToString(currentChannel++);
+    currentChannelStr = "CHANNEL " + ofToString(channel);
     ofDrawBitmapString(currentChannelStr, x + SCREEN_MARGIN, y + SCREEN_MARGIN + SCREEN_MARGIN);
 }
