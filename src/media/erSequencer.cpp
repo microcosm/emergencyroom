@@ -32,7 +32,7 @@ void erSequencer::playNewVideo(){
     params.setPath(chooseVideo());
     params.setSpeed(1);
     network->target(currentChannel, params);
-    renderer->play(params);
+    renderer->preview(currentChannel, params);
     erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
     incrementCurrentChannel();
 }

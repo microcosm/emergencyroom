@@ -33,6 +33,11 @@ void erMediaRenderer::play(erPlayParams params){
     }
 }
 
+void erMediaRenderer::preview(int channel, erPlayParams params){
+    play(params);
+    channelsToPlayers[channel] = videoPlayers->at(params.getPath());
+}
+
 void erMediaRenderer::setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer){
     testSoundPlayer = _testSoundPlayer;
 }
@@ -46,8 +51,8 @@ void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _
 }
 
 void erMediaRenderer::calculatePreviewSize(){
-    previewBorderWidth = (ofGetWidth() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
-    previewBorderHeight = (ofGetHeight() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
+    previewWidth = (ofGetWidth() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
+    previewHeight = (ofGetHeight() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
 }
 
 void erMediaRenderer::drawClient(){
@@ -67,7 +72,12 @@ void erMediaRenderer::drawServer(){
     currentChannel = 1;
     for(int xi = 0; xi < 3; xi++){
         for(int yi = 0; yi < 3; yi++){
-            drawPreviewBorder(xi, yi, currentChannel);
+            x = getX(xi);
+            y = getY(yi);
+            if(channelsToPlayers.count(currentChannel) == 1) {
+                drawVideo(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight);
+            }
+            drawPreviewBorder(x, y, currentChannel);
             currentChannel++;
         }
     }
@@ -81,10 +91,16 @@ void erMediaRenderer::drawVideo(erSyncedVideoPlayer* player, int x, int y, int w
     }
 }
 
-void erMediaRenderer::drawPreviewBorder(int xi, int yi, int channel){
-    x = SCREEN_MARGIN * (xi + 1) + previewBorderWidth * xi;
-    y = SCREEN_MARGIN * (yi + 1) + previewBorderHeight * yi;
-    ofDrawRectangle(x, y, previewBorderWidth, previewBorderHeight);
+void erMediaRenderer::drawPreviewBorder(int x, int y, int channel){
+    ofDrawRectangle(x, y, previewWidth, previewHeight);
     currentChannelStr = "CHANNEL " + ofToString(channel);
     ofDrawBitmapString(currentChannelStr, x + SCREEN_MARGIN, y + SCREEN_MARGIN + SCREEN_MARGIN);
+}
+
+int erMediaRenderer::getX(int xi){
+    return SCREEN_MARGIN * (xi + 1) + previewWidth * xi;
+}
+
+int erMediaRenderer::getY(int yi){
+    return SCREEN_MARGIN * (yi + 1) + previewHeight * yi;
 }

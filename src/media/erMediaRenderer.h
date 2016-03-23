@@ -14,6 +14,7 @@ public:
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     void play(erPlayParams params);
+    void preview(int channel, erPlayParams params);
 
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
@@ -25,11 +26,14 @@ protected:
     void drawServer();
     void drawVideo(erSyncedVideoPlayer* player, int x, int y, int width, int height);
     void drawPreviewBorder(int xi, int yi, int currentChannel);
+    int getX(int xi);
+    int getY(int yi);
     erNetwork* network;
     erSyncedSoundPlayer* testSoundPlayer;
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
+    map<int, ofPtr<erSyncedVideoPlayer>> channelsToPlayers;
 
-    int numChannels, previewBorderWidth, previewBorderHeight, x, y, currentChannel;
+    int numChannels, previewWidth, previewHeight, x, y, currentChannel;
     string currentChannelStr;
 };
