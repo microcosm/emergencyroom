@@ -17,6 +17,7 @@ public:
 protected:
     void playNewVideo();
     string chooseVideo();
+    int getRandomVideoIndex();
     void incrementCurrentChannel();
     erNetwork* network;
     erTranslater* translater;
