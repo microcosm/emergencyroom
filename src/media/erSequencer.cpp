@@ -1,8 +1,8 @@
 #include "erSequencer.h"
 
-void erSequencer::setup(erNetwork* _network, erMedia* _media, erMediaRenderer* _renderer){
+void erSequencer::setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaRenderer* _renderer){
     network = _network;
-    media = _media;
+    mediaLoader = _mediaLoader;
     renderer = _renderer;
 
     currentChannel = 1;
@@ -38,9 +38,9 @@ void erSequencer::playNewVideo(){
 }
 
 string erSequencer::chooseVideo(){
-    int index = (int)floor(ofRandom(media->allVideos.size()));
-    index = index == media->allVideos.size() ? index - 1 : index;
-    return media->allVideos.at(index);
+    int index = (int)floor(ofRandom(mediaLoader->allVideos.size()));
+    index = index == mediaLoader->allVideos.size() ? index - 1 : index;
+    return mediaLoader->allVideos.at(index);
 }
 
 void erSequencer::incrementCurrentChannel(){

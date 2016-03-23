@@ -11,7 +11,7 @@
 #define ER_PRODUCTION_MEDIA_PATH "dropbox/ER-Media/live/"
 #define ER_ALLOWED_EXTENSIONS "mov,mp4"
 
-class erMedia{
+class erMediaLoader{
 
 public:
     void setup();

@@ -3,13 +3,13 @@
 void ofApp::setup(){
     ofSetWindowShape(420, 300);
 
-    media.setup();
+    mediaLoader.setup();
     renderer.setup(&network, NUM_CHANNELS);
-    renderer.setTestSoundPlayer(&media.testSoundPlayer);
-    renderer.setTestVideoPlayer(&media.testVideoPlayer);
-    renderer.setVideoPlayers(&media.videoPlayers);
+    renderer.setTestSoundPlayer(&mediaLoader.testSoundPlayer);
+    renderer.setTestVideoPlayer(&mediaLoader.testVideoPlayer);
+    renderer.setVideoPlayers(&mediaLoader.videoPlayers);
     network.setup(NUM_CHANNELS);
-    sequencer.setup(&network, &media, &renderer);
+    sequencer.setup(&network, &mediaLoader, &renderer);
 
     network.toggleDrawing();
 }

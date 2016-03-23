@@ -15,7 +15,7 @@ public:
     void keyReleased(int key);
 
 protected:
-    erMedia media;
+    erMediaLoader mediaLoader;
     erMediaRenderer renderer;
     erNetwork network;
     erSequencer sequencer;

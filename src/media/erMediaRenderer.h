@@ -1,6 +1,6 @@
 #pragma once
 #include "ofMain.h"
-#include "erMedia.h"
+#include "erMediaLoader.h"
 #include "erNetwork.h"
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"

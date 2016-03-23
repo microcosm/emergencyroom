@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B47EF6BC1CA16CD8003B3B83 /* erMedia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMedia.cpp */; };
+		B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */; };
 		B47EF6BD1CA16CD8003B3B83 /* erMediaRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6BA1CA16CD8003B3B83 /* erMediaRenderer.cpp */; };
 		B48604EE1C9B90F600629452 /* erPlayParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DA1C9B90F600629452 /* erPlayParams.cpp */; };
 		B48604EF1C9B90F600629452 /* erSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DC1C9B90F600629452 /* erSequencer.cpp */; };
@@ -58,8 +58,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B47EF6B81CA16CD8003B3B83 /* erMedia.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMedia.cpp; sourceTree = "<group>"; };
-		B47EF6B91CA16CD8003B3B83 /* erMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMedia.h; sourceTree = "<group>"; };
+		B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaLoader.cpp; sourceTree = "<group>"; };
+		B47EF6B91CA16CD8003B3B83 /* erMediaLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaLoader.h; sourceTree = "<group>"; };
 		B47EF6BA1CA16CD8003B3B83 /* erMediaRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaRenderer.cpp; sourceTree = "<group>"; };
 		B47EF6BB1CA16CD8003B3B83 /* erMediaRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaRenderer.h; sourceTree = "<group>"; };
 		B48604DA1C9B90F600629452 /* erPlayParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erPlayParams.cpp; sourceTree = "<group>"; };
@@ -131,8 +131,8 @@
 		B48604D71C9B90F600629452 /* media */ = {
 			isa = PBXGroup;
 			children = (
-				B47EF6B81CA16CD8003B3B83 /* erMedia.cpp */,
-				B47EF6B91CA16CD8003B3B83 /* erMedia.h */,
+				B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */,
+				B47EF6B91CA16CD8003B3B83 /* erMediaLoader.h */,
 				B47EF6BA1CA16CD8003B3B83 /* erMediaRenderer.cpp */,
 				B47EF6BB1CA16CD8003B3B83 /* erMediaRenderer.h */,
 				B48604DA1C9B90F600629452 /* erPlayParams.cpp */,
@@ -408,7 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B47EF6BC1CA16CD8003B3B83 /* erMedia.cpp in Sources */,
+				B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */,
 				B48605031C9B911800629452 /* ofxNetworkSyncServer.cpp in Sources */,
 				B48605151C9B911F00629452 /* ofxTCPManager.cpp in Sources */,
 				B48605021C9B911800629452 /* ofxNetworkSyncClientState.cpp in Sources */,
