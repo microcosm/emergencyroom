@@ -21,13 +21,13 @@ public:
     virtual void update(ofEventArgs& args);
     void loadLiveMedia();
     void loadPreviewMedia();
-    bool hasMissingVideos();
+    bool hasErrors();
 
     erSyncedSoundPlayer testSoundPlayer;
     erSyncedVideoPlayer testVideoPlayer;
 
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
-    vector<string> allVideos, videoCollections, missingVideos;
+    vector<string> allVideos, videoCollections, missingVideos, spacedPathVideos;
     map<string,vector<string>> collectionsToVideos;
 protected:
     void ensureMediaSymlinkExists();

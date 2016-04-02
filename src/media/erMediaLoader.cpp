@@ -26,8 +26,8 @@ void erMediaLoader::loadPreviewMedia(){
     loadMedia();
 }
 
-bool erMediaLoader::hasMissingVideos(){
-    return missingVideos.size() > 0;
+bool erMediaLoader::hasErrors(){
+    return missingVideos.size() > 0 || spacedPathVideos.size() > 0;
 }
 
 void erMediaLoader::ensureMediaSymlinkExists(){
@@ -57,6 +57,9 @@ void erMediaLoader::validateCollectionDir(string path){
 
 void erMediaLoader::validateVideo(const ofFile video){
     path = video.getAbsolutePath();
+    if(path.find(" ") != -1){
+        spacedPathVideos.push_back(getRelativePath(video));
+    }
     ofStringReplace(path, ER_PREVIEW_DIR, ER_LIVE_DIR);
     ofFile livePath(path);
     if(!livePath.exists()){

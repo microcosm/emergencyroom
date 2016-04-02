@@ -21,5 +21,5 @@ protected:
     erSequencer sequencer;
     erPlayParams params;
     bool test = false;
-    bool missingVideos = false;
+    bool hasMediaErrors = false;
 };
