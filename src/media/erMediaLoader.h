@@ -43,6 +43,7 @@ protected:
     ofDirectory& loadCollectionDir(string path);
     string getRelativePath(const ofFile file);
     string getCollectionName(const ofDirectory directory);
+    int getVolume(string path);
 
     ofDirectory productionDir, collectionDir;
     string path, collection;
