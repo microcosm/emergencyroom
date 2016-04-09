@@ -47,7 +47,7 @@ string erSequencer::chooseVideo(){
     string path;
     do{
         path = chooseRandom(isAudioPlaying() ? &mediaLoader->silentVideos : &mediaLoader->audibleVideos);
-    }while(mediaLoader->videoPlayers[path]->isPlaying());
+    }while(mediaLoader->videoPlayers[path]->isOrWillBePlaying());
     return path;
 }
 
