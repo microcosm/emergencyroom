@@ -99,6 +99,8 @@ void erMediaLoader::eraseMedia(){
     audibleVideos.clear();
     silentVideos.clear();
     videoCollections.clear();
+    missingVideos.clear();
+    spacedPathVideos.clear();
     collectionsToVideos.clear();
     videoPlayers.clear();
 }
