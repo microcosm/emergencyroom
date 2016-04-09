@@ -53,7 +53,7 @@ string erSequencer::chooseRandom(vector<string>* videos){
 
 bool erSequencer::isAudioPlaying(){
     for(auto const& path : mediaLoader->audibleVideos){
-        if(mediaLoader->videoPlayers[path]->isPlaying()){
+        if(mediaLoader->videoPlayers[path]->isOrWillBePlaying()){
             return true;
         }
     }
