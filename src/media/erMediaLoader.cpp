@@ -40,6 +40,14 @@ void erMediaLoader::loadLiveMedia(){
 void erMediaLoader::loadPreviewMedia(){
     productionDir = ofDirectory(ER_PREVIEW_MEDIA_PATH);
     loadMedia();
+    cout << "AUDIBLE" << endl;
+    for(auto const& i : audibleVideoIndices){
+        cout << i << ": " << allVideos[i] << endl;
+    }
+    cout << "SILENT" << endl;
+    for(auto const& i : silentVideoIndices){
+        cout << i << ": " << allVideos[i] << endl;
+    }
 }
 
 bool erMediaLoader::hasErrors(){
@@ -124,12 +132,18 @@ void erMediaLoader::loadDirectory(string path){
 
 void erMediaLoader::registerVideo(string& collection, const ofFile video){
     path = getRelativePath(video);
+    int volume = getVolume(path);
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
     videoPlayers[path]->load(video.getAbsolutePath());
-    videoPlayers[path]->setVolume(getVolume(path));
+    videoPlayers[path]->setVolume(volume);
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
     collectionsToVideos[collection].push_back(path);
     allVideos.push_back(path);
+    if(volume == 0){
+        silentVideoIndices.push_back(allVideos.size() - 1);
+    }else{
+        audibleVideoIndices.push_back(allVideos.size() - 1);
+    }
 }
 
 void erMediaLoader::registerCollection(string& collection){
