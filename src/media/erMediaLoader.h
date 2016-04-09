@@ -19,6 +19,7 @@ class erMediaLoader{
 public:
     void setup(erNetwork* _network);
     virtual void update(ofEventArgs& args);
+    void drawErrors();
     void loadLiveMedia();
     void loadPreviewMedia();
     bool hasErrors();
@@ -31,6 +32,7 @@ public:
     map<string,vector<string>> collectionsToVideos;
 protected:
     void ensureMediaSymlinkExists();
+    void discoverErrors();
     void validateMedia();
     void validateCollectionDir(string path);
     void validateVideo(const ofFile video);
@@ -48,4 +50,5 @@ protected:
     ofDirectory productionDir, collectionDir;
     string path, collection;
     erNetwork* network;
+    bool hasMediaErrors;
 };

@@ -4,7 +4,6 @@ void ofApp::setup(){
     ofSetWindowShape(420, 300);
 
     mediaLoader.setup(&network);
-    hasMediaErrors = mediaLoader.hasErrors();
     renderer.setup(&network, NUM_CHANNELS);
     renderer.setTestSoundPlayer(&mediaLoader.testSoundPlayer);
     renderer.setTestVideoPlayer(&mediaLoader.testVideoPlayer);
@@ -25,19 +24,8 @@ void ofApp::update(){
 }
 
 void ofApp::draw(ofEventArgs& args){
-    if(hasMediaErrors){
-        ofSetColor(ofColor::black);
-        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
-        ofSetColor(ofColor::white);
-        int i = 1;
-        ofDrawBitmapString("Has spaces in filename", 20, 30);
-        for(const auto video : mediaLoader.spacedPathVideos){
-            ofDrawBitmapString(video, 20, 30 + 20 * i++);
-        }
-        ofDrawBitmapString("Missing from live folder", 20, 60 + 20 * i++);
-        for(const auto video : mediaLoader.missingVideos){
-            ofDrawBitmapString(video, 20, 60 + 20 * i++);
-        }
+    if(mediaLoader.hasErrors()){
+        mediaLoader.drawErrors();
     }
 }
 

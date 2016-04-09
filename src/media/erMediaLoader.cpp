@@ -5,6 +5,7 @@ void erMediaLoader::setup(erNetwork* _network){
     ensureMediaSymlinkExists();
     loadTestMedia();
     validateMedia();
+    discoverErrors();
     ofAddListener(ofEvents().update, this, &erMediaLoader::update);
 }
 
@@ -13,6 +14,21 @@ void erMediaLoader::update(ofEventArgs& args){
         loadLiveMedia();
     }else if(network->justBecameServer()){
         loadPreviewMedia();
+    }
+}
+
+void erMediaLoader::drawErrors(){
+    ofSetColor(ofColor::black);
+    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+    ofSetColor(ofColor::white);
+    int i = 1;
+    ofDrawBitmapString("Has spaces in filename", 20, 30);
+    for(const auto video : spacedPathVideos){
+        ofDrawBitmapString(video, 20, 30 + 20 * i++);
+    }
+    ofDrawBitmapString("Missing from live folder", 20, 60 + 20 * i++);
+    for(const auto video : missingVideos){
+        ofDrawBitmapString(video, 20, 60 + 20 * i++);
     }
 }
 
@@ -27,13 +43,17 @@ void erMediaLoader::loadPreviewMedia(){
 }
 
 bool erMediaLoader::hasErrors(){
-    return missingVideos.size() > 0 || spacedPathVideos.size() > 0;
+    return hasMediaErrors;
 }
 
 void erMediaLoader::ensureMediaSymlinkExists(){
     if(!ofFile::doesFileExist("dropbox")){
         ofSystem("ln -s ~/Dropbox/ ../../../data/dropbox");
     }
+}
+
+void erMediaLoader::discoverErrors(){
+    hasMediaErrors = missingVideos.size() > 0 || spacedPathVideos.size() > 0;
 }
 
 void erMediaLoader::validateMedia(){
