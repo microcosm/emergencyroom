@@ -28,12 +28,18 @@ void erSequencer::messageReceived(string& message){
 }
 
 void erSequencer::playNewVideo(){
-    params.newVideoCommand();
-    params.setPath(chooseVideo());
-    params.setSpeed(1);
-    network->target(currentChannel, params);
-    renderer->preview(currentChannel, params);
-    erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
+    cout << "current channel " << currentChannel;
+    if(!renderer->isChannelPlaying(currentChannel)){
+        cout << " not currently playing" << endl;
+        params.newVideoCommand();
+        params.setPath(chooseVideo());
+        params.setSpeed(1);
+        network->target(currentChannel, params);
+        renderer->preview(currentChannel, params);
+        erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
+    }else{
+        cout << " IS playing" << endl;
+    }
     incrementCurrentChannel();
 }
 
@@ -60,9 +66,10 @@ bool erSequencer::isAudioPlaying(){
     return false;
 }
 
-void erSequencer::incrementCurrentChannel(){
+int erSequencer::incrementCurrentChannel(){
     currentChannel++;
     if(currentChannel > numChannels){
         currentChannel = 1;
     }
+    return currentChannel;
 }

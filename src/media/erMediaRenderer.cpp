@@ -38,6 +38,10 @@ void erMediaRenderer::preview(int channel, erPlayParams params){
     channelsToPlayers[channel] = videoPlayers->at(params.getPath());
 }
 
+bool erMediaRenderer::isChannelPlaying(int channel){
+    return hasChannel(channel) && channelsToPlayers[channel].get()->isOrWillBePlaying();
+}
+
 void erMediaRenderer::setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer){
     testSoundPlayer = _testSoundPlayer;
 }
@@ -53,6 +57,10 @@ void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _
 void erMediaRenderer::calculatePreviewSize(){
     previewWidth = (ofGetWidth() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
     previewHeight = (ofGetHeight() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
+}
+
+bool erMediaRenderer::hasChannel(int channel){
+    return channelsToPlayers.count(channel) == 1;
 }
 
 void erMediaRenderer::drawClient(){
@@ -74,7 +82,7 @@ void erMediaRenderer::drawServer(){
         for(int yi = 0; yi < 3; yi++){
             x = getX(xi);
             y = getY(yi);
-            if(channelsToPlayers.count(currentChannel) == 1) {
+            if(hasChannel(currentChannel)) {
                 drawVideo(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight);
             }
             drawPreviewBorder(x, y, currentChannel);

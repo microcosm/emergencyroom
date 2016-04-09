@@ -15,6 +15,7 @@ public:
     virtual void draw(ofEventArgs& args);
     void play(erPlayParams params);
     void preview(int channel, erPlayParams params);
+    bool isChannelPlaying(int channel);
 
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
@@ -22,6 +23,7 @@ public:
 
 protected:
     void calculatePreviewSize();
+    bool hasChannel(int channel);
     void drawClient();
     void drawServer();
     void drawVideo(erSyncedVideoPlayer* player, int x, int y, int width, int height);
