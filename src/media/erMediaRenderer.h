@@ -35,6 +35,7 @@ protected:
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     map<int, ofPtr<erSyncedVideoPlayer>> channelsToPlayers;
+    vector<int> toErase;
 
     int numChannels, previewWidth, previewHeight, x, y, currentChannel;
     string currentChannelStr;

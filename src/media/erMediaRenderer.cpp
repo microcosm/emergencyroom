@@ -14,6 +14,17 @@ void erMediaRenderer::update(ofEventArgs& args){
     for(auto const& player : *videoPlayers){
         player.second->update();
     }
+
+    toErase.clear();
+    for(auto const& channelToPlayer : channelsToPlayers){
+        if(!channelToPlayer.second.get()->isOrWillBePlaying()){
+            toErase.push_back(channelToPlayer.first);
+        }
+    }
+
+    for(auto const& i : toErase){
+        channelsToPlayers.erase(channelsToPlayers.find(i));
+    }
 }
 
 void erMediaRenderer::draw(ofEventArgs& args){
