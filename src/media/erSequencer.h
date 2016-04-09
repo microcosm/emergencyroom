@@ -17,7 +17,8 @@ public:
 protected:
     void playNewVideo();
     string chooseVideo();
-    int getRandomVideoIndex();
+    string chooseRandom(vector<string>* videos);
+    bool isAudioPlaying();
     void incrementCurrentChannel();
     erNetwork* network;
     erTranslater* translater;

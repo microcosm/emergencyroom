@@ -28,9 +28,8 @@ public:
     erSyncedVideoPlayer testVideoPlayer;
 
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
-    vector<string> allVideos, videoCollections, missingVideos, spacedPathVideos;
+    vector<string> audibleVideos, silentVideos, videoCollections, missingVideos, spacedPathVideos;
     map<string,vector<string>> collectionsToVideos;
-    vector<int> audibleVideoIndices, silentVideoIndices;
 protected:
     void ensureMediaSymlinkExists();
     void discoverErrors();

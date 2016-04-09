@@ -38,19 +38,26 @@ void erSequencer::playNewVideo(){
 }
 
 string erSequencer::chooseVideo(){
-    int index;
     string path;
     do{
-        index = getRandomVideoIndex();
-        path = mediaLoader->allVideos.at(index);
+        path = chooseRandom(isAudioPlaying() ? &mediaLoader->silentVideos : &mediaLoader->audibleVideos);
     }while(mediaLoader->videoPlayers[path]->isPlaying());
     return path;
 }
 
-int erSequencer::getRandomVideoIndex(){
-    int index = (int)floor(ofRandom(mediaLoader->allVideos.size()));
-    index = index == mediaLoader->allVideos.size() ? index - 1 : index;
-    return index;
+string erSequencer::chooseRandom(vector<string>* videos){
+    int index = (int)floor(ofRandom(videos->size()));
+    index = index == videos->size() ? index - 1 : index;
+    return videos->at(index);
+}
+
+bool erSequencer::isAudioPlaying(){
+    for(auto const& path : mediaLoader->audibleVideos){
+        if(mediaLoader->videoPlayers[path]->isPlaying()){
+            return true;
+        }
+    }
+    return false;
 }
 
 void erSequencer::incrementCurrentChannel(){
