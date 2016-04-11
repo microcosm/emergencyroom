@@ -1,24 +1,27 @@
 #pragma once
 #include "ofMain.h"
-#include "erMediaLoader.h"
-#include "erChannelRenderer.h"
-#include "erNetwork.h"
+#include "erSyncedSoundPlayer.h"
+#include "erSyncedVideoPlayer.h"
+#include "ofxEasyFboGlitch.h"
 
-class erMediaPlayer{
+class erMediaRenderer{
 
 public:
-    void setup(erNetwork* network);
-    void play(erPlayParams params);
-    void preview(int channel, erPlayParams params);
-    bool isChannelPlaying(int channel);
+    void setup();
+    virtual void update(ofEventArgs& args);
 
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
 
+    void drawVideo(erSyncedVideoPlayer* player, int x, int y, int width, int height);
+    void drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height);
+
 protected:
-    erChannelRenderer channelRenderer;
     erSyncedSoundPlayer* testSoundPlayer;
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
+
+    ofFbo fbo;
+    ofxEasyFboGlitch fboGlitch;
 };

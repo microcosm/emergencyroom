@@ -3,14 +3,14 @@
 void ofApp::setup(){
     ofSetWindowShape(420, 300);
 
-    mediaLoader.setup(&network);
-    mediaLoader.setMasterVolume(0);
-    renderer.setup(&network, NUM_CHANNELS);
-    renderer.setTestSoundPlayer(&mediaLoader.testSoundPlayer);
-    renderer.setTestVideoPlayer(&mediaLoader.testVideoPlayer);
-    renderer.setVideoPlayers(&mediaLoader.videoPlayers);
+    loader.setup(&network);
+    loader.setMasterVolume(0);
+    player.setup(&network);
+    player.setTestSoundPlayer(&loader.testSoundPlayer);
+    player.setTestVideoPlayer(&loader.testVideoPlayer);
+    player.setVideoPlayers(&loader.videoPlayers);
     network.setup(NUM_CHANNELS);
-    sequencer.setup(&network, &mediaLoader, &renderer);
+    sequencer.setup(&network, &loader, &player);
 
     network.toggleDrawing();
     ofAddListener(ofEvents().draw, this, &ofApp::draw);
@@ -25,8 +25,8 @@ void ofApp::update(){
 }
 
 void ofApp::draw(ofEventArgs& args){
-    if(mediaLoader.hasErrors()){
-        mediaLoader.drawErrors();
+    if(loader.hasErrors()){
+        loader.drawErrors();
     }
 }
 
@@ -35,14 +35,14 @@ void ofApp::keyReleased(int key){
         if(key == 't'){
             params.newTestCommand();
             network.flood(params);
-            renderer.play(params);
+            player.play(params);
         }
         if(key == '1'){
             params.newVideoCommand();
             params.setPath("green/anti-fingers.mov");
             params.setSpeed(0.5);
             network.target(1, params);
-            renderer.play(params);
+            player.play(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
         if(key == '2'){
@@ -50,14 +50,14 @@ void ofApp::keyReleased(int key){
             params.setPath("purple/flip-fingers.mov");
             params.setSpeed(2);
             network.target(2, params);
-            renderer.play(params);
+            player.play(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
         if(key == '9'){
             params.newGraphicCommand();
             params.setPath("test");
             network.target(1, params);
-            renderer.play(params);
+            player.play(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
     }else{

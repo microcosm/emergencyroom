@@ -1,9 +1,9 @@
 #include "erSequencer.h"
 
-void erSequencer::setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaPlayer* _renderer){
+void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlayer* _player){
     network = _network;
-    mediaLoader = _mediaLoader;
-    renderer = _renderer;
+    loader = _loader;
+    player = _player;
 
     currentChannel = 1;
     numChannels = network->getNumChannels();
@@ -23,17 +23,17 @@ void erSequencer::messageReceived(string& message){
     erLog("erSequencer::messageReceived(string& message)", message);
     params = translater->toParams(message);
     if(params.isPlayable()){
-        renderer->play(params);
+        player->play(params);
     }
 }
 
 void erSequencer::playNewVideo(){
-    if(!renderer->isChannelPlaying(currentChannel)){
+    if(!player->isChannelPlaying(currentChannel)){
         params.newVideoCommand();
         params.setPath(chooseVideo());
         params.setSpeed(1);
         network->target(currentChannel, params);
-        renderer->preview(currentChannel, params);
+        player->preview(currentChannel, params);
         erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
     }
     incrementCurrentChannel();
@@ -42,8 +42,8 @@ void erSequencer::playNewVideo(){
 string erSequencer::chooseVideo(){
     string path;
     do{
-        path = chooseRandom(isAudioPlaying() ? &mediaLoader->silentVideos : &mediaLoader->audibleVideos);
-    }while(mediaLoader->videoPlayers[path]->isOrWillBePlaying());
+        path = chooseRandom(isAudioPlaying() ? &loader->silentVideos : &loader->audibleVideos);
+    }while(loader->videoPlayers[path]->isOrWillBePlaying());
     return path;
 }
 
@@ -54,8 +54,8 @@ string erSequencer::chooseRandom(vector<string>* videos){
 }
 
 bool erSequencer::isAudioPlaying(){
-    for(auto const& path : mediaLoader->audibleVideos){
-        if(mediaLoader->videoPlayers[path]->isOrWillBePlaying()){
+    for(auto const& path : loader->audibleVideos){
+        if(loader->videoPlayers[path]->isOrWillBePlaying()){
             return true;
         }
     }

@@ -15,10 +15,9 @@ public:
     void keyReleased(int key);
 
 protected:
-    erMediaLoader mediaLoader;
-    erMediaPlayer renderer;
+    erMediaLoader loader;
+    erMediaPlayer player;
     erNetwork network;
     erSequencer sequencer;
     erPlayParams params;
-    bool test = false;
 };
