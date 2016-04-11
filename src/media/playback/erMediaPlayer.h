@@ -25,4 +25,6 @@ protected:
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     ofPtr<erSyncedVideoPlayer> videoPlayer;
+    unsigned long long from;
+    float duration;
 };

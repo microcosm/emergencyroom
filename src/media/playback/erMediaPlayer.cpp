@@ -39,9 +39,14 @@ void erMediaPlayer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _vi
 
 void erMediaPlayer::playWithGlitch(erPlayParams params){
     videoPlayer = videoPlayers->at(params.getPath());
-    channelRenderer.newGlitchPeriod(
-        ofGetElapsedTimeMillis() + (long long)ofRandom(params.getDelay()),
-        params.getDelay());
+
+    from = ofGetElapsedTimeMillis() + (params.getDelay() * 0.5);
+    duration = params.getDelay();
+    channelRenderer.newOpeningGlitchPeriod(from, duration);
+
+    from += videoPlayer->getDuration() * 1000;
+    channelRenderer.newClosingGlitchPeriod(from, duration);
+
     videoPlayer->execute(params);
 }
 

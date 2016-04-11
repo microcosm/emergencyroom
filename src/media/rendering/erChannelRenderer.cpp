@@ -35,8 +35,12 @@ void erChannelRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>*
     mediaRenderer.setVideoPlayers(videoPlayers);
 }
 
-void erChannelRenderer::newGlitchPeriod(unsigned long long from, float duration){
-    mediaRenderer.newGlitchPeriod(from, duration);
+void erChannelRenderer::newOpeningGlitchPeriod(unsigned long long from, float duration){
+    mediaRenderer.newOpeningGlitchPeriod(from, duration);
+}
+
+void erChannelRenderer::newClosingGlitchPeriod(unsigned long long from, float duration){
+    mediaRenderer.newClosingGlitchPeriod(from, duration);
 }
 
 bool erChannelRenderer::isChannelPlaying(int channel){
