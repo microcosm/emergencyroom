@@ -6,6 +6,7 @@ void erMediaLoader::setup(erNetwork* _network){
     loadTestMedia();
     validateMedia();
     discoverErrors();
+    masterVolume = 1;
     ofAddListener(ofEvents().update, this, &erMediaLoader::update);
 }
 
@@ -15,6 +16,10 @@ void erMediaLoader::update(ofEventArgs& args){
     }else if(network->justBecameServer()){
         loadPreviewMedia();
     }
+}
+
+void erMediaLoader::setMasterVolume(float _masterVolume){
+    masterVolume = _masterVolume;
 }
 
 void erMediaLoader::drawErrors(){
@@ -127,10 +132,10 @@ void erMediaLoader::loadDirectory(string path){
 
 void erMediaLoader::registerVideo(string& collection, const ofFile video){
     path = getRelativePath(video);
-    int volume = getVolume(path);
+    volume = getVolume(path);
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
     videoPlayers[path]->load(video.getAbsolutePath());
-    videoPlayers[path]->setVolume(volume);
+    videoPlayers[path]->setVolume(volume * masterVolume);
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
     collectionsToVideos[collection].push_back(path);
     volume == 0 ? silentVideos.push_back(path) : audibleVideos.push_back(path);
@@ -160,6 +165,6 @@ string erMediaLoader::getCollectionName(const ofDirectory directory){
     return components.at(components.size() - 1);
 }
 
-int erMediaLoader::getVolume(string path){
+float erMediaLoader::getVolume(string path){
     return path.find("(s)") == -1 ? 0 : 1;
 }

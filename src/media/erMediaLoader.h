@@ -19,6 +19,7 @@ class erMediaLoader{
 public:
     void setup(erNetwork* _network);
     virtual void update(ofEventArgs& args);
+    void setMasterVolume(float _masterVolume);
     void drawErrors();
     void loadLiveMedia();
     void loadPreviewMedia();
@@ -45,10 +46,11 @@ protected:
     ofDirectory& loadCollectionDir(string path);
     string getRelativePath(const ofFile file);
     string getCollectionName(const ofDirectory directory);
-    int getVolume(string path);
+    float getVolume(string path);
 
     ofDirectory productionDir, collectionDir;
     string path, collection;
     erNetwork* network;
     bool hasMediaErrors;
+    float volume, masterVolume;
 };

@@ -4,6 +4,7 @@ void ofApp::setup(){
     ofSetWindowShape(420, 300);
 
     mediaLoader.setup(&network);
+    mediaLoader.setMasterVolume(0);
     renderer.setup(&network, NUM_CHANNELS);
     renderer.setTestSoundPlayer(&mediaLoader.testSoundPlayer);
     renderer.setTestVideoPlayer(&mediaLoader.testVideoPlayer);
