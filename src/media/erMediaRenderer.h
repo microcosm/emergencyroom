@@ -4,6 +4,7 @@
 #include "erNetwork.h"
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
+#include "ofxEasyFboGlitch.h"
 #define SCREEN_MARGIN 10
 #define DOUBLE_SCREEN_MARGIN 20
 
@@ -27,6 +28,7 @@ protected:
     void drawClient();
     void drawServer();
     void drawVideo(erSyncedVideoPlayer* player, int x, int y, int width, int height);
+    void drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height);
     void drawPreviewBorder(int xi, int yi, int currentChannel);
     int getX(int xi);
     int getY(int yi);
@@ -39,4 +41,7 @@ protected:
 
     int numChannels, previewWidth, previewHeight, x, y, currentChannel;
     string currentChannelStr;
+
+    ofFbo fbo;
+    ofxEasyFboGlitch fboGlitch;
 };

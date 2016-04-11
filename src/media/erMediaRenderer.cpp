@@ -4,6 +4,8 @@ void erMediaRenderer::setup(erNetwork* _network, int _numChannels){
     network = _network;
     numChannels = _numChannels;
 
+    fbo.allocate(ofGetWidth(), ofGetHeight());
+    fboGlitch.allocate(ofGetWidth(), ofGetHeight());
     calculatePreviewSize();
     ofAddListener(ofEvents().update, this, &erMediaRenderer::update);
     ofAddListener(ofEvents().draw, this, &erMediaRenderer::draw);
@@ -78,7 +80,7 @@ void erMediaRenderer::drawClient(){
     ofClear(ofColor::black);
     drawVideo(testVideoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
     for(auto const& player : *videoPlayers){
-        drawVideo(player.second.get(), 0, 0, ofGetWidth(), ofGetHeight());
+        drawGlitched(player.second.get(), 0, 0, ofGetWidth(), ofGetHeight());
     }
 }
 
@@ -107,6 +109,18 @@ void erMediaRenderer::drawServer(){
 void erMediaRenderer::drawVideo(erSyncedVideoPlayer* player, int x, int y, int width, int height){
     if(player->isPlaying()){
         player->draw(x, y, width, height);
+    }
+}
+
+void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height){
+    if(player->isPlaying()){
+        fbo.begin();
+        {
+            player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+        }
+        fbo.end();
+
+        fboGlitch.draw(fbo, x, y, ofGetWidth(), ofGetHeight());
     }
 }
 
