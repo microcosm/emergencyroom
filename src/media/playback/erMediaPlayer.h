@@ -26,6 +26,7 @@ public:
 protected:
     void calculatePreviewSize();
     bool hasChannel(int channel);
+    void eraseCompletedVideosFromChannels();
     void drawClient();
     void drawServer();
     void drawPreviewBorder(int xi, int yi, int currentChannel);

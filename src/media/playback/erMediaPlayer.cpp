@@ -15,16 +15,7 @@ void erMediaPlayer::update(ofEventArgs& args){
         player.second->update();
     }
 
-    toErase.clear();
-    for(auto const& channelToPlayer : channelsToPlayers){
-        if(!channelToPlayer.second.get()->isOrWillBePlaying()){
-            toErase.push_back(channelToPlayer.first);
-        }
-    }
-
-    for(auto const& i : toErase){
-        channelsToPlayers.erase(channelsToPlayers.find(i));
-    }
+    eraseCompletedVideosFromChannels();
 }
 
 void erMediaPlayer::draw(ofEventArgs& args){
@@ -72,6 +63,19 @@ void erMediaPlayer::calculatePreviewSize(){
 
 bool erMediaPlayer::hasChannel(int channel){
     return channelsToPlayers.count(channel) == 1;
+}
+
+void erMediaPlayer::eraseCompletedVideosFromChannels(){
+    toErase.clear();
+    for(auto const& channelToPlayer : channelsToPlayers){
+        if(!channelToPlayer.second.get()->isOrWillBePlaying()){
+            toErase.push_back(channelToPlayer.first);
+        }
+    }
+    
+    for(auto const& i : toErase){
+        channelsToPlayers.erase(channelsToPlayers.find(i));
+    }
 }
 
 void erMediaPlayer::drawClient(){
