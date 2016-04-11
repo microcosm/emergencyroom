@@ -13,7 +13,8 @@ public:
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
-
+    
+    void newGlitchPeriod(unsigned long long from, float duration);
     void drawVideo(erSyncedVideoPlayer* player, int x, int y, int width, int height);
     void drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height);
 
@@ -24,4 +25,5 @@ protected:
 
     ofFbo fbo;
     ofxEasyFboGlitch fboGlitch;
+    int64_t glitchStart, glitchEnd;
 };

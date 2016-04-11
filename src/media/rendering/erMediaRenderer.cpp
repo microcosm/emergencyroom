@@ -1,6 +1,7 @@
 #include "erMediaRenderer.h"
 
 void erMediaRenderer::setup(){
+    glitchStart = glitchEnd = 0;
     ofAddListener(ofEvents().update, this, &erMediaRenderer::update);
 }
 
@@ -23,7 +24,16 @@ void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _
     videoPlayers = _videoPlayers;
 }
 
+void erMediaRenderer::newGlitchPeriod(unsigned long long from, float duration){
+    glitchStart = from;
+    glitchEnd = glitchStart + duration;
+}
+
 void erMediaRenderer::drawVideo(erSyncedVideoPlayer* player, int x, int y, int width, int height){
+    if(ofGetElapsedTimeMillis() > glitchStart && ofGetElapsedTimeMillis() < glitchEnd){
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString("GLITCHING NOW", 10, 10);
+    }
     if(player->isPlaying()){
         player->draw(x, y, width, height);
     }

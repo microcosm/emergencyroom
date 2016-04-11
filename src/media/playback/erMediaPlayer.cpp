@@ -4,9 +4,9 @@ void erMediaPlayer::setup(erNetwork* network){
     channelRenderer.setup(network);
 }
 
-void erMediaPlayer::play(erPlayParams params){
+void erMediaPlayer::play(erPlayParams params, bool glitch){
     if(params.isVideoCommand()){
-        videoPlayers->at(params.getPath())->execute(params);
+        glitch ? playWithGlitch(params) : playWithoutGlitch(params);
     }else if(params.isTestCommand()){
         testSoundPlayer->execute(params);
         testVideoPlayer->execute(params);
@@ -14,7 +14,7 @@ void erMediaPlayer::play(erPlayParams params){
 }
 
 void erMediaPlayer::preview(int channel, erPlayParams params){
-    play(params);
+    play(params, false);
     channelRenderer.assign(channel, params);
 }
 
@@ -35,4 +35,16 @@ void erMediaPlayer::setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer){
 void erMediaPlayer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){
     videoPlayers = _videoPlayers;
     channelRenderer.setVideoPlayers(videoPlayers);
+}
+
+void erMediaPlayer::playWithGlitch(erPlayParams params){
+    videoPlayer = videoPlayers->at(params.getPath());
+    channelRenderer.newGlitchPeriod(
+        ofGetElapsedTimeMillis() + (long long)ofRandom(params.getDelay()),
+        params.getDelay());
+    videoPlayer->execute(params);
+}
+
+void erMediaPlayer::playWithoutGlitch(erPlayParams params){
+    videoPlayers->at(params.getPath())->execute(params);
 }
