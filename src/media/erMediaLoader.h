@@ -3,7 +3,7 @@
 #include "erNetwork.h"
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
-#include "erMediaRenderer.h"
+#include "erMediaPlayer.h"
 
 #define ER_TEST_SOUND "test/audio.mp3"
 #define ER_TEST_VIDEO "test/fingers.mov"

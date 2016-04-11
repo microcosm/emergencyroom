@@ -10,7 +10,7 @@
 class erSequencer{
 
 public:
-    void setup(erNetwork* _network, erMediaLoader* _media, erMediaRenderer* _renderer);
+    void setup(erNetwork* _network, erMediaLoader* _media, erMediaPlayer* _renderer);
     virtual void update(ofEventArgs& updateArgs);
     void messageReceived(string& messageStr);
 protected:
@@ -22,7 +22,7 @@ protected:
     erNetwork* network;
     erTranslater* translater;
     erMediaLoader* mediaLoader;
-    erMediaRenderer* renderer;
+    erMediaPlayer* renderer;
     erPlayParams params;
     int currentChannel, numChannels;
     float speed;

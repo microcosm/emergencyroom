@@ -1,6 +1,6 @@
 #include "erSequencer.h"
 
-void erSequencer::setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaRenderer* _renderer){
+void erSequencer::setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaPlayer* _renderer){
     network = _network;
     mediaLoader = _mediaLoader;
     renderer = _renderer;

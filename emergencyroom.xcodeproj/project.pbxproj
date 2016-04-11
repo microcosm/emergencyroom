@@ -10,8 +10,6 @@
 		B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */; };
 		B45DF9C31CB9D719004F0AD3 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */; };
 		B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */; };
-		B47EF6BD1CA16CD8003B3B83 /* erMediaRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6BA1CA16CD8003B3B83 /* erMediaRenderer.cpp */; };
-		B48604EE1C9B90F600629452 /* erPlayParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DA1C9B90F600629452 /* erPlayParams.cpp */; };
 		B48604EF1C9B90F600629452 /* erSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DC1C9B90F600629452 /* erSequencer.cpp */; };
 		B48604F01C9B90F600629452 /* erSeaLevelViz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604E31C9B90F600629452 /* erSeaLevelViz.cpp */; };
 		B48604F11C9B90F600629452 /* erNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604E61C9B90F600629452 /* erNetwork.cpp */; };
@@ -25,6 +23,9 @@
 		B48605151C9B911F00629452 /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B486050E1C9B911F00629452 /* ofxTCPManager.cpp */; };
 		B48605161C9B911F00629452 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48605101C9B911F00629452 /* ofxTCPServer.cpp */; };
 		B48605171C9B911F00629452 /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48605121C9B911F00629452 /* ofxUDPManager.cpp */; };
+		B4B354281CBC3DFF00B8883B /* erMediaPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4B354241CBC3DFF00B8883B /* erMediaPlayer.cpp */; };
+		B4B354291CBC3DFF00B8883B /* erPlayParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4B354261CBC3DFF00B8883B /* erPlayParams.cpp */; };
+		B4B3542C1CBC3E4B00B8883B /* erMediaRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4B3542A1CBC3E4B00B8883B /* erMediaRenderer.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
@@ -66,10 +67,6 @@
 		B45DF9C21CB9D719004F0AD3 /* ofxFastFboReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFastFboReader.h; sourceTree = "<group>"; };
 		B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaLoader.cpp; sourceTree = "<group>"; };
 		B47EF6B91CA16CD8003B3B83 /* erMediaLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaLoader.h; sourceTree = "<group>"; };
-		B47EF6BA1CA16CD8003B3B83 /* erMediaRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaRenderer.cpp; sourceTree = "<group>"; };
-		B47EF6BB1CA16CD8003B3B83 /* erMediaRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaRenderer.h; sourceTree = "<group>"; };
-		B48604DA1C9B90F600629452 /* erPlayParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erPlayParams.cpp; sourceTree = "<group>"; };
-		B48604DB1C9B90F600629452 /* erPlayParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erPlayParams.h; sourceTree = "<group>"; };
 		B48604DC1C9B90F600629452 /* erSequencer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSequencer.cpp; sourceTree = "<group>"; };
 		B48604DD1C9B90F600629452 /* erSequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSequencer.h; sourceTree = "<group>"; };
 		B48604DF1C9B90F600629452 /* erSyncedMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedMediaPlayer.h; sourceTree = "<group>"; };
@@ -105,6 +102,12 @@
 		B48605111C9B911F00629452 /* ofxTCPServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxTCPServer.h; sourceTree = "<group>"; };
 		B48605121C9B911F00629452 /* ofxUDPManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxUDPManager.cpp; sourceTree = "<group>"; };
 		B48605131C9B911F00629452 /* ofxUDPManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxUDPManager.h; sourceTree = "<group>"; };
+		B4B354241CBC3DFF00B8883B /* erMediaPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaPlayer.cpp; sourceTree = "<group>"; };
+		B4B354251CBC3DFF00B8883B /* erMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaPlayer.h; sourceTree = "<group>"; };
+		B4B354261CBC3DFF00B8883B /* erPlayParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erPlayParams.cpp; sourceTree = "<group>"; };
+		B4B354271CBC3DFF00B8883B /* erPlayParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erPlayParams.h; sourceTree = "<group>"; };
+		B4B3542A1CBC3E4B00B8883B /* erMediaRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaRenderer.cpp; sourceTree = "<group>"; };
+		B4B3542B1CBC3E4B00B8883B /* erMediaRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaRenderer.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* emergencyroomDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = emergencyroomDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -175,12 +178,9 @@
 			children = (
 				B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */,
 				B47EF6B91CA16CD8003B3B83 /* erMediaLoader.h */,
-				B47EF6BA1CA16CD8003B3B83 /* erMediaRenderer.cpp */,
-				B47EF6BB1CA16CD8003B3B83 /* erMediaRenderer.h */,
-				B48604DA1C9B90F600629452 /* erPlayParams.cpp */,
-				B48604DB1C9B90F600629452 /* erPlayParams.h */,
 				B48604DC1C9B90F600629452 /* erSequencer.cpp */,
 				B48604DD1C9B90F600629452 /* erSequencer.h */,
+				B4B354231CBC3DFF00B8883B /* playback */,
 				B48604DE1C9B90F600629452 /* video */,
 				B48604E21C9B90F600629452 /* visualizations */,
 			);
@@ -294,6 +294,19 @@
 			);
 			name = src;
 			path = ../../../addons/ofxNetwork/src;
+			sourceTree = "<group>";
+		};
+		B4B354231CBC3DFF00B8883B /* playback */ = {
+			isa = PBXGroup;
+			children = (
+				B4B354241CBC3DFF00B8883B /* erMediaPlayer.cpp */,
+				B4B354251CBC3DFF00B8883B /* erMediaPlayer.h */,
+				B4B3542A1CBC3E4B00B8883B /* erMediaRenderer.cpp */,
+				B4B3542B1CBC3E4B00B8883B /* erMediaRenderer.h */,
+				B4B354261CBC3DFF00B8883B /* erPlayParams.cpp */,
+				B4B354271CBC3DFF00B8883B /* erPlayParams.h */,
+			);
+			path = playback;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
@@ -462,15 +475,16 @@
 				B48604F31C9B90F600629452 /* erLogger.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				B48605141C9B911F00629452 /* ofxTCPClient.cpp in Sources */,
+				B4B3542C1CBC3E4B00B8883B /* erMediaRenderer.cpp in Sources */,
+				B4B354291CBC3DFF00B8883B /* erPlayParams.cpp in Sources */,
 				B48604EF1C9B90F600629452 /* erSequencer.cpp in Sources */,
-				B48604EE1C9B90F600629452 /* erPlayParams.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				B48604F01C9B90F600629452 /* erSeaLevelViz.cpp in Sources */,
 				B48605161C9B911F00629452 /* ofxTCPServer.cpp in Sources */,
+				B4B354281CBC3DFF00B8883B /* erMediaPlayer.cpp in Sources */,
 				B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */,
 				B48605011C9B911800629452 /* ofxNetworkSyncClient.cpp in Sources */,
 				B48605041C9B911800629452 /* ofxNetworkSyncUdp.cpp in Sources */,
-				B47EF6BD1CA16CD8003B3B83 /* erMediaRenderer.cpp in Sources */,
 				B48604F11C9B90F600629452 /* erNetwork.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
