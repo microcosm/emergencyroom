@@ -16,10 +16,13 @@ public:
     
     void newOpeningGlitchPeriod(unsigned long long from, float duration);
     void newClosingGlitchPeriod(unsigned long long from, float duration);
-    void drawVideo(erSyncedVideoPlayer* player, int x, int y, int width, int height);
-    void drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height);
+    void draw(erSyncedVideoPlayer* player, int x, int y, int width, int height);
 
 protected:
+    void drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height);
+    void drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height);
+    bool withinGlitchPeriod();
+
     erSyncedSoundPlayer* testSoundPlayer;
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
@@ -29,4 +32,5 @@ protected:
     int64_t openingGlitchStart, openingGlitchEnd;
     int64_t closingGlitchStart, closingGlitchEnd;
     int64_t currentTime;
+    bool withinOpeningGlitchPeriod, withinClosingGlitchPeriod;
 };

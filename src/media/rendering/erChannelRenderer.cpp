@@ -75,10 +75,10 @@ void erChannelRenderer::eraseCompletedVideosFromChannels(){
 
 void erChannelRenderer::drawClient(){
     ofClear(ofColor::black);
-    mediaRenderer.drawVideo(testVideoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
     for(auto const& player : *videoPlayers){
-        mediaRenderer.drawVideo(player.second.get(), 0, 0, ofGetWidth(), ofGetHeight());
+        mediaRenderer.draw(player.second.get(), 0, 0, ofGetWidth(), ofGetHeight());
     }
+    mediaRenderer.draw(testVideoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
 }
 
 void erChannelRenderer::drawServer(){
@@ -93,14 +93,13 @@ void erChannelRenderer::drawServer(){
             x = getX(xi);
             y = getY(yi);
             if(hasChannel(currentChannel)) {
-                mediaRenderer.drawVideo(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight);
+                mediaRenderer.draw(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight);
             }
             drawPreviewBorder(x, y, currentChannel);
             currentChannel++;
         }
     }
-    
-    mediaRenderer.drawVideo(testVideoPlayer, SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - DOUBLE_SCREEN_MARGIN, ofGetHeight() - DOUBLE_SCREEN_MARGIN);
+    mediaRenderer.draw(testVideoPlayer, SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - DOUBLE_SCREEN_MARGIN, ofGetHeight() - DOUBLE_SCREEN_MARGIN);
 }
 
 void erChannelRenderer::drawPreviewBorder(int x, int y, int channel){
