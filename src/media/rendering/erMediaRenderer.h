@@ -17,7 +17,7 @@ public:
     void newOpeningGlitchPeriod(unsigned long long from, float duration);
     void newClosingGlitchPeriod(unsigned long long from, float duration);
     void draw(erSyncedVideoPlayer* player, int x, int y, int width, int height);
-    void drawStatic();
+    void drawStatic(int x, int y, int width, int height);
 
 protected:
     void drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height);
@@ -34,4 +34,6 @@ protected:
     int64_t closingGlitchStart, closingGlitchEnd;
     int64_t currentTime;
     bool withinOpeningGlitchPeriod, withinClosingGlitchPeriod;
+    bool bufferEmpty;
+    int x, y;
 };

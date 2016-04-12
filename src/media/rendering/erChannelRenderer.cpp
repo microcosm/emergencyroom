@@ -86,7 +86,7 @@ void erChannelRenderer::drawClient(){
         }
     }
     if(!anyPlayerIsPlaying){
-        mediaRenderer.drawStatic();
+        mediaRenderer.drawStatic(0, 0, ofGetWidth(), ofGetHeight());
     }
     mediaRenderer.draw(testVideoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
 }

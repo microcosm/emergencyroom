@@ -1,6 +1,7 @@
 #include "erMediaRenderer.h"
 
 void erMediaRenderer::setup(){
+    bufferEmpty = true;
     fbo.allocate(ofGetWidth(), ofGetHeight());
     fboGlitch.allocate(ofGetWidth(), ofGetHeight());
     openingGlitchStart = openingGlitchEnd = closingGlitchStart = closingGlitchEnd = 0;
@@ -42,9 +43,22 @@ void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width,
     }
 }
 
-void erMediaRenderer::drawStatic(){
-    ofSetColor(ofColor::white);
-    ofDrawBitmapString("STATIC NOW", 10, 10);
+void erMediaRenderer::drawStatic(int x, int y, int width, int height){
+    if(bufferEmpty || ofRandom(1) < 0.05){
+        fbo.begin();
+        {
+            ofClear(ofColor::black);
+            for(int i = 0; i < 50; i++){
+                ofSetColor(ofColor::white, ofRandom(160));
+                x = ofRandomWidth();
+                y = ofRandomHeight();
+                ofDrawRectangle(x, y, ofRandom(ofGetWidth() - x), ofRandom(ofGetHeight() - y));
+            }
+        }
+        fbo.end();
+        bufferEmpty = false;
+    }
+    fboGlitch.draw(fbo, x, y, width, height);
 }
 
 void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height){
@@ -57,7 +71,7 @@ void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, in
         player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
     }
     fbo.end();
-    fboGlitch.draw(fbo, x, y, ofGetWidth(), ofGetHeight());
+    fboGlitch.draw(fbo, x, y, width, height);
 }
 
 bool erMediaRenderer::withinGlitchPeriod(){
