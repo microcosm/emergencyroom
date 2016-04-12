@@ -15,7 +15,9 @@ void erChannelRenderer::update(ofEventArgs& args){
 void erChannelRenderer::draw(ofEventArgs& args){
     if(network->isRunningServer()){
         drawServer();
-    }else{
+    }
+
+    if(network->isRunningClient()){
         drawClient();
     }
 }
@@ -75,18 +77,26 @@ void erChannelRenderer::eraseCompletedVideosFromChannels(){
 
 void erChannelRenderer::drawClient(){
     ofClear(ofColor::black);
+    anyPlayerIsPlaying = false;
     for(auto const& player : *videoPlayers){
-        mediaRenderer.draw(player.second.get(), 0, 0, ofGetWidth(), ofGetHeight());
+        videoPlayer = player.second.get();
+        if(videoPlayer->isPlaying()){
+            anyPlayerIsPlaying = true;
+            mediaRenderer.draw(videoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
+        }
+    }
+    if(!anyPlayerIsPlaying){
+        mediaRenderer.drawStatic();
     }
     mediaRenderer.draw(testVideoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
 }
 
 void erChannelRenderer::drawServer(){
     ofClear(ofColor::black);
-    
+
     ofSetColor(ofColor::white);
     ofNoFill();
-    
+
     currentChannel = 1;
     for(int xi = 0; xi < 3; xi++){
         for(int yi = 0; yi < 3; yi++){

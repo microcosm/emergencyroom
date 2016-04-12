@@ -39,10 +39,12 @@ protected:
     erSyncedSoundPlayer* testSoundPlayer;
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
+    erSyncedVideoPlayer* videoPlayer;
 
     map<int, ofPtr<erSyncedVideoPlayer>> channelsToPlayers;
     vector<int> toErase;
 
     int previewWidth, previewHeight, x, y, currentChannel;
     string currentChannelStr;
+    bool anyPlayerIsPlaying;
 };

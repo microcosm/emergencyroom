@@ -37,24 +37,27 @@ void erMediaRenderer::newClosingGlitchPeriod(unsigned long long from, float dura
 }
 
 void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height){
-    withinGlitchPeriod() ? drawGlitched(player, x, y, width, height) : drawNormal(player, x, y, width, height);
+    if(player->isPlaying()){
+        withinGlitchPeriod() ? drawGlitched(player, x, y, width, height) : drawNormal(player, x, y, width, height);
+    }
+}
+
+void erMediaRenderer::drawStatic(){
+    ofSetColor(ofColor::white);
+    ofDrawBitmapString("STATIC NOW", 10, 10);
 }
 
 void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height){
-    if(player->isPlaying()){
-        player->draw(x, y, width, height);
-    }
+    player->draw(x, y, width, height);
 }
 
 void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height){
-    if(player->isPlaying()){
-        fbo.begin();
-        {
-            player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
-        }
-        fbo.end();
-        fboGlitch.draw(fbo, x, y, ofGetWidth(), ofGetHeight());
+    fbo.begin();
+    {
+        player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
     }
+    fbo.end();
+    fboGlitch.draw(fbo, x, y, ofGetWidth(), ofGetHeight());
 }
 
 bool erMediaRenderer::withinGlitchPeriod(){
