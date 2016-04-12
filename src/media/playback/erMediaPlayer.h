@@ -4,6 +4,8 @@
 #include "erChannelRenderer.h"
 #include "erNetwork.h"
 
+#define COSMOLOGICAL_CONSTANT 500
+
 class erMediaPlayer{
 
 public:
@@ -25,6 +27,6 @@ protected:
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     ofPtr<erSyncedVideoPlayer> videoPlayer;
-    unsigned long long from;
-    float duration;
+    unsigned long long currentTime;
+    float videoDuration, videoGlitchTime, bufferTime, halfBufferTime;
 };
