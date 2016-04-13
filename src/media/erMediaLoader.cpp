@@ -2,7 +2,6 @@
 
 void erMediaLoader::setup(erNetwork* _network){
     network = _network;
-    ensureMediaSymlinkExists();
     loadTestMedia();
     validateMedia();
     discoverErrors();
@@ -49,12 +48,6 @@ void erMediaLoader::loadPreviewMedia(){
 
 bool erMediaLoader::hasErrors(){
     return hasMediaErrors;
-}
-
-void erMediaLoader::ensureMediaSymlinkExists(){
-    if(!ofFile::doesFileExist("dropbox")){
-        ofSystem("ln -s ~/Dropbox/ ../../../data/dropbox");
-    }
 }
 
 void erMediaLoader::discoverErrors(){
