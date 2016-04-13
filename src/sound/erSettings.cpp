@@ -1,11 +1,25 @@
 #include "erSettings.h"
 
 void erSettings::load(){
-    if(getComputerName() == "andy-tw-1"){
-        cout << "YES";
+    initSettings();
+    if(json.open(SETTINGS_FILE)){
+        applySettings(json);
     }else{
-        cout << "NO - '" << getComputerName() << "'";
+        erLog("erSettings::load()", "Couldn't open settings file '" + ofToString(SETTINGS_FILE) + "'");
     }
+    cout << fullscreenByDefault << " " << masterVolume << " " << isServer << endl << endl;
+}
+
+void erSettings::initSettings(){
+    fullscreenByDefault = true;
+    masterVolume = 1;
+    isServer = false;
+}
+
+void erSettings::applySettings(ofxJSONElement& json){
+    fullscreenByDefault = json[FULLSCREEN_BY_DEFAULT].asBool();
+    masterVolume = json[SERVER_MASTER_VOLUME].asFloat();
+    isServer = getComputerName() == json[SERVER_MACHINE_NAME].asString();
 }
 
 string erSettings::getComputerName(){
