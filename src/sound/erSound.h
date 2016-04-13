@@ -7,10 +7,12 @@ class erSound{
 
 public:
     void setup();
+    void ensureSetup();
     void play();
 
 protected:
     ofxAudioUnitManager manager;
     ofxAudioUnitChain chain;
     ofxManagedAudioUnit massive;
+    bool isSetup = false;
 };

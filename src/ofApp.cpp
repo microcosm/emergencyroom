@@ -3,7 +3,6 @@
 void ofApp::setup(){
     ofSetWindowShape(420, 300);
 
-    sound.setup();
     loader.setup(&network);
     loader.setMasterVolume(0);
     player.setup(&network);
@@ -22,6 +21,10 @@ void ofApp::update(){
         erEnableFileLogging(network.isRunningServer());
     }else{
         erDisableFileLogging();
+    }
+
+    if(network.isRunningServer()){
+        sound.ensureSetup();
     }
 }
 
