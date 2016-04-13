@@ -3,7 +3,7 @@
 #include "ofxAudioUnit.h"
 #include "ofxAudioUnitManager.h"
 
-class erSound{
+class erSoundRenderer{
 
 public:
     void setup();

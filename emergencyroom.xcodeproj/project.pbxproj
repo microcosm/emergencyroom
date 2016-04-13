@@ -10,7 +10,7 @@
 		B40442B11CBE8F580071C074 /* ofxJSONElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442A71CBE8F580071C074 /* ofxJSONElement.cpp */; };
 		B40442B21CBE8F580071C074 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B01CBE8F580071C074 /* jsoncpp.cpp */; };
 		B40442B91CBEA39E0071C074 /* erSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B71CBEA39E0071C074 /* erSettings.cpp */; };
-		B406E3341CBDC3AE00CEACB3 /* erSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B406E3321CBDC3AE00CEACB3 /* erSound.cpp */; };
+		B40442BC1CBEA46E0071C074 /* erSoundRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442BA1CBEA46E0071C074 /* erSoundRenderer.cpp */; };
 		B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */; };
 		B45DF9C31CB9D719004F0AD3 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */; };
 		B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */; };
@@ -115,8 +115,8 @@
 		B40442B01CBE8F580071C074 /* jsoncpp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jsoncpp.cpp; sourceTree = "<group>"; };
 		B40442B71CBEA39E0071C074 /* erSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSettings.cpp; sourceTree = "<group>"; };
 		B40442B81CBEA39E0071C074 /* erSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSettings.h; sourceTree = "<group>"; };
-		B406E3321CBDC3AE00CEACB3 /* erSound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSound.cpp; sourceTree = "<group>"; };
-		B406E3331CBDC3AE00CEACB3 /* erSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSound.h; sourceTree = "<group>"; };
+		B40442BA1CBEA46E0071C074 /* erSoundRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSoundRenderer.cpp; sourceTree = "<group>"; };
+		B40442BB1CBEA46E0071C074 /* erSoundRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSoundRenderer.h; sourceTree = "<group>"; };
 		B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasyFboGlitch.cpp; sourceTree = "<group>"; };
 		B45DF9BD1CB9D714004F0AD3 /* ofxEasyFboGlitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxEasyFboGlitch.h; sourceTree = "<group>"; };
 		B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFastFboReader.cpp; sourceTree = "<group>"; };
@@ -348,15 +348,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		B406E3311CBDC3AE00CEACB3 /* sound */ = {
-			isa = PBXGroup;
-			children = (
-				B406E3321CBDC3AE00CEACB3 /* erSound.cpp */,
-				B406E3331CBDC3AE00CEACB3 /* erSound.h */,
-			);
-			path = sound;
-			sourceTree = "<group>";
-		};
 		B45DF9BA1CB9D714004F0AD3 /* ofxEasyFboGlitch */ = {
 			isa = PBXGroup;
 			children = (
@@ -537,6 +528,8 @@
 				B4B354321CBC497A00B8883B /* erChannelRenderer.h */,
 				B4B3542E1CBC474200B8883B /* erMediaRenderer.cpp */,
 				B4B3542F1CBC474200B8883B /* erMediaRenderer.h */,
+				B40442BA1CBEA46E0071C074 /* erSoundRenderer.cpp */,
+				B40442BB1CBEA46E0071C074 /* erSoundRenderer.h */,
 			);
 			path = rendering;
 			sourceTree = "<group>";
@@ -799,7 +792,6 @@
 			children = (
 				B48604D71C9B90F600629452 /* media */,
 				B48604E51C9B90F600629452 /* network */,
-				B406E3311CBDC3AE00CEACB3 /* sound */,
 				B48604EA1C9B90F600629452 /* util */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
@@ -948,7 +940,6 @@
 				B4B354981CBDC1D800B8883B /* PresetsHandler.cpp in Sources */,
 				B4B3549A1CBDC1D800B8883B /* ofxAudioUnitManager.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
-				B406E3341CBDC3AE00CEACB3 /* erSound.cpp in Sources */,
 				B4B354731CBDC1D500B8883B /* ofxAudioUnitMixer.cpp in Sources */,
 				B4B354721CBDC1D500B8883B /* ofxAudioUnitMidi.cpp in Sources */,
 				B4B3546C1CBDC1D500B8883B /* ofxAudioUnitDSPNode.cpp in Sources */,
@@ -972,6 +963,7 @@
 				B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */,
 				B4B3547A1CBDC1D500B8883B /* ofxAudioUnitTap.cpp in Sources */,
 				B48605011C9B911800629452 /* ofxNetworkSyncClient.cpp in Sources */,
+				B40442BC1CBEA46E0071C074 /* erSoundRenderer.cpp in Sources */,
 				B4B354D71CBDC26200B8883B /* ofxBpm.cpp in Sources */,
 				B4B354CD1CBDC25500B8883B /* ofxMidi.cpp in Sources */,
 				B4B354751CBDC1D500B8883B /* ofxAudioUnitNetSend.cpp in Sources */,

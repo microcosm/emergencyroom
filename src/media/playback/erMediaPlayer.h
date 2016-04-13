@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "erMediaLoader.h"
 #include "erChannelRenderer.h"
-#include "erSound.h"
+#include "erSoundRenderer.h"
 #include "erNetwork.h"
 
 #define COSMOLOGICAL_CONSTANT 500
@@ -26,7 +26,7 @@ protected:
     void playWithSound(erPlayParams params);
 
     erChannelRenderer channelRenderer;
-    erSound soundRenderer;
+    erSoundRenderer soundRenderer;
     erNetwork* network;
 
     erSyncedSoundPlayer* testSoundPlayer;

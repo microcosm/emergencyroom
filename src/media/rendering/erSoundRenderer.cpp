@@ -1,51 +1,51 @@
-#include "erSound.h"
+#include "erSoundRenderer.h"
 
-void erSound::setup(){
+void erSoundRenderer::setup(){
     isSetup = true;
     manager.setup();
     manager.toggleDebugUI();
     massive.setup("Massive", 'aumu', 'NiMa', '-NI-');
     manager.createChain(&chain).link(&massive).toMixer();
 
-    ofAddListener(ofEvents().update, this, &erSound::update);
-    ofAddListener(manager.bpm.beatEvent, this, &erSound::play);
+    ofAddListener(ofEvents().update, this, &erSoundRenderer::update);
+    ofAddListener(manager.bpm.beatEvent, this, &erSoundRenderer::play);
     manager.bpm.start();
 }
 
-void erSound::ensureSetup(){
+void erSoundRenderer::ensureSetup(){
     if(!isSetup){
         setup();
     }
 }
 
-void erSound::update(ofEventArgs& args){
+void erSoundRenderer::update(ofEventArgs& args){
     massive.set(Massive_master_volume, withinGlitchPeriod() ? 1 : 0);
 }
 
-void erSound::play(void){
+void erSoundRenderer::play(void){
     chain.sendMidiOn(60);
 }
 
-void erSound::setNumChannels(int _numChannels){
+void erSoundRenderer::setNumChannels(int _numChannels){
     numChannels = _numChannels;
     initializeChannels();
 }
 
-void erSound::setCurrentChannel(int _currentChannel){
+void erSoundRenderer::setCurrentChannel(int _currentChannel){
     currentChannel = _currentChannel;
 }
 
-void erSound::newOpeningGlitchPeriod(unsigned long long from, float duration){
+void erSoundRenderer::newOpeningGlitchPeriod(unsigned long long from, float duration){
     channelsToOpeningGlitchStarts[currentChannel] = from;
     channelsToOpeningGlitchEnds[currentChannel] = from + duration;
 }
 
-void erSound::newClosingGlitchPeriod(unsigned long long from, float duration){
+void erSoundRenderer::newClosingGlitchPeriod(unsigned long long from, float duration){
     channelsToClosingGlitchStarts[currentChannel] = from;
     channelsToClosingGlitchEnds[currentChannel] = from + duration;
 }
 
-bool erSound::withinGlitchPeriod(){
+bool erSoundRenderer::withinGlitchPeriod(){
     currentTime = ofGetElapsedTimeMillis();
     for(int i = 1; i <= numChannels; i++){
         if(currentTime > channelsToOpeningGlitchStarts[i] && currentTime < channelsToOpeningGlitchEnds[i]){
@@ -59,7 +59,7 @@ bool erSound::withinGlitchPeriod(){
     return false;
 }
 
-void erSound::initializeChannels(){
+void erSoundRenderer::initializeChannels(){
     for(int i = 1; i <= numChannels; i++){
         channelsToOpeningGlitchStarts[i] = 0;
         channelsToOpeningGlitchEnds[i] = 0;
