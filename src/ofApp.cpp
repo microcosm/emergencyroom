@@ -2,6 +2,7 @@
 
 void ofApp::setup(){
     ofSetWindowShape(420, 300);
+    settings.load();
 
     loader.setup(&network);
     loader.setMasterVolume(0);

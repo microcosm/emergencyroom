@@ -3,6 +3,7 @@
 #include "erSequencer.h"
 #include "erMediaPlayer.h"
 #include "erLogger.h"
+#include "erSettings.h"
 
 #define NUM_CHANNELS 1
 
@@ -20,4 +21,5 @@ protected:
     erNetwork network;
     erSequencer sequencer;
     erPlayParams params;
+    erSettings settings;
 };
