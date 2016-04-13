@@ -7,6 +7,7 @@ void erNetwork::setup(int _numChannels){
     statusText = "";
     serverPortOffset = 0;
     serverRequested = false;
+    serverIsAllowed = true;
     numClients, previousNumClients = 0;
     clientChannel = -1;
     setLogLevels(OF_LOG_ERROR);
@@ -44,26 +45,30 @@ void erNetwork::update(ofEventArgs& updateArgs){
             }
         }
 
-        if(now > finderStartTime+FINDER_TIMEOUT || serverRequested){
-            //server finder timeout
-            serverRequested = false;
+        if(serverIsAllowed){
+            if(now > finderStartTime+FINDER_TIMEOUT || serverRequested){
+                //server finder timeout
+                serverRequested = false;
 
-            //i will be server
-            if(server.setup(SYNC_TCP_PORT+serverPortOffset)){
-                role = NETWORK_ROLE_SERVER;
-                statusText = "i am server";
-                finder.close();
-                
-                if(client.isCalibrated()){
-                    server.setTimeOffsetMillis(client.getSyncedElapsedTimeMillis()-ofGetElapsedTimeMillis());
+                //i will be server
+                if(server.setup(SYNC_TCP_PORT+serverPortOffset)){
+                    role = NETWORK_ROLE_SERVER;
+                    statusText = "i am server";
+                    finder.close();
+
+                    if(client.isCalibrated()){
+                        server.setTimeOffsetMillis(client.getSyncedElapsedTimeMillis()-ofGetElapsedTimeMillis());
+                    }
+                }else{
+                    //failed to start server. still try to find server
+                    statusText = "server failed to start. maybe given address is already in use?";
+                    finderStartTime = now;
+                    server.close();
+                    serverPortOffset++;
                 }
-            }else{
-                //failed to start server. still try to find server
-                statusText = "server failed to start. maybe given address is already in use?";
-                finderStartTime = now;
-                server.close();
-                serverPortOffset++;
             }
+        }else{
+            finderStartTime = now;
         }
     }else if(server.isConnected()){
         server.update();
@@ -146,6 +151,10 @@ bool erNetwork::isRunning(){
 
 bool erNetwork::justBecameClient(){
     return isRunningClient() && !wasRunningClient();
+}
+
+void erNetwork::denyServer(){
+    serverIsAllowed = false;
 }
 
 bool erNetwork::justBecameServer(){

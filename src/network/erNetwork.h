@@ -31,6 +31,7 @@ public:
     bool isRunning();
     bool justBecameClient();
     bool justBecameServer();
+    void denyServer();
     ofEvent<string>& clientMessageReceived();
     erTranslater* getTranslater();
     int getNumChannels();
@@ -49,7 +50,7 @@ protected:
     erTranslater translater;
 
     string statusText, clientChannel;
-    bool serverRequested;
+    bool serverRequested, serverIsAllowed;
     int numClients, previousNumClients;
     int finderStartTime, serverPortOffset, numChannels;
     bool drawingEnabled, success;

@@ -26,6 +26,10 @@ void ofApp::update(){
     }else{
         erDisableFileLogging();
     }
+
+    if(ofGetFrameNum() > 0){
+        settings.isServer ? network.requestServer() : network.denyServer();
+    }
 }
 
 void ofApp::draw(ofEventArgs& args){
