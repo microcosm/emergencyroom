@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "erSequencer.h"
 #include "erMediaPlayer.h"
+#include "erSound.h"
 #include "erLogger.h"
 
 #define NUM_CHANNELS 9
@@ -17,6 +18,7 @@ public:
 protected:
     erMediaLoader loader;
     erMediaPlayer player;
+    erSound sound;
     erNetwork network;
     erSequencer sequencer;
     erPlayParams params;
