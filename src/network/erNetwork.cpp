@@ -191,7 +191,7 @@ void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
 void erNetwork::sendChannelUpdates(){
     int i = 0;
     for(auto& client : server.getClients()) {
-        client->send("CHANNEL " + ofToString(i % numChannels));
+        client->send("CHANNEL " + ofToString((i % numChannels) + 1));
         i++;
     }
 }
