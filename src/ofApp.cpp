@@ -22,10 +22,6 @@ void ofApp::update(){
     }else{
         erDisableFileLogging();
     }
-
-    if(network.isRunningServer()){
-        sound.ensureSetup();
-    }
 }
 
 void ofApp::draw(ofEventArgs& args){

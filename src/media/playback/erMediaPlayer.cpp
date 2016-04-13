@@ -1,19 +1,27 @@
 #include "erMediaPlayer.h"
 
-void erMediaPlayer::setup(erNetwork* network){
+void erMediaPlayer::setup(erNetwork* _network){
+    network = _network;
     channelRenderer.setup(network);
+    ofAddListener(ofEvents().update, this, &erMediaPlayer::update);
 }
 
-void erMediaPlayer::play(erPlayParams params, bool glitch){
+void erMediaPlayer::update(ofEventArgs& args){
+    if(network->isRunningServer()){
+        sound.ensureSetup();
+    }
+}
+
+void erMediaPlayer::play(erPlayParams params, bool isClient){
     if(params.isVideoCommand()){
-        glitch ? playWithGlitch(params) : playWithoutGlitch(params);
+        isClient ? playWithGlitch(params) : playWithoutGlitch(params);
     }else if(params.isTestCommand()){
         testSoundPlayer->execute(params);
         testVideoPlayer->execute(params);
     }
 }
 
-void erMediaPlayer::preview(int channel, erPlayParams params){
+void erMediaPlayer::serverPlay(int channel, erPlayParams params){
     play(params, false);
     channelRenderer.assign(channel, params);
 }
