@@ -4,7 +4,7 @@
 #include "erMediaPlayer.h"
 #include "erLogger.h"
 
-#define NUM_CHANNELS 9
+#define NUM_CHANNELS 1
 
 class ofApp : public ofBaseApp{
 

@@ -10,7 +10,7 @@
 class erMediaPlayer{
 
 public:
-    void setup(erNetwork* _network);
+    void setup(erNetwork* _network, int numChannels);
     void update(ofEventArgs& args);
     void play(erPlayParams params, bool isClient=true);
     void serverPlay(int channel, erPlayParams params);
@@ -19,13 +19,14 @@ public:
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
+    void calculateGlitchPlaybackVariables(erPlayParams params);
 
 protected:
     void playWithGlitch(erPlayParams params);
-    void playWithoutGlitch(erPlayParams params);
+    void playWithSound(erPlayParams params);
 
     erChannelRenderer channelRenderer;
-    erSound sound;
+    erSound soundRenderer;
     erNetwork* network;
 
     erSyncedSoundPlayer* testSoundPlayer;

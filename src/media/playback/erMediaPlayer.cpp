@@ -1,20 +1,21 @@
 #include "erMediaPlayer.h"
 
-void erMediaPlayer::setup(erNetwork* _network){
+void erMediaPlayer::setup(erNetwork* _network, int numChannels){
     network = _network;
     channelRenderer.setup(network);
+    soundRenderer.setNumChannels(numChannels);
     ofAddListener(ofEvents().update, this, &erMediaPlayer::update);
 }
 
 void erMediaPlayer::update(ofEventArgs& args){
     if(network->isRunningServer()){
-        sound.ensureSetup();
+        soundRenderer.ensureSetup();
     }
 }
 
 void erMediaPlayer::play(erPlayParams params, bool isClient){
     if(params.isVideoCommand()){
-        isClient ? playWithGlitch(params) : playWithoutGlitch(params);
+        isClient ? playWithGlitch(params) : playWithSound(params);
     }else if(params.isTestCommand()){
         testSoundPlayer->execute(params);
         testVideoPlayer->execute(params);
@@ -24,6 +25,7 @@ void erMediaPlayer::play(erPlayParams params, bool isClient){
 void erMediaPlayer::serverPlay(int channel, erPlayParams params){
     play(params, false);
     channelRenderer.assign(channel, params);
+    soundRenderer.setCurrentChannel(channel);
 }
 
 bool erMediaPlayer::isChannelPlaying(int channel){
@@ -46,6 +48,20 @@ void erMediaPlayer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _vi
 }
 
 void erMediaPlayer::playWithGlitch(erPlayParams params){
+    calculateGlitchPlaybackVariables(params);
+    channelRenderer.newOpeningGlitchPeriod(currentTime + halfBufferTime, halfBufferTime + videoGlitchTime);
+    channelRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime + halfBufferTime);
+    videoPlayer->execute(params);
+}
+
+void erMediaPlayer::playWithSound(erPlayParams params){
+    calculateGlitchPlaybackVariables(params);
+    soundRenderer.newOpeningGlitchPeriod(currentTime + bufferTime, videoGlitchTime);
+    soundRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime);
+    videoPlayer->execute(params);
+}
+
+void erMediaPlayer::calculateGlitchPlaybackVariables(erPlayParams params){
     videoPlayer = videoPlayers->at(params.getPath());
     currentTime = ofGetElapsedTimeMillis();
 
@@ -54,13 +70,4 @@ void erMediaPlayer::playWithGlitch(erPlayParams params){
 
     videoDuration = videoPlayer->getDuration() * 1000;
     videoGlitchTime = ofClamp(videoDuration * 0.2, 50, halfBufferTime);
-
-    channelRenderer.newOpeningGlitchPeriod(currentTime + halfBufferTime, halfBufferTime + videoGlitchTime);
-    channelRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime + halfBufferTime);
-
-    videoPlayer->execute(params);
-}
-
-void erMediaPlayer::playWithoutGlitch(erPlayParams params){
-    videoPlayers->at(params.getPath())->execute(params);
 }

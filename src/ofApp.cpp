@@ -5,7 +5,7 @@ void ofApp::setup(){
 
     loader.setup(&network);
     loader.setMasterVolume(0);
-    player.setup(&network);
+    player.setup(&network, NUM_CHANNELS);
     player.setTestSoundPlayer(&loader.testSoundPlayer);
     player.setTestVideoPlayer(&loader.testVideoPlayer);
     player.setVideoPlayers(&loader.videoPlayers);
