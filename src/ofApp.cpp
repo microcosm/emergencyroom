@@ -3,9 +3,12 @@
 void ofApp::setup(){
     ofSetWindowShape(420, 300);
     settings.load();
+    if(settings.fullscreenByDefault){
+        ofToggleFullscreen();
+    }
 
     loader.setup(&network);
-    loader.setMasterVolume(0);
+    loader.setMasterVolume(settings.masterVolume);
     player.setup(&network, NUM_CHANNELS);
     player.setTestSoundPlayer(&loader.testSoundPlayer);
     player.setTestVideoPlayer(&loader.testVideoPlayer);

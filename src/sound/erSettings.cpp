@@ -7,7 +7,6 @@ void erSettings::load(){
     }else{
         erLog("erSettings::load()", "Couldn't open settings file '" + ofToString(SETTINGS_FILE) + "'");
     }
-    cout << fullscreenByDefault << " " << masterVolume << " " << isServer << endl << endl;
 }
 
 void erSettings::initSettings(){
