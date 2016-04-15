@@ -6,11 +6,15 @@ class erEcgVisualization{
 
 public:
     void setup();
+    virtual void update(ofEventArgs& args);
+    virtual void draw(ofEventArgs& args);
 
 protected:
     void readData();
     ofxCsvStream stream;
-    map<float,float> data;
+    vector<float> data;
     string source;
-    int numCols;
+    int numCols, numRows, currentRow;
+    float currentValue, highestValue, lowestValue;
+    int y, startRow, exitRow;
 };
