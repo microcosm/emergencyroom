@@ -7,17 +7,21 @@ void ofApp::setup(){
         ofToggleFullscreen();
     }
 
-    loader.setup(&network);
-    loader.setMasterVolume(settings.masterVolume);
-    player.setup(&network, NUM_CHANNELS);
-    player.setTestSoundPlayer(&loader.testSoundPlayer);
-    player.setTestVideoPlayer(&loader.testVideoPlayer);
-    player.setVideoPlayers(&loader.videoPlayers);
-    network.setup(NUM_CHANNELS);
-    sequencer.setup(&network, &loader, &player);
+    if(settings.isEcg){
+        sequencer.setEcgMode();
+    }else{
+        loader.setup(&network);
+        loader.setMasterVolume(settings.masterVolume);
+        player.setup(&network, NUM_CHANNELS);
+        player.setTestSoundPlayer(&loader.testSoundPlayer);
+        player.setTestVideoPlayer(&loader.testVideoPlayer);
+        player.setVideoPlayers(&loader.videoPlayers);
+        network.setup(NUM_CHANNELS);
+        sequencer.setup(&network, &loader, &player);
 
-    network.toggleDrawing();
-    ofAddListener(ofEvents().draw, this, &ofApp::draw);
+        network.toggleDrawing();
+        ofAddListener(ofEvents().draw, this, &ofApp::draw);
+    }
 }
 
 void ofApp::update(){

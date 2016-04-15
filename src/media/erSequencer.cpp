@@ -19,6 +19,10 @@ void erSequencer::update(ofEventArgs& updateArgs){
     }
 }
 
+void erSequencer::setEcgMode(){
+    ecg.setup();
+}
+
 void erSequencer::messageReceived(string& message){
     erLog("erSequencer::messageReceived(string& message)", message);
     params = translater->toParams(message);

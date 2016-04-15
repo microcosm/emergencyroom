@@ -9,6 +9,7 @@
 #define FULLSCREEN_BY_DEFAULT "fullscreen-by-default"
 #define SERVER_MASTER_VOLUME "server-master-volume"
 #define SERVER_MACHINE_NAME "server-machine-name"
+#define ECG_MACHINE_NAME "ecg-machine-name"
 
 class erSettings{
 
@@ -17,6 +18,7 @@ public:
     float masterVolume;
     bool fullscreenByDefault;
     bool isServer;
+    bool isEcg;
 
 protected:
     void initSettings();
@@ -24,6 +26,7 @@ protected:
     string getComputerName();
 
     ofxJSONElement json;
+    string computerName;
 
     FILE *fp;
     int status;

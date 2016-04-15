@@ -11,6 +11,7 @@
 		B40442B21CBE8F580071C074 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B01CBE8F580071C074 /* jsoncpp.cpp */; };
 		B40442B91CBEA39E0071C074 /* erSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B71CBEA39E0071C074 /* erSettings.cpp */; };
 		B40442BC1CBEA46E0071C074 /* erSoundRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442BA1CBEA46E0071C074 /* erSoundRenderer.cpp */; };
+		B45D54E21CC19F23000AFC31 /* erEcgVisualization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45D54E01CC19F23000AFC31 /* erEcgVisualization.cpp */; };
 		B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */; };
 		B45DF9C31CB9D719004F0AD3 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */; };
 		B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */; };
@@ -117,6 +118,8 @@
 		B40442B81CBEA39E0071C074 /* erSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSettings.h; sourceTree = "<group>"; };
 		B40442BA1CBEA46E0071C074 /* erSoundRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSoundRenderer.cpp; sourceTree = "<group>"; };
 		B40442BB1CBEA46E0071C074 /* erSoundRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSoundRenderer.h; sourceTree = "<group>"; };
+		B45D54E01CC19F23000AFC31 /* erEcgVisualization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erEcgVisualization.cpp; sourceTree = "<group>"; };
+		B45D54E11CC19F23000AFC31 /* erEcgVisualization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erEcgVisualization.h; sourceTree = "<group>"; };
 		B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasyFboGlitch.cpp; sourceTree = "<group>"; };
 		B45DF9BD1CB9D714004F0AD3 /* ofxEasyFboGlitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxEasyFboGlitch.h; sourceTree = "<group>"; };
 		B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFastFboReader.cpp; sourceTree = "<group>"; };
@@ -412,6 +415,8 @@
 		B48604E21C9B90F600629452 /* visualizations */ = {
 			isa = PBXGroup;
 			children = (
+				B45D54E01CC19F23000AFC31 /* erEcgVisualization.cpp */,
+				B45D54E11CC19F23000AFC31 /* erEcgVisualization.h */,
 				B48604E31C9B90F600629452 /* erSeaLevelViz.cpp */,
 				B48604E41C9B90F600629452 /* erSeaLevelViz.h */,
 			);
@@ -941,6 +946,7 @@
 				B4B3549A1CBDC1D800B8883B /* ofxAudioUnitManager.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				B4B354731CBDC1D500B8883B /* ofxAudioUnitMixer.cpp in Sources */,
+				B45D54E21CC19F23000AFC31 /* erEcgVisualization.cpp in Sources */,
 				B4B354721CBDC1D500B8883B /* ofxAudioUnitMidi.cpp in Sources */,
 				B4B3546C1CBDC1D500B8883B /* ofxAudioUnitDSPNode.cpp in Sources */,
 				B48604F01C9B90F600629452 /* erSeaLevelViz.cpp in Sources */,
