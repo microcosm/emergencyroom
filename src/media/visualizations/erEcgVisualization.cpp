@@ -1,6 +1,7 @@
 #include "erEcgVisualization.h"
 
 void erEcgVisualization::setup(){
+    ofToggleFullscreen();
     source = "ecg.csv";
     numCols = 2;
     highestValue = -0.177;
@@ -39,12 +40,14 @@ void erEcgVisualization::update(ofEventArgs& args){
     timeIndex = ofGetElapsedTimeMillis() % period;
     currentRow = ofMap(timeIndex, 0, period, 0, numRows-1);
 
-    for(int i = lastRow + 1; i <= currentRow; i++){
+    for(int i = lastRow; i <= currentRow; i++){
         currentValue = data.at(i);
-        incrementalTimeIndex = ofMap(i, lastRow + 1, currentRow, lastTimeIndex, timeIndex);
+        incrementalTimeIndex = ofMap(i, lastRow, currentRow, lastTimeIndex, timeIndex);
         point.x = ofMap(incrementalTimeIndex, 0, period, 0, ofGetWidth());
         point.y = ofMap(currentValue, highestValue, lowestValue, 0, ofGetHeight());
-        points.push_back(point);
+        if(i > lastRow){
+            points.push_back(point);
+        }
     }
     if(points.size() > maxPoints){
         points.erase(points.begin(), points.begin() + points.size() - maxPoints);
@@ -52,6 +55,7 @@ void erEcgVisualization::update(ofEventArgs& args){
 }
 
 void erEcgVisualization::draw(ofEventArgs& args){
+    ofSetLineWidth(2);
     ofBackground(ofColor::black);
     ofSetColor(ofColor::white);
     alpha = 0;
