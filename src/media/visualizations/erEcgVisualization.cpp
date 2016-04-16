@@ -7,9 +7,11 @@ void erEcgVisualization::setup(){
     lowestValue = -1.78;
     startRow = 168;
     exitRow = 403;
-    period = 1000;
+    period = 1400;
     currentRow = 0;
-    maxPoints = 80;
+    maxPoints = 200;
+    tailLength = 140;
+    alphaIncrement = 255 / tailLength;
     stream.openReadStream(source);
     readData();
     ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
@@ -50,9 +52,14 @@ void erEcgVisualization::update(ofEventArgs& args){
 }
 
 void erEcgVisualization::draw(ofEventArgs& args){
+    ofBackground(ofColor::black);
     ofSetColor(ofColor::white);
+    alpha = 0;
     for(int i = 0; i < points.size(); i++){
         if(i > 0){
+            alpha += alphaIncrement;
+            ofSetColor(ofColor::white, alpha);
+
             point = points[i];
             oldPoint = points[i-1];
             if(point.x >= oldPoint.x){

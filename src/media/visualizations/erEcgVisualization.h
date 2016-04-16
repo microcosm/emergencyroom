@@ -15,9 +15,10 @@ protected:
     vector<float> data;
     string source;
     int numCols, numRows, currentRow, lastRow, startRow, exitRow;
-    int period, maxPoints;
+    int period, maxPoints, tailLength;
     float currentValue, highestValue, lowestValue;
     float timeIndex, incrementalTimeIndex, lastTimeIndex;
     ofPoint point, oldPoint;
     deque<ofPoint> points;
+    float alpha, alphaIncrement;
 };
