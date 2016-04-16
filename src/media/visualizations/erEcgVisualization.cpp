@@ -7,8 +7,9 @@ void erEcgVisualization::setup(){
     lowestValue = -1.78;
     startRow = 168;
     exitRow = 403;
-    size = 5;
     period = 1000;
+    currentRow = 0;
+    maxPoints = 80;
     stream.openReadStream(source);
     readData();
     ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
@@ -31,14 +32,32 @@ void erEcgVisualization::readData(){
 }
 
 void erEcgVisualization::update(ofEventArgs& args){
+    lastRow = currentRow;
+    lastTimeIndex = timeIndex;
     timeIndex = ofGetElapsedTimeMillis() % period;
     currentRow = ofMap(timeIndex, 0, period, 0, numRows-1);
-    currentValue = data.at(currentRow);
+
+    for(int i = lastRow + 1; i <= currentRow; i++){
+        currentValue = data.at(i);
+        incrementalTimeIndex = ofMap(i, lastRow + 1, currentRow, lastTimeIndex, timeIndex);
+        point.x = ofMap(incrementalTimeIndex, 0, period, 0, ofGetWidth());
+        point.y = ofMap(currentValue, highestValue, lowestValue, 0, ofGetHeight());
+        points.push_back(point);
+    }
+    if(points.size() > maxPoints){
+        points.erase(points.begin(), points.begin() + points.size() - maxPoints);
+    }
 }
 
 void erEcgVisualization::draw(ofEventArgs& args){
-    x = ofMap(timeIndex, 0, period, 0, ofGetWidth() - size);
-    y = ofMap(currentValue, highestValue, lowestValue, 0, ofGetHeight() - size);
     ofSetColor(ofColor::white);
-    ofDrawRectangle(x, y, size, size);
+    for(int i = 0; i < points.size(); i++){
+        if(i > 0){
+            point = points[i];
+            oldPoint = points[i-1];
+            if(point.x >= oldPoint.x){
+                ofDrawLine(oldPoint, point);
+            }
+        }
+    }
 }

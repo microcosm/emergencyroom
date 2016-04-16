@@ -14,9 +14,10 @@ protected:
     ofxCsvStream stream;
     vector<float> data;
     string source;
-    int numCols, numRows, currentRow;
-    int period;
+    int numCols, numRows, currentRow, lastRow, startRow, exitRow;
+    int period, maxPoints;
     float currentValue, highestValue, lowestValue;
-    int x, y, startRow, exitRow, size;
-    float timeIndex;
+    float timeIndex, incrementalTimeIndex, lastTimeIndex;
+    ofPoint point, oldPoint;
+    deque<ofPoint> points;
 };
