@@ -13,6 +13,8 @@ void erEcgVisualization::setup(){
     maxPoints = 200;
     tailLength = 140;
     alphaIncrement = 255 / tailLength;
+    gridIncrement.x = ofGetWidth() / 16;
+    gridIncrement.y = ofGetHeight() / 10;
     stream.openReadStream(source);
     readData();
     ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
@@ -40,6 +42,46 @@ void erEcgVisualization::update(ofEventArgs& args){
     timeIndex = ofGetElapsedTimeMillis() % period;
     currentRow = ofMap(timeIndex, 0, period, 0, numRows-1);
 
+    loadNewPoints();
+    trimPointsToSize();
+}
+
+void erEcgVisualization::draw(ofEventArgs& args){
+    ofBackground(ofColor::black);
+    drawGrid();
+    drawEcgLine();
+}
+
+void erEcgVisualization::drawGrid(){
+    ofSetLineWidth(1);
+    ofSetColor(ofColor::white, 5);
+    for(int x = gridIncrement.x; x < ofGetWidth(); x += gridIncrement.x){
+        for(int y = gridIncrement.y; y < ofGetHeight(); y += gridIncrement.y){
+            ofDrawLine(x, 0, x, ofGetHeight());
+            ofDrawLine(0, y, ofGetWidth(), y);
+        }
+    }
+}
+
+void erEcgVisualization::drawEcgLine(){
+    ofSetLineWidth(7);
+    ofSetColor(ofColor::white);
+    alpha = 0;
+    for(int i = 0; i < points.size(); i++){
+        if(i > 0){
+            alpha += alphaIncrement;
+            ofSetColor(ofColor::white, alpha);
+            
+            point = points[i];
+            oldPoint = points[i-1];
+            if(point.x >= oldPoint.x){
+                ofDrawLine(oldPoint, point);
+            }
+        }
+    }
+}
+
+void erEcgVisualization::loadNewPoints(){
     for(int i = lastRow; i <= currentRow; i++){
         currentValue = data.at(i);
         incrementalTimeIndex = ofMap(i, lastRow, currentRow, lastTimeIndex, timeIndex);
@@ -49,26 +91,10 @@ void erEcgVisualization::update(ofEventArgs& args){
             points.push_back(point);
         }
     }
-    if(points.size() > maxPoints){
-        points.erase(points.begin(), points.begin() + points.size() - maxPoints);
-    }
 }
 
-void erEcgVisualization::draw(ofEventArgs& args){
-    ofSetLineWidth(2);
-    ofBackground(ofColor::black);
-    ofSetColor(ofColor::white);
-    alpha = 0;
-    for(int i = 0; i < points.size(); i++){
-        if(i > 0){
-            alpha += alphaIncrement;
-            ofSetColor(ofColor::white, alpha);
-
-            point = points[i];
-            oldPoint = points[i-1];
-            if(point.x >= oldPoint.x){
-                ofDrawLine(oldPoint, point);
-            }
-        }
+void erEcgVisualization::trimPointsToSize(){
+    if(points.size() > maxPoints){
+        points.erase(points.begin(), points.begin() + points.size() - maxPoints);
     }
 }

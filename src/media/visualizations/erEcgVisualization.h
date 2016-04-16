@@ -11,6 +11,10 @@ public:
 
 protected:
     void readData();
+    void loadNewPoints();
+    void trimPointsToSize();
+    void drawGrid();
+    void drawEcgLine();
     ofxCsvStream stream;
     vector<float> data;
     string source;
@@ -18,7 +22,7 @@ protected:
     int period, maxPoints, tailLength;
     float currentValue, highestValue, lowestValue;
     float timeIndex, incrementalTimeIndex, lastTimeIndex;
-    ofPoint point, oldPoint;
+    ofPoint point, oldPoint, gridIncrement;
     deque<ofPoint> points;
     float alpha, alphaIncrement;
 };
