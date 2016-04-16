@@ -5,8 +5,10 @@ void erEcgVisualization::setup(){
     numCols = 2;
     highestValue = -0.177;
     lowestValue = -1.78;
-    startRow = 18;
-    exitRow = 253;
+    startRow = 168;
+    exitRow = 403;
+    size = 5;
+    period = 1000;
     stream.openReadStream(source);
     readData();
     ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
@@ -29,12 +31,14 @@ void erEcgVisualization::readData(){
 }
 
 void erEcgVisualization::update(ofEventArgs& args){
-    currentRow = ofMap(ofGetElapsedTimeMillis() % 1000, 0, 1000, 0, numRows-1);
+    timeIndex = ofGetElapsedTimeMillis() % period;
+    currentRow = ofMap(timeIndex, 0, period, 0, numRows-1);
     currentValue = data.at(currentRow);
-    y = ofMap(currentValue, lowestValue, highestValue, 0, ofGetHeight());
 }
 
 void erEcgVisualization::draw(ofEventArgs& args){
+    x = ofMap(timeIndex, 0, period, 0, ofGetWidth() - size);
+    y = ofMap(currentValue, highestValue, lowestValue, 0, ofGetHeight() - size);
     ofSetColor(ofColor::white);
-    ofDrawRectangle(5, y, 5, 5);
+    ofDrawRectangle(x, y, size, size);
 }

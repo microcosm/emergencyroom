@@ -15,6 +15,8 @@ protected:
     vector<float> data;
     string source;
     int numCols, numRows, currentRow;
+    int period;
     float currentValue, highestValue, lowestValue;
-    int y, startRow, exitRow;
+    int x, y, startRow, exitRow, size;
+    float timeIndex;
 };
