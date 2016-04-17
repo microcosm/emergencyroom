@@ -3,13 +3,6 @@
 void erEcgVisualization::setup(){
     ofToggleFullscreen();
 
-    source = "ecg.csv";
-    numCols = 2;
-    highestValue = -0.177;
-    lowestValue = -1.78;
-    startRow = 168;
-    exitRow = 403;
-    period = 1400;
     currentRow = 0;
     maxPoints = 200;
     tailLength = 140;
@@ -27,13 +20,13 @@ void erEcgVisualization::setup(){
 }
 
 void erEcgVisualization::readData(){
-    stream.openReadStream(source);
+    stream.openReadStream(ECG_DATA_SOURCE);
     numRows = 0;
     int i = 0;
     while(!stream.eof()){
         stream.readNextLine();
-        if(i >= startRow && i < exitRow){
-            for(int j = 0; j < stream.getCurrentTokenSize(); j += numCols){
+        if(i >= ECG_START_ROW && i < ECG_EXIT_ROW){
+            for(int j = 0; j < stream.getCurrentTokenSize(); j += ECG_NUM_COLS){
                 data.push_back(stream.getValue<float>(j+1));
             }
             numRows++;
@@ -45,8 +38,8 @@ void erEcgVisualization::readData(){
 void erEcgVisualization::update(ofEventArgs& args){
     lastRow = currentRow;
     lastTimeIndex = timeIndex;
-    timeIndex = ofGetElapsedTimeMillis() % period;
-    currentRow = ofMap(timeIndex, 0, period, 0, numRows-1);
+    timeIndex = ofGetElapsedTimeMillis() % ECG_PERIOD;
+    currentRow = ofMap(timeIndex, 0, ECG_PERIOD, 0, numRows-1);
 
     loadNewPoints();
     trimPointsToSize();
@@ -77,7 +70,7 @@ void erEcgVisualization::drawEcgLine(){
         if(i > 0){
             alpha += alphaIncrement;
             ofSetColor(ofColor::white, alpha);
-            
+
             point = points[i];
             oldPoint = points[i-1];
             if(point.x >= oldPoint.x){
@@ -91,8 +84,8 @@ void erEcgVisualization::loadNewPoints(){
     for(int i = lastRow; i <= currentRow; i++){
         currentValue = data.at(i);
         incrementalTimeIndex = ofMap(i, lastRow, currentRow, lastTimeIndex, timeIndex);
-        point.x = ofMap(incrementalTimeIndex, 0, period, 0, ofGetWidth());
-        point.y = ofMap(currentValue, highestValue, lowestValue, 0, ofGetHeight());
+        point.x = ofMap(incrementalTimeIndex, 0, ECG_PERIOD, 0, ofGetWidth());
+        point.y = ofMap(currentValue, ECG_HIGHEST_VALUE, ECG_LOWEST_VALUE, 0, ofGetHeight());
         if(i > lastRow){
             points.push_back(point);
         }

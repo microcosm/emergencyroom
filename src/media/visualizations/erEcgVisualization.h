@@ -3,6 +3,14 @@
 #include "ofxCsvStream.h"
 #include "ofxShivaVGRenderer.h"
 
+#define ECG_DATA_SOURCE "ecg.csv"
+#define ECG_NUM_COLS 2
+#define ECG_HIGHEST_VALUE -0.177
+#define ECG_LOWEST_VALUE -1.78
+#define ECG_START_ROW 168
+#define ECG_EXIT_ROW 403
+#define ECG_PERIOD 1000
+
 class erEcgVisualization{
 
 public:
@@ -19,10 +27,9 @@ protected:
 
     ofxCsvStream stream;
     vector<float> data;
-    string source;
-    int numCols, numRows, currentRow, lastRow, startRow, exitRow;
-    int period, maxPoints, tailLength;
-    float currentValue, highestValue, lowestValue;
+    int numRows, currentRow, lastRow;
+    int maxPoints, tailLength;
+    float currentValue;
     float timeIndex, incrementalTimeIndex, lastTimeIndex;
     ofPoint point, oldPoint, gridIncrement;
     deque<ofPoint> points;
