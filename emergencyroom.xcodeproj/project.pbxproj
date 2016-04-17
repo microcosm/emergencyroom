@@ -14,6 +14,20 @@
 		B45D54E21CC19F23000AFC31 /* erEcgVisualization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45D54E01CC19F23000AFC31 /* erEcgVisualization.cpp */; };
 		B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */; };
 		B45DF9C31CB9D719004F0AD3 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */; };
+		B45EB7081CC3F6A600CEFF4F /* ofxShivaVGRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6E21CC3F6A600CEFF4F /* ofxShivaVGRenderer.cpp */; };
+		B45EB7091CC3F6A600CEFF4F /* simpleVGContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6E41CC3F6A600CEFF4F /* simpleVGContext.cpp */; };
+		B45EB70A1CC3F6A600CEFF4F /* simpleVGPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6E61CC3F6A600CEFF4F /* simpleVGPath.cpp */; };
+		B45EB70B1CC3F6A600CEFF4F /* shArrays.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6F41CC3F6A600CEFF4F /* shArrays.c */; };
+		B45EB70C1CC3F6A600CEFF4F /* shContext.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6F61CC3F6A600CEFF4F /* shContext.c */; };
+		B45EB70D1CC3F6A600CEFF4F /* shExtensions.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6F91CC3F6A600CEFF4F /* shExtensions.c */; };
+		B45EB70E1CC3F6A600CEFF4F /* shGeometry.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6FB1CC3F6A600CEFF4F /* shGeometry.c */; };
+		B45EB70F1CC3F6A600CEFF4F /* shImage.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6FD1CC3F6A600CEFF4F /* shImage.c */; };
+		B45EB7101CC3F6A600CEFF4F /* shPaint.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6FF1CC3F6A600CEFF4F /* shPaint.c */; };
+		B45EB7111CC3F6A600CEFF4F /* shParams.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7011CC3F6A600CEFF4F /* shParams.c */; };
+		B45EB7121CC3F6A600CEFF4F /* shPath.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7021CC3F6A600CEFF4F /* shPath.c */; };
+		B45EB7131CC3F6A600CEFF4F /* shPipeline.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7041CC3F6A600CEFF4F /* shPipeline.c */; };
+		B45EB7141CC3F6A600CEFF4F /* shVectors.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7051CC3F6A600CEFF4F /* shVectors.c */; };
+		B45EB7151CC3F6A600CEFF4F /* shVgu.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7071CC3F6A600CEFF4F /* shVgu.c */; };
 		B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */; };
 		B48604EF1C9B90F600629452 /* erSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DC1C9B90F600629452 /* erSequencer.cpp */; };
 		B48604F01C9B90F600629452 /* erSeaLevelViz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604E31C9B90F600629452 /* erSeaLevelViz.cpp */; };
@@ -124,6 +138,39 @@
 		B45DF9BD1CB9D714004F0AD3 /* ofxEasyFboGlitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxEasyFboGlitch.h; sourceTree = "<group>"; };
 		B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFastFboReader.cpp; sourceTree = "<group>"; };
 		B45DF9C21CB9D719004F0AD3 /* ofxFastFboReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFastFboReader.h; sourceTree = "<group>"; };
+		B45EB6E21CC3F6A600CEFF4F /* ofxShivaVGRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShivaVGRenderer.cpp; sourceTree = "<group>"; };
+		B45EB6E31CC3F6A600CEFF4F /* ofxShivaVGRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShivaVGRenderer.h; sourceTree = "<group>"; };
+		B45EB6E41CC3F6A600CEFF4F /* simpleVGContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = simpleVGContext.cpp; sourceTree = "<group>"; };
+		B45EB6E51CC3F6A600CEFF4F /* simpleVGContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = simpleVGContext.h; sourceTree = "<group>"; };
+		B45EB6E61CC3F6A600CEFF4F /* simpleVGPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = simpleVGPath.cpp; sourceTree = "<group>"; };
+		B45EB6E71CC3F6A600CEFF4F /* simpleVGPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = simpleVGPath.h; sourceTree = "<group>"; };
+		B45EB6EA1CC3F6A600CEFF4F /* AUTHORS */ = {isa = PBXFileReference; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
+		B45EB6EB1CC3F6A600CEFF4F /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		B45EB6EE1CC3F6A600CEFF4F /* openvg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openvg.h; sourceTree = "<group>"; };
+		B45EB6EF1CC3F6A600CEFF4F /* vgu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vgu.h; sourceTree = "<group>"; };
+		B45EB6F01CC3F6A600CEFF4F /* NEWS */ = {isa = PBXFileReference; lastKnownFileType = text; path = NEWS; sourceTree = "<group>"; };
+		B45EB6F11CC3F6A600CEFF4F /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		B45EB6F31CC3F6A600CEFF4F /* shArrayBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shArrayBase.h; sourceTree = "<group>"; };
+		B45EB6F41CC3F6A600CEFF4F /* shArrays.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shArrays.c; sourceTree = "<group>"; };
+		B45EB6F51CC3F6A600CEFF4F /* shArrays.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shArrays.h; sourceTree = "<group>"; };
+		B45EB6F61CC3F6A600CEFF4F /* shContext.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shContext.c; sourceTree = "<group>"; };
+		B45EB6F71CC3F6A600CEFF4F /* shContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shContext.h; sourceTree = "<group>"; };
+		B45EB6F81CC3F6A600CEFF4F /* shDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shDefs.h; sourceTree = "<group>"; };
+		B45EB6F91CC3F6A600CEFF4F /* shExtensions.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shExtensions.c; sourceTree = "<group>"; };
+		B45EB6FA1CC3F6A600CEFF4F /* shExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shExtensions.h; sourceTree = "<group>"; };
+		B45EB6FB1CC3F6A600CEFF4F /* shGeometry.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shGeometry.c; sourceTree = "<group>"; };
+		B45EB6FC1CC3F6A600CEFF4F /* shGeometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shGeometry.h; sourceTree = "<group>"; };
+		B45EB6FD1CC3F6A600CEFF4F /* shImage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shImage.c; sourceTree = "<group>"; };
+		B45EB6FE1CC3F6A600CEFF4F /* shImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shImage.h; sourceTree = "<group>"; };
+		B45EB6FF1CC3F6A600CEFF4F /* shPaint.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shPaint.c; sourceTree = "<group>"; };
+		B45EB7001CC3F6A600CEFF4F /* shPaint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shPaint.h; sourceTree = "<group>"; };
+		B45EB7011CC3F6A600CEFF4F /* shParams.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shParams.c; sourceTree = "<group>"; };
+		B45EB7021CC3F6A600CEFF4F /* shPath.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shPath.c; sourceTree = "<group>"; };
+		B45EB7031CC3F6A600CEFF4F /* shPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shPath.h; sourceTree = "<group>"; };
+		B45EB7041CC3F6A600CEFF4F /* shPipeline.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shPipeline.c; sourceTree = "<group>"; };
+		B45EB7051CC3F6A600CEFF4F /* shVectors.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shVectors.c; sourceTree = "<group>"; };
+		B45EB7061CC3F6A600CEFF4F /* shVectors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shVectors.h; sourceTree = "<group>"; };
+		B45EB7071CC3F6A600CEFF4F /* shVgu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shVgu.c; sourceTree = "<group>"; };
 		B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaLoader.cpp; sourceTree = "<group>"; };
 		B47EF6B91CA16CD8003B3B83 /* erMediaLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaLoader.h; sourceTree = "<group>"; };
 		B48604DC1C9B90F600629452 /* erSequencer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSequencer.cpp; sourceTree = "<group>"; };
@@ -385,6 +432,96 @@
 			);
 			name = src;
 			path = ../../../addons/ofxFastFboReader/src;
+			sourceTree = "<group>";
+		};
+		B45EB6E01CC3F6A600CEFF4F /* ofxShivaVG */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB6E11CC3F6A600CEFF4F /* src */,
+				B45EB6E81CC3F6A600CEFF4F /* libs */,
+			);
+			name = ofxShivaVG;
+			sourceTree = "<group>";
+		};
+		B45EB6E11CC3F6A600CEFF4F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB6E21CC3F6A600CEFF4F /* ofxShivaVGRenderer.cpp */,
+				B45EB6E31CC3F6A600CEFF4F /* ofxShivaVGRenderer.h */,
+				B45EB6E41CC3F6A600CEFF4F /* simpleVGContext.cpp */,
+				B45EB6E51CC3F6A600CEFF4F /* simpleVGContext.h */,
+				B45EB6E61CC3F6A600CEFF4F /* simpleVGPath.cpp */,
+				B45EB6E71CC3F6A600CEFF4F /* simpleVGPath.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxShivaVG/src;
+			sourceTree = "<group>";
+		};
+		B45EB6E81CC3F6A600CEFF4F /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB6E91CC3F6A600CEFF4F /* ShivaVG */,
+			);
+			name = libs;
+			path = ../../../addons/ofxShivaVG/libs;
+			sourceTree = "<group>";
+		};
+		B45EB6E91CC3F6A600CEFF4F /* ShivaVG */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB6EA1CC3F6A600CEFF4F /* AUTHORS */,
+				B45EB6EB1CC3F6A600CEFF4F /* COPYING */,
+				B45EB6EC1CC3F6A600CEFF4F /* include */,
+				B45EB6F01CC3F6A600CEFF4F /* NEWS */,
+				B45EB6F11CC3F6A600CEFF4F /* README */,
+				B45EB6F21CC3F6A600CEFF4F /* src */,
+			);
+			path = ShivaVG;
+			sourceTree = "<group>";
+		};
+		B45EB6EC1CC3F6A600CEFF4F /* include */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB6ED1CC3F6A600CEFF4F /* vg */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		B45EB6ED1CC3F6A600CEFF4F /* vg */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB6EE1CC3F6A600CEFF4F /* openvg.h */,
+				B45EB6EF1CC3F6A600CEFF4F /* vgu.h */,
+			);
+			path = vg;
+			sourceTree = "<group>";
+		};
+		B45EB6F21CC3F6A600CEFF4F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB6F31CC3F6A600CEFF4F /* shArrayBase.h */,
+				B45EB6F41CC3F6A600CEFF4F /* shArrays.c */,
+				B45EB6F51CC3F6A600CEFF4F /* shArrays.h */,
+				B45EB6F61CC3F6A600CEFF4F /* shContext.c */,
+				B45EB6F71CC3F6A600CEFF4F /* shContext.h */,
+				B45EB6F81CC3F6A600CEFF4F /* shDefs.h */,
+				B45EB6F91CC3F6A600CEFF4F /* shExtensions.c */,
+				B45EB6FA1CC3F6A600CEFF4F /* shExtensions.h */,
+				B45EB6FB1CC3F6A600CEFF4F /* shGeometry.c */,
+				B45EB6FC1CC3F6A600CEFF4F /* shGeometry.h */,
+				B45EB6FD1CC3F6A600CEFF4F /* shImage.c */,
+				B45EB6FE1CC3F6A600CEFF4F /* shImage.h */,
+				B45EB6FF1CC3F6A600CEFF4F /* shPaint.c */,
+				B45EB7001CC3F6A600CEFF4F /* shPaint.h */,
+				B45EB7011CC3F6A600CEFF4F /* shParams.c */,
+				B45EB7021CC3F6A600CEFF4F /* shPath.c */,
+				B45EB7031CC3F6A600CEFF4F /* shPath.h */,
+				B45EB7041CC3F6A600CEFF4F /* shPipeline.c */,
+				B45EB7051CC3F6A600CEFF4F /* shVectors.c */,
+				B45EB7061CC3F6A600CEFF4F /* shVectors.h */,
+				B45EB7071CC3F6A600CEFF4F /* shVgu.c */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		B48604D71C9B90F600629452 /* media */ = {
@@ -757,6 +894,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				B45EB6E01CC3F6A600CEFF4F /* ofxShivaVG */,
 				B40442A41CBE8F580071C074 /* ofxJSON */,
 				B4B354D31CBDC26200B8883B /* ofxBpm */,
 				B4B3549C1CBDC25500B8883B /* ofxMidi */,
@@ -917,9 +1055,13 @@
 			files = (
 				B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */,
 				B4B354331CBC497A00B8883B /* erChannelRenderer.cpp in Sources */,
+				B45EB7081CC3F6A600CEFF4F /* ofxShivaVGRenderer.cpp in Sources */,
+				B45EB70E1CC3F6A600CEFF4F /* shGeometry.c in Sources */,
 				B48605031C9B911800629452 /* ofxNetworkSyncServer.cpp in Sources */,
 				B4B354961CBDC1D800B8883B /* ofxManagedAudioUnit.cpp in Sources */,
+				B45EB7111CC3F6A600CEFF4F /* shParams.c in Sources */,
 				B48605151C9B911F00629452 /* ofxTCPManager.cpp in Sources */,
+				B45EB7121CC3F6A600CEFF4F /* shPath.c in Sources */,
 				B40442B91CBEA39E0071C074 /* erSettings.cpp in Sources */,
 				B4B354971CBDC1D800B8883B /* MidiHandler.cpp in Sources */,
 				B48605021C9B911800629452 /* ofxNetworkSyncClientState.cpp in Sources */,
@@ -933,6 +1075,8 @@
 				B4B3547B1CBDC1D500B8883B /* TPCircularBuffer.c in Sources */,
 				B4B3549B1CBDC1D800B8883B /* ofxAudioUnitManagerUtils.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
+				B45EB70A1CC3F6A600CEFF4F /* simpleVGPath.cpp in Sources */,
+				B45EB70B1CC3F6A600CEFF4F /* shArrays.c in Sources */,
 				B48605141C9B911F00629452 /* ofxTCPClient.cpp in Sources */,
 				B4B354301CBC474200B8883B /* erMediaRenderer.cpp in Sources */,
 				B4B354291CBC3DFF00B8883B /* erPlayParams.cpp in Sources */,
@@ -943,18 +1087,22 @@
 				B4B354741CBDC1D500B8883B /* ofxAudioUnitNetReceive.cpp in Sources */,
 				B4B354781CBDC1D500B8883B /* ofxAudioUnitSampler.cpp in Sources */,
 				B4B354981CBDC1D800B8883B /* PresetsHandler.cpp in Sources */,
+				B45EB7131CC3F6A600CEFF4F /* shPipeline.c in Sources */,
 				B4B3549A1CBDC1D800B8883B /* ofxAudioUnitManager.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				B4B354731CBDC1D500B8883B /* ofxAudioUnitMixer.cpp in Sources */,
 				B45D54E21CC19F23000AFC31 /* erEcgVisualization.cpp in Sources */,
+				B45EB7151CC3F6A600CEFF4F /* shVgu.c in Sources */,
 				B4B354721CBDC1D500B8883B /* ofxAudioUnitMidi.cpp in Sources */,
 				B4B3546C1CBDC1D500B8883B /* ofxAudioUnitDSPNode.cpp in Sources */,
 				B48604F01C9B90F600629452 /* erSeaLevelViz.cpp in Sources */,
+				B45EB70C1CC3F6A600CEFF4F /* shContext.c in Sources */,
 				B4B354CF1CBDC25500B8883B /* ofxMidiMessage.cpp in Sources */,
 				B4B3546F1CBDC1D500B8883B /* ofxAudioUnitHardwareUtils.cpp in Sources */,
 				B4B354671CBDC1D500B8883B /* AUParamInfo.cpp in Sources */,
 				B4B354701CBDC1D500B8883B /* ofxAudioUnitInput.cpp in Sources */,
 				B4B354CA1CBDC25500B8883B /* ofxRtMidiIn.cpp in Sources */,
+				B45EB7141CC3F6A600CEFF4F /* shVectors.c in Sources */,
 				B4B3546B1CBDC1D500B8883B /* ofxAudioUnitCocoaUtilties.mm in Sources */,
 				B4B354791CBDC1D500B8883B /* ofxAudioUnitSpeechSynth.cpp in Sources */,
 				B4B354711CBDC1D500B8883B /* ofxAudioUnitMatrixMixer.cpp in Sources */,
@@ -964,6 +1112,8 @@
 				B40442B21CBE8F580071C074 /* jsoncpp.cpp in Sources */,
 				B4B3546A1CBDC1D500B8883B /* ofxAudioUnit.cpp in Sources */,
 				B4B354CC1CBDC25500B8883B /* ofxBaseMidi.cpp in Sources */,
+				B45EB7101CC3F6A600CEFF4F /* shPaint.c in Sources */,
+				B45EB7091CC3F6A600CEFF4F /* simpleVGContext.cpp in Sources */,
 				B4B354281CBC3DFF00B8883B /* erMediaPlayer.cpp in Sources */,
 				B4B354CB1CBDC25500B8883B /* ofxRtMidiOut.cpp in Sources */,
 				B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */,
@@ -973,9 +1123,11 @@
 				B4B354D71CBDC26200B8883B /* ofxBpm.cpp in Sources */,
 				B4B354CD1CBDC25500B8883B /* ofxMidi.cpp in Sources */,
 				B4B354751CBDC1D500B8883B /* ofxAudioUnitNetSend.cpp in Sources */,
+				B45EB70F1CC3F6A600CEFF4F /* shImage.c in Sources */,
 				B4B354D11CBDC25500B8883B /* RtMidi.cpp in Sources */,
 				B4B354951CBDC1D800B8883B /* ofxAudioUnitChain.cpp in Sources */,
 				B4B354CE1CBDC25500B8883B /* ofxMidiIn.cpp in Sources */,
+				B45EB70D1CC3F6A600CEFF4F /* shExtensions.c in Sources */,
 				B48605041C9B911800629452 /* ofxNetworkSyncUdp.cpp in Sources */,
 				B48604F11C9B90F600629452 /* erNetwork.cpp in Sources */,
 				B4B3546D1CBDC1D500B8883B /* ofxAudioUnitFftNode.cpp in Sources */,
@@ -1071,7 +1223,7 @@
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
-				USER_HEADER_SEARCH_PATHS = ../../../addons/ofxJSON/libs/jsoncpp/include/;
+				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxShivaVG/libs/ShivaVG/include/ ../../../addons/ofxJSON/libs/jsoncpp/include/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1095,7 +1247,7 @@
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = ../../../addons/ofxJSON/libs/jsoncpp/include/;
+				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxShivaVG/libs/ShivaVG/include/ ../../../addons/ofxJSON/libs/jsoncpp/include/";
 				WRAPPER_EXTENSION = app;
 				baseConfigurationReference = E4EB6923138AFD0F00A09F29;
 			};

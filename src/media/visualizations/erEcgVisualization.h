@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "ofxCsvStream.h"
+#include "ofxShivaVGRenderer.h"
 
 class erEcgVisualization{
 
@@ -15,6 +16,7 @@ protected:
     void trimPointsToSize();
     void drawGrid();
     void drawEcgLine();
+
     ofxCsvStream stream;
     vector<float> data;
     string source;
@@ -25,4 +27,6 @@ protected:
     ofPoint point, oldPoint, gridIncrement;
     deque<ofPoint> points;
     float alpha, alphaIncrement;
+
+    ofPtr<ofxShivaVGRenderer> shivaRenderer;
 };

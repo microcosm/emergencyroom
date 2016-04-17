@@ -2,6 +2,7 @@
 
 void erEcgVisualization::setup(){
     ofToggleFullscreen();
+
     source = "ecg.csv";
     numCols = 2;
     highestValue = -0.177;
@@ -15,13 +16,18 @@ void erEcgVisualization::setup(){
     alphaIncrement = 255 / tailLength;
     gridIncrement.x = ofGetWidth() / 16;
     gridIncrement.y = ofGetHeight() / 10;
-    stream.openReadStream(source);
+
+    shivaRenderer = ofPtr<ofxShivaVGRenderer>(new ofxShivaVGRenderer);
+    ofSetCurrentRenderer(shivaRenderer);
+    shivaRenderer->setLineCapStyle(VG_CAP_ROUND);
     readData();
+
     ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
     ofAddListener(ofEvents().draw, this, &erEcgVisualization::draw);
 }
 
 void erEcgVisualization::readData(){
+    stream.openReadStream(source);
     numRows = 0;
     int i = 0;
     while(!stream.eof()){
