@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "ofxCsvStream.h"
 #include "ofxShivaVGRenderer.h"
+#include "ofxLayerMask.h"
 
 #define ECG_DATA_SOURCE "ecg.csv"
 #define ECG_NUM_COLS 2
@@ -9,7 +10,10 @@
 #define ECG_LOWEST_VALUE -1.78
 #define ECG_START_ROW 168
 #define ECG_EXIT_ROW 403
+#define ECG_MAX_POINTS 200
 #define ECG_PERIOD 1000
+#define ECG_LINE_TAIL_BEGIN 0.1
+#define ECG_LINE_TAIL_END 0.7
 
 class erEcgVisualization{
 
@@ -22,18 +26,25 @@ protected:
     void readData();
     void loadNewPoints();
     void trimPointsToSize();
+    void generateMask();
     void drawGrid();
-    void drawEcgLine();
+    void renderEcgLine();
+    void renderEcgMask();
 
     ofxCsvStream stream;
     vector<float> data;
     int numRows, currentRow, lastRow;
-    int maxPoints, tailLength;
+
+    ofImage maskImage;
+    ofColor color;
+    ofxLayerMask masker;
+    int tailLength;//?
+    float alpha, alphaIncrement;//?
+    ofPtr<ofxShivaVGRenderer> shivaRenderer;
+    ofPtr<ofBaseRenderer> defaultRenderer;
+
     float currentValue;
     float timeIndex, incrementalTimeIndex, lastTimeIndex;
     ofPoint point, oldPoint, gridIncrement;
     deque<ofPoint> points;
-    float alpha, alphaIncrement;
-
-    ofPtr<ofxShivaVGRenderer> shivaRenderer;
 };

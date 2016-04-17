@@ -2,17 +2,20 @@
 
 void erEcgVisualization::setup(){
     ofToggleFullscreen();
+    masker.setup(1);
+    masker.toggleOverlay();
 
     currentRow = 0;
-    maxPoints = 200;
     tailLength = 140;
     alphaIncrement = 255 / tailLength;
     gridIncrement.x = ofGetWidth() / 16;
     gridIncrement.y = ofGetHeight() / 10;
 
     shivaRenderer = ofPtr<ofxShivaVGRenderer>(new ofxShivaVGRenderer);
-    ofSetCurrentRenderer(shivaRenderer);
+    defaultRenderer = ofGetCurrentRenderer();
     shivaRenderer->setLineCapStyle(VG_CAP_ROUND);
+
+    generateMask();
     readData();
 
     ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
@@ -48,7 +51,24 @@ void erEcgVisualization::update(ofEventArgs& args){
 void erEcgVisualization::draw(ofEventArgs& args){
     ofBackground(ofColor::black);
     drawGrid();
-    drawEcgLine();
+    renderEcgLine();
+    renderEcgMask();
+    masker.draw();
+    masker.drawOverlay();
+}
+
+void erEcgVisualization::generateMask(){
+    maskImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
+    for(int x = 0; x < ofGetWidth(); x++){
+        for(int y = 0; y < ofGetHeight(); y++){
+            float begin = ofGetWidth() * ECG_LINE_TAIL_BEGIN;
+            float end = ofGetWidth() * ECG_LINE_TAIL_END;
+            float brightness = ofMap(x, begin, end, 0, 255);
+            color = ofColor::fromHsb(0, 0, brightness);
+            maskImage.setColor(x, y, color);
+        }
+    }
+    maskImage.update();
 }
 
 void erEcgVisualization::drawGrid(){
@@ -62,22 +82,38 @@ void erEcgVisualization::drawGrid(){
     }
 }
 
-void erEcgVisualization::drawEcgLine(){
-    ofSetLineWidth(7);
-    ofSetColor(ofColor::white);
-    alpha = 0;
-    for(int i = 0; i < points.size(); i++){
-        if(i > 0){
-            alpha += alphaIncrement;
-            ofSetColor(ofColor::white, alpha);
+void erEcgVisualization::renderEcgLine(){
+    masker.beginLayer();
+    {
+        ofClear(ofColor(ofColor::black, 0));
+        ofSetCurrentRenderer(shivaRenderer);
+        ofSetLineWidth(7);
+        ofSetColor(ofColor::white);
+        alpha = 0;
+        for(int i = 0; i < points.size(); i++){
+            if(i > 0){
+                alpha += alphaIncrement;
+                ofSetColor(ofColor::white, 255);
 
-            point = points[i];
-            oldPoint = points[i-1];
-            if(point.x >= oldPoint.x){
-                ofDrawLine(oldPoint, point);
+                point = points[i];
+                oldPoint = points[i-1];
+                if(point.x >= oldPoint.x){
+                    ofDrawLine(oldPoint, point);
+                }
             }
         }
+        ofSetCurrentRenderer(defaultRenderer);
     }
+    masker.endLayer();
+}
+
+void erEcgVisualization::renderEcgMask(){
+    masker.beginMask();
+    {
+        ofSetColor(ofColor::white);
+        maskImage.draw(0, 0);
+    }
+    masker.endMask();
 }
 
 void erEcgVisualization::loadNewPoints(){
@@ -93,7 +129,7 @@ void erEcgVisualization::loadNewPoints(){
 }
 
 void erEcgVisualization::trimPointsToSize(){
-    if(points.size() > maxPoints){
-        points.erase(points.begin(), points.begin() + points.size() - maxPoints);
+    if(points.size() > ECG_MAX_POINTS){
+        points.erase(points.begin(), points.begin() + points.size() - ECG_MAX_POINTS);
     }
 }

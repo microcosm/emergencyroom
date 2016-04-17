@@ -28,6 +28,7 @@
 		B45EB7131CC3F6A600CEFF4F /* shPipeline.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7041CC3F6A600CEFF4F /* shPipeline.c */; };
 		B45EB7141CC3F6A600CEFF4F /* shVectors.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7051CC3F6A600CEFF4F /* shVectors.c */; };
 		B45EB7151CC3F6A600CEFF4F /* shVgu.c in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7071CC3F6A600CEFF4F /* shVgu.c */; };
+		B45EB7211CC405B100CEFF4F /* ofxLayerMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7181CC405B100CEFF4F /* ofxLayerMask.cpp */; };
 		B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */; };
 		B48604EF1C9B90F600629452 /* erSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DC1C9B90F600629452 /* erSequencer.cpp */; };
 		B48604F01C9B90F600629452 /* erSeaLevelViz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604E31C9B90F600629452 /* erSeaLevelViz.cpp */; };
@@ -171,6 +172,14 @@
 		B45EB7051CC3F6A600CEFF4F /* shVectors.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shVectors.c; sourceTree = "<group>"; };
 		B45EB7061CC3F6A600CEFF4F /* shVectors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shVectors.h; sourceTree = "<group>"; };
 		B45EB7071CC3F6A600CEFF4F /* shVgu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shVgu.c; sourceTree = "<group>"; };
+		B45EB7181CC405B100CEFF4F /* ofxLayerMask.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLayerMask.cpp; sourceTree = "<group>"; };
+		B45EB7191CC405B100CEFF4F /* ofxLayerMask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxLayerMask.h; sourceTree = "<group>"; };
+		B45EB71B1CC405B100CEFF4F /* alphaMask_ES2.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = alphaMask_ES2.frag; sourceTree = "<group>"; };
+		B45EB71C1CC405B100CEFF4F /* alphaMask_ES2.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = alphaMask_ES2.vert; sourceTree = "<group>"; };
+		B45EB71D1CC405B100CEFF4F /* alphaMask_GL2.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = alphaMask_GL2.frag; sourceTree = "<group>"; };
+		B45EB71E1CC405B100CEFF4F /* alphaMask_GL2.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = alphaMask_GL2.vert; sourceTree = "<group>"; };
+		B45EB71F1CC405B100CEFF4F /* alphaMask_GL3.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = alphaMask_GL3.frag; sourceTree = "<group>"; };
+		B45EB7201CC405B100CEFF4F /* alphaMask_GL3.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = alphaMask_GL3.vert; sourceTree = "<group>"; };
 		B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaLoader.cpp; sourceTree = "<group>"; };
 		B47EF6B91CA16CD8003B3B83 /* erMediaLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaLoader.h; sourceTree = "<group>"; };
 		B48604DC1C9B90F600629452 /* erSequencer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSequencer.cpp; sourceTree = "<group>"; };
@@ -522,6 +531,38 @@
 				B45EB7071CC3F6A600CEFF4F /* shVgu.c */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		B45EB7161CC405B100CEFF4F /* ofxLayerMask */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB7171CC405B100CEFF4F /* src */,
+			);
+			name = ofxLayerMask;
+			sourceTree = "<group>";
+		};
+		B45EB7171CC405B100CEFF4F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB7181CC405B100CEFF4F /* ofxLayerMask.cpp */,
+				B45EB7191CC405B100CEFF4F /* ofxLayerMask.h */,
+				B45EB71A1CC405B100CEFF4F /* shader */,
+			);
+			name = src;
+			path = ../../../addons/ofxLayerMask/src;
+			sourceTree = "<group>";
+		};
+		B45EB71A1CC405B100CEFF4F /* shader */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB71B1CC405B100CEFF4F /* alphaMask_ES2.frag */,
+				B45EB71C1CC405B100CEFF4F /* alphaMask_ES2.vert */,
+				B45EB71D1CC405B100CEFF4F /* alphaMask_GL2.frag */,
+				B45EB71E1CC405B100CEFF4F /* alphaMask_GL2.vert */,
+				B45EB71F1CC405B100CEFF4F /* alphaMask_GL3.frag */,
+				B45EB7201CC405B100CEFF4F /* alphaMask_GL3.vert */,
+			);
+			path = shader;
 			sourceTree = "<group>";
 		};
 		B48604D71C9B90F600629452 /* media */ = {
@@ -894,6 +935,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				B45EB7161CC405B100CEFF4F /* ofxLayerMask */,
 				B45EB6E01CC3F6A600CEFF4F /* ofxShivaVG */,
 				B40442A41CBE8F580071C074 /* ofxJSON */,
 				B4B354D31CBDC26200B8883B /* ofxBpm */,
@@ -1096,6 +1138,7 @@
 				B4B354721CBDC1D500B8883B /* ofxAudioUnitMidi.cpp in Sources */,
 				B4B3546C1CBDC1D500B8883B /* ofxAudioUnitDSPNode.cpp in Sources */,
 				B48604F01C9B90F600629452 /* erSeaLevelViz.cpp in Sources */,
+				B45EB7211CC405B100CEFF4F /* ofxLayerMask.cpp in Sources */,
 				B45EB70C1CC3F6A600CEFF4F /* shContext.c in Sources */,
 				B4B354CF1CBDC25500B8883B /* ofxMidiMessage.cpp in Sources */,
 				B4B3546F1CBDC1D500B8883B /* ofxAudioUnitHardwareUtils.cpp in Sources */,
