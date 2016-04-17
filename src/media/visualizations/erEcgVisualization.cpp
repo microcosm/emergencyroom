@@ -3,11 +3,9 @@
 void erEcgVisualization::setup(){
     ofToggleFullscreen();
     masker.setup(1);
-    masker.toggleOverlay();
+    generateMaskImage();
 
     currentRow = 0;
-    tailLength = 140;
-    alphaIncrement = 255 / tailLength;
     gridIncrement.x = ofGetWidth() / 16;
     gridIncrement.y = ofGetHeight() / 10;
 
@@ -15,7 +13,6 @@ void erEcgVisualization::setup(){
     defaultRenderer = ofGetCurrentRenderer();
     shivaRenderer->setLineCapStyle(VG_CAP_ROUND);
 
-    generateMask();
     readData();
 
     ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
@@ -57,7 +54,7 @@ void erEcgVisualization::draw(ofEventArgs& args){
     masker.drawOverlay();
 }
 
-void erEcgVisualization::generateMask(){
+void erEcgVisualization::generateMaskImage(){
     maskImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
     for(int x = 0; x < ofGetWidth(); x++){
         for(int y = 0; y < ofGetHeight(); y++){
@@ -89,12 +86,8 @@ void erEcgVisualization::renderEcgLine(){
         ofSetCurrentRenderer(shivaRenderer);
         ofSetLineWidth(7);
         ofSetColor(ofColor::white);
-        alpha = 0;
         for(int i = 0; i < points.size(); i++){
             if(i > 0){
-                alpha += alphaIncrement;
-                ofSetColor(ofColor::white, 255);
-
                 point = points[i];
                 oldPoint = points[i-1];
                 if(point.x >= oldPoint.x){
@@ -110,8 +103,10 @@ void erEcgVisualization::renderEcgLine(){
 void erEcgVisualization::renderEcgMask(){
     masker.beginMask();
     {
+        ofBackground(ofColor::black);
         ofSetColor(ofColor::white);
-        maskImage.draw(0, 0);
+        maskImage.draw(points.back().x, 0);
+        maskImage.draw(points.back().x - ofGetWidth(), 0);
     }
     masker.endMask();
 }

@@ -12,8 +12,8 @@
 #define ECG_EXIT_ROW 403
 #define ECG_MAX_POINTS 200
 #define ECG_PERIOD 1000
-#define ECG_LINE_TAIL_BEGIN 0.1
-#define ECG_LINE_TAIL_END 0.7
+#define ECG_LINE_TAIL_BEGIN 0.2
+#define ECG_LINE_TAIL_END 0.8
 
 class erEcgVisualization{
 
@@ -26,7 +26,7 @@ protected:
     void readData();
     void loadNewPoints();
     void trimPointsToSize();
-    void generateMask();
+    void generateMaskImage();
     void drawGrid();
     void renderEcgLine();
     void renderEcgMask();
@@ -38,8 +38,6 @@ protected:
     ofImage maskImage;
     ofColor color;
     ofxLayerMask masker;
-    int tailLength;//?
-    float alpha, alphaIncrement;//?
     ofPtr<ofxShivaVGRenderer> shivaRenderer;
     ofPtr<ofBaseRenderer> defaultRenderer;
 
