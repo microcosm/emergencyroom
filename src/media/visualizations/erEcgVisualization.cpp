@@ -1,9 +1,17 @@
 #include "erEcgVisualization.h"
 
+//Common resolutions
+//MBP retina: 1440 x 900
+//Monoprice: 2560 x 1600 / 2048 x 1280 / 1600 x 1000 / 1280 x 800
+
 void erEcgVisualization::setup(){
     ofToggleFullscreen();
+
+    width = ofGetWidth();
+    height = ofGetHeight();
+
     lineColor = ofColor(234, 242, 255);
-    masker.setup(3);
+    masker.setup(width, height, 3);
     //masker.toggleOverlay();
     createLinearMaskImage();
     createRadialMaskShape();
@@ -16,7 +24,8 @@ void erEcgVisualization::setup(){
     defaultRenderer = ofGetCurrentRenderer();
     shivaRenderer->setLineCapStyle(VG_CAP_ROUND);
     post.init();
-    post.createPass<BloomPass>()->setEnabled(true);
+    //post.createPass<FxaaPass>();
+    //post.createPass<BloomPass>();
 
     readData();
 
@@ -65,11 +74,11 @@ void erEcgVisualization::draw(ofEventArgs& args){
 }
 
 void erEcgVisualization::createLinearMaskImage(){
-    linearMaskImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
-    for(int x = 0; x < ofGetWidth(); x++){
-        for(int y = 0; y < ofGetHeight(); y++){
-            float begin = ofGetWidth() * ECG_LINE_TAIL_FROM_LEFT;
-            float end = ofGetWidth() * ECG_LINE_TAIL_TO_RIGHT;
+    linearMaskImage.allocate(width, height, OF_IMAGE_COLOR);
+    for(int x = 0; x < width; x++){
+        for(int y = 0; y < height; y++){
+            float begin = width * ECG_LINE_TAIL_FROM_LEFT;
+            float end = width * ECG_LINE_TAIL_TO_RIGHT;
             float brightness = ofMap(x, begin, end, 0, 255);
             ofColor color = ofColor::fromHsb(0, 0, brightness);
             linearMaskImage.setColor(x, y, color);
@@ -80,8 +89,8 @@ void erEcgVisualization::createLinearMaskImage(){
 
 void erEcgVisualization::createRadialMaskShape(){
     radialShapeSystem.setup();
-    radialShape.setupGradientRing(60, -(ofGetHeight() * ECG_RADIAL_MULTIPLIER), ofGetHeight() * ECG_RADIAL_MULTIPLIER);
-    radialShape.setPosition(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
+    radialShape.setupGradientRing(60, -(height * ECG_RADIAL_MULTIPLIER), height * ECG_RADIAL_MULTIPLIER);
+    radialShape.setPosition(width * 0.5, height * 0.5);
     radialShapeSystem.add(radialShape);
 }
 
@@ -93,18 +102,18 @@ void erEcgVisualization::createLineHeadShape(){
 
 void erEcgVisualization::renderGridLayer(){
     currentRow = 0;
-    gridIncrement.x = ofGetWidth() / ECG_GRID_DIVISIONS_X;
-    gridIncrement.y = ofGetHeight() / ECG_GRID_DIVISIONS_Y;
+    gridIncrement.x = width / ECG_GRID_DIVISIONS_X;
+    gridIncrement.y = height / ECG_GRID_DIVISIONS_Y;
 
     masker.beginLayer(0);
     {
         ofBackground(ofColor::black);
         ofSetLineWidth(2);
         ofSetColor(ofColor(5, 70, 190, 182));
-        for(int x = gridIncrement.x; x < ofGetWidth(); x += gridIncrement.x){
-            for(int y = gridIncrement.y; y < ofGetHeight(); y += gridIncrement.y){
-                ofDrawLine(x, 0, x, ofGetHeight());
-                ofDrawLine(0, y, ofGetWidth(), y);
+        for(int x = gridIncrement.x; x < width; x += gridIncrement.x){
+            for(int y = gridIncrement.y; y < height; y += gridIncrement.y){
+                ofDrawLine(x, 0, x, height);
+                ofDrawLine(0, y, width, y);
             }
         }
     }
@@ -138,7 +147,7 @@ void erEcgVisualization::renderEcgLineMask(){
         ofBackground(ofColor::black);
         ofSetColor(ofColor::white);
         linearMaskImage.draw(points.back().x, 0);
-        linearMaskImage.draw(points.back().x - ofGetWidth(), 0);
+        linearMaskImage.draw(points.back().x - width, 0);
     }
     masker.endMask(1);
 }
@@ -170,8 +179,8 @@ void erEcgVisualization::loadNewPoints(){
     for(int i = lastRow; i <= currentRow; i++){
         currentValue = data.at(i);
         incrementalTimeIndex = ofMap(i, lastRow, currentRow, lastTimeIndex, timeIndex);
-        point.x = ofMap(incrementalTimeIndex, 0, ECG_PERIOD, 0, ofGetWidth());
-        point.y = ofMap(currentValue, ECG_HIGHEST_VALUE, ECG_LOWEST_VALUE, 0, ofGetHeight());
+        point.x = ofMap(incrementalTimeIndex, 0, ECG_PERIOD, 0, width);
+        point.y = ofMap(currentValue, ECG_HIGHEST_VALUE, ECG_LOWEST_VALUE, 0, height);
         if(i > lastRow){
             points.push_back(point);
         }

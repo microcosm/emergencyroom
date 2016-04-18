@@ -57,6 +57,8 @@ protected:
     ofxShape radialShape;
     ofxShapeSystem lineHeadShapeSystem;
     ofxShape lineHeadShape;
+
+    int width, height;
     ofPtr<ofxShivaVGRenderer> shivaRenderer;
     ofPtr<ofBaseRenderer> defaultRenderer;
     ofxPostProcessing post;
