@@ -5,6 +5,7 @@
 #include "ofxLayerMask.h"
 #include "ofxPostProcessing.h"
 #include "ofxShapeSystem.h"
+#include "erSyncedMediaPlayer.h"
 
 #define ECG_DATA_SOURCE "ecg.csv"
 #define ECG_NUM_COLS 2
@@ -26,7 +27,7 @@
 #define ECG_RADIAL_MULTIPLIER 0.85
 #define ECG_LINE_HEAD_SIZE 35
 
-class erEcgVisualization{
+class erEcgVisualization : erSyncedMediaPlayer{
 
 public:
     void setup();

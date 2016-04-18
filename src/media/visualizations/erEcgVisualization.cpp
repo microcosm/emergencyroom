@@ -51,10 +51,28 @@ void erEcgVisualization::readData(){
     }
 }
 
+void erEcgVisualization::loadNewPoints(){
+    for(int i = lastRow; i <= currentRow; i++){
+        currentValue = data.at(i);
+        incrementalTimeIndex = ofMap(i, lastRow, currentRow, lastTimeIndex, timeIndex);
+        point.x = ofMap(incrementalTimeIndex, 0, ECG_PERIOD, 0, width);
+        point.y = ofMap(currentValue, ECG_HIGHEST_VALUE, ECG_LOWEST_VALUE, 0, height);
+        if(i > lastRow){
+            points.push_back(point);
+        }
+    }
+}
+
+void erEcgVisualization::trimPointsToSize(){
+    if(points.size() > ECG_MAX_POINTS){
+        points.erase(points.begin(), points.begin() + points.size() - ECG_MAX_POINTS);
+    }
+}
+
 void erEcgVisualization::update(ofEventArgs& args){
     lastRow = currentRow;
     lastTimeIndex = timeIndex;
-    timeIndex = ofGetElapsedTimeMillis() % ECG_PERIOD;
+    timeIndex = (playTime + ofGetElapsedTimeMillis()) % ECG_PERIOD;
     currentRow = ofMap(timeIndex, 0, ECG_PERIOD, 0, numRows-1);
 
     loadNewPoints();
@@ -82,6 +100,10 @@ void erEcgVisualization::draw(ofEventArgs& args){
 void erEcgVisualization::keyReleased(ofKeyEventArgs& args){
     if(args.key == 'o'){
         overlay = !overlay;
+    }
+
+    if(args.key == 's'){
+        schedule(500);
     }
 }
 
@@ -185,22 +207,4 @@ void erEcgVisualization::renderRadialOverlayMask(){
         radialShapeSystem.draw();
     }
     masker.endMask(2);
-}
-
-void erEcgVisualization::loadNewPoints(){
-    for(int i = lastRow; i <= currentRow; i++){
-        currentValue = data.at(i);
-        incrementalTimeIndex = ofMap(i, lastRow, currentRow, lastTimeIndex, timeIndex);
-        point.x = ofMap(incrementalTimeIndex, 0, ECG_PERIOD, 0, width);
-        point.y = ofMap(currentValue, ECG_HIGHEST_VALUE, ECG_LOWEST_VALUE, 0, height);
-        if(i > lastRow){
-            points.push_back(point);
-        }
-    }
-}
-
-void erEcgVisualization::trimPointsToSize(){
-    if(points.size() > ECG_MAX_POINTS){
-        points.erase(points.begin(), points.begin() + points.size() - ECG_MAX_POINTS);
-    }
 }
