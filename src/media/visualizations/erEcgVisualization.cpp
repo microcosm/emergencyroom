@@ -2,12 +2,13 @@
 
 void erEcgVisualization::setup(){
     ofToggleFullscreen();
-    masker.setup(1);
-    generateMaskImage();
+    masker.setup(3);
+    //masker.toggleOverlay();
+    createMaskImage();
+    createRadialShape();
 
-    currentRow = 0;
-    gridIncrement.x = ofGetWidth() / 16;
-    gridIncrement.y = ofGetHeight() / 10;
+    renderGridLayer();
+    renderRadialOverlayMask();
 
     shivaRenderer = ofPtr<ofxShivaVGRenderer>(new ofxShivaVGRenderer);
     defaultRenderer = ofGetCurrentRenderer();
@@ -51,17 +52,17 @@ void erEcgVisualization::draw(ofEventArgs& args){
     ofBackground(ofColor::black);
     post.begin();
     {
-        drawGrid();
-        renderEcgLine();
-        renderEcgMask();
-        masker.draw();
+        renderEcgLineLayer();
+        renderEcgLineMask();
+        renderRadialOverlayLayer();
+        masker.drawLayer(2);
     }
     post.end();
     post.draw();
     masker.drawOverlay();
 }
 
-void erEcgVisualization::generateMaskImage(){
+void erEcgVisualization::createMaskImage(){
     maskImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
     for(int x = 0; x < ofGetWidth(); x++){
         for(int y = 0; y < ofGetHeight(); y++){
@@ -75,19 +76,35 @@ void erEcgVisualization::generateMaskImage(){
     maskImage.update();
 }
 
-void erEcgVisualization::drawGrid(){
-    ofSetLineWidth(1);
-    ofSetColor(ofColor::white, 5);
-    for(int x = gridIncrement.x; x < ofGetWidth(); x += gridIncrement.x){
-        for(int y = gridIncrement.y; y < ofGetHeight(); y += gridIncrement.y){
-            ofDrawLine(x, 0, x, ofGetHeight());
-            ofDrawLine(0, y, ofGetWidth(), y);
-        }
-    }
+void erEcgVisualization::createRadialShape(){
+    shapeSystem.setup();
+    radialShape.setupGradientRing(60, -(ofGetHeight() * ECG_RADIAL_MULTIPLIER), ofGetHeight() * ECG_RADIAL_MULTIPLIER);
+    radialShape.setPosition(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
+    shapeSystem.add(radialShape);
 }
 
-void erEcgVisualization::renderEcgLine(){
-    masker.beginLayer();
+void erEcgVisualization::renderGridLayer(){
+    currentRow = 0;
+    gridIncrement.x = ofGetWidth() / ECG_GRID_DIVISIONS_X;
+    gridIncrement.y = ofGetHeight() / ECG_GRID_DIVISIONS_Y;
+
+    masker.beginLayer(0);
+    {
+        ofBackground(ofColor::black);
+        ofSetLineWidth(1);
+        ofSetColor(ofColor::white, 5);
+        for(int x = gridIncrement.x; x < ofGetWidth(); x += gridIncrement.x){
+            for(int y = gridIncrement.y; y < ofGetHeight(); y += gridIncrement.y){
+                ofDrawLine(x, 0, x, ofGetHeight());
+                ofDrawLine(0, y, ofGetWidth(), y);
+            }
+        }
+    }
+    masker.endLayer(0);
+}
+
+void erEcgVisualization::renderEcgLineLayer(){
+    masker.beginLayer(1);
     {
         ofClear(ofColor(ofColor::black, 0));
         ofSetCurrentRenderer(shivaRenderer);
@@ -104,18 +121,38 @@ void erEcgVisualization::renderEcgLine(){
         }
         ofSetCurrentRenderer(defaultRenderer);
     }
-    masker.endLayer();
+    masker.endLayer(1);
 }
 
-void erEcgVisualization::renderEcgMask(){
-    masker.beginMask();
+void erEcgVisualization::renderEcgLineMask(){
+    masker.beginMask(1);
     {
         ofBackground(ofColor::black);
         ofSetColor(ofColor::white);
         maskImage.draw(points.back().x, 0);
         maskImage.draw(points.back().x - ofGetWidth(), 0);
     }
-    masker.endMask();
+    masker.endMask(1);
+}
+
+void erEcgVisualization::renderRadialOverlayLayer(){
+    masker.beginLayer(2);
+    {
+        ofBackground(ofColor::black);
+        ofSetColor(ofColor::white);
+        masker.drawLayers(0, 1);
+    }
+    masker.endLayer(2);
+}
+
+void erEcgVisualization::renderRadialOverlayMask(){
+    masker.beginMask(2);
+    {
+        ofBackground(ofColor::black);
+        ofSetColor(ofColor::white);
+        shapeSystem.draw();
+    }
+    masker.endMask(2);
 }
 
 void erEcgVisualization::loadNewPoints(){

@@ -54,6 +54,9 @@
 		B45EB7871CC4307B00CEFF4F /* ToonPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB76B1CC4307B00CEFF4F /* ToonPass.cpp */; };
 		B45EB7881CC4307B00CEFF4F /* VerticalTiltShifPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB76D1CC4307B00CEFF4F /* VerticalTiltShifPass.cpp */; };
 		B45EB7891CC4307B00CEFF4F /* ZoomBlurPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB76F1CC4307B00CEFF4F /* ZoomBlurPass.cpp */; };
+		B45EB7941CC5483E00CEFF4F /* ofxShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB78E1CC5483E00CEFF4F /* ofxShape.cpp */; };
+		B45EB7951CC5483E00CEFF4F /* ofxShapeSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7901CC5483E00CEFF4F /* ofxShapeSystem.cpp */; };
+		B45EB7961CC5483E00CEFF4F /* ofxTransformable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7921CC5483E00CEFF4F /* ofxTransformable.cpp */; };
 		B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */; };
 		B48604EF1C9B90F600629452 /* erSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604DC1C9B90F600629452 /* erSequencer.cpp */; };
 		B48604F01C9B90F600629452 /* erSeaLevelViz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604E31C9B90F600629452 /* erSeaLevelViz.cpp */; };
@@ -256,6 +259,12 @@
 		B45EB76E1CC4307B00CEFF4F /* VerticalTiltShifPass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerticalTiltShifPass.h; sourceTree = "<group>"; };
 		B45EB76F1CC4307B00CEFF4F /* ZoomBlurPass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ZoomBlurPass.cpp; sourceTree = "<group>"; };
 		B45EB7701CC4307B00CEFF4F /* ZoomBlurPass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomBlurPass.h; sourceTree = "<group>"; };
+		B45EB78E1CC5483E00CEFF4F /* ofxShape.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShape.cpp; sourceTree = "<group>"; };
+		B45EB78F1CC5483E00CEFF4F /* ofxShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShape.h; sourceTree = "<group>"; };
+		B45EB7901CC5483E00CEFF4F /* ofxShapeSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShapeSystem.cpp; sourceTree = "<group>"; };
+		B45EB7911CC5483E00CEFF4F /* ofxShapeSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShapeSystem.h; sourceTree = "<group>"; };
+		B45EB7921CC5483E00CEFF4F /* ofxTransformable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTransformable.cpp; sourceTree = "<group>"; };
+		B45EB7931CC5483E00CEFF4F /* ofxTransformable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxTransformable.h; sourceTree = "<group>"; };
 		B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaLoader.cpp; sourceTree = "<group>"; };
 		B47EF6B91CA16CD8003B3B83 /* erMediaLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaLoader.h; sourceTree = "<group>"; };
 		B48604DC1C9B90F600629452 /* erSequencer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSequencer.cpp; sourceTree = "<group>"; };
@@ -708,6 +717,28 @@
 			path = ../../../addons/ofxPostProcessing/src;
 			sourceTree = "<group>";
 		};
+		B45EB78C1CC5483E00CEFF4F /* ofxShapeSystem */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB78D1CC5483E00CEFF4F /* src */,
+			);
+			name = ofxShapeSystem;
+			sourceTree = "<group>";
+		};
+		B45EB78D1CC5483E00CEFF4F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B45EB78E1CC5483E00CEFF4F /* ofxShape.cpp */,
+				B45EB78F1CC5483E00CEFF4F /* ofxShape.h */,
+				B45EB7901CC5483E00CEFF4F /* ofxShapeSystem.cpp */,
+				B45EB7911CC5483E00CEFF4F /* ofxShapeSystem.h */,
+				B45EB7921CC5483E00CEFF4F /* ofxTransformable.cpp */,
+				B45EB7931CC5483E00CEFF4F /* ofxTransformable.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxShapeSystem/src;
+			sourceTree = "<group>";
+		};
 		B48604D71C9B90F600629452 /* media */ = {
 			isa = PBXGroup;
 			children = (
@@ -1078,6 +1109,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				B45EB78C1CC5483E00CEFF4F /* ofxShapeSystem */,
 				B45EB73C1CC4307B00CEFF4F /* ofxPostProcessing */,
 				B45EB7161CC405B100CEFF4F /* ofxLayerMask */,
 				B45EB6E01CC3F6A600CEFF4F /* ofxShivaVG */,
@@ -1247,6 +1279,7 @@
 				B4B354961CBDC1D800B8883B /* ofxManagedAudioUnit.cpp in Sources */,
 				B45EB7111CC3F6A600CEFF4F /* shParams.c in Sources */,
 				B48605151C9B911F00629452 /* ofxTCPManager.cpp in Sources */,
+				B45EB7951CC5483E00CEFF4F /* ofxShapeSystem.cpp in Sources */,
 				B45EB7121CC3F6A600CEFF4F /* shPath.c in Sources */,
 				B45EB77B1CC4307B00CEFF4F /* HorizontalTiltShifPass.cpp in Sources */,
 				B45EB7891CC4307B00CEFF4F /* ZoomBlurPass.cpp in Sources */,
@@ -1271,6 +1304,7 @@
 				B45EB7721CC4307B00CEFF4F /* BloomPass.cpp in Sources */,
 				B48605141C9B911F00629452 /* ofxTCPClient.cpp in Sources */,
 				B4B354301CBC474200B8883B /* erMediaRenderer.cpp in Sources */,
+				B45EB7961CC5483E00CEFF4F /* ofxTransformable.cpp in Sources */,
 				B4B354291CBC3DFF00B8883B /* erPlayParams.cpp in Sources */,
 				B45EB7751CC4307B00CEFF4F /* DofAltPass.cpp in Sources */,
 				B4B354681CBDC1D500B8883B /* CAAUParameter.cpp in Sources */,
@@ -1287,6 +1321,7 @@
 				B45EB7131CC3F6A600CEFF4F /* shPipeline.c in Sources */,
 				B4B3549A1CBDC1D800B8883B /* ofxAudioUnitManager.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				B45EB7941CC5483E00CEFF4F /* ofxShape.cpp in Sources */,
 				B45EB7851CC4307B00CEFF4F /* RimHighlightingPass.cpp in Sources */,
 				B45EB7741CC4307B00CEFF4F /* ConvolutionPass.cpp in Sources */,
 				B4B354731CBDC1D500B8883B /* ofxAudioUnitMixer.cpp in Sources */,

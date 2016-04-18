@@ -4,17 +4,26 @@
 #include "ofxShivaVGRenderer.h"
 #include "ofxLayerMask.h"
 #include "ofxPostProcessing.h"
+#include "ofxShapeSystem.h"
 
 #define ECG_DATA_SOURCE "ecg.csv"
 #define ECG_NUM_COLS 2
+
 #define ECG_HIGHEST_VALUE -0.177
 #define ECG_LOWEST_VALUE -1.78
 #define ECG_START_ROW 168
 #define ECG_EXIT_ROW 403
+
 #define ECG_MAX_POINTS 200
 #define ECG_PERIOD 1000
+
 #define ECG_LINE_TAIL_BEGIN 0.2
 #define ECG_LINE_TAIL_END 0.8
+
+#define ECG_GRID_DIVISIONS_X 16
+#define ECG_GRID_DIVISIONS_Y 10
+
+#define ECG_RADIAL_MULTIPLIER 0.75
 
 class erEcgVisualization{
 
@@ -27,10 +36,13 @@ protected:
     void readData();
     void loadNewPoints();
     void trimPointsToSize();
-    void generateMaskImage();
-    void drawGrid();
-    void renderEcgLine();
-    void renderEcgMask();
+    void createMaskImage();
+    void createRadialShape();
+    void renderGridLayer();
+    void renderEcgLineLayer();
+    void renderEcgLineMask();
+    void renderRadialOverlayLayer();
+    void renderRadialOverlayMask();
 
     ofxCsvStream stream;
     vector<float> data;
@@ -39,6 +51,8 @@ protected:
     ofImage maskImage;
     ofColor color;
     ofxLayerMask masker;
+    ofxShapeSystem shapeSystem;
+    ofxShape radialShape;
     ofPtr<ofxShivaVGRenderer> shivaRenderer;
     ofPtr<ofBaseRenderer> defaultRenderer;
     ofxPostProcessing post;
