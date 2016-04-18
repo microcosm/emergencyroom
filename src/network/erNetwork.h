@@ -18,8 +18,9 @@ class erNetwork{
     
 public:
     void setup(int _numChannels);
-    virtual void update(ofEventArgs& updateArgs);
-    virtual void draw(ofEventArgs& updateArgs);
+    virtual void update(ofEventArgs& args);
+    virtual void draw(ofEventArgs& args);
+    virtual void keyReleased(ofKeyEventArgs& args);
     void toggleDrawing();
     void requestServer();
     bool flood(erPlayParams params);
@@ -55,4 +56,5 @@ protected:
     int finderStartTime, serverPortOffset, numChannels;
     bool drawingEnabled, success;
     unsigned long long now;
+    int ecgIndex;
 };
