@@ -6,13 +6,14 @@
 
 void erEcgVisualization::setup(){
     ofToggleFullscreen();
+    overlay = false;
 
     width = ofGetWidth();
     height = ofGetHeight();
 
     lineColor = ofColor(234, 242, 255);
     masker.setup(width, height, 3);
-    //masker.toggleOverlay();
+    masker.toggleOverlay();
     createLinearMaskImage();
     createRadialMaskShape();
     createLineHeadShape();
@@ -31,6 +32,7 @@ void erEcgVisualization::setup(){
 
     ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
     ofAddListener(ofEvents().draw, this, &erEcgVisualization::draw);
+    ofAddListener(ofEvents().keyReleased, this, &erEcgVisualization::keyReleased);
 }
 
 void erEcgVisualization::readData(){
@@ -70,7 +72,17 @@ void erEcgVisualization::draw(ofEventArgs& args){
     }
     post.end();
     post.draw();
-    masker.drawOverlay();
+    if(overlay){
+        masker.drawOverlay();
+        ofDrawBitmapString(ofGetFrameRate(), 10, 10);
+        ofDrawBitmapString(ofToString(width) + " x " + ofToString(height), 10, 36);
+    }
+}
+
+void erEcgVisualization::keyReleased(ofKeyEventArgs& args){
+    if(args.key == 'o'){
+        overlay = !overlay;
+    }
 }
 
 void erEcgVisualization::createLinearMaskImage(){

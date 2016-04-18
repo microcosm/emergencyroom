@@ -32,6 +32,7 @@ public:
     void setup();
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
+    virtual void keyReleased(ofKeyEventArgs& args);
 
 protected:
     void readData();
@@ -62,6 +63,7 @@ protected:
     ofPtr<ofxShivaVGRenderer> shivaRenderer;
     ofPtr<ofBaseRenderer> defaultRenderer;
     ofxPostProcessing post;
+    bool overlay;
 
     float currentValue;
     float timeIndex, incrementalTimeIndex, lastTimeIndex;
