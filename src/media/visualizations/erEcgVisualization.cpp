@@ -66,8 +66,8 @@ void erEcgVisualization::createMaskImage(){
     maskImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
     for(int x = 0; x < ofGetWidth(); x++){
         for(int y = 0; y < ofGetHeight(); y++){
-            float begin = ofGetWidth() * ECG_LINE_TAIL_BEGIN;
-            float end = ofGetWidth() * ECG_LINE_TAIL_END;
+            float begin = ofGetWidth() * ECG_LINE_TAIL_FROM_LEFT;
+            float end = ofGetWidth() * ECG_LINE_TAIL_TO_RIGHT;
             float brightness = ofMap(x, begin, end, 0, 255);
             color = ofColor::fromHsb(0, 0, brightness);
             maskImage.setColor(x, y, color);
@@ -91,8 +91,8 @@ void erEcgVisualization::renderGridLayer(){
     masker.beginLayer(0);
     {
         ofBackground(ofColor::black);
-        ofSetLineWidth(1);
-        ofSetColor(ofColor::white, 5);
+        ofSetLineWidth(2);
+        ofSetColor(ofColor(5, 70, 190, 182));
         for(int x = gridIncrement.x; x < ofGetWidth(); x += gridIncrement.x){
             for(int y = gridIncrement.y; y < ofGetHeight(); y += gridIncrement.y){
                 ofDrawLine(x, 0, x, ofGetHeight());
@@ -108,8 +108,8 @@ void erEcgVisualization::renderEcgLineLayer(){
     {
         ofClear(ofColor(ofColor::black, 0));
         ofSetCurrentRenderer(shivaRenderer);
-        ofSetLineWidth(7);
-        ofSetColor(ofColor::white);
+        ofSetLineWidth(9);
+        ofSetColor(ofColor(234, 242, 255));
         for(int i = 0; i < points.size(); i++){
             if(i > 0){
                 point = points[i];
