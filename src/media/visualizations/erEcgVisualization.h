@@ -15,7 +15,7 @@
 #define ECG_EXIT_ROW 403
 
 #define ECG_MAX_POINTS 200
-#define ECG_PERIOD 1000
+#define ECG_PERIOD 1600
 
 #define ECG_LINE_TAIL_FROM_LEFT 0.2
 #define ECG_LINE_TAIL_TO_RIGHT 0.5
@@ -24,6 +24,7 @@
 #define ECG_GRID_DIVISIONS_Y 10
 
 #define ECG_RADIAL_MULTIPLIER 0.85
+#define ECG_LINE_HEAD_SIZE 35
 
 class erEcgVisualization{
 
@@ -36,8 +37,9 @@ protected:
     void readData();
     void loadNewPoints();
     void trimPointsToSize();
-    void createMaskImage();
-    void createRadialShape();
+    void createLinearMaskImage();
+    void createRadialMaskShape();
+    void createLineHeadShape();
     void renderGridLayer();
     void renderEcgLineLayer();
     void renderEcgLineMask();
@@ -48,11 +50,13 @@ protected:
     vector<float> data;
     int numRows, currentRow, lastRow;
 
-    ofImage maskImage;
-    ofColor color;
     ofxLayerMask masker;
-    ofxShapeSystem shapeSystem;
+    ofColor lineColor;
+    ofImage linearMaskImage;
+    ofxShapeSystem radialShapeSystem;
     ofxShape radialShape;
+    ofxShapeSystem lineHeadShapeSystem;
+    ofxShape lineHeadShape;
     ofPtr<ofxShivaVGRenderer> shivaRenderer;
     ofPtr<ofBaseRenderer> defaultRenderer;
     ofxPostProcessing post;

@@ -2,10 +2,12 @@
 
 void erEcgVisualization::setup(){
     ofToggleFullscreen();
+    lineColor = ofColor(234, 242, 255);
     masker.setup(3);
     //masker.toggleOverlay();
-    createMaskImage();
-    createRadialShape();
+    createLinearMaskImage();
+    createRadialMaskShape();
+    createLineHeadShape();
 
     renderGridLayer();
     renderRadialOverlayMask();
@@ -62,25 +64,31 @@ void erEcgVisualization::draw(ofEventArgs& args){
     masker.drawOverlay();
 }
 
-void erEcgVisualization::createMaskImage(){
-    maskImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
+void erEcgVisualization::createLinearMaskImage(){
+    linearMaskImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
     for(int x = 0; x < ofGetWidth(); x++){
         for(int y = 0; y < ofGetHeight(); y++){
             float begin = ofGetWidth() * ECG_LINE_TAIL_FROM_LEFT;
             float end = ofGetWidth() * ECG_LINE_TAIL_TO_RIGHT;
             float brightness = ofMap(x, begin, end, 0, 255);
-            color = ofColor::fromHsb(0, 0, brightness);
-            maskImage.setColor(x, y, color);
+            ofColor color = ofColor::fromHsb(0, 0, brightness);
+            linearMaskImage.setColor(x, y, color);
         }
     }
-    maskImage.update();
+    linearMaskImage.update();
 }
 
-void erEcgVisualization::createRadialShape(){
-    shapeSystem.setup();
+void erEcgVisualization::createRadialMaskShape(){
+    radialShapeSystem.setup();
     radialShape.setupGradientRing(60, -(ofGetHeight() * ECG_RADIAL_MULTIPLIER), ofGetHeight() * ECG_RADIAL_MULTIPLIER);
     radialShape.setPosition(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
-    shapeSystem.add(radialShape);
+    radialShapeSystem.add(radialShape);
+}
+
+void erEcgVisualization::createLineHeadShape(){
+    lineHeadShapeSystem.setup();
+    lineHeadShape.setupGradientRing(20, -ECG_LINE_HEAD_SIZE, ECG_LINE_HEAD_SIZE);
+    lineHeadShapeSystem.add(lineHeadShape);
 }
 
 void erEcgVisualization::renderGridLayer(){
@@ -109,7 +117,7 @@ void erEcgVisualization::renderEcgLineLayer(){
         ofClear(ofColor(ofColor::black, 0));
         ofSetCurrentRenderer(shivaRenderer);
         ofSetLineWidth(9);
-        ofSetColor(ofColor(234, 242, 255));
+        ofSetColor(lineColor);
         for(int i = 0; i < points.size(); i++){
             if(i > 0){
                 point = points[i];
@@ -129,8 +137,8 @@ void erEcgVisualization::renderEcgLineMask(){
     {
         ofBackground(ofColor::black);
         ofSetColor(ofColor::white);
-        maskImage.draw(points.back().x, 0);
-        maskImage.draw(points.back().x - ofGetWidth(), 0);
+        linearMaskImage.draw(points.back().x, 0);
+        linearMaskImage.draw(points.back().x - ofGetWidth(), 0);
     }
     masker.endMask(1);
 }
@@ -141,6 +149,9 @@ void erEcgVisualization::renderRadialOverlayLayer(){
         ofBackground(ofColor::black);
         ofSetColor(ofColor::white);
         masker.drawLayers(0, 1);
+        ofSetColor(lineColor);
+        lineHeadShape.setPosition(points.back().x, points.back().y);
+        lineHeadShapeSystem.draw();
     }
     masker.endLayer(2);
 }
@@ -150,7 +161,7 @@ void erEcgVisualization::renderRadialOverlayMask(){
     {
         ofBackground(ofColor::black);
         ofSetColor(ofColor::white);
-        shapeSystem.draw();
+        radialShapeSystem.draw();
     }
     masker.endMask(2);
 }
