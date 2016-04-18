@@ -12,6 +12,8 @@ void erEcgVisualization::setup(){
     shivaRenderer = ofPtr<ofxShivaVGRenderer>(new ofxShivaVGRenderer);
     defaultRenderer = ofGetCurrentRenderer();
     shivaRenderer->setLineCapStyle(VG_CAP_ROUND);
+    post.init();
+    post.createPass<BloomPass>()->setEnabled(true);
 
     readData();
 
@@ -47,10 +49,15 @@ void erEcgVisualization::update(ofEventArgs& args){
 
 void erEcgVisualization::draw(ofEventArgs& args){
     ofBackground(ofColor::black);
-    drawGrid();
-    renderEcgLine();
-    renderEcgMask();
-    masker.draw();
+    post.begin();
+    {
+        drawGrid();
+        renderEcgLine();
+        renderEcgMask();
+        masker.draw();
+    }
+    post.end();
+    post.draw();
     masker.drawOverlay();
 }
 

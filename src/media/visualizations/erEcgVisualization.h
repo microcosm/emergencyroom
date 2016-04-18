@@ -3,6 +3,7 @@
 #include "ofxCsvStream.h"
 #include "ofxShivaVGRenderer.h"
 #include "ofxLayerMask.h"
+#include "ofxPostProcessing.h"
 
 #define ECG_DATA_SOURCE "ecg.csv"
 #define ECG_NUM_COLS 2
@@ -40,6 +41,7 @@ protected:
     ofxLayerMask masker;
     ofPtr<ofxShivaVGRenderer> shivaRenderer;
     ofPtr<ofBaseRenderer> defaultRenderer;
+    ofxPostProcessing post;
 
     float currentValue;
     float timeIndex, incrementalTimeIndex, lastTimeIndex;
