@@ -138,7 +138,6 @@ void erNetwork::keyReleased(ofKeyEventArgs &args){
 void erNetwork::syncEcg(int delay){
     vector<ofxNetworkSyncClientState*>& clients = server.getClients();
     if(isRunningServer() && clients.size() > 0 && ecgIndex < clients.size()){
-        cout << "Sending now to client " + ecgIndex << endl;
         clients.at(ecgIndex)->send("ECGSYNC");
     }
 }

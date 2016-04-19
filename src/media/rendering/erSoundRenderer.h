@@ -2,14 +2,16 @@
 #include "ofMain.h"
 #include "ofxAudioUnit.h"
 #include "ofxAudioUnitManager.h"
+#include "erSyncedMediaPlayer.h"
 
-class erSoundRenderer{
+class erSoundRenderer : erSyncedMediaPlayer{
 
 public:
     void setup();
     void ensureSetup();
     virtual void update(ofEventArgs& args);
     void play();
+    void syncEcg(float delay);
     void setMasterVolume(float _masterVolume);
     void setNumChannels(int _numChannels);
     void setCurrentChannel(int _currentChannel);
@@ -18,10 +20,15 @@ public:
     bool withinGlitchPeriod();
 
 protected:
+    void beginPlayBack(){
+        manager.bpm.reset();
+        cout << "Reset" << endl;
+    }
+
     void initializeChannels();
     ofxAudioUnitManager manager;
-    ofxAudioUnitChain chain;
-    ofxManagedAudioUnit massive;
+    ofxAudioUnitChain staticChain, ecgChain;
+    ofxManagedAudioUnit staticSynth, ecgSynth;
 
     map<int, u_int64_t> channelsToOpeningGlitchStarts;
     map<int, u_int64_t> channelsToOpeningGlitchEnds;

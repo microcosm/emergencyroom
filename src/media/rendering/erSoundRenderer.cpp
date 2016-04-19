@@ -4,8 +4,13 @@ void erSoundRenderer::setup(){
     isSetup = true;
     manager.setup();
     manager.toggleDebugUI();
-    massive.setup("Massive", 'aumu', 'NiMa', '-NI-');
-    manager.createChain(&chain).link(&massive).toMixer();
+    manager.bpm.setBpm(38);
+
+    ecgSynth.setup("ECG", 'aumu', 'NiMa', '-NI-');
+    manager.createChain(&ecgChain).link(&ecgSynth).toMixer();
+
+    staticSynth.setup("Static", 'aumu', 'NiMa', '-NI-');
+    manager.createChain(&staticChain).link(&staticSynth).toMixer();
 
     ofAddListener(ofEvents().update, this, &erSoundRenderer::update);
     ofAddListener(manager.bpm.beatEvent, this, &erSoundRenderer::play);
@@ -19,11 +24,17 @@ void erSoundRenderer::ensureSetup(){
 }
 
 void erSoundRenderer::update(ofEventArgs& args){
-    massive.set(Massive_master_volume, withinGlitchPeriod() ? masterVolume : 0);
+    ecgSynth.set(Massive_master_volume, 1);
+    staticSynth.set(Massive_master_volume, withinGlitchPeriod() ? masterVolume : 0);
 }
 
 void erSoundRenderer::play(void){
-    chain.sendMidiOn(60);
+    ecgChain.sendMidiOn(60);
+    staticChain.sendMidiOn(60);
+}
+
+void erSoundRenderer::syncEcg(float delay){
+    schedule(delay);
 }
 
 void erSoundRenderer::setMasterVolume(float _masterVolume){
