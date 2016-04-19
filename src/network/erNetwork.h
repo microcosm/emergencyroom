@@ -57,6 +57,6 @@ protected:
     int numClients, previousNumClients;
     int finderStartTime, serverPortOffset, numChannels;
     bool drawingEnabled, success;
-    unsigned long long now;
+    u_int64_t now;
     int ecgIndex;
 };

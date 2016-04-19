@@ -38,6 +38,6 @@ protected:
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     ofPtr<erSyncedVideoPlayer> videoPlayer;
 
-    unsigned long long currentTime;
+    u_int64_t currentTime;
     float videoDuration, videoGlitchTime, bufferTime, halfBufferTime;
 };

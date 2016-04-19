@@ -13,8 +13,8 @@ public:
     void setMasterVolume(float _masterVolume);
     void setNumChannels(int _numChannels);
     void setCurrentChannel(int _currentChannel);
-    void newOpeningGlitchPeriod(unsigned long long from, float duration);
-    void newClosingGlitchPeriod(unsigned long long from, float duration);
+    void newOpeningGlitchPeriod(u_int64_t from, float duration);
+    void newClosingGlitchPeriod(u_int64_t from, float duration);
     bool withinGlitchPeriod();
 
 protected:
@@ -23,11 +23,11 @@ protected:
     ofxAudioUnitChain chain;
     ofxManagedAudioUnit massive;
 
-    map<int, int64_t> channelsToOpeningGlitchStarts;
-    map<int, int64_t> channelsToOpeningGlitchEnds;
-    map<int, int64_t> channelsToClosingGlitchStarts;
-    map<int, int64_t> channelsToClosingGlitchEnds;
-    int64_t currentTime;
+    map<int, u_int64_t> channelsToOpeningGlitchStarts;
+    map<int, u_int64_t> channelsToOpeningGlitchEnds;
+    map<int, u_int64_t> channelsToClosingGlitchStarts;
+    map<int, u_int64_t> channelsToClosingGlitchEnds;
+    u_int64_t currentTime;
 
     int numChannels, currentChannel;
     float masterVolume = 0;

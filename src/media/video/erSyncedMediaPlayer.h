@@ -9,7 +9,7 @@ public:
     virtual void beginPlayback(){};
     virtual bool isOrWillBePlaying(){};
 
-    void schedule(unsigned long long delay){
+    void schedule(u_int64_t delay){
         scheduled = true;
         playTime = ofGetElapsedTimeMillis() + delay;
         startThread(true);
@@ -21,12 +21,12 @@ public:
     }
 
 protected:
-    unsigned long long playTime;
+    u_int64_t playTime;
     erPlayParams params;
     bool scheduled = false;
 
     void threadedFunction(){
-        unsigned long long delay = playTime - ofGetElapsedTimeMillis();
+        u_int64_t delay = playTime - ofGetElapsedTimeMillis();
         beforeSleep();
         ofSleepMillis(delay);
         scheduled = false;

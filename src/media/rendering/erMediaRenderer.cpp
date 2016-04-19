@@ -27,12 +27,12 @@ void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _
     videoPlayers = _videoPlayers;
 }
 
-void erMediaRenderer::newOpeningGlitchPeriod(unsigned long long from, float duration){
+void erMediaRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration){
     openingGlitchStart = from;
     openingGlitchEnd = openingGlitchStart + duration;
 }
 
-void erMediaRenderer::newClosingGlitchPeriod(unsigned long long from, float duration){
+void erMediaRenderer::newClosingGlitchPeriod(u_int64_t from, float duration){
     closingGlitchStart = from;
     closingGlitchEnd = closingGlitchStart + duration;
 }

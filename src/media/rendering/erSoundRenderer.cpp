@@ -39,12 +39,12 @@ void erSoundRenderer::setCurrentChannel(int _currentChannel){
     currentChannel = _currentChannel;
 }
 
-void erSoundRenderer::newOpeningGlitchPeriod(unsigned long long from, float duration){
+void erSoundRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration){
     channelsToOpeningGlitchStarts[currentChannel] = from;
     channelsToOpeningGlitchEnds[currentChannel] = from + duration;
 }
 
-void erSoundRenderer::newClosingGlitchPeriod(unsigned long long from, float duration){
+void erSoundRenderer::newClosingGlitchPeriod(u_int64_t from, float duration){
     channelsToClosingGlitchStarts[currentChannel] = from;
     channelsToClosingGlitchEnds[currentChannel] = from + duration;
 }

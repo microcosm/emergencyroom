@@ -14,8 +14,8 @@ public:
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
     
-    void newOpeningGlitchPeriod(unsigned long long from, float duration);
-    void newClosingGlitchPeriod(unsigned long long from, float duration);
+    void newOpeningGlitchPeriod(u_int64_t from, float duration);
+    void newClosingGlitchPeriod(u_int64_t from, float duration);
     void draw(erSyncedVideoPlayer* player, int x, int y, int width, int height);
     void drawStatic(int x, int y, int width, int height);
 
@@ -30,9 +30,9 @@ protected:
 
     ofFbo fbo;
     ofxEasyFboGlitch fboGlitch;
-    int64_t openingGlitchStart, openingGlitchEnd;
-    int64_t closingGlitchStart, closingGlitchEnd;
-    int64_t currentTime;
+    u_int64_t openingGlitchStart, openingGlitchEnd;
+    u_int64_t closingGlitchStart, closingGlitchEnd;
+    u_int64_t currentTime;
     bool withinOpeningGlitchPeriod, withinClosingGlitchPeriod;
     bool bufferEmpty;
     int x, y;

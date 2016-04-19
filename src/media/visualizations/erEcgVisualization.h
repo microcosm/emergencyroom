@@ -79,5 +79,5 @@ protected:
     deque<ofPoint> points;
 
     erNetwork* network;
-    unsigned long long timeOffset;
+    u_int64_t timeOffset;
 };
