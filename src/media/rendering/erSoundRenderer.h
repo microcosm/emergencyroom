@@ -10,6 +10,7 @@ public:
     void ensureSetup();
     virtual void update(ofEventArgs& args);
     void play();
+    void setMasterVolume(float _masterVolume);
     void setNumChannels(int _numChannels);
     void setCurrentChannel(int _currentChannel);
     void newOpeningGlitchPeriod(unsigned long long from, float duration);
@@ -29,5 +30,6 @@ protected:
     int64_t currentTime;
 
     int numChannels, currentChannel;
+    float masterVolume = 0;
     bool isSetup = false;
 };

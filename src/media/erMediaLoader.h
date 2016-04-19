@@ -17,7 +17,7 @@
 class erMediaLoader{
 
 public:
-    void setup(erNetwork* _network);
+    void setup(erNetwork* _network, float _masterVolume=1);
     virtual void update(ofEventArgs& args);
     void setMasterVolume(float _masterVolume);
     void drawErrors();

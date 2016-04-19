@@ -1,11 +1,11 @@
 #include "erMediaLoader.h"
 
-void erMediaLoader::setup(erNetwork* _network){
+void erMediaLoader::setup(erNetwork* _network, float _masterVolume){
     network = _network;
+    masterVolume = _masterVolume;
     loadTestMedia();
     validateMedia();
     discoverErrors();
-    masterVolume = 1;
     ofAddListener(ofEvents().update, this, &erMediaLoader::update);
 }
 
@@ -15,10 +15,6 @@ void erMediaLoader::update(ofEventArgs& args){
     }else if(network->justBecameServer()){
         loadPreviewMedia();
     }
-}
-
-void erMediaLoader::setMasterVolume(float _masterVolume){
-    masterVolume = _masterVolume;
 }
 
 void erMediaLoader::drawErrors(){

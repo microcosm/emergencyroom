@@ -16,9 +16,8 @@ void ofApp::setup(){
         network.setupEcgMode();
         sequencer.setupEcgMode(&network, &player);
     }else{
-        loader.setup(&network);
-        loader.setMasterVolume(settings.masterVolume);
-        player.setup(&network, NUM_CHANNELS);
+        loader.setup(&network, settings.masterVolume);
+        player.setup(&network, NUM_CHANNELS, settings.masterVolume);
         network.setup(NUM_CHANNELS);
         sequencer.setup(&network, &loader, &player);
         ofAddListener(ofEvents().draw, this, &ofApp::draw);

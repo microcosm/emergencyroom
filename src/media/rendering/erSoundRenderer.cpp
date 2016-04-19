@@ -19,11 +19,15 @@ void erSoundRenderer::ensureSetup(){
 }
 
 void erSoundRenderer::update(ofEventArgs& args){
-    massive.set(Massive_master_volume, withinGlitchPeriod() ? 1 : 0);
+    massive.set(Massive_master_volume, withinGlitchPeriod() ? masterVolume : 0);
 }
 
 void erSoundRenderer::play(void){
     chain.sendMidiOn(60);
+}
+
+void erSoundRenderer::setMasterVolume(float _masterVolume){
+    masterVolume = _masterVolume;
 }
 
 void erSoundRenderer::setNumChannels(int _numChannels){
