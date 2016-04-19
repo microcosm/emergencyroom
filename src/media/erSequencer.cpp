@@ -13,20 +13,22 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     ofAddListener(network->clientMessageReceived(), this, &erSequencer::messageReceived);
 }
 
+void erSequencer::setupEcgMode(erNetwork* _network, erMediaPlayer* _player){
+    network = _network;
+    player = _player;
+    ecg.setup(network);
+}
+
 void erSequencer::update(ofEventArgs& updateArgs){
     if(network->isRunningServer() && ofGetFrameNum() % ER_VIDEO_LENGTH == 0){
         playNewVideo();
     }
 }
 
-void erSequencer::setEcgMode(){
-    ecg.setup();
-}
-
 void erSequencer::messageReceived(string& message){
     erLog("erSequencer::messageReceived(string& message)", message);
     params = translater->toParams(message);
-    if(params.isPlayable()){
+    if(network->isRunningClient() && params.isPlayable()){
         player->play(params);
     }
 }

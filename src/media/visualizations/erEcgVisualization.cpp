@@ -4,7 +4,10 @@
 //MBP retina: 1440 x 900
 //Monoprice: 2560 x 1600 / 2048 x 1280 / 1600 x 1000 / 1280 x 800
 
-void erEcgVisualization::setup(){
+void erEcgVisualization::setup(erNetwork* _network){
+    network = _network;
+    timeOffset = 0;
+
     ofToggleFullscreen();
     overlay = false;
 
@@ -33,6 +36,7 @@ void erEcgVisualization::setup(){
     ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
     ofAddListener(ofEvents().draw, this, &erEcgVisualization::draw);
     ofAddListener(ofEvents().keyReleased, this, &erEcgVisualization::keyReleased);
+    ofAddListener(network->clientMessageReceived(), this, &erEcgVisualization::messageReceived);
 }
 
 void erEcgVisualization::readData(){
@@ -72,7 +76,7 @@ void erEcgVisualization::trimPointsToSize(){
 void erEcgVisualization::update(ofEventArgs& args){
     lastRow = currentRow;
     lastTimeIndex = timeIndex;
-    timeIndex = (playTime + ofGetElapsedTimeMillis()) % ECG_PERIOD;
+    timeIndex = (ofGetElapsedTimeMillis() - timeOffset) % ECG_PERIOD;
     currentRow = ofMap(timeIndex, 0, ECG_PERIOD, 0, numRows-1);
 
     loadNewPoints();
@@ -94,6 +98,9 @@ void erEcgVisualization::draw(ofEventArgs& args){
         masker.drawOverlay();
         ofDrawBitmapString(ofGetFrameRate(), 10, 10);
         ofDrawBitmapString(ofToString(width) + " x " + ofToString(height), 10, 36);
+        if(scheduled){
+            ofDrawBitmapString("SYNCING...", 10, 72);
+        }
     }
 }
 
@@ -101,9 +108,11 @@ void erEcgVisualization::keyReleased(ofKeyEventArgs& args){
     if(args.key == 'o'){
         overlay = !overlay;
     }
+}
 
-    if(args.key == 's'){
-        schedule(500);
+void erEcgVisualization::messageReceived(string& message){
+    if(message.substr(0, 7) == "ECGSYNC"){
+        schedule(ECG_SYNC_DELAY);
     }
 }
 

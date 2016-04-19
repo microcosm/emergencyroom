@@ -26,6 +26,10 @@ void erNetwork::setup(int _numChannels){
     ofAddListener(ofEvents().keyReleased, this, &erNetwork::keyReleased);
 }
 
+void erNetwork::setupEcgMode(){
+    setup(0);
+}
+
 void erNetwork::update(ofEventArgs& args){
     previousRole = role;
     now = ofGetElapsedTimeMillis();
@@ -128,6 +132,14 @@ void erNetwork::keyReleased(ofKeyEventArgs &args){
                 ecgIndex = server.getClients().size() - 1;
             }
         }
+    }
+}
+
+void erNetwork::syncEcg(int delay){
+    vector<ofxNetworkSyncClientState*>& clients = server.getClients();
+    if(isRunningServer() && clients.size() > 0 && ecgIndex < clients.size()){
+        cout << "Sending now to client " + ecgIndex << endl;
+        clients.at(ecgIndex)->send("ECGSYNC");
     }
 }
 

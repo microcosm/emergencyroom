@@ -5,6 +5,11 @@ void erMediaPlayer::setup(erNetwork* _network, int numChannels){
     channelRenderer.setup(network);
     soundRenderer.setNumChannels(numChannels);
     ofAddListener(ofEvents().update, this, &erMediaPlayer::update);
+    ofAddListener(ofEvents().keyReleased, this, &erMediaPlayer::keyReleased);
+}
+
+void erMediaPlayer::setupEcgMode(erNetwork* _network){
+    network = _network;
 }
 
 void erMediaPlayer::update(ofEventArgs& args){
@@ -19,6 +24,13 @@ void erMediaPlayer::play(erPlayParams params, bool isClient){
     }else if(params.isTestCommand()){
         testSoundPlayer->execute(params);
         testVideoPlayer->execute(params);
+    }
+}
+
+void erMediaPlayer::keyReleased(ofKeyEventArgs &args){
+    if(network->isRunningServer() && args.key == 's'){
+        network->syncEcg(ECG_SYNC_DELAY);
+        //soundRenderer->syncEcg(ECG_SYNC_DELAY);
     }
 }
 

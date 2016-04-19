@@ -18,9 +18,11 @@ class erNetwork{
     
 public:
     void setup(int _numChannels);
+    void setupEcgMode();
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     virtual void keyReleased(ofKeyEventArgs& args);
+    void syncEcg(int delay);
     void toggleDrawing();
     void requestServer();
     bool flood(erPlayParams params);

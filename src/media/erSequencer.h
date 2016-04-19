@@ -12,8 +12,8 @@ class erSequencer{
 
 public:
     void setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlayer* _player);
+    void setupEcgMode(erNetwork* _network, erMediaPlayer* _player);
     virtual void update(ofEventArgs& updateArgs);
-    void setEcgMode();
     void messageReceived(string& messageStr);
 protected:
     void playNewVideo();

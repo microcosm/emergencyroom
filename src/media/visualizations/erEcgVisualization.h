@@ -6,6 +6,7 @@
 #include "ofxPostProcessing.h"
 #include "ofxShapeSystem.h"
 #include "erSyncedMediaPlayer.h"
+#include "erNetwork.h"
 
 #define ECG_DATA_SOURCE "ecg.csv"
 #define ECG_NUM_COLS 2
@@ -27,15 +28,21 @@
 #define ECG_RADIAL_MULTIPLIER 0.85
 #define ECG_LINE_HEAD_SIZE 35
 
+#define ECG_SYNC_DELAY 3000
+
 class erEcgVisualization : erSyncedMediaPlayer{
 
 public:
-    void setup();
+    void setup(erNetwork* _network);
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     virtual void keyReleased(ofKeyEventArgs& args);
+    void messageReceived(string& messageStr);
 
 protected:
+    void beginPlayback(){
+        timeOffset = ofGetElapsedTimeMillis();
+    }
     void readData();
     void loadNewPoints();
     void trimPointsToSize();
@@ -70,4 +77,7 @@ protected:
     float timeIndex, incrementalTimeIndex, lastTimeIndex;
     ofPoint point, oldPoint, gridIncrement;
     deque<ofPoint> points;
+
+    erNetwork* network;
+    unsigned long long timeOffset;
 };

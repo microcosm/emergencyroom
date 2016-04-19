@@ -6,12 +6,16 @@
 #include "erNetwork.h"
 
 #define COSMOLOGICAL_CONSTANT 500
+#define ECG_SYNC_DELAY 3000
 
 class erMediaPlayer{
 
 public:
     void setup(erNetwork* _network, int numChannels);
-    void update(ofEventArgs& args);
+    void setupEcgMode(erNetwork* _network);
+    virtual void update(ofEventArgs& args);
+    virtual void keyReleased(ofKeyEventArgs& args);
+
     void play(erPlayParams params, bool isClient=true);
     void serverPlay(int channel, erPlayParams params);
     bool isChannelPlaying(int channel);
