@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 void ofApp::setup(){
-    ofSetWindowShape(420, 300);
+    ofSetWindowShape(1200, 800);
     settings.load();
     if(settings.fullscreenByDefault){
         ofToggleFullscreen();
