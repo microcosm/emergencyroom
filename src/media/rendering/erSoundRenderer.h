@@ -18,11 +18,12 @@ public:
     void newOpeningGlitchPeriod(u_int64_t from, float duration);
     void newClosingGlitchPeriod(u_int64_t from, float duration);
     bool withinGlitchPeriod();
+    bool withinEcgBeepPeriod();
 
 protected:
-    void beginPlayBack(){
+    void beginPlayback(){
         manager.bpm.reset();
-        cout << "Reset" << endl;
+        syncTime = ofGetElapsedTimeMillis();
     }
 
     void initializeChannels();
@@ -34,7 +35,10 @@ protected:
     map<int, u_int64_t> channelsToOpeningGlitchEnds;
     map<int, u_int64_t> channelsToClosingGlitchStarts;
     map<int, u_int64_t> channelsToClosingGlitchEnds;
-    u_int64_t currentTime;
+    u_int64_t currentTime, syncTime, timeSinceSync;
+
+    int bpm;
+    float period, startOffset, endOffset;
 
     int numChannels, currentChannel;
     float masterVolume = 0;

@@ -29,7 +29,7 @@ void erMediaPlayer::play(erPlayParams params, bool isClient){
 }
 
 void erMediaPlayer::keyReleased(ofKeyEventArgs &args){
-    if(network->isRunningServer() && args.key == 's'){
+    if(network->isRunningServer() && args.key == '-'){
         network->syncEcg(ECG_SYNC_DELAY);
         soundRenderer.syncEcg(ECG_SYNC_DELAY);
     }
