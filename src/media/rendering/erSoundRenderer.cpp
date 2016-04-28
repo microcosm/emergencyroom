@@ -6,8 +6,6 @@ void erSoundRenderer::setup(){
 
     startOffset = settings.ecgPeriod * 0.4;
     endOffset = settings.ecgPeriod * 0.5;
-    startOffset = 1000 * 0.4;
-    endOffset = 1000 * 0.5;
     syncTime = 0;
 
     manager.setup();
@@ -20,6 +18,7 @@ void erSoundRenderer::setup(){
     manager.createChain(&staticChain).link(&staticSynth).toMixer();
 
     ofAddListener(ofEvents().update, this, &erSoundRenderer::update);
+    ofAddListener(ofEvents().draw, this, &erSoundRenderer::draw);
     ofAddListener(manager.bpm.beatEvent, this, &erSoundRenderer::play);
     manager.bpm.start();
     ecgChain.sendMidiOn(60);
@@ -33,8 +32,21 @@ void erSoundRenderer::ensureSetup(){
 
 void erSoundRenderer::update(ofEventArgs& args){
     currentTime = ofGetElapsedTimeMillis();
-    staticSynth.set(Massive_master_volume, withinGlitchPeriod() ? masterVolume : 0);
-    ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod() ? 1 : 0);
+    currentEcgPosition = getCurrentEcgPosition();
+    staticSynth.set(Massive_master_volume, withinGlitchPeriod(currentTime) ? masterVolume : 0);
+    ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod(currentEcgPosition) ? 1 : 0);
+}
+
+void erSoundRenderer::draw(ofEventArgs& args){
+    if(settings.drawingEnabled && hasSyncedBefore()){
+        float progressThroughPeriod;
+        int progressOnScreen = ofMap(currentEcgPosition, 0, settings.ecgPeriod, 0, ofGetWidth());
+        for(int x = 0; x < progressOnScreen; x++){
+            progressThroughPeriod = ofMap(x, 0, ofGetWidth(), 0, settings.ecgPeriod);
+            ofSetColor(withinEcgBeepPeriod(progressThroughPeriod) ? ofColor::green : ofColor::white);
+            ofDrawRectangle(x, ofGetHeight(), 1, -2);
+        }
+    }
 }
 
 void erSoundRenderer::play(void){
@@ -44,7 +56,6 @@ void erSoundRenderer::play(void){
 void erSoundRenderer::syncEcg(float delay){
     schedule(delay);
     syncing = true;
-    syncedBefore = true;
 }
 
 void erSoundRenderer::setMasterVolume(float _masterVolume){
@@ -70,23 +81,21 @@ void erSoundRenderer::newClosingGlitchPeriod(u_int64_t from, float duration){
     channelsToClosingGlitchEnds[currentChannel] = from + duration;
 }
 
-bool erSoundRenderer::withinGlitchPeriod(){
+bool erSoundRenderer::withinGlitchPeriod(u_int64_t time){
     for(int i = 1; i <= numChannels; i++){
-        if(currentTime > channelsToOpeningGlitchStarts[i] && currentTime < channelsToOpeningGlitchEnds[i]){
+        if(time > channelsToOpeningGlitchStarts[i] && time < channelsToOpeningGlitchEnds[i]){
             return true;
         }
 
-        if(currentTime > channelsToClosingGlitchStarts[i] && currentTime < channelsToClosingGlitchEnds[i]){
+        if(time > channelsToClosingGlitchStarts[i] && time < channelsToClosingGlitchEnds[i]){
             return true;
         }
     }
     return false;
 }
 
-bool erSoundRenderer::withinEcgBeepPeriod(){
-    if(syncTime > 0){
-        timeSinceSync = currentTime - syncTime;
-        float position = fmod(timeSinceSync, settings.ecgPeriod);
+bool erSoundRenderer::withinEcgBeepPeriod(float position){
+    if(hasSyncedBefore()){
         return position > startOffset && position < endOffset;
     }
     return false;
@@ -107,4 +116,10 @@ void erSoundRenderer::initializeChannels(){
         channelsToClosingGlitchStarts[i] = 0;
         channelsToClosingGlitchEnds[i] = 0;
     }
+}
+
+float erSoundRenderer::getCurrentEcgPosition(){
+    timeSinceSync = currentTime - syncTime;
+    currentEcgPosition = fmod(timeSinceSync, settings.ecgPeriod);
+    return currentEcgPosition;
 }

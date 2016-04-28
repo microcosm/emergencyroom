@@ -11,6 +11,7 @@ public:
     void setup();
     void ensureSetup();
     virtual void update(ofEventArgs& args);
+    virtual void draw(ofEventArgs& args);
     void play();
     void syncEcg(float delay);
     void setMasterVolume(float _masterVolume);
@@ -18,8 +19,8 @@ public:
     void setCurrentChannel(int _currentChannel);
     void newOpeningGlitchPeriod(u_int64_t from, float duration);
     void newClosingGlitchPeriod(u_int64_t from, float duration);
-    bool withinGlitchPeriod();
-    bool withinEcgBeepPeriod();
+    bool withinGlitchPeriod(u_int64_t time);
+    bool withinEcgBeepPeriod(float position);
     bool isSyncing();
     bool hasSyncedBefore();
 
@@ -28,9 +29,11 @@ protected:
         manager.bpm.reset();
         syncTime = ofGetElapsedTimeMillis();
         syncing = false;
+        syncedBefore = true;
     }
 
     void initializeChannels();
+    float getCurrentEcgPosition();
     ofxAudioUnitManager manager;
     ofxAudioUnitChain staticChain, ecgChain;
     ofxManagedAudioUnit staticSynth, ecgSynth;
@@ -41,7 +44,7 @@ protected:
     map<int, u_int64_t> channelsToClosingGlitchEnds;
     u_int64_t currentTime, syncTime, timeSinceSync;
 
-    float startOffset, endOffset;
+    float startOffset, endOffset, currentEcgPosition;
 
     int numChannels, currentChannel;
     float masterVolume = 0;
