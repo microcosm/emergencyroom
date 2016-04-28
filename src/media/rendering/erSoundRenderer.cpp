@@ -3,15 +3,15 @@
 void erSoundRenderer::setup(){
     isSetup = true;
 
-    bpm = 5;
-    period = 60000 / bpm;
-    startOffset = period * 0.4;
-    endOffset = period * 0.5;
+    startOffset = settings.ecgPeriod * 0.4;
+    endOffset = settings.ecgPeriod * 0.5;
+    startOffset = 1000 * 0.4;
+    endOffset = 1000 * 0.5;
     syncTime = 0;
 
     manager.setup();
     manager.toggleDebugUI();
-    manager.bpm.setBpm(bpm);
+    manager.bpm.setBpm(50);
 
     ecgSynth.setup("ECG", 'aumu', 'NiMa', '-NI-');
     manager.createChain(&ecgChain).link(&ecgSynth).toMixer();
@@ -84,7 +84,7 @@ bool erSoundRenderer::withinGlitchPeriod(){
 bool erSoundRenderer::withinEcgBeepPeriod(){
     if(syncTime > 0){
         timeSinceSync = currentTime - syncTime;
-        float position = fmod(timeSinceSync, period);
+        float position = fmod(timeSinceSync, settings.ecgPeriod);
         return position > startOffset && position < endOffset;
     }
     return false;

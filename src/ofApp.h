@@ -21,5 +21,4 @@ protected:
     erNetwork network;
     erSequencer sequencer;
     erPlayParams params;
-    erSettings settings;
 };

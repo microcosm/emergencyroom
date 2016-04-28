@@ -1,5 +1,7 @@
 #include "ofApp.h"
 
+erSettings settings;
+
 void ofApp::setup(){
     ofSetWindowShape(1200, 800);
     settings.load();

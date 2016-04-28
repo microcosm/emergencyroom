@@ -1,5 +1,6 @@
 #pragma once
 #include "ofMain.h"
+#include "erSettings.h"
 #include "ofxAudioUnit.h"
 #include "ofxAudioUnitManager.h"
 #include "erSyncedMediaPlayer.h"
@@ -37,8 +38,7 @@ protected:
     map<int, u_int64_t> channelsToClosingGlitchEnds;
     u_int64_t currentTime, syncTime, timeSinceSync;
 
-    int bpm;
-    float period, startOffset, endOffset;
+    float startOffset, endOffset;
 
     int numChannels, currentChannel;
     float masterVolume = 0;

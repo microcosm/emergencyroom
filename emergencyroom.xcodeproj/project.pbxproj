@@ -789,10 +789,10 @@
 		B48604EA1C9B90F600629452 /* util */ = {
 			isa = PBXGroup;
 			children = (
-				B40442B71CBEA39E0071C074 /* erSettings.cpp */,
-				B40442B81CBEA39E0071C074 /* erSettings.h */,
 				B48604EB1C9B90F600629452 /* erLogger.cpp */,
 				B48604EC1C9B90F600629452 /* erLogger.h */,
+				B40442B71CBEA39E0071C074 /* erSettings.cpp */,
+				B40442B81CBEA39E0071C074 /* erSettings.h */,
 			);
 			path = util;
 			sourceTree = "<group>";

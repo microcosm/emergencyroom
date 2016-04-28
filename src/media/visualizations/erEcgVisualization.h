@@ -1,5 +1,6 @@
 #pragma once
 #include "ofMain.h"
+#include "erSettings.h"
 #include "ofxCsvStream.h"
 #include "ofxShivaVGRenderer.h"
 #include "ofxLayerMask.h"
@@ -17,7 +18,6 @@
 #define ECG_EXIT_ROW 403
 
 #define ECG_MAX_POINTS 200
-#define ECG_PERIOD 1579
 
 #define ECG_LINE_TAIL_FROM_LEFT 0.2
 #define ECG_LINE_TAIL_TO_RIGHT 0.5

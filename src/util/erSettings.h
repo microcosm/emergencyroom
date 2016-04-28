@@ -10,6 +10,7 @@
 #define SERVER_MASTER_VOLUME "server-master-volume"
 #define SERVER_MACHINE_NAME "server-machine-name"
 #define ECG_MACHINE_NAME "ecg-machine-name"
+#define ECG_BPM "ecg-bpm"
 
 class erSettings{
 
@@ -19,6 +20,8 @@ public:
     bool fullscreenByDefault;
     bool isServer;
     bool isEcg;
+    float ecgPeriod;
+    float ecgBpm;
 
 protected:
     void initSettings();
@@ -32,3 +35,5 @@ protected:
     int status;
     char path[1];
 };
+
+extern erSettings settings;
