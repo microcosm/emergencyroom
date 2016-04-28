@@ -4,6 +4,7 @@
 #include "erChannelRenderer.h"
 #include "erSoundRenderer.h"
 #include "erNetwork.h"
+#include "erSettings.h"
 
 #define COSMOLOGICAL_CONSTANT 500
 #define ECG_SYNC_DELAY 3000

@@ -22,7 +22,7 @@ void erMediaPlayer::update(ofEventArgs& args){
 
 void erMediaPlayer::draw(ofEventArgs& args){
     ofSetColor(ofColor::white);
-    if(network->isRunningServer()){
+    if(network->isRunningServer() && settings.drawingEnabled){
         if(soundRenderer.isSyncing()){
             ofDrawBitmapString("SYNCING...", 130, ofGetHeight() - 170);
         }else if(soundRenderer.hasSyncedBefore()){
