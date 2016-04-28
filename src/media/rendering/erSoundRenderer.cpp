@@ -10,7 +10,7 @@ void erSoundRenderer::setup(){
     syncTime = 0;
 
     manager.setup();
-    manager.bpm.setBpm(50);
+    manager.bpm.setBpm(settings.ecgBpm);
 
     ecgSynth.setup("ECG", 'aumu', 'NiMa', '-NI-');
     manager.createChain(&ecgChain).link(&ecgSynth).toMixer();
