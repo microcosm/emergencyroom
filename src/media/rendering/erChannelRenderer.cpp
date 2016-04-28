@@ -110,6 +110,12 @@ void erChannelRenderer::drawServer(){
         }
     }
     mediaRenderer.draw(testVideoPlayer, SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - DOUBLE_SCREEN_MARGIN, ofGetHeight() - DOUBLE_SCREEN_MARGIN);
+
+    if(settings.drawingEnabled){
+        ofFill();
+        ofSetColor(ofColor::black, 100);
+        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+    }
 }
 
 void erChannelRenderer::drawPreviewBorder(int x, int y, int channel){

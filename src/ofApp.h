@@ -12,7 +12,7 @@ class ofApp : public ofBaseApp{
 public:
     void setup();
     void update();
-    virtual void draw(ofEventArgs& args);
+    void draw(ofEventArgs& args);
     void keyReleased(int key);
 
 protected:

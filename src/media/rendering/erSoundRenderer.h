@@ -20,11 +20,14 @@ public:
     void newClosingGlitchPeriod(u_int64_t from, float duration);
     bool withinGlitchPeriod();
     bool withinEcgBeepPeriod();
+    bool isSyncing();
+    bool hasSyncedBefore();
 
 protected:
     void beginPlayback(){
         manager.bpm.reset();
         syncTime = ofGetElapsedTimeMillis();
+        syncing = false;
     }
 
     void initializeChannels();
@@ -43,4 +46,5 @@ protected:
     int numChannels, currentChannel;
     float masterVolume = 0;
     bool isSetup = false;
+    bool syncing, syncedBefore;
 };

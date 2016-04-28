@@ -39,13 +39,15 @@ void ofApp::update(){
 }
 
 void ofApp::draw(ofEventArgs& args){
-    if(network.isRunningServer() && settings.drawingEnabled){
-        ofSetColor(ofColor::white);
-        ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, ofGetHeight() - 130);
-    }
+    if(settings.drawingEnabled){
+        if(network.isRunningServer()){
+            ofSetColor(ofColor::white);
+            ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, ofGetHeight() - 130);
+        }
 
-    if(loader.hasErrors()){
-        loader.drawErrors();
+        if(loader.hasErrors()){
+            loader.drawErrors();
+        }
     }
 }
 

@@ -6,6 +6,7 @@ void erMediaPlayer::setup(erNetwork* _network, int numChannels, float masterVolu
     soundRenderer.setMasterVolume(masterVolume);
     soundRenderer.setNumChannels(numChannels);
     ofAddListener(ofEvents().update, this, &erMediaPlayer::update);
+    ofAddListener(ofEvents().draw, this, &erMediaPlayer::draw);
     ofAddListener(ofEvents().keyReleased, this, &erMediaPlayer::keyReleased);
 }
 
@@ -19,12 +20,16 @@ void erMediaPlayer::update(ofEventArgs& args){
     }
 }
 
-void erMediaPlayer::play(erPlayParams params, bool isClient){
-    if(params.isVideoCommand()){
-        isClient ? playWithGlitch(params) : playWithSound(params);
-    }else if(params.isTestCommand()){
-        testSoundPlayer->execute(params);
-        testVideoPlayer->execute(params);
+void erMediaPlayer::draw(ofEventArgs& args){
+    ofSetColor(ofColor::white);
+    if(network->isRunningServer()){
+        if(soundRenderer.isSyncing()){
+            ofDrawBitmapString("SYNCING...", 130, ofGetHeight() - 170);
+        }else if(soundRenderer.hasSyncedBefore()){
+            ofDrawBitmapString("SYNCED", 130, ofGetHeight() - 170);
+        }else{
+            ofDrawBitmapString("NOT SYNCED", 130, ofGetHeight() - 170);
+        }
     }
 }
 
@@ -32,6 +37,15 @@ void erMediaPlayer::keyReleased(ofKeyEventArgs &args){
     if(network->isRunningServer() && args.key == '-'){
         network->syncEcg(ECG_SYNC_DELAY);
         soundRenderer.syncEcg(ECG_SYNC_DELAY);
+    }
+}
+
+void erMediaPlayer::play(erPlayParams params, bool isClient){
+    if(params.isVideoCommand()){
+        isClient ? playWithGlitch(params) : playWithSound(params);
+    }else if(params.isTestCommand()){
+        testSoundPlayer->execute(params);
+        testVideoPlayer->execute(params);
     }
 }
 

@@ -2,6 +2,7 @@
 
 void erSoundRenderer::setup(){
     isSetup = true;
+    syncing = syncedBefore = false;
 
     startOffset = settings.ecgPeriod * 0.4;
     endOffset = settings.ecgPeriod * 0.5;
@@ -42,6 +43,8 @@ void erSoundRenderer::play(void){
 
 void erSoundRenderer::syncEcg(float delay){
     schedule(delay);
+    syncing = true;
+    syncedBefore = true;
 }
 
 void erSoundRenderer::setMasterVolume(float _masterVolume){
@@ -87,6 +90,14 @@ bool erSoundRenderer::withinEcgBeepPeriod(){
         return position > startOffset && position < endOffset;
     }
     return false;
+}
+
+bool erSoundRenderer::isSyncing(){
+    return syncing;
+}
+
+bool erSoundRenderer::hasSyncedBefore(){
+    return syncedBefore;
 }
 
 void erSoundRenderer::initializeChannels(){

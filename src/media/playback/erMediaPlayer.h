@@ -14,6 +14,7 @@ public:
     void setup(erNetwork* _network, int numChannels, float masterVolume=1);
     void setupEcgMode(erNetwork* _network);
     virtual void update(ofEventArgs& args);
+    virtual void draw(ofEventArgs& args);
     virtual void keyReleased(ofKeyEventArgs& args);
 
     void play(erPlayParams params, bool isClient=true);
