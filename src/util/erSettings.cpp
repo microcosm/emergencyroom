@@ -9,6 +9,10 @@ void erSettings::load(){
     }
 }
 
+void erSettings::toggleDrawing(){
+    drawingEnabled = !drawingEnabled;
+}
+
 void erSettings::initSettings(){
     fullscreenByDefault = true;
     masterVolume = 1;
@@ -16,6 +20,7 @@ void erSettings::initSettings(){
     isEcg = false;
     ecgPeriod = 1000;
     ecgBpm = 60;
+    drawingEnabled = true;
 }
 
 void erSettings::applySettings(ofxJSONElement& json){

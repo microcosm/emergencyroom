@@ -16,12 +16,14 @@ class erSettings{
 
 public:
     void load();
+    void toggleDrawing();
     float masterVolume;
     bool fullscreenByDefault;
     bool isServer;
     bool isEcg;
     float ecgPeriod;
     float ecgBpm;
+    bool drawingEnabled;
 
 protected:
     void initSettings();

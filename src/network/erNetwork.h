@@ -4,6 +4,7 @@
 #include "ofxNetworkSync.h"
 #include "erPlayParams.h"
 #include "erTranslater.h"
+#include "erSettings.h"
 
 #define SYNC_TCP_PORT 15001
 #define FINDER_TIMEOUT 15000
@@ -23,7 +24,6 @@ public:
     virtual void draw(ofEventArgs& args);
     virtual void keyReleased(ofKeyEventArgs& args);
     void syncEcg(int delay);
-    void toggleDrawing();
     void requestServer();
     bool flood(erPlayParams params);
     bool target(int target, erPlayParams params);
@@ -56,7 +56,7 @@ protected:
     bool serverRequested, serverIsAllowed;
     int numClients, previousNumClients;
     int finderStartTime, serverPortOffset, numChannels;
-    bool drawingEnabled, success;
+    bool success;
     u_int64_t now;
     int ecgIndex;
 };

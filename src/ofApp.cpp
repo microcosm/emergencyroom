@@ -24,8 +24,6 @@ void ofApp::setup(){
         sequencer.setup(&network, &loader, &player);
         ofAddListener(ofEvents().draw, this, &ofApp::draw);
     }
-
-    network.toggleDrawing();
 }
 
 void ofApp::update(){
@@ -41,6 +39,11 @@ void ofApp::update(){
 }
 
 void ofApp::draw(ofEventArgs& args){
+    if(network.isRunningServer() && settings.drawingEnabled){
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, ofGetHeight() - 130);
+    }
+
     if(loader.hasErrors()){
         loader.drawErrors();
     }
@@ -85,6 +88,6 @@ void ofApp::keyReleased(int key){
         ofToggleFullscreen();
     }
     if(key == 'd'){
-        network.toggleDrawing();
+        settings.toggleDrawing();
     }
 }

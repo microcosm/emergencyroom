@@ -3,7 +3,6 @@
 void erNetwork::setup(int _numChannels){
     role = NETWORK_ROLE_UNDEFINED;
     numChannels = _numChannels;
-    drawingEnabled = false;
     statusText = "";
     serverPortOffset = 0;
     serverRequested = false;
@@ -87,7 +86,7 @@ void erNetwork::update(ofEventArgs& args){
 }
 
 void erNetwork::draw(ofEventArgs& args){
-    if(drawingEnabled){
+    if(settings.drawingEnabled){
         ofFill();
         ofSetColor(ofColor::black, 100);
         ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
@@ -140,10 +139,6 @@ void erNetwork::syncEcg(int delay){
     if(isRunningServer() && clients.size() > 0 && ecgIndex < clients.size()){
         clients.at(ecgIndex)->send("ECGSYNC");
     }
-}
-
-void erNetwork::toggleDrawing(){
-    drawingEnabled = !drawingEnabled;
 }
 
 void erNetwork::requestServer(){

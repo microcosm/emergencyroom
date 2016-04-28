@@ -10,7 +10,6 @@ void erSoundRenderer::setup(){
     syncTime = 0;
 
     manager.setup();
-    manager.toggleDebugUI();
     manager.bpm.setBpm(50);
 
     ecgSynth.setup("ECG", 'aumu', 'NiMa', '-NI-');
