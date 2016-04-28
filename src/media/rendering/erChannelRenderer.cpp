@@ -121,7 +121,7 @@ void erChannelRenderer::drawServer(){
 void erChannelRenderer::drawPreviewBorder(int x, int y, int channel){
     ofDrawRectangle(x, y, previewWidth, previewHeight);
     currentChannelStr = "CHANNEL " + ofToString(channel);
-    ofDrawBitmapString(currentChannelStr, x + SCREEN_MARGIN, y + DOUBLE_SCREEN_MARGIN);
+    ofDrawBitmapString(currentChannelStr, x + DOUBLE_SCREEN_MARGIN, y + previewHeight - DOUBLE_SCREEN_MARGIN);
 }
 
 int erChannelRenderer::getX(int xi){
