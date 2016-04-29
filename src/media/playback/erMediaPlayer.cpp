@@ -58,8 +58,10 @@ void erMediaPlayer::playServer(int channel, erPlayParams params){
     if(params.isVideoCommand()){
         calculateGlitchPlaybackVariables(params);
         channelRenderer.assign(channel, params);
-        soundRenderer.newOpeningGlitchPeriod(channel, currentTime + bufferTime, videoGlitchTime);
-        soundRenderer.newClosingGlitchPeriod(channel, currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime);
+        channelRenderer.newOpeningGlitchPeriod(currentTime + halfBufferTime, halfBufferTime + videoGlitchTime, channel);
+        channelRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime + halfBufferTime, channel);
+        soundRenderer.newOpeningGlitchPeriod(currentTime + bufferTime, videoGlitchTime, channel);
+        soundRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime, channel);
         videoPlayer->execute(params);
     }
 }

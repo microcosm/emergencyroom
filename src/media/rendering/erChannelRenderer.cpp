@@ -69,7 +69,7 @@ void erChannelRenderer::eraseCompletedVideosFromChannels(){
             toErase.push_back(channelToPlayer.first);
         }
     }
-    
+
     for(auto const& i : toErase){
         channelsToPlayers.erase(channelsToPlayers.find(i));
     }
@@ -104,6 +104,11 @@ void erChannelRenderer::drawServer(){
             y = getY(yi);
             if(hasChannel(currentChannel)) {
                 mediaRenderer.draw(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight, currentChannel);
+                if(mediaRenderer.withinGlitchPeriod(currentChannel)){
+                    ofSetColor(ofColor::red, 80);
+                    ofFill();
+                    ofDrawRectangle(x, y, previewWidth, previewHeight);
+                }
             }
             drawPreviewBorder(x, y, currentChannel);
             currentChannel++;
@@ -119,6 +124,8 @@ void erChannelRenderer::drawServer(){
 }
 
 void erChannelRenderer::drawPreviewBorder(int x, int y, int channel){
+    ofSetColor(ofColor::white);
+    ofNoFill();
     ofDrawRectangle(x, y, previewWidth, previewHeight);
     currentChannelStr = "CHANNEL " + ofToString(channel);
     ofDrawBitmapString(currentChannelStr, x + DOUBLE_SCREEN_MARGIN, y + previewHeight - DOUBLE_SCREEN_MARGIN);
