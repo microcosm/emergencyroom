@@ -23,6 +23,8 @@ public:
     virtual void draw(ofEventArgs& args);
     virtual void keyReleased(ofKeyEventArgs& args);
     void syncEcg(int delay);
+    void clientDisplaysOn();
+    void clientDisplaysOff();
     void requestServer();
     bool flood(erPlayParams params);
     bool target(int target, erPlayParams params);

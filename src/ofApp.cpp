@@ -91,5 +91,6 @@ void ofApp::keyReleased(int key){
     }
     if(key == 'd'){
         settings.toggleDrawing();
+        settings.drawingEnabled ? network.clientDisplaysOn() : network.clientDisplaysOff();
     }
 }

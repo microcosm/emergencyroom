@@ -139,6 +139,18 @@ void erNetwork::syncEcg(int delay){
     }
 }
 
+void erNetwork::clientDisplaysOn(){
+    for(auto& client : server.getClients()) {
+        client->send("DISPLAY ON");
+    }
+}
+
+void erNetwork::clientDisplaysOff(){
+    for(auto& client : server.getClients()) {
+        client->send("DISPLAY OFF");
+    }
+}
+
 void erNetwork::requestServer(){
     serverRequested = true;
 }
@@ -217,6 +229,14 @@ void erNetwork::onClientConnectionLost(){
 void erNetwork::onClientMessageReceived(string& message){
     if(message.substr(0, 7) == "CHANNEL"){
         clientChannel = message;
+    }
+
+    if(message.substr(0, 10) == "DISPLAY ON"){
+        settings.drawingEnabled = true;
+    }
+
+    if(message.substr(0, 11) == "DISPLAY OFF"){
+        settings.drawingEnabled = false;
     }
 }
 
