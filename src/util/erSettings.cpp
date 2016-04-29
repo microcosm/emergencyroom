@@ -20,6 +20,8 @@ void erSettings::initSettings(){
     isEcg = false;
     ecgPeriod = 1000;
     ecgBpm = 60;
+    ecgBeginBeepAt = 0.15;
+    ecgEndBeepAt = 0.3;
     drawingEnabled = true;
 }
 
@@ -30,6 +32,8 @@ void erSettings::applySettings(ofxJSONElement& json){
     isServer = computerName == json[SERVER_MACHINE_NAME].asString();
     isEcg = computerName == json[ECG_MACHINE_NAME].asString();
     ecgBpm = json[ECG_BPM].asFloat();
+    ecgBeginBeepAt = json[ECG_BEGIN_BEEP_AT].asFloat();
+    ecgEndBeepAt = json[ECG_END_BEEP_AT].asFloat();
     ecgPeriod = 60000 / ecgBpm;
 }
 

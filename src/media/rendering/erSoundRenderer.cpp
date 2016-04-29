@@ -4,8 +4,8 @@ void erSoundRenderer::setup(){
     isSetup = true;
     syncing = syncedBefore = false;
 
-    startOffset = settings.ecgPeriod * 0.4;
-    endOffset = settings.ecgPeriod * 0.5;
+    startOffset = settings.ecgPeriod * settings.ecgBeginBeepAt;
+    endOffset = settings.ecgPeriod * settings.ecgEndBeepAt;
     syncTime = 0;
 
     manager.setup();

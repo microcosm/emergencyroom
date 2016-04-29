@@ -11,6 +11,8 @@
 #define SERVER_MACHINE_NAME "server-machine-name"
 #define ECG_MACHINE_NAME "ecg-machine-name"
 #define ECG_BPM "ecg-bpm"
+#define ECG_BEGIN_BEEP_AT "ecg-begin-beep-at"
+#define ECG_END_BEEP_AT "ecg-end-beep-at"
 
 class erSettings{
 
@@ -23,6 +25,8 @@ public:
     bool isEcg;
     float ecgPeriod;
     float ecgBpm;
+    float ecgBeginBeepAt;
+    float ecgEndBeepAt;
     bool drawingEnabled;
 
 protected:

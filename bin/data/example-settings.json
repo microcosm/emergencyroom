@@ -3,5 +3,7 @@
     "server-master-volume": 0.5,
     "server-machine-name": "computer-name-here",
     "ecg-machine-name": "computer-name-here",
-    "ecg-bpm": 60
+    "ecg-bpm": 60,
+    "ecg-begin-beep-at": 0.34,
+    "ecg-end-beep-at": 0.44
 }
