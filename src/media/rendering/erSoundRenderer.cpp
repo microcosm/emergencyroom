@@ -44,7 +44,7 @@ void erSoundRenderer::update(ofEventArgs& args){
     ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod(currentEcgPosition) ? settings.masterVolume : 0);
 
     for(int channel = 1; channel <= settings.numChannels; channel++){
-        float volume = withinGlitchPeriod(currentTime, channel) ? settings.masterVolume : 0;
+        float volume = withinGlitchPeriod(channel, currentTime) ? settings.masterVolume : 0;
         staticSynths.at(channel - 1).set(Massive_master_volume, volume);
     }
 }
