@@ -8,7 +8,6 @@ void erEcgVisualization::setup(erNetwork* _network){
     network = _network;
     timeOffset = 0;
 
-    ofToggleFullscreen();
     overlay = false;
 
     width = ofGetWidth();
