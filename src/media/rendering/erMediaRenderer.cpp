@@ -1,10 +1,10 @@
 #include "erMediaRenderer.h"
 
 void erMediaRenderer::setup(){
+    erGlitchRenderer::setup();
     bufferEmpty = true;
     fbo.allocate(ofGetWidth(), ofGetHeight());
     fboGlitch.allocate(ofGetWidth(), ofGetHeight());
-    openingGlitchStart = openingGlitchEnd = closingGlitchStart = closingGlitchEnd = 0;
     ofAddListener(ofEvents().update, this, &erMediaRenderer::update);
 }
 
@@ -27,19 +27,11 @@ void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _
     videoPlayers = _videoPlayers;
 }
 
-void erMediaRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration){
-    openingGlitchStart = from;
-    openingGlitchEnd = openingGlitchStart + duration;
-}
-
-void erMediaRenderer::newClosingGlitchPeriod(u_int64_t from, float duration){
-    closingGlitchStart = from;
-    closingGlitchEnd = closingGlitchStart + duration;
-}
-
-void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height){
+void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel){
     if(player->isPlaying()){
-        withinGlitchPeriod() ? drawGlitched(player, x, y, width, height) : drawNormal(player, x, y, width, height);
+        withinGlitchPeriod(channel) ?
+            drawGlitched(player, x, y, width, height) :
+            drawNormal(player, x, y, width, height);
     }
 }
 
@@ -72,11 +64,4 @@ void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, in
     }
     fbo.end();
     fboGlitch.draw(fbo, x, y, width, height);
-}
-
-bool erMediaRenderer::withinGlitchPeriod(){
-    currentTime = ofGetElapsedTimeMillis();
-    withinOpeningGlitchPeriod = currentTime > openingGlitchStart && currentTime < openingGlitchEnd;
-    withinClosingGlitchPeriod = currentTime > closingGlitchStart && currentTime < closingGlitchEnd;
-    return withinOpeningGlitchPeriod || withinClosingGlitchPeriod;
 }

@@ -19,8 +19,8 @@ public:
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
 
-    void newOpeningGlitchPeriod(u_int64_t from, float duration);
-    void newClosingGlitchPeriod(u_int64_t from, float duration);
+    void newOpeningGlitchPeriod(u_int64_t from, float duration, int channel=1);
+    void newClosingGlitchPeriod(u_int64_t from, float duration, int channel=1);
     bool isChannelPlaying(int channel);
     void assign(int channel, erPlayParams params);
 

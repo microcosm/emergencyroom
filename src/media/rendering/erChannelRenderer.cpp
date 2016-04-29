@@ -37,12 +37,12 @@ void erChannelRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>*
     mediaRenderer.setVideoPlayers(videoPlayers);
 }
 
-void erChannelRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration){
-    mediaRenderer.newOpeningGlitchPeriod(from, duration);
+void erChannelRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration, int channel){
+    mediaRenderer.newOpeningGlitchPeriod(from, duration, channel);
 }
 
-void erChannelRenderer::newClosingGlitchPeriod(u_int64_t from, float duration){
-    mediaRenderer.newClosingGlitchPeriod(from, duration);
+void erChannelRenderer::newClosingGlitchPeriod(u_int64_t from, float duration, int channel){
+    mediaRenderer.newClosingGlitchPeriod(from, duration, channel);
 }
 
 bool erChannelRenderer::isChannelPlaying(int channel){
@@ -103,7 +103,7 @@ void erChannelRenderer::drawServer(){
             x = getX(xi);
             y = getY(yi);
             if(hasChannel(currentChannel)) {
-                mediaRenderer.draw(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight);
+                mediaRenderer.draw(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight, currentChannel);
             }
             drawPreviewBorder(x, y, currentChannel);
             currentChannel++;

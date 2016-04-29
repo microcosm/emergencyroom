@@ -2,6 +2,7 @@
 
 void erSoundRenderer::setup(){
     isSetup = true;
+    erGlitchRenderer::setup();
     syncing = syncedBefore = false;
 
     startOffset = settings.ecgPeriod * settings.ecgBeginBeepAt;
@@ -27,8 +28,6 @@ void erSoundRenderer::setup(){
         staticChains.at(i).sendMidiOn(60);
     }
 
-    initializeChannels();
-
     ofAddListener(ofEvents().update, this, &erSoundRenderer::update);
     ofAddListener(ofEvents().draw, this, &erSoundRenderer::draw);
 }
@@ -44,8 +43,9 @@ void erSoundRenderer::update(ofEventArgs& args){
     currentEcgPosition = getCurrentEcgPosition();
     ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod(currentEcgPosition) ? settings.masterVolume : 0);
 
-    for(int i = 1; i <= settings.numChannels; i++){
-        staticSynths.at(i - 1).set(Massive_master_volume, withinGlitchPeriod(i, currentTime) ? settings.masterVolume : 0);
+    for(int channel = 1; channel <= settings.numChannels; channel++){
+        float volume = withinGlitchPeriod(currentTime, channel) ? settings.masterVolume : 0;
+        staticSynths.at(channel - 1).set(Massive_master_volume, volume);
     }
 }
 
@@ -66,28 +66,6 @@ void erSoundRenderer::syncEcg(float delay){
     syncing = true;
 }
 
-void erSoundRenderer::newOpeningGlitchPeriod(int channel, u_int64_t from, float duration){
-    channelsToOpeningGlitchStarts[channel] = from;
-    channelsToOpeningGlitchEnds[channel] = from + duration;
-}
-
-void erSoundRenderer::newClosingGlitchPeriod(int channel, u_int64_t from, float duration){
-    channelsToClosingGlitchStarts[channel] = from;
-    channelsToClosingGlitchEnds[channel] = from + duration;
-}
-
-bool erSoundRenderer::withinGlitchPeriod(int channel, u_int64_t time){
-    if(time > channelsToOpeningGlitchStarts[channel] && time < channelsToOpeningGlitchEnds[channel]){
-        return true;
-    }
-
-    if(time > channelsToClosingGlitchStarts[channel] && time < channelsToClosingGlitchEnds[channel]){
-        return true;
-    }
-
-    return false;
-}
-
 bool erSoundRenderer::withinEcgBeepPeriod(float position){
     if(hasSyncedBefore()){
         return position > startOffset && position < endOffset;
@@ -101,15 +79,6 @@ bool erSoundRenderer::isSyncing(){
 
 bool erSoundRenderer::hasSyncedBefore(){
     return syncedBefore;
-}
-
-void erSoundRenderer::initializeChannels(){
-    for(int i = 1; i <= settings.numChannels; i++){
-        channelsToOpeningGlitchStarts[i] = 0;
-        channelsToOpeningGlitchEnds[i] = 0;
-        channelsToClosingGlitchStarts[i] = 0;
-        channelsToClosingGlitchEnds[i] = 0;
-    }
 }
 
 float erSoundRenderer::getCurrentEcgPosition(){

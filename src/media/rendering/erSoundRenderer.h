@@ -4,8 +4,9 @@
 #include "ofxAudioUnit.h"
 #include "ofxAudioUnitManager.h"
 #include "erSyncedMediaPlayer.h"
+#include "erGlitchRenderer.h"
 
-class erSoundRenderer : erSyncedMediaPlayer{
+class erSoundRenderer : erSyncedMediaPlayer, public erGlitchRenderer{
 
 public:
     void setup();
@@ -13,9 +14,6 @@ public:
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     void syncEcg(float delay);
-    void newOpeningGlitchPeriod(int channel, u_int64_t from, float duration);
-    void newClosingGlitchPeriod(int channel, u_int64_t from, float duration);
-    bool withinGlitchPeriod(int channel, u_int64_t time);
     bool withinEcgBeepPeriod(float position);
     bool isSyncing();
     bool hasSyncedBefore();
@@ -28,11 +26,9 @@ protected:
         syncedBefore = true;
     }
 
-    void initializeChannels();
     float getCurrentEcgPosition();
 
     ofxAudioUnitManager manager;
-
     ofxManagedAudioUnit ecgSynth;
     ofxAudioUnitChain ecgChain;
 
@@ -41,12 +37,7 @@ protected:
     vector<ofxManagedAudioUnit> staticSynths;
     vector<ofxAudioUnitChain> staticChains;
 
-    map<int, u_int64_t> channelsToOpeningGlitchStarts;
-    map<int, u_int64_t> channelsToOpeningGlitchEnds;
-    map<int, u_int64_t> channelsToClosingGlitchStarts;
-    map<int, u_int64_t> channelsToClosingGlitchEnds;
     u_int64_t currentTime, syncTime, timeSinceSync;
-
     float startOffset, endOffset, currentEcgPosition;
 
     bool isSetup = false;
