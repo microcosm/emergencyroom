@@ -27,7 +27,7 @@ void ofApp::setup(){
 }
 
 void ofApp::update(){
-    if(network.isRunning()){
+    if(network.isRunning() && settings.logToFileEnabled){
         erEnableFileLogging(network.isRunningServer());
     }else{
         erDisableFileLogging();

@@ -1,5 +1,6 @@
 {
     "fullscreen-by-default": false,
+    "log-to-file": true,
     "server-master-volume": 0.5,
     "server-machine-name": "computer-name-here",
     "ecg-machine-name": "computer-name-here",

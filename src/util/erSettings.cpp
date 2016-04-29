@@ -15,6 +15,7 @@ void erSettings::toggleDrawing(){
 
 void erSettings::initSettings(){
     fullscreenByDefault = true;
+    logToFileEnabled = true;
     masterVolume = 1;
     isServer = false;
     isEcg = false;
@@ -28,6 +29,7 @@ void erSettings::initSettings(){
 void erSettings::applySettings(ofxJSONElement& json){
     computerName = getComputerName();
     fullscreenByDefault = json[FULLSCREEN_BY_DEFAULT].asBool();
+    logToFileEnabled = json[LOG_TO_FILE_ENABLED].asBool();
     masterVolume = json[SERVER_MASTER_VOLUME].asFloat();
     isServer = computerName == json[SERVER_MACHINE_NAME].asString();
     isEcg = computerName == json[ECG_MACHINE_NAME].asString();
