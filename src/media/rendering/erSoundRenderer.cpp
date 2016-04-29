@@ -12,18 +12,25 @@ void erSoundRenderer::setup(){
     manager.bpm.setBpm(settings.ecgBpm);
 
     ecgSynth.setup("ECG", 'aumu', 'NiMa', '-NI-');
-    manager.createChain(&ecgChain).link(&ecgSynth).toMixer();
+    manager.createChain(&ecgChain, "ecg").link(&ecgSynth).toMixer();
+    ecgChain.sendMidiOn(60);
 
-    staticSynth.setup("Static", 'aumu', 'NiMa', '-NI-');
-    manager.createChain(&staticChain).link(&staticSynth).toMixer();
+    for(int i = 0; i < settings.numChannels; i++){
+        staticSynths.push_back(staticSynth);
+        staticChains.push_back(staticChain);
+    }
+
+    for(int i = 0; i < settings.numChannels; i++){
+        string name = "static" + ofToString(i + 1);
+        staticSynths.at(i).setup(name, 'aumu', 'NiMa', '-NI-');
+        manager.createChain(&staticChains.at(i), name).link(&staticSynths.at(i)).toMixer();
+        staticChains.at(i).sendMidiOn(60);
+    }
+
+    initializeChannels();
 
     ofAddListener(ofEvents().update, this, &erSoundRenderer::update);
     ofAddListener(ofEvents().draw, this, &erSoundRenderer::draw);
-    manager.bpm.start();
-    ecgChain.sendMidiOn(60);
-    staticChain.sendMidiOn(60);
-
-    initializeChannels();
 }
 
 void erSoundRenderer::ensureSetup(){
@@ -35,8 +42,11 @@ void erSoundRenderer::ensureSetup(){
 void erSoundRenderer::update(ofEventArgs& args){
     currentTime = ofGetElapsedTimeMillis();
     currentEcgPosition = getCurrentEcgPosition();
-    staticSynth.set(Massive_master_volume, withinGlitchPeriod(currentTime) ? settings.masterVolume : 0);
     ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod(currentEcgPosition) ? settings.masterVolume : 0);
+
+    for(int i = 1; i <= settings.numChannels; i++){
+        staticSynths.at(i - 1).set(Massive_master_volume, withinGlitchPeriod(i, currentTime) ? settings.masterVolume : 0);
+    }
 }
 
 void erSoundRenderer::draw(ofEventArgs& args){
@@ -70,16 +80,15 @@ void erSoundRenderer::newClosingGlitchPeriod(u_int64_t from, float duration){
     channelsToClosingGlitchEnds[currentChannel] = from + duration;
 }
 
-bool erSoundRenderer::withinGlitchPeriod(u_int64_t time){
-    for(int i = 1; i <= settings.numChannels; i++){
-        if(time > channelsToOpeningGlitchStarts[i] && time < channelsToOpeningGlitchEnds[i]){
-            return true;
-        }
-
-        if(time > channelsToClosingGlitchStarts[i] && time < channelsToClosingGlitchEnds[i]){
-            return true;
-        }
+bool erSoundRenderer::withinGlitchPeriod(int channel, u_int64_t time){
+    if(time > channelsToOpeningGlitchStarts[channel] && time < channelsToOpeningGlitchEnds[channel]){
+        return true;
     }
+
+    if(time > channelsToClosingGlitchStarts[channel] && time < channelsToClosingGlitchEnds[channel]){
+        return true;
+    }
+
     return false;
 }
 

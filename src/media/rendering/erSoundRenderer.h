@@ -16,7 +16,7 @@ public:
     void setCurrentChannel(int _currentChannel);
     void newOpeningGlitchPeriod(u_int64_t from, float duration);
     void newClosingGlitchPeriod(u_int64_t from, float duration);
-    bool withinGlitchPeriod(u_int64_t time);
+    bool withinGlitchPeriod(int channel, u_int64_t time);
     bool withinEcgBeepPeriod(float position);
     bool isSyncing();
     bool hasSyncedBefore();
@@ -31,9 +31,16 @@ protected:
 
     void initializeChannels();
     float getCurrentEcgPosition();
+
     ofxAudioUnitManager manager;
-    ofxAudioUnitChain staticChain, ecgChain;
-    ofxManagedAudioUnit staticSynth, ecgSynth;
+
+    ofxManagedAudioUnit ecgSynth;
+    ofxAudioUnitChain ecgChain;
+
+    ofxManagedAudioUnit staticSynth;
+    ofxAudioUnitChain staticChain;
+    vector<ofxManagedAudioUnit> staticSynths;
+    vector<ofxAudioUnitChain> staticChains;
 
     map<int, u_int64_t> channelsToOpeningGlitchStarts;
     map<int, u_int64_t> channelsToOpeningGlitchEnds;
