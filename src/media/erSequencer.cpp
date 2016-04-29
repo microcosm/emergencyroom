@@ -28,7 +28,7 @@ void erSequencer::messageReceived(string& message){
     erLog("erSequencer::messageReceived(string& message)", message);
     params = translater->toParams(message);
     if(network->isRunningClient() && params.isPlayable()){
-        player->play(params);
+        player->playClient(params);
     }
 }
 
@@ -38,7 +38,7 @@ void erSequencer::playNewVideo(){
         params.setPath(chooseVideo());
         params.setSpeed(1);
         network->target(currentChannel, params);
-        player->serverPlay(currentChannel, params);
+        player->playServer(currentChannel, params);
         erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
     }
     incrementCurrentChannel();

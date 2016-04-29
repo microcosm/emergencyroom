@@ -56,14 +56,14 @@ void ofApp::keyReleased(int key){
         if(key == 't'){
             params.newTestCommand();
             network.flood(params);
-            player.play(params);
+            player.playTest(params);
         }
         if(key == '1'){
             params.newVideoCommand();
             params.setPath("green/anti-fingers.mov");
             params.setSpeed(0.5);
             network.target(1, params);
-            player.play(params);
+            player.playTest(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
         if(key == '2'){
@@ -71,14 +71,14 @@ void ofApp::keyReleased(int key){
             params.setPath("purple/flip-fingers.mov");
             params.setSpeed(2);
             network.target(2, params);
-            player.play(params);
+            player.playTest(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
         if(key == '9'){
             params.newGraphicCommand();
             params.setPath("test");
             network.target(1, params);
-            player.play(params);
+            player.playTest(params);
             erLog("ofApp::keyReleased(int key)", params.getArgumentStr());
         }
     }else{

@@ -18,8 +18,9 @@ public:
     virtual void draw(ofEventArgs& args);
     virtual void keyReleased(ofKeyEventArgs& args);
 
-    void play(erPlayParams params, bool isClient=true);
-    void serverPlay(int channel, erPlayParams params);
+    void playTest(erPlayParams params);
+    void playClient(erPlayParams params);
+    void playServer(int channel, erPlayParams params);
     bool isChannelPlaying(int channel);
 
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
@@ -28,9 +29,6 @@ public:
     void calculateGlitchPlaybackVariables(erPlayParams params);
 
 protected:
-    void playWithGlitch(erPlayParams params);
-    void playWithSound(erPlayParams params);
-
     erChannelRenderer channelRenderer;
     erSoundRenderer soundRenderer;
     erNetwork* network;

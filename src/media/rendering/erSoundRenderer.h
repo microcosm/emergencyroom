@@ -13,9 +13,8 @@ public:
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     void syncEcg(float delay);
-    void setCurrentChannel(int _currentChannel);
-    void newOpeningGlitchPeriod(u_int64_t from, float duration);
-    void newClosingGlitchPeriod(u_int64_t from, float duration);
+    void newOpeningGlitchPeriod(int channel, u_int64_t from, float duration);
+    void newClosingGlitchPeriod(int channel, u_int64_t from, float duration);
     bool withinGlitchPeriod(int channel, u_int64_t time);
     bool withinEcgBeepPeriod(float position);
     bool isSyncing();
@@ -50,7 +49,6 @@ protected:
 
     float startOffset, endOffset, currentEcgPosition;
 
-    int currentChannel;
     bool isSetup = false;
     bool syncing, syncedBefore;
 };

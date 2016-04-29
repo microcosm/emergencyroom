@@ -66,18 +66,14 @@ void erSoundRenderer::syncEcg(float delay){
     syncing = true;
 }
 
-void erSoundRenderer::setCurrentChannel(int _currentChannel){
-    currentChannel = _currentChannel;
+void erSoundRenderer::newOpeningGlitchPeriod(int channel, u_int64_t from, float duration){
+    channelsToOpeningGlitchStarts[channel] = from;
+    channelsToOpeningGlitchEnds[channel] = from + duration;
 }
 
-void erSoundRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration){
-    channelsToOpeningGlitchStarts[currentChannel] = from;
-    channelsToOpeningGlitchEnds[currentChannel] = from + duration;
-}
-
-void erSoundRenderer::newClosingGlitchPeriod(u_int64_t from, float duration){
-    channelsToClosingGlitchStarts[currentChannel] = from;
-    channelsToClosingGlitchEnds[currentChannel] = from + duration;
+void erSoundRenderer::newClosingGlitchPeriod(int channel, u_int64_t from, float duration){
+    channelsToClosingGlitchStarts[channel] = from;
+    channelsToClosingGlitchEnds[channel] = from + duration;
 }
 
 bool erSoundRenderer::withinGlitchPeriod(int channel, u_int64_t time){
