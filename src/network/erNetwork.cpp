@@ -2,13 +2,13 @@
 
 void erNetwork::setup(){
     role = NETWORK_ROLE_UNDEFINED;
-    statusText = "";
+    statusText = clientChannel = "";
     serverPortOffset = 0;
     serverRequested = false;
     serverIsAllowed = true;
     numClients, previousNumClients = 0;
-    clientChannel = -1;
     ecgIndex = 0;
+    font.load("font/klima-medium-web.ttf", 100);
     setLogLevels(OF_LOG_ERROR);
     translater.setup(&client, &server);
 
@@ -82,16 +82,22 @@ void erNetwork::update(ofEventArgs& args){
 
 void erNetwork::draw(ofEventArgs& args){
     if(settings.drawingEnabled){
-        ofSetColor(ofColor::white);
-        ofDrawBitmapString(statusText, 50, 30);
         if(finder.isRunning()){
+            drawBlackOverlay();
+            ofSetColor(ofColor::white);
+            ofDrawBitmapString(statusText, 50, 30);
             ofDrawBitmapString("trying to find server: " + ofToString((finderStartTime+FINDER_TIMEOUT)-ofGetElapsedTimeMillis()), 50, 50);
             ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
         }else if(client.isConnected()){
+            drawBlackOverlay();
+            ofSetColor(ofColor::white);
+            ofDrawBitmapString(statusText, 50, 30);
             client.drawStatus();
             ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
             ofDrawBitmapString(clientChannel, 50, ofGetHeight()-35);
+            font.drawString(clientChannel, 40, ofGetHeight() * 0.4);
         }else if(server.isConnected()){
+            ofDrawBitmapString(statusText, 50, 30);
             server.drawStatus(50, 50);
             vector<ofxNetworkSyncClientState *> clients = server.getClients();
             ostringstream ostr("");
@@ -236,4 +242,10 @@ void erNetwork::setLogLevels(ofLogLevel level){
     ofSetLogLevel("ofxNetworkSyncServer", level);
     ofSetLogLevel("ofxNetworkSyncServerFinder", level);
     ofSetLogLevel("ofxNetworkSyncUdp", level);
+}
+
+void erNetwork::drawBlackOverlay(){
+    ofSetColor(ofColor::black, 127);
+    ofFill();
+    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
 }

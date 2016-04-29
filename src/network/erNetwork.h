@@ -43,6 +43,7 @@ protected:
     void send(erPlayParams& params, ofxNetworkSyncClientState* client);
     void sendChannelUpdates();
     void setLogLevels(ofLogLevel level);
+    void drawBlackOverlay();
 
     ofxNetworkSyncServerFinder finder;
     ofxNetworkSyncClient client;
@@ -50,6 +51,7 @@ protected:
     erNetworkRole role, previousRole;
     erTranslater translater;
 
+    ofTrueTypeFont font;
     string statusText, clientChannel;
     bool serverRequested, serverIsAllowed;
     int numClients, previousNumClients;
