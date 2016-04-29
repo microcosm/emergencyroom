@@ -15,12 +15,12 @@ void ofApp::setup(){
 
     if(settings.isEcg){
         player.setupEcgMode(&network);
-        network.setupEcgMode();
+        network.setup();
         sequencer.setupEcgMode(&network, &player);
     }else{
-        loader.setup(&network, settings.masterVolume);
-        player.setup(&network, NUM_CHANNELS, settings.masterVolume);
-        network.setup(NUM_CHANNELS);
+        loader.setup(&network);
+        player.setup(&network);
+        network.setup();
         sequencer.setup(&network, &loader, &player);
         ofAddListener(ofEvents().draw, this, &ofApp::draw);
     }

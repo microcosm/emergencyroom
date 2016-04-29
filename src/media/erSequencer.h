@@ -29,6 +29,6 @@ protected:
     erPlayParams params;
     erEcgVisualization ecg;
 
-    int currentChannel, numChannels;
+    int currentChannel;
     float speed;
 };

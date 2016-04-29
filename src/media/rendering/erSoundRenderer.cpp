@@ -19,9 +19,11 @@ void erSoundRenderer::setup(){
 
     ofAddListener(ofEvents().update, this, &erSoundRenderer::update);
     ofAddListener(ofEvents().draw, this, &erSoundRenderer::draw);
-    ofAddListener(manager.bpm.beatEvent, this, &erSoundRenderer::play);
     manager.bpm.start();
     ecgChain.sendMidiOn(60);
+    staticChain.sendMidiOn(60);
+
+    initializeChannels();
 }
 
 void erSoundRenderer::ensureSetup(){
@@ -33,8 +35,8 @@ void erSoundRenderer::ensureSetup(){
 void erSoundRenderer::update(ofEventArgs& args){
     currentTime = ofGetElapsedTimeMillis();
     currentEcgPosition = getCurrentEcgPosition();
-    staticSynth.set(Massive_master_volume, withinGlitchPeriod(currentTime) ? masterVolume : 0);
-    ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod(currentEcgPosition) ? 1 : 0);
+    staticSynth.set(Massive_master_volume, withinGlitchPeriod(currentTime) ? settings.masterVolume : 0);
+    ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod(currentEcgPosition) ? settings.masterVolume : 0);
 }
 
 void erSoundRenderer::draw(ofEventArgs& args){
@@ -49,22 +51,9 @@ void erSoundRenderer::draw(ofEventArgs& args){
     }
 }
 
-void erSoundRenderer::play(void){
-    staticChain.sendMidiOn(60);
-}
-
 void erSoundRenderer::syncEcg(float delay){
     schedule(delay);
     syncing = true;
-}
-
-void erSoundRenderer::setMasterVolume(float _masterVolume){
-    masterVolume = _masterVolume;
-}
-
-void erSoundRenderer::setNumChannels(int _numChannels){
-    numChannels = _numChannels;
-    initializeChannels();
 }
 
 void erSoundRenderer::setCurrentChannel(int _currentChannel){
@@ -82,7 +71,7 @@ void erSoundRenderer::newClosingGlitchPeriod(u_int64_t from, float duration){
 }
 
 bool erSoundRenderer::withinGlitchPeriod(u_int64_t time){
-    for(int i = 1; i <= numChannels; i++){
+    for(int i = 1; i <= settings.numChannels; i++){
         if(time > channelsToOpeningGlitchStarts[i] && time < channelsToOpeningGlitchEnds[i]){
             return true;
         }
@@ -110,7 +99,7 @@ bool erSoundRenderer::hasSyncedBefore(){
 }
 
 void erSoundRenderer::initializeChannels(){
-    for(int i = 1; i <= numChannels; i++){
+    for(int i = 1; i <= settings.numChannels; i++){
         channelsToOpeningGlitchStarts[i] = 0;
         channelsToOpeningGlitchEnds[i] = 0;
         channelsToClosingGlitchStarts[i] = 0;

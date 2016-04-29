@@ -12,10 +12,7 @@ public:
     void ensureSetup();
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
-    void play();
     void syncEcg(float delay);
-    void setMasterVolume(float _masterVolume);
-    void setNumChannels(int _numChannels);
     void setCurrentChannel(int _currentChannel);
     void newOpeningGlitchPeriod(u_int64_t from, float duration);
     void newClosingGlitchPeriod(u_int64_t from, float duration);
@@ -46,8 +43,7 @@ protected:
 
     float startOffset, endOffset, currentEcgPosition;
 
-    int numChannels, currentChannel;
-    float masterVolume = 0;
+    int currentChannel;
     bool isSetup = false;
     bool syncing, syncedBefore;
 };

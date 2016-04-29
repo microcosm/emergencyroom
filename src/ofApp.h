@@ -5,8 +5,6 @@
 #include "erLogger.h"
 #include "erSettings.h"
 
-#define NUM_CHANNELS 3
-
 class ofApp : public ofBaseApp{
 
 public:

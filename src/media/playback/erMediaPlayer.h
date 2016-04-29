@@ -12,7 +12,7 @@
 class erMediaPlayer{
 
 public:
-    void setup(erNetwork* _network, int numChannels, float masterVolume=1);
+    void setup(erNetwork* _network);
     void setupEcgMode(erNetwork* _network);
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);

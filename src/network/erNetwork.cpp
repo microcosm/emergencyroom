@@ -1,8 +1,7 @@
 #include "erNetwork.h"
 
-void erNetwork::setup(int _numChannels){
+void erNetwork::setup(){
     role = NETWORK_ROLE_UNDEFINED;
-    numChannels = _numChannels;
     statusText = "";
     serverPortOffset = 0;
     serverRequested = false;
@@ -23,10 +22,6 @@ void erNetwork::setup(int _numChannels){
     ofAddListener(ofEvents().update, this, &erNetwork::update);
     ofAddListener(ofEvents().draw, this, &erNetwork::draw);
     ofAddListener(ofEvents().keyReleased, this, &erNetwork::keyReleased);
-}
-
-void erNetwork::setupEcgMode(){
-    setup(0);
 }
 
 void erNetwork::update(ofEventArgs& args){
@@ -154,7 +149,7 @@ bool erNetwork::target(int target, erPlayParams params){
     success = false;
     vector<ofxNetworkSyncClientState*>& clients = server.getClients();
     if(target > 0 && target <= clients.size()){
-        for(int i = target; i <= clients.size(); i+=numChannels) {
+        for(int i = target; i <= clients.size(); i += settings.numChannels) {
             ofxNetworkSyncClientState* client = clients[i-1];
             send(params, client);
         }
@@ -202,10 +197,6 @@ erTranslater* erNetwork::getTranslater(){
     return &translater;
 }
 
-int erNetwork::getNumChannels(){
-    return numChannels;
-}
-
 void erNetwork::onClientConnectionLost(){
     statusText = "lost connection to server";
     client.close();
@@ -233,7 +224,7 @@ void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
 void erNetwork::sendChannelUpdates(){
     int i = 0;
     for(auto& client : server.getClients()) {
-        client->send("CHANNEL " + ofToString((i % numChannels) + 1));
+        client->send("CHANNEL " + ofToString((i % settings.numChannels) + 1));
         i++;
     }
 }

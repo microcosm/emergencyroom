@@ -8,6 +8,7 @@
 #define SETTINGS_FILE "settings.json"
 #define FULLSCREEN_BY_DEFAULT "fullscreen-by-default"
 #define LOG_TO_FILE_ENABLED "enable-log-to-file"
+#define NUMBER_OF_VIDEO_CHANNELS "number-of-video-channels"
 #define SERVER_MASTER_VOLUME "server-master-volume"
 #define SERVER_MACHINE_NAME "server-machine-name"
 #define ECG_MACHINE_NAME "ecg-machine-name"
@@ -23,6 +24,7 @@ public:
     float masterVolume;
     bool fullscreenByDefault;
     bool logToFileEnabled;
+    int numChannels;
     bool isServer;
     bool isEcg;
     float ecgPeriod;

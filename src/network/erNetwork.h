@@ -18,8 +18,7 @@ enum erNetworkRole {
 class erNetwork{
     
 public:
-    void setup(int _numChannels);
-    void setupEcgMode();
+    void setup();
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     virtual void keyReleased(ofKeyEventArgs& args);
@@ -37,7 +36,6 @@ public:
     void denyServer();
     ofEvent<string>& clientMessageReceived();
     erTranslater* getTranslater();
-    int getNumChannels();
     void onClientConnectionLost();
     void onClientMessageReceived(string& message);
 
@@ -55,7 +53,7 @@ protected:
     string statusText, clientChannel;
     bool serverRequested, serverIsAllowed;
     int numClients, previousNumClients;
-    int finderStartTime, serverPortOffset, numChannels;
+    int finderStartTime, serverPortOffset;
     bool success;
     u_int64_t now;
     int ecgIndex;

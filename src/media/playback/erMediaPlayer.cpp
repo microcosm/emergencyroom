@@ -1,10 +1,8 @@
 #include "erMediaPlayer.h"
 
-void erMediaPlayer::setup(erNetwork* _network, int numChannels, float masterVolume){
+void erMediaPlayer::setup(erNetwork* _network){
     network = _network;
     channelRenderer.setup(network);
-    soundRenderer.setMasterVolume(masterVolume);
-    soundRenderer.setNumChannels(numChannels);
     ofAddListener(ofEvents().update, this, &erMediaPlayer::update);
     ofAddListener(ofEvents().draw, this, &erMediaPlayer::draw);
     ofAddListener(ofEvents().keyReleased, this, &erMediaPlayer::keyReleased);

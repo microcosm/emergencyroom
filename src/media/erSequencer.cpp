@@ -6,7 +6,6 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     player = _player;
 
     currentChannel = 1;
-    numChannels = network->getNumChannels();
     translater = network->getTranslater();
 
     ofAddListener(ofEvents().update, this, &erSequencer::update);
@@ -70,7 +69,7 @@ bool erSequencer::isAudioPlaying(){
 
 int erSequencer::incrementCurrentChannel(){
     currentChannel++;
-    if(currentChannel > numChannels){
+    if(currentChannel > settings.numChannels){
         currentChannel = 1;
     }
     return currentChannel;
