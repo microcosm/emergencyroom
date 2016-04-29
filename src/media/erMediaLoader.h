@@ -1,5 +1,6 @@
 #pragma once
 #include "ofMain.h"
+#include "erSettings.h"
 #include "erNetwork.h"
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
@@ -17,9 +18,8 @@
 class erMediaLoader{
 
 public:
-    void setup(erNetwork* _network, float _masterVolume=1);
+    void setup(erNetwork* _network);
     virtual void update(ofEventArgs& args);
-    void setMasterVolume(float _masterVolume);
     void drawErrors();
     void loadLiveMedia();
     void loadPreviewMedia();
@@ -51,5 +51,5 @@ protected:
     string path, collection;
     erNetwork* network;
     bool hasMediaErrors;
-    float volume, masterVolume;
+    float volume;
 };

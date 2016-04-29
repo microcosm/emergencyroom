@@ -1,8 +1,7 @@
 #include "erMediaLoader.h"
 
-void erMediaLoader::setup(erNetwork* _network, float _masterVolume){
+void erMediaLoader::setup(erNetwork* _network){
     network = _network;
-    masterVolume = _masterVolume;
     loadTestMedia();
     validateMedia();
     discoverErrors();
@@ -124,7 +123,7 @@ void erMediaLoader::registerVideo(string& collection, const ofFile video){
     volume = getVolume(path);
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
     videoPlayers[path]->load(video.getAbsolutePath());
-    videoPlayers[path]->setVolume(volume * masterVolume);
+    videoPlayers[path]->setVolume(volume * settings.masterVolume);
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
     collectionsToVideos[collection].push_back(path);
     volume == 0 ? silentVideos.push_back(path) : audibleVideos.push_back(path);
