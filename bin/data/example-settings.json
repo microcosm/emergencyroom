@@ -19,5 +19,15 @@
         "bpm": 38,
         "begin-at": 0.34,
         "end-at": 0.44
+    },
+
+    "media-files": {
+        "live-path": "../path-to/live/",
+        "preview-path": "../path-to/preview/",
+        "test-sound": "test.mp3",
+        "test-video": "test.mov",
+        "live-dir": "/live/",
+        "preview-dir": "/preview/",
+        "allowed-video-extensions": "mov,mp4"
     }
 }

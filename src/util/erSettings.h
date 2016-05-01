@@ -26,6 +26,15 @@
 #define ER_BEGIN_AT "begin-at"
 #define ER_END_AT "end-at"
 
+#define ER_MEDIA_FILES "media-files"
+#define ER_LIVE_PATH "live-path"
+#define ER_PREVIEW_PATH "preview-path"
+#define ER_TEST_SOUND "test-sound"
+#define ER_TEST_VIDEO "test-video"
+#define ER_LIVE_DIR "live-dir"
+#define ER_PREVIEW_DIR "preview-dir"
+#define ER_ALLOWED_VIDEO_EXTENSIONS "allowed-video-extensions"
+
 class erSettings{
 
 public:
@@ -47,6 +56,14 @@ public:
     float ecgBpm;
     float ecgBeginBeepAt;
     float ecgEndBeepAt;
+
+    string liveMediaPath;
+    string previewMediaPath;
+    string testSoundPath;
+    string testVideoPath;
+    string liveMediaDir;
+    string previewMediaDir;
+    string allowedVideoExtensions;
 
     bool serverDrawingEnabled;
     bool clientDrawingEnabled;

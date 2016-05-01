@@ -6,15 +6,6 @@
 #include "erSyncedVideoPlayer.h"
 #include "erMediaPlayer.h"
 
-#define ER_TEST_SOUND "test/audio.mp3"
-#define ER_TEST_VIDEO "test/fingers.mov"
-#define ER_TEST_HAP "test/video.mov"
-#define ER_LIVE_MEDIA_PATH "../../../../../../ER-Media/live/"
-#define ER_PREVIEW_MEDIA_PATH "../../../../../../ER-Media/preview/"
-#define ER_LIVE_DIR "/live/"
-#define ER_PREVIEW_DIR "/preview/"
-#define ER_ALLOWED_EXTENSIONS "mov,mp4"
-
 class erMediaLoader{
 
 public:

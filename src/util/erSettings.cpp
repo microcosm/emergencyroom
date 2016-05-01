@@ -35,6 +35,14 @@ void erSettings::initSettings(){
     ecgBeginBeepAt = 0.15;
     ecgEndBeepAt = 0.3;
 
+    liveMediaPath = "";
+    previewMediaPath = "";
+    testSoundPath = "";
+    testVideoPath = "";
+    liveMediaDir = "";
+    previewMediaDir = "";
+    allowedVideoExtensions = "";
+
     serverDrawingEnabled = true;
     clientDrawingEnabled = true;
 }
@@ -58,6 +66,14 @@ void erSettings::applySettings(ofxJSONElement& json){
     ecgBeginBeepAt = json[ER_ECG_BEEP][ER_BEGIN_AT].asFloat();
     ecgEndBeepAt   = json[ER_ECG_BEEP][ER_END_AT].asFloat();
     ecgPeriod = 60000 / ecgBpm;
+
+    liveMediaPath          = json[ER_MEDIA_FILES][ER_LIVE_PATH].asString();
+    previewMediaPath       = json[ER_MEDIA_FILES][ER_PREVIEW_PATH].asString();
+    testSoundPath          = json[ER_MEDIA_FILES][ER_TEST_SOUND].asString();
+    testVideoPath          = json[ER_MEDIA_FILES][ER_TEST_VIDEO].asString();
+    liveMediaDir           = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
+    previewMediaDir        = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();
+    allowedVideoExtensions = json[ER_MEDIA_FILES][ER_ALLOWED_VIDEO_EXTENSIONS].asString();
 }
 
 string erSettings::getComputerName(){

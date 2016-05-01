@@ -32,12 +32,12 @@ void erMediaLoader::drawErrors(){
 }
 
 void erMediaLoader::loadLiveMedia(){
-    productionDir = ofDirectory(ER_LIVE_MEDIA_PATH);
+    productionDir = ofDirectory(settings.liveMediaPath);
     loadMedia();
 }
 
 void erMediaLoader::loadPreviewMedia(){
-    productionDir = ofDirectory(ER_PREVIEW_MEDIA_PATH);
+    productionDir = ofDirectory(settings.previewMediaPath);
     loadMedia();
 }
 
@@ -50,7 +50,7 @@ void erMediaLoader::discoverErrors(){
 }
 
 void erMediaLoader::validateMedia(){
-    productionDir = ofDirectory(ER_PREVIEW_MEDIA_PATH);
+    productionDir = ofDirectory(settings.previewMediaPath);
     for(auto const& item : productionDir){
         if(item.isDirectory()){
             validateCollectionDir(item.getAbsolutePath());
@@ -73,7 +73,7 @@ void erMediaLoader::validateVideo(const ofFile video){
     if(path.find(" ") != -1){
         spacedPathVideos.push_back(getRelativePath(video));
     }
-    ofStringReplace(path, ER_PREVIEW_DIR, ER_LIVE_DIR);
+    ofStringReplace(path, settings.previewMediaDir, settings.liveMediaDir);
     ofFile livePath(path);
     if(!livePath.exists()){
         missingVideos.push_back(getRelativePath(livePath));
@@ -81,10 +81,10 @@ void erMediaLoader::validateVideo(const ofFile video){
 }
 
 void erMediaLoader::loadTestMedia(){
-    testSoundPlayer.load(ER_TEST_SOUND);
+    testSoundPlayer.load(settings.testSoundPath);
     testSoundPlayer.setLoop(false);
 
-    testVideoPlayer.load(ER_TEST_VIDEO);
+    testVideoPlayer.load(settings.testVideoPath);
     testVideoPlayer.setLoopState(OF_LOOP_NONE);
 }
 
@@ -137,7 +137,7 @@ void erMediaLoader::registerCollection(string& collection){
 
 ofDirectory& erMediaLoader::loadCollectionDir(string path){
     collectionDir = ofDirectory(path);
-    for(auto const& ext : ofSplitString(ER_ALLOWED_EXTENSIONS, ",")){
+    for(auto const& ext : ofSplitString(settings.allowedVideoExtensions, ",")){
         collectionDir.allowExt(ext);
     }
     return collectionDir;
