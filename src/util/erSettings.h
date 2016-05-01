@@ -10,6 +10,9 @@
 #define LOG_TO_FILE_ENABLED "enable-log-to-file"
 #define NUMBER_OF_VIDEO_CHANNELS "number-of-video-channels"
 #define SERVER_MASTER_VOLUME "server-master-volume"
+#define SERVER_VIDEO_VOLUME "server-video-volume"
+#define SERVER_ECG_VOLUME "server-ecg-volume"
+#define SERVER_STATIC_VOLUME "server-static-volume"
 #define SERVER_MACHINE_NAME "server-machine-name"
 #define ECG_MACHINE_NAME "ecg-machine-name"
 #define ECG_BPM "ecg-bpm"
@@ -22,6 +25,9 @@ public:
     void load();
     void toggleDrawing();
     float masterVolume;
+    float videoVolume;
+    float ecgVolume;
+    float staticVolume;
     bool fullscreenByDefault;
     bool logToFileEnabled;
     int numChannels;

@@ -41,10 +41,10 @@ void erSoundRenderer::ensureSetup(){
 void erSoundRenderer::update(ofEventArgs& args){
     currentTime = ofGetElapsedTimeMillis();
     currentEcgPosition = getCurrentEcgPosition();
-    ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod(currentEcgPosition) ? settings.masterVolume : 0);
+    ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod(currentEcgPosition) ? settings.ecgVolume : 0);
 
     for(int channel = 1; channel <= settings.numChannels; channel++){
-        float volume = withinGlitchPeriod(channel, currentTime) ? settings.masterVolume : 0;
+        float volume = withinGlitchPeriod(channel, currentTime) ? settings.staticVolume : 0;
         staticSynths.at(channel - 1).set(Massive_master_volume, volume);
     }
 }
