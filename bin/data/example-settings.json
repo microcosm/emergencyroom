@@ -1,14 +1,23 @@
 {
-    "fullscreen-by-default": false,
-    "log-to-file": true,
+    "fullscreen-by-default": true,
+    "enable-log-to-file": false,
     "number-of-video-channels": 3,
-    "server-master-volume": 0.5,
-    "server-video-volume": 0.9,
-    "server-ecg-volume": 1,
-    "server-static-volume": 0.8,
-    "server-machine-name": "computer-name-here",
-    "ecg-machine-name": "computer-name-here",
-    "ecg-bpm": 60,
-    "ecg-begin-beep-at": 0.34,
-    "ecg-end-beep-at": 0.44
+
+    "machine-names": {
+        "server": "machine-name-1",
+        "ecg":    "machine-name-2",
+    },
+
+    "server-volumes": {
+        "master": 1,
+        "video": 0.75,
+        "ecg": 1,
+        "static": 0.45
+    },
+
+    "ecg-beep": {
+        "bpm": 38,
+        "begin-at": 0.34,
+        "end-at": 0.44
+    }
 }

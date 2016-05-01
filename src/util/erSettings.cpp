@@ -2,10 +2,10 @@
 
 void erSettings::load(){
     initSettings();
-    if(json.open(SETTINGS_FILE)){
+    if(json.open(ER_SETTINGS_FILE)){
         applySettings(json);
     }else{
-        erLog("erSettings::load()", "Couldn't open settings file '" + ofToString(SETTINGS_FILE) + "'");
+        erLog("erSettings::load()", "Couldn't open settings file '" + ofToString(ER_SETTINGS_FILE) + "'");
     }
 }
 
@@ -18,37 +18,45 @@ void erSettings::toggleClientDrawing(){
 }
 
 void erSettings::initSettings(){
-    fullscreenByDefault = true;
+    fullscreenByDefault = false;
     logToFileEnabled = true;
     numChannels = 1;
-    masterVolume = 1;
+
+    masterVolume = 0.95;
     videoVolume = 1;
-    ecgVolume = 1;
+    ecgVolume = 0.95;
     staticVolume = 1;
+
     isServer = false;
     isEcg = false;
+
     ecgPeriod = 1000;
     ecgBpm = 60;
     ecgBeginBeepAt = 0.15;
     ecgEndBeepAt = 0.3;
+
     serverDrawingEnabled = true;
     clientDrawingEnabled = true;
 }
 
 void erSettings::applySettings(ofxJSONElement& json){
     computerName = getComputerName();
-    fullscreenByDefault = json[FULLSCREEN_BY_DEFAULT].asBool();
-    logToFileEnabled = json[LOG_TO_FILE_ENABLED].asBool();
-    numChannels = json[NUMBER_OF_VIDEO_CHANNELS].asInt();
-    masterVolume = ofClamp(json[SERVER_MASTER_VOLUME].asFloat(), 0, 1);
-    videoVolume = ofClamp(json[SERVER_VIDEO_VOLUME].asFloat(), 0, 1);
-    ecgVolume = masterVolume * ofClamp(json[SERVER_ECG_VOLUME].asFloat(), 0, 1);
-    staticVolume = masterVolume * ofClamp(json[SERVER_STATIC_VOLUME].asFloat(), 0, 1);
-    isServer = computerName == json[SERVER_MACHINE_NAME].asString();
-    isEcg = computerName == json[ECG_MACHINE_NAME].asString();
-    ecgBpm = json[ECG_BPM].asFloat();
-    ecgBeginBeepAt = json[ECG_BEGIN_BEEP_AT].asFloat();
-    ecgEndBeepAt = json[ECG_END_BEEP_AT].asFloat();
+
+    fullscreenByDefault = json[ER_FULLSCREEN_BY_DEFAULT].asBool();
+    logToFileEnabled    = json[ER_LOG_TO_FILE_ENABLED].asBool();
+    numChannels         = json[ER_NUMBER_OF_VIDEO_CHANNELS].asInt();
+
+    isServer = computerName == json[ER_MACHINE_NAMES][ER_SERVER].asString();
+    isEcg    = computerName == json[ER_MACHINE_NAMES][ER_ECG].asString();
+
+    masterVolume =                ofClamp(json[ER_SERVER_VOLUMES][ER_MASTER].asFloat(), 0, 1);
+    videoVolume  = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_VIDEO].asFloat(), 0, 1);
+    ecgVolume    = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_ECG].asFloat(), 0, 1);
+    staticVolume = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_STATIC].asFloat(), 0, 1);
+
+    ecgBpm         = json[ER_ECG_BEEP][ER_BPM].asFloat();
+    ecgBeginBeepAt = json[ER_ECG_BEEP][ER_BEGIN_AT].asFloat();
+    ecgEndBeepAt   = json[ER_ECG_BEEP][ER_END_AT].asFloat();
     ecgPeriod = 60000 / ecgBpm;
 }
 

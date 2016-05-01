@@ -5,19 +5,26 @@
 #include "erLogger.h"
 #include "ofxJSON.h"
 
-#define SETTINGS_FILE "settings.json"
-#define FULLSCREEN_BY_DEFAULT "fullscreen-by-default"
-#define LOG_TO_FILE_ENABLED "enable-log-to-file"
-#define NUMBER_OF_VIDEO_CHANNELS "number-of-video-channels"
-#define SERVER_MASTER_VOLUME "server-master-volume"
-#define SERVER_VIDEO_VOLUME "server-video-volume"
-#define SERVER_ECG_VOLUME "server-ecg-volume"
-#define SERVER_STATIC_VOLUME "server-static-volume"
-#define SERVER_MACHINE_NAME "server-machine-name"
-#define ECG_MACHINE_NAME "ecg-machine-name"
-#define ECG_BPM "ecg-bpm"
-#define ECG_BEGIN_BEEP_AT "ecg-begin-beep-at"
-#define ECG_END_BEEP_AT "ecg-end-beep-at"
+#define ER_SETTINGS_FILE "settings.json"
+
+#define ER_FULLSCREEN_BY_DEFAULT "fullscreen-by-default"
+#define ER_LOG_TO_FILE_ENABLED "enable-log-to-file"
+#define ER_NUMBER_OF_VIDEO_CHANNELS "number-of-video-channels"
+
+#define ER_MACHINE_NAMES "machine-names"
+#define ER_SERVER "server"
+#define ER_ECG "ecg"
+
+#define ER_SERVER_VOLUMES "server-volumes"
+#define ER_MASTER "master"
+#define ER_VIDEO "video"
+#define ER_ECG "ecg"
+#define ER_STATIC "static"
+
+#define ER_ECG_BEEP "ecg-beep"
+#define ER_BPM "bpm"
+#define ER_BEGIN_AT "begin-at"
+#define ER_END_AT "end-at"
 
 class erSettings{
 
