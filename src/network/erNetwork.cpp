@@ -81,14 +81,14 @@ void erNetwork::update(ofEventArgs& args){
 }
 
 void erNetwork::draw(ofEventArgs& args){
-    if(settings.drawingEnabled){
-        if(finder.isRunning()){
-            drawBlackOverlay();
-            ofSetColor(ofColor::white);
-            ofDrawBitmapString(statusText, 50, 30);
-            ofDrawBitmapString("trying to find server: " + ofToString((finderStartTime+FINDER_TIMEOUT)-ofGetElapsedTimeMillis()), 50, 50);
-            ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
-        }else if(client.isConnected()){
+    if(finder.isRunning()){
+        drawBlackOverlay();
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString(statusText, 50, 30);
+        ofDrawBitmapString("trying to find server: " + ofToString((finderStartTime+FINDER_TIMEOUT)-ofGetElapsedTimeMillis()), 50, 50);
+        ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
+    }else if(client.isConnected()){
+        if(settings.clientDrawingEnabled){
             drawBlackOverlay();
             ofSetColor(ofColor::white);
             ofDrawBitmapString(statusText, 50, 30);
@@ -96,7 +96,9 @@ void erNetwork::draw(ofEventArgs& args){
             ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
             ofDrawBitmapString(clientChannel, 50, ofGetHeight()-35);
             font.drawString(clientChannel, 40, ofGetHeight() * 0.4);
-        }else if(server.isConnected()){
+        }
+    }else if(server.isConnected()){
+        if(settings.serverDrawingEnabled){
             ofDrawBitmapString(statusText, 50, 30);
             server.drawStatus(50, 50);
             vector<ofxNetworkSyncClientState *> clients = server.getClients();
@@ -232,11 +234,11 @@ void erNetwork::onClientMessageReceived(string& message){
     }
 
     if(message.substr(0, 10) == "DISPLAY ON"){
-        settings.drawingEnabled = true;
+        settings.clientDrawingEnabled = true;
     }
 
     if(message.substr(0, 11) == "DISPLAY OFF"){
-        settings.drawingEnabled = false;
+        settings.clientDrawingEnabled = false;
     }
 }
 

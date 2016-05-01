@@ -23,11 +23,14 @@ class erSettings{
 
 public:
     void load();
-    void toggleDrawing();
+    void toggleServerDrawing();
+    void toggleClientDrawing();
+
     float masterVolume;
     float videoVolume;
     float ecgVolume;
     float staticVolume;
+
     bool fullscreenByDefault;
     bool logToFileEnabled;
     int numChannels;
@@ -37,7 +40,9 @@ public:
     float ecgBpm;
     float ecgBeginBeepAt;
     float ecgEndBeepAt;
-    bool drawingEnabled;
+
+    bool serverDrawingEnabled;
+    bool clientDrawingEnabled;
 
 protected:
     void initSettings();

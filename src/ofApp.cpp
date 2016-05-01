@@ -40,17 +40,14 @@ void ofApp::update(){
 }
 
 void ofApp::draw(ofEventArgs& args){
-    if(settings.drawingEnabled){
-        if(network.isRunningServer()){
-            ofSetColor(ofColor::white);
-            ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, ofGetHeight() - 130);
-        }
+    if(loader.hasErrors()){
+        loader.drawErrors();
+    }
 
+    if(network.isRunningServer() && settings.serverDrawingEnabled){
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nD            toggle client display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, ofGetHeight() - 168);
         font.drawString("fps: " + ofToString(int(ofGetFrameRate())), 490, ofGetHeight() - 60);
-
-        if(loader.hasErrors()){
-            loader.drawErrors();
-        }
     }
 }
 
@@ -93,7 +90,10 @@ void ofApp::keyReleased(int key){
         ofToggleFullscreen();
     }
     if(key == 'd'){
-        settings.toggleDrawing();
-        settings.drawingEnabled ? network.clientDisplaysOn() : network.clientDisplaysOff();
+        settings.toggleServerDrawing();
+    }
+    if(key == 'D'){
+        settings.toggleClientDrawing();
+        settings.clientDrawingEnabled ? network.clientDisplaysOn() : network.clientDisplaysOff();
     }
 }

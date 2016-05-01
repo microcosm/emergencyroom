@@ -50,7 +50,7 @@ void erSoundRenderer::update(ofEventArgs& args){
 }
 
 void erSoundRenderer::draw(ofEventArgs& args){
-    if(settings.drawingEnabled && hasSyncedBefore()){
+    if(settings.serverDrawingEnabled && hasSyncedBefore()){
         float progressThroughPeriod;
         int progressOnScreen = ofMap(currentEcgPosition, 0, settings.ecgPeriod, 0, ofGetWidth());
         for(int x = 0; x < progressOnScreen; x++){

@@ -20,13 +20,13 @@ void erMediaPlayer::update(ofEventArgs& args){
 
 void erMediaPlayer::draw(ofEventArgs& args){
     ofSetColor(ofColor::white);
-    if(network->isRunningServer() && settings.drawingEnabled){
+    if(network->isRunningServer() && settings.serverDrawingEnabled){
         if(soundRenderer.isSyncing()){
-            ofDrawBitmapString("SYNCING...", 130, ofGetHeight() - 170);
+            ofDrawBitmapString("SYNCING...", 130, ofGetHeight() - 208);
         }else if(soundRenderer.hasSyncedBefore()){
-            ofDrawBitmapString("SYNCED", 130, ofGetHeight() - 170);
+            ofDrawBitmapString("SYNCED", 130, ofGetHeight() - 208);
         }else{
-            ofDrawBitmapString("NOT SYNCED", 130, ofGetHeight() - 170);
+            ofDrawBitmapString("NOT SYNCED", 130, ofGetHeight() - 208);
         }
     }
 }

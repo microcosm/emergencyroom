@@ -9,8 +9,12 @@ void erSettings::load(){
     }
 }
 
-void erSettings::toggleDrawing(){
-    drawingEnabled = !drawingEnabled;
+void erSettings::toggleServerDrawing(){
+    serverDrawingEnabled = !serverDrawingEnabled;
+}
+
+void erSettings::toggleClientDrawing(){
+    clientDrawingEnabled = !clientDrawingEnabled;
 }
 
 void erSettings::initSettings(){
@@ -27,7 +31,8 @@ void erSettings::initSettings(){
     ecgBpm = 60;
     ecgBeginBeepAt = 0.15;
     ecgEndBeepAt = 0.3;
-    drawingEnabled = true;
+    serverDrawingEnabled = true;
+    clientDrawingEnabled = true;
 }
 
 void erSettings::applySettings(ofxJSONElement& json){

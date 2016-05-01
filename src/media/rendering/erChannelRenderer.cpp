@@ -120,7 +120,7 @@ void erChannelRenderer::drawServer(){
     }
     mediaRenderer.draw(testVideoPlayer, SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - DOUBLE_SCREEN_MARGIN, ofGetHeight() - DOUBLE_SCREEN_MARGIN);
 
-    if(settings.drawingEnabled){
+    if(settings.serverDrawingEnabled){
         ofFill();
         ofSetColor(ofColor::black, 100);
         ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
