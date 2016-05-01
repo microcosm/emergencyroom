@@ -1,7 +1,8 @@
 #include "erMediaRenderer.h"
 
-void erMediaRenderer::setup(){
+void erMediaRenderer::setup(erNetwork* _network){
     erGlitchRenderer::setup();
+    network = _network;
     bufferEmpty = true;
     fbo.allocate(ofGetWidth(), ofGetHeight());
     fboGlitch.allocate(ofGetWidth(), ofGetHeight());
@@ -29,7 +30,7 @@ void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _
 
 void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel){
     if(player->isPlaying()){
-        withinGlitchPeriod(channel) ?
+        withinGlitchPeriod(channel) && network->isRunningClient() ?
             drawGlitched(player, x, y, width, height) :
             drawNormal(player, x, y, width, height);
     }

@@ -2,7 +2,7 @@
 
 void erChannelRenderer::setup(erNetwork* _network){
     network = _network;
-    mediaRenderer.setup();
+    mediaRenderer.setup(network);
     calculatePreviewSize();
     ofAddListener(ofEvents().update, this, &erChannelRenderer::update);
     ofAddListener(ofEvents().draw, this, &erChannelRenderer::draw);
@@ -38,15 +38,11 @@ void erChannelRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>*
 }
 
 void erChannelRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration, int channel){
-    if(network->isRunningClient()){
-        mediaRenderer.newOpeningGlitchPeriod(from, duration, channel);
-    }
+    mediaRenderer.newOpeningGlitchPeriod(from, duration, channel);
 }
 
 void erChannelRenderer::newClosingGlitchPeriod(u_int64_t from, float duration, int channel){
-    if(network->isRunningClient()){
-        mediaRenderer.newClosingGlitchPeriod(from, duration, channel);
-    }
+    mediaRenderer.newClosingGlitchPeriod(from, duration, channel);
 }
 
 bool erChannelRenderer::isChannelPlaying(int channel){

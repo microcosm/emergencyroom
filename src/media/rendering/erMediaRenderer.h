@@ -3,12 +3,13 @@
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
 #include "erGlitchRenderer.h"
+#include "erNetwork.h"
 #include "ofxEasyFboGlitch.h"
 
 class erMediaRenderer : public erGlitchRenderer{
 
 public:
-    void setup();
+    void setup(erNetwork* _network);
     virtual void update(ofEventArgs& args);
 
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
@@ -26,6 +27,7 @@ protected:
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
 
+    erNetwork* network;
     ofFbo fbo;
     ofxEasyFboGlitch fboGlitch;
     bool bufferEmpty;
