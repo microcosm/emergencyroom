@@ -38,11 +38,15 @@ void erChannelRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>*
 }
 
 void erChannelRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration, int channel){
-    mediaRenderer.newOpeningGlitchPeriod(from, duration, channel);
+    if(network->isRunningClient()){
+        mediaRenderer.newOpeningGlitchPeriod(from, duration, channel);
+    }
 }
 
 void erChannelRenderer::newClosingGlitchPeriod(u_int64_t from, float duration, int channel){
-    mediaRenderer.newClosingGlitchPeriod(from, duration, channel);
+    if(network->isRunningClient()){
+        mediaRenderer.newClosingGlitchPeriod(from, duration, channel);
+    }
 }
 
 bool erChannelRenderer::isChannelPlaying(int channel){
