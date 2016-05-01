@@ -4,6 +4,7 @@ erSettings settings;
 
 void ofApp::setup(){
     ofSetWindowShape(1200, 800);
+    font.load("font/klima-medium-web.ttf", 100);
     settings.load();
     if(settings.fullscreenByDefault){
         ofToggleFullscreen();
@@ -44,6 +45,8 @@ void ofApp::draw(ofEventArgs& args){
             ofSetColor(ofColor::white);
             ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, ofGetHeight() - 130);
         }
+
+        font.drawString("fps: " + ofToString(int(ofGetFrameRate())), 490, ofGetHeight() - 60);
 
         if(loader.hasErrors()){
             loader.drawErrors();

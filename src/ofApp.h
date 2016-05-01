@@ -14,6 +14,7 @@ public:
     void keyReleased(int key);
 
 protected:
+    ofTrueTypeFont font;
     erMediaLoader loader;
     erMediaPlayer player;
     erNetwork network;
