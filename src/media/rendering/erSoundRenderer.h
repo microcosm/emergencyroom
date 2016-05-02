@@ -41,6 +41,7 @@ protected:
     vector<ofxManagedAudioUnit> staticSynths;
     vector<ofxAudioUnitChain> staticChains;
 
+    ofxAudioUnit breathingEq;
     ofxAudioUnitFilePlayer breathingPlayer;
 
     u_int64_t currentTime, syncTime, timeSinceSync;

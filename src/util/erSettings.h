@@ -17,6 +17,7 @@
 
 #define ER_SERVER_VOLUMES "server-volumes"
 #define ER_MASTER "master"
+#define ER_BREATHING "breathing"
 #define ER_VIDEO "video"
 #define ER_ECG "ecg"
 #define ER_STATIC "static"
@@ -44,6 +45,7 @@ public:
     void toggleClientDrawing();
 
     float masterVolume;
+    float breathingVolume;
     float videoVolume;
     float ecgVolume;
     float staticVolume;

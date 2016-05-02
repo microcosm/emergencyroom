@@ -17,7 +17,10 @@ void erSoundRenderer::setup(){
 void erSoundRenderer::setupBreathing(){
     breathingPlayer.setFile(ofToDataPath(settings.breathingSoundPath));
     breathingPlayer.loop();
-    manager.addUnmanagedUnit(&breathingPlayer);
+    breathingEq.setup('aufx', 'nbeq', 'appl');
+    breathingEq.setParameter(0, kAudioUnitScope_Global, ofMap(settings.breathingVolume, 0, 1, -96, 0));
+    breathingPlayer.connectTo(breathingEq);
+    manager.addUnmanagedUnit(&breathingEq);
 }
 
 void erSoundRenderer::setupEcg(){

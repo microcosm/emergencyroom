@@ -23,6 +23,7 @@ void erSettings::initSettings(){
     numChannels = 1;
 
     masterVolume = 0.95;
+    breathingVolume = 1;
     videoVolume = 1;
     ecgVolume = 0.95;
     staticVolume = 1;
@@ -58,10 +59,11 @@ void erSettings::applySettings(ofxJSONElement& json){
     isServer = computerName == json[ER_MACHINE_NAMES][ER_SERVER].asString();
     isEcg    = computerName == json[ER_MACHINE_NAMES][ER_ECG].asString();
 
-    masterVolume =                ofClamp(json[ER_SERVER_VOLUMES][ER_MASTER].asFloat(), 0, 1);
-    videoVolume  = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_VIDEO].asFloat(), 0, 1);
-    ecgVolume    = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_ECG].asFloat(), 0, 1);
-    staticVolume = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_STATIC].asFloat(), 0, 1);
+    masterVolume    =                ofClamp(json[ER_SERVER_VOLUMES][ER_MASTER].asFloat(), 0, 1);
+    breathingVolume = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_BREATHING].asFloat(), 0, 1);
+    videoVolume     = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_VIDEO].asFloat(), 0, 1);
+    ecgVolume       = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_ECG].asFloat(), 0, 1);
+    staticVolume    = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_STATIC].asFloat(), 0, 1);
 
     ecgBpm         = json[ER_ECG_BEEP][ER_BPM].asFloat();
     ecgBeginBeepAt = json[ER_ECG_BEEP][ER_BEGIN_AT].asFloat();

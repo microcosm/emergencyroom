@@ -10,6 +10,7 @@
 
     "server-volumes": {
         "master": 1,
+        "breathing": 0.85,
         "video": 0.75,
         "ecg": 1,
         "static": 0.45
