@@ -2,6 +2,7 @@
 
 void erMediaLoader::setup(erNetwork* _network){
     network = _network;
+    mediaIsLoaded = false;
     loadTestMedia();
     validateMedia();
     discoverErrors();
@@ -43,6 +44,10 @@ void erMediaLoader::loadPreviewMedia(){
 
 bool erMediaLoader::hasErrors(){
     return hasMediaErrors;
+}
+
+bool erMediaLoader::isLoaded(){
+    return mediaIsLoaded;
 }
 
 void erMediaLoader::discoverErrors(){
@@ -105,6 +110,7 @@ void erMediaLoader::loadMedia(){
             loadDirectory(item.getAbsolutePath());
         }
     }
+    mediaIsLoaded = true;
 }
 
 void erMediaLoader::loadDirectory(string path){
@@ -123,7 +129,8 @@ void erMediaLoader::registerVideo(string& collection, const ofFile video){
     volume = getVolume(path);
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
     videoPlayers[path]->load(video.getAbsolutePath());
-    videoPlayers[path]->setVolume(volume * settings.videoVolume);
+    videoPlayers[path]->setIntendedVolume(volume * settings.videoVolume);
+    videoPlayers[path]->setVolume(0);
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
     collectionsToVideos[collection].push_back(path);
     volume == 0 ? silentVideos.push_back(path) : audibleVideos.push_back(path);

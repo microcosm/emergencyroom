@@ -13,6 +13,7 @@ public:
     void setupEcg();
     void setupStatic();
     void setupBreathing();
+    void setupVideo(vector<string>& audibleVideos);
     void ensureSetup();
 
     virtual void update(ofEventArgs& args);
@@ -21,6 +22,7 @@ public:
     bool withinEcgBeepPeriod(float position);
     bool isSyncing();
     bool hasSyncedBefore();
+    void playSound(string videoPath);
 
 protected:
     void beginPlayback(){
@@ -44,6 +46,12 @@ protected:
 
     ofxAudioUnit breathingEq;
     ofxAudioUnitFilePlayer breathingPlayer;
+
+    ofxAudioUnitFilePlayer videoPlayer;
+    ofxAudioUnitChain videoChain;
+    map<string, ofxAudioUnitFilePlayer> videoPlayers;
+    map<string, ofxAudioUnitChain> videoChains;
+    ofxManagedAudioUnitMixer videoMixer;
 
     u_int64_t currentTime, syncTime, timeSinceSync;
     float startOffset, endOffset, currentEcgPosition;

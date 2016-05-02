@@ -85,6 +85,14 @@ void erMediaPlayer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _vi
     channelRenderer.setVideoPlayers(videoPlayers);
 }
 
+void erMediaPlayer::useSoundRendererFor(vector<string>& audibleVideos){
+    soundRenderer.setupVideo(audibleVideos);
+
+    for(const auto& video : audibleVideos){
+        videoPlayers->at(video)->renderSoundWith(&soundRenderer);
+    }
+}
+
 void erMediaPlayer::calculateGlitchPlaybackVariables(erPlayParams params){
     videoPlayer = videoPlayers->at(params.getPath());
     currentTime = ofGetElapsedTimeMillis();

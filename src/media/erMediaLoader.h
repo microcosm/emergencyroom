@@ -4,7 +4,6 @@
 #include "erNetwork.h"
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
-#include "erMediaPlayer.h"
 
 class erMediaLoader{
 
@@ -15,6 +14,7 @@ public:
     void loadLiveMedia();
     void loadPreviewMedia();
     bool hasErrors();
+    bool isLoaded();
 
     erSyncedSoundPlayer testSoundPlayer;
     erSyncedVideoPlayer testVideoPlayer;
@@ -41,6 +41,6 @@ protected:
     ofDirectory productionDir, collectionDir;
     string path, collection;
     erNetwork* network;
-    bool hasMediaErrors;
+    bool hasMediaErrors, mediaIsLoaded;
     float volume;
 };

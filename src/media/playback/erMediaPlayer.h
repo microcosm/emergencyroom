@@ -1,6 +1,5 @@
 #pragma once
 #include "ofMain.h"
-#include "erMediaLoader.h"
 #include "erChannelRenderer.h"
 #include "erSoundRenderer.h"
 #include "erNetwork.h"
@@ -26,6 +25,7 @@ public:
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
+    void useSoundRendererFor(vector<string>& audibleVideos);
     void calculateGlitchPlaybackVariables(erPlayParams params);
 
 protected:

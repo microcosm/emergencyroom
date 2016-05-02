@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "erNetwork.h"
 #include "erMediaLoader.h"
+#include "erMediaPlayer.h"
 #include "erPlayParams.h"
 #include "erLogger.h"
 #include "erEcgVisualization.h"

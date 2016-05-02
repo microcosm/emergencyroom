@@ -20,4 +20,5 @@ protected:
     erNetwork network;
     erSequencer sequencer;
     erPlayParams params;
+    bool videoSoundAssigned;
 };

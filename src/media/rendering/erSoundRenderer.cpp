@@ -14,15 +14,6 @@ void erSoundRenderer::setup(){
     ofAddListener(ofEvents().draw, this, &erSoundRenderer::draw);
 }
 
-void erSoundRenderer::setupBreathing(){
-    breathingPlayer.setFile(ofToDataPath(settings.breathingSoundPath));
-    breathingPlayer.loop();
-    breathingEq.setup('aufx', 'nbeq', 'appl');
-    breathingEq.setParameter(0, kAudioUnitScope_Global, ofMap(settings.breathingVolume, 0, 1, -96, 0));
-    breathingPlayer.connectTo(breathingEq);
-    manager.addUnmanagedUnit(&breathingEq);
-}
-
 void erSoundRenderer::setupEcg(){
     startOffset = settings.ecgPeriod * settings.ecgBeginBeepAt;
     endOffset = settings.ecgPeriod * settings.ecgEndBeepAt;
@@ -47,6 +38,32 @@ void erSoundRenderer::setupStatic(){
     }
 
     manager.addUnmanagedUnit(staticMixer.getUnit());
+}
+
+void erSoundRenderer::setupBreathing(){
+    breathingPlayer.setFile(ofToDataPath(settings.breathingSoundPath));
+    breathingPlayer.loop();
+    breathingEq.setup('aufx', 'nbeq', 'appl');
+    breathingEq.setParameter(0, kAudioUnitScope_Global, ofMap(settings.breathingVolume, 0, 1, -96, 0));
+    breathingPlayer.connectTo(breathingEq);
+    manager.addUnmanagedUnit(&breathingEq);
+}
+
+void erSoundRenderer::setupVideo(vector<string>& audibleVideos){
+    if(videoPlayers.size() == 0){
+        videoMixer.getUnit()->setInputBusCount(audibleVideos.size());
+        int i = 0;
+        for(auto const& video : audibleVideos){
+            string name = "video" + ofToString(i + 1);
+            videoPlayers[video] = videoPlayer;
+            videoPlayers[video].setFile(ofToDataPath(settings.liveMediaPath + video));
+            videoPlayers[video].connectTo(*videoMixer.getUnit(), i);
+            videoMixer.getUnit()->setInputVolume(1, i);
+            i++;
+        }
+
+        manager.addUnmanagedUnit(videoMixer.getUnit());
+    }
 }
 
 void erSoundRenderer::ensureSetup(){
@@ -96,6 +113,10 @@ bool erSoundRenderer::isSyncing(){
 
 bool erSoundRenderer::hasSyncedBefore(){
     return syncedBefore;
+}
+
+void erSoundRenderer::playSound(string videoPath){
+    videoPlayers[videoPath].play();
 }
 
 float erSoundRenderer::getCurrentEcgPosition(){

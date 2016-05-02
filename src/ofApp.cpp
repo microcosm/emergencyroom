@@ -5,6 +5,7 @@ erSettings settings;
 void ofApp::setup(){
     ofSetWindowShape(1200, 800);
     font.load("font/klima-medium-web.ttf", 100);
+    videoSoundAssigned = false;
     settings.load();
     if(settings.fullscreenByDefault){
         ofToggleFullscreen();
@@ -28,6 +29,11 @@ void ofApp::setup(){
 }
 
 void ofApp::update(){
+    if(loader.isLoaded() && !videoSoundAssigned){
+        player.useSoundRendererFor(loader.audibleVideos);
+        videoSoundAssigned = true;
+    }
+
     if(network.isRunning() && settings.logToFileEnabled){
         erEnableFileLogging(network.isRunningServer());
     }else{
