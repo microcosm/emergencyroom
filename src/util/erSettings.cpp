@@ -39,6 +39,7 @@ void erSettings::initSettings(){
     previewMediaPath = "";
     testSoundPath = "";
     testVideoPath = "";
+    breathingSoundPath = "";
     liveMediaDir = "";
     previewMediaDir = "";
     allowedVideoExtensions = "";
@@ -69,8 +70,9 @@ void erSettings::applySettings(ofxJSONElement& json){
 
     liveMediaPath          = json[ER_MEDIA_FILES][ER_LIVE_PATH].asString();
     previewMediaPath       = json[ER_MEDIA_FILES][ER_PREVIEW_PATH].asString();
-    testSoundPath          = json[ER_MEDIA_FILES][ER_TEST_SOUND].asString();
-    testVideoPath          = json[ER_MEDIA_FILES][ER_TEST_VIDEO].asString();
+    testSoundPath          = json[ER_MEDIA_FILES][ER_TEST_SOUND_PATH].asString();
+    testVideoPath          = json[ER_MEDIA_FILES][ER_TEST_VIDEO_PATH].asString();
+    breathingSoundPath     = json[ER_MEDIA_FILES][ER_BREATHING_SOUND_PATH].asString();
     liveMediaDir           = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
     previewMediaDir        = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();
     allowedVideoExtensions = json[ER_MEDIA_FILES][ER_ALLOWED_VIDEO_EXTENSIONS].asString();

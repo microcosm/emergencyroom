@@ -10,7 +10,11 @@ class erSoundRenderer : erSyncedMediaPlayer, public erGlitchRenderer{
 
 public:
     void setup();
+    void setupEcg();
+    void setupStatic();
+    void setupBreathing();
     void ensureSetup();
+
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     void syncEcg(float delay);
@@ -36,6 +40,8 @@ protected:
     ofxAudioUnitChain staticChain;
     vector<ofxManagedAudioUnit> staticSynths;
     vector<ofxAudioUnitChain> staticChains;
+
+    ofxAudioUnitFilePlayer breathingPlayer;
 
     u_int64_t currentTime, syncTime, timeSinceSync;
     float startOffset, endOffset, currentEcgPosition;

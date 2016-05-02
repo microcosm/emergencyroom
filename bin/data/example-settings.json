@@ -24,8 +24,9 @@
     "media-files": {
         "live-path": "../path-to/live/",
         "preview-path": "../path-to/preview/",
-        "test-sound": "test.mp3",
-        "test-video": "test.mov",
+        "test-sound-path": "../path-to/test.mp3",
+        "test-video-path": "../path-to/test.mov",
+        "breathing-sound-path": "../path-to/breathing.wav",
         "live-dir": "/live/",
         "preview-dir": "/preview/",
         "allowed-video-extensions": "mov,mp4"

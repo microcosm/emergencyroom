@@ -5,17 +5,32 @@ void erSoundRenderer::setup(){
     erGlitchRenderer::setup();
     syncing = syncedBefore = false;
 
+    manager.setup();
+    setupEcg();
+    setupStatic();
+    setupBreathing();
+
+    ofAddListener(ofEvents().update, this, &erSoundRenderer::update);
+    ofAddListener(ofEvents().draw, this, &erSoundRenderer::draw);
+}
+
+void erSoundRenderer::setupBreathing(){
+    breathingPlayer.setFile(ofToDataPath(settings.breathingSoundPath));
+    breathingPlayer.loop();
+    manager.addUnmanagedUnit(&breathingPlayer);
+}
+
+void erSoundRenderer::setupEcg(){
     startOffset = settings.ecgPeriod * settings.ecgBeginBeepAt;
     endOffset = settings.ecgPeriod * settings.ecgEndBeepAt;
     syncTime = 0;
 
-    manager.setup();
-    manager.bpm.setBpm(settings.ecgBpm);
-
     ecgSynth.setup("ECG", 'aumu', 'NiMa', '-NI-');
     manager.createChain(&ecgChain, "ecg").link(&ecgSynth).toMixer();
     ecgChain.sendMidiOn(60);
+}
 
+void erSoundRenderer::setupStatic(){
     for(int i = 0; i < settings.numChannels; i++){
         staticSynths.push_back(staticSynth);
         staticChains.push_back(staticChain);
@@ -27,9 +42,6 @@ void erSoundRenderer::setup(){
         manager.createChain(&staticChains.at(i), name).link(&staticSynths.at(i)).toMixer();
         staticChains.at(i).sendMidiOn(60);
     }
-
-    ofAddListener(ofEvents().update, this, &erSoundRenderer::update);
-    ofAddListener(ofEvents().draw, this, &erSoundRenderer::draw);
 }
 
 void erSoundRenderer::ensureSetup(){
