@@ -11,6 +11,7 @@
 		B40442B21CBE8F580071C074 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B01CBE8F580071C074 /* jsoncpp.cpp */; };
 		B40442B91CBEA39E0071C074 /* erSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B71CBEA39E0071C074 /* erSettings.cpp */; };
 		B40442BC1CBEA46E0071C074 /* erSoundRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442BA1CBEA46E0071C074 /* erSoundRenderer.cpp */; };
+		B43B842E1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B43B842C1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp */; };
 		B45D54E21CC19F23000AFC31 /* erEcgVisualization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45D54E01CC19F23000AFC31 /* erEcgVisualization.cpp */; };
 		B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */; };
 		B45DF9C31CB9D719004F0AD3 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */; };
@@ -162,6 +163,8 @@
 		B40442B81CBEA39E0071C074 /* erSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSettings.h; sourceTree = "<group>"; };
 		B40442BA1CBEA46E0071C074 /* erSoundRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSoundRenderer.cpp; sourceTree = "<group>"; };
 		B40442BB1CBEA46E0071C074 /* erSoundRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSoundRenderer.h; sourceTree = "<group>"; };
+		B43B842C1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxManagedAudioUnitMixer.cpp; sourceTree = "<group>"; };
+		B43B842D1CD80C95006623E9 /* ofxManagedAudioUnitMixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxManagedAudioUnitMixer.h; sourceTree = "<group>"; };
 		B45D54E01CC19F23000AFC31 /* erEcgVisualization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erEcgVisualization.cpp; sourceTree = "<group>"; };
 		B45D54E11CC19F23000AFC31 /* erEcgVisualization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erEcgVisualization.h; sourceTree = "<group>"; };
 		B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasyFboGlitch.cpp; sourceTree = "<group>"; };
@@ -1005,6 +1008,8 @@
 				B4B354831CBDC1D800B8883B /* ofxAudioUnitChain.h */,
 				B4B354841CBDC1D800B8883B /* ofxManagedAudioUnit.cpp */,
 				B4B354851CBDC1D800B8883B /* ofxManagedAudioUnit.h */,
+				B43B842C1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp */,
+				B43B842D1CD80C95006623E9 /* ofxManagedAudioUnitMixer.h */,
 			);
 			path = AudioUnits;
 			sourceTree = "<group>";
@@ -1351,6 +1356,7 @@
 				B45EB77E1CC4307B00CEFF4F /* LimbDarkeningPass.cpp in Sources */,
 				B4B354791CBDC1D500B8883B /* ofxAudioUnitSpeechSynth.cpp in Sources */,
 				B4B354711CBDC1D500B8883B /* ofxAudioUnitMatrixMixer.cpp in Sources */,
+				B43B842E1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp in Sources */,
 				B4B354691CBDC1D500B8883B /* CADebugMacros.cpp in Sources */,
 				B48605161C9B911F00629452 /* ofxTCPServer.cpp in Sources */,
 				B4B354D01CBDC25500B8883B /* ofxMidiOut.cpp in Sources */,

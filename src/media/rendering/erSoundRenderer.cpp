@@ -42,9 +42,11 @@ void erSoundRenderer::setupStatic(){
     for(int i = 0; i < settings.numChannels; i++){
         string name = "static" + ofToString(i + 1);
         staticSynths.at(i).setup(name, AUDIOUNIT_MASSIVE);
-        manager.createChain(&staticChains.at(i), name).link(&staticSynths.at(i)).toMixer();
+        manager.createChain(&staticChains.at(i), name, &staticMixer).link(&staticSynths.at(i)).toMixer();
         staticChains.at(i).sendMidiOn(60);
     }
+
+    manager.addUnmanagedUnit(staticMixer.getUnit());
 }
 
 void erSoundRenderer::ensureSetup(){

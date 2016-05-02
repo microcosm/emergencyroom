@@ -40,6 +40,7 @@ protected:
     ofxAudioUnitChain staticChain;
     vector<ofxManagedAudioUnit> staticSynths;
     vector<ofxAudioUnitChain> staticChains;
+    ofxManagedAudioUnitMixer staticMixer;
 
     ofxAudioUnit breathingEq;
     ofxAudioUnitFilePlayer breathingPlayer;
