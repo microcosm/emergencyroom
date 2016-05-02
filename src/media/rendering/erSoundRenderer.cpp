@@ -28,7 +28,7 @@ void erSoundRenderer::setupEcg(){
     endOffset = settings.ecgPeriod * settings.ecgEndBeepAt;
     syncTime = 0;
 
-    ecgSynth.setup("ECG", 'aumu', 'NiMa', '-NI-');
+    ecgSynth.setup("ECG", AUDIOUNIT_MASSIVE);
     manager.createChain(&ecgChain, "ecg").link(&ecgSynth).toMixer();
     ecgChain.sendMidiOn(60);
 }
@@ -41,7 +41,7 @@ void erSoundRenderer::setupStatic(){
 
     for(int i = 0; i < settings.numChannels; i++){
         string name = "static" + ofToString(i + 1);
-        staticSynths.at(i).setup(name, 'aumu', 'NiMa', '-NI-');
+        staticSynths.at(i).setup(name, AUDIOUNIT_MASSIVE);
         manager.createChain(&staticChains.at(i), name).link(&staticSynths.at(i)).toMixer();
         staticChains.at(i).sendMidiOn(60);
     }
