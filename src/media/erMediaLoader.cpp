@@ -126,10 +126,9 @@ void erMediaLoader::loadDirectory(string path){
 
 void erMediaLoader::registerVideo(string& collection, const ofFile video){
     path = getRelativePath(video);
-    volume = getVolume(path);
+    volume = erGetVolume(path);
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
     videoPlayers[path]->load(video.getAbsolutePath());
-    videoPlayers[path]->setIntendedVolume(volume * settings.videoVolume);
     videoPlayers[path]->setVolume(0);
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
     collectionsToVideos[collection].push_back(path);
@@ -158,19 +157,4 @@ string erMediaLoader::getRelativePath(const ofFile file){
 string erMediaLoader::getCollectionName(const ofDirectory directory){
     vector<string> components = ofSplitString(directory.getAbsolutePath(), "/");
     return components.at(components.size() - 1);
-}
-
-float erMediaLoader::getVolume(string path){
-    int argsIndex = path.find("(s)");
-    if(argsIndex != -1){
-        return 1;
-    }
-    argsIndex = path.find("(s=");
-    if(argsIndex != -1){
-        int start = argsIndex + 3;
-        int end = path.find(")", start) - start;
-        float volume = ofToFloat(path.substr(start, end));
-        return ofClamp(volume, 0, 1);
-    }
-    return 0;
 }

@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "erSettings.h"
 #include "erNetwork.h"
+#include "erFileUtils.h"
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
 
@@ -36,7 +37,6 @@ protected:
     ofDirectory& loadCollectionDir(string path);
     string getRelativePath(const ofFile file);
     string getCollectionName(const ofDirectory directory);
-    float getVolume(string path);
 
     ofDirectory productionDir, collectionDir;
     string path, collection;

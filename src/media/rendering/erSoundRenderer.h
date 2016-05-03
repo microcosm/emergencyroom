@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erSettings.h"
+#include "erFileUtils.h"
 #include "ofxAudioUnit.h"
 #include "ofxAudioUnitManager.h"
 #include "erSyncedMediaPlayer.h"

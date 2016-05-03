@@ -58,7 +58,7 @@ void erSoundRenderer::setupVideo(vector<string>& audibleVideos){
             videoPlayers[video] = videoPlayer;
             videoPlayers[video].setFile(ofToDataPath(settings.liveMediaPath + video));
             videoPlayers[video].connectTo(*videoMixer.getUnit(), i);
-            videoMixer.getUnit()->setInputVolume(1, i);
+            videoMixer.getUnit()->setInputVolume(erGetVolume(video) * settings.videoVolume, i);
             i++;
         }
 

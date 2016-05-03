@@ -10,10 +10,6 @@ public:
         return scheduled || isPlaying();
     }
 
-    void setIntendedVolume(float volume){
-        intendedVolume = volume;
-    }
-
     void renderSoundWith(erSoundRenderer* _soundRenderer){
         soundRenderer = _soundRenderer;
         useSoundRenderer = true;
@@ -23,7 +19,6 @@ protected:
     bool useSoundRenderer = false;
     erSoundRenderer* soundRenderer;
     int soundDelay = 103;
-    float intendedVolume = 0;
 
     void beforeSleep(){
         stop();

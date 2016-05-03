@@ -12,6 +12,7 @@
 		B40442B91CBEA39E0071C074 /* erSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B71CBEA39E0071C074 /* erSettings.cpp */; };
 		B40442BC1CBEA46E0071C074 /* erSoundRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442BA1CBEA46E0071C074 /* erSoundRenderer.cpp */; };
 		B43B842E1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B43B842C1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp */; };
+		B43B84521CD821E5006623E9 /* erFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B43B84501CD821E5006623E9 /* erFileUtils.cpp */; };
 		B45D54E21CC19F23000AFC31 /* erEcgVisualization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45D54E01CC19F23000AFC31 /* erEcgVisualization.cpp */; };
 		B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */; };
 		B45DF9C31CB9D719004F0AD3 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */; };
@@ -165,6 +166,8 @@
 		B40442BB1CBEA46E0071C074 /* erSoundRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSoundRenderer.h; sourceTree = "<group>"; };
 		B43B842C1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxManagedAudioUnitMixer.cpp; sourceTree = "<group>"; };
 		B43B842D1CD80C95006623E9 /* ofxManagedAudioUnitMixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxManagedAudioUnitMixer.h; sourceTree = "<group>"; };
+		B43B84501CD821E5006623E9 /* erFileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erFileUtils.cpp; sourceTree = "<group>"; };
+		B43B84511CD821E5006623E9 /* erFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erFileUtils.h; sourceTree = "<group>"; };
 		B45D54E01CC19F23000AFC31 /* erEcgVisualization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erEcgVisualization.cpp; sourceTree = "<group>"; };
 		B45D54E11CC19F23000AFC31 /* erEcgVisualization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erEcgVisualization.h; sourceTree = "<group>"; };
 		B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasyFboGlitch.cpp; sourceTree = "<group>"; };
@@ -795,6 +798,8 @@
 		B48604EA1C9B90F600629452 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				B43B84501CD821E5006623E9 /* erFileUtils.cpp */,
+				B43B84511CD821E5006623E9 /* erFileUtils.h */,
 				B48604EB1C9B90F600629452 /* erLogger.cpp */,
 				B48604EC1C9B90F600629452 /* erLogger.h */,
 				B40442B71CBEA39E0071C074 /* erSettings.cpp */,
@@ -1297,6 +1302,7 @@
 				B45EB77D1CC4307B00CEFF4F /* KaleidoscopePass.cpp in Sources */,
 				B4B354971CBDC1D800B8883B /* MidiHandler.cpp in Sources */,
 				B48605021C9B911800629452 /* ofxNetworkSyncClientState.cpp in Sources */,
+				B43B84521CD821E5006623E9 /* erFileUtils.cpp in Sources */,
 				B48604F21C9B90F600629452 /* erTranslater.cpp in Sources */,
 				B48605171C9B911F00629452 /* ofxUDPManager.cpp in Sources */,
 				B4B354761CBDC1D500B8883B /* ofxAudioUnitOutput.cpp in Sources */,
