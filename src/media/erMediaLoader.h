@@ -21,7 +21,9 @@ public:
     erSyncedVideoPlayer testVideoPlayer;
 
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
-    vector<string> audibleVideos, silentVideos, videoCollections, missingVideos, missingTexts, spacedPathVideos;
+    map<string, vector<string>> texts;
+    vector<string> audibleVideos, silentVideos, videoCollections;
+    vector<string> missingVideos, missingTexts, spacedPathVideos;
     map<string,vector<string>> collectionsToVideos;
 protected:
     void discoverErrors();
@@ -33,14 +35,16 @@ protected:
     void eraseMedia();
     void loadMedia();
     void loadDirectory(string path);
-    void registerVideo(string& collection, const ofFile video);
+    void registerVideo(string& collection, const ofFile& video);
+    void registerText(const ofFile& liveVideo);
     void registerCollection(string& collection);
     ofDirectory& loadCollectionDir(string path);
     string getRelativePath(const ofFile file);
     string getCollectionName(const ofDirectory directory);
+    string liveVideoPathToTextPath(string liveVideoPath);
 
     ofDirectory productionDir, collectionDir;
-    string path, collection;
+    string path, videoPath, textPath, collection;
     erNetwork* network;
     bool hasMediaErrors, mediaIsLoaded;
     float volume;

@@ -84,9 +84,8 @@ void erMediaLoader::validateAssetConsistency(const ofFile previewVideo){
     }
     ofStringReplace(path, settings.previewMediaDir, settings.liveMediaDir);
     findMissing(path, missingVideos);
-    
-    ofStringReplace(path, settings.liveMediaDir, settings.textMediaDir);
-    ofStringReplace(path, "." + settings.videoFileExtension, "." + settings.textFileExtension);
+
+    path = liveVideoPathToTextPath(path);
     findMissing(path, missingTexts);
 }
 
@@ -113,6 +112,7 @@ void erMediaLoader::eraseMedia(){
     spacedPathVideos.clear();
     collectionsToVideos.clear();
     videoPlayers.clear();
+    texts.clear();
 }
 
 void erMediaLoader::loadMedia(){
@@ -132,11 +132,14 @@ void erMediaLoader::loadDirectory(string path){
         registerCollection(collection);
         for(auto const& video : collectionDir){
             registerVideo(collection, video);
+            if(network->isRunningClient()){
+                registerText(video);
+            }
         }
     }
 }
 
-void erMediaLoader::registerVideo(string& collection, const ofFile video){
+void erMediaLoader::registerVideo(string& collection, const ofFile& video){
     path = getRelativePath(video);
     volume = erGetVolume(path);
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
@@ -145,6 +148,12 @@ void erMediaLoader::registerVideo(string& collection, const ofFile video){
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
     collectionsToVideos[collection].push_back(path);
     volume == 0 ? silentVideos.push_back(path) : audibleVideos.push_back(path);
+}
+
+void erMediaLoader::registerText(const ofFile& liveVideo){
+    videoPath = getRelativePath(liveVideo);
+    textPath = liveVideoPathToTextPath(liveVideo.getAbsolutePath());
+    texts[videoPath] = ofSplitString(ofBufferFromFile(textPath).getText(), "\n", true);
 }
 
 void erMediaLoader::registerCollection(string& collection){
@@ -167,4 +176,10 @@ string erMediaLoader::getRelativePath(const ofFile file){
 string erMediaLoader::getCollectionName(const ofDirectory directory){
     vector<string> components = ofSplitString(directory.getAbsolutePath(), "/");
     return components.at(components.size() - 1);
+}
+
+string erMediaLoader::liveVideoPathToTextPath(string liveVideoPath){
+    ofStringReplace(liveVideoPath, settings.liveMediaDir, settings.textMediaDir);
+    ofStringReplace(liveVideoPath, "." + settings.videoFileExtension, "." + settings.textFileExtension);
+    return liveVideoPath;
 }
