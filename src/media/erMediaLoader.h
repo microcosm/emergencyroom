@@ -21,13 +21,14 @@ public:
     erSyncedVideoPlayer testVideoPlayer;
 
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
-    vector<string> audibleVideos, silentVideos, videoCollections, missingVideos, spacedPathVideos;
+    vector<string> audibleVideos, silentVideos, videoCollections, missingVideos, missingTexts, spacedPathVideos;
     map<string,vector<string>> collectionsToVideos;
 protected:
     void discoverErrors();
     void validateMedia();
     void validateCollectionDir(string path);
-    void validateVideo(const ofFile video);
+    void validateAssetConsistency(const ofFile previewVideo);
+    void findMissing(string expectedPath, vector<string>& pushToIfMissing);
     void loadTestMedia();
     void eraseMedia();
     void loadMedia();

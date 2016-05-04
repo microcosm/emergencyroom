@@ -30,6 +30,10 @@ void erMediaLoader::drawErrors(){
     for(const auto video : missingVideos){
         ofDrawBitmapString(video, 20, 60 + 20 * i++);
     }
+    ofDrawBitmapString("Missing from text folder", 20, 90 + 20 * i++);
+    for(const auto text : missingTexts){
+        ofDrawBitmapString(text, 20, 90 + 20 * i++);
+    }
 }
 
 void erMediaLoader::loadLiveMedia(){
@@ -51,7 +55,7 @@ bool erMediaLoader::isLoaded(){
 }
 
 void erMediaLoader::discoverErrors(){
-    hasMediaErrors = missingVideos.size() > 0 || spacedPathVideos.size() > 0;
+    hasMediaErrors = missingVideos.size() > 0 || spacedPathVideos.size() > 0 || missingTexts.size() > 0;
 }
 
 void erMediaLoader::validateMedia(){
@@ -68,20 +72,28 @@ void erMediaLoader::validateCollectionDir(string path){
     if(collectionDir.listDir() > 0){
         collection = getCollectionName(collectionDir);
         for(auto const& video : collectionDir){
-            validateVideo(video);
+            validateAssetConsistency(video);
         }
     }
 }
 
-void erMediaLoader::validateVideo(const ofFile video){
-    path = video.getAbsolutePath();
+void erMediaLoader::validateAssetConsistency(const ofFile previewVideo){
+    path = previewVideo.getAbsolutePath();
     if(path.find(" ") != -1){
-        spacedPathVideos.push_back(getRelativePath(video));
+        spacedPathVideos.push_back(getRelativePath(previewVideo));
     }
     ofStringReplace(path, settings.previewMediaDir, settings.liveMediaDir);
-    ofFile livePath(path);
-    if(!livePath.exists()){
-        missingVideos.push_back(getRelativePath(livePath));
+    findMissing(path, missingVideos);
+    
+    ofStringReplace(path, settings.liveMediaDir, settings.textMediaDir);
+    ofStringReplace(path, "." + settings.videoFileExtension, "." + settings.textFileExtension);
+    findMissing(path, missingTexts);
+}
+
+void erMediaLoader::findMissing(string expectedPath, vector<string>& pushToIfMissing){
+    ofFile targetPath(path);
+    if(!targetPath.exists()){
+        pushToIfMissing.push_back(getRelativePath(targetPath));
     }
 }
 
@@ -143,9 +155,7 @@ void erMediaLoader::registerCollection(string& collection){
 
 ofDirectory& erMediaLoader::loadCollectionDir(string path){
     collectionDir = ofDirectory(path);
-    for(auto const& ext : ofSplitString(settings.allowedVideoExtensions, ",")){
-        collectionDir.allowExt(ext);
-    }
+    collectionDir.allowExt(settings.videoFileExtension);
     return collectionDir;
 }
 

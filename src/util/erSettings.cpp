@@ -43,7 +43,9 @@ void erSettings::initSettings(){
     breathingSoundPath = "";
     liveMediaDir = "";
     previewMediaDir = "";
-    allowedVideoExtensions = "";
+    textMediaDir = "";
+    videoFileExtension = "";
+    textFileExtension = "";
 
     serverDrawingEnabled = true;
     clientDrawingEnabled = true;
@@ -68,7 +70,7 @@ void erSettings::applySettings(ofxJSONElement& json){
     ecgBpm         = json[ER_ECG_BEEP][ER_BPM].asFloat();
     ecgBeginBeepAt = json[ER_ECG_BEEP][ER_BEGIN_AT].asFloat();
     ecgEndBeepAt   = json[ER_ECG_BEEP][ER_END_AT].asFloat();
-    ecgPeriod = 60000 / ecgBpm;
+    ecgPeriod      = 60000 / ecgBpm;
 
     liveMediaPath          = json[ER_MEDIA_FILES][ER_LIVE_PATH].asString();
     previewMediaPath       = json[ER_MEDIA_FILES][ER_PREVIEW_PATH].asString();
@@ -77,7 +79,9 @@ void erSettings::applySettings(ofxJSONElement& json){
     breathingSoundPath     = json[ER_MEDIA_FILES][ER_BREATHING_SOUND_PATH].asString();
     liveMediaDir           = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
     previewMediaDir        = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();
-    allowedVideoExtensions = json[ER_MEDIA_FILES][ER_ALLOWED_VIDEO_EXTENSIONS].asString();
+    textMediaDir           = json[ER_MEDIA_FILES][ER_TEXT_DIR].asString();
+    videoFileExtension     = json[ER_MEDIA_FILES][ER_VIDEO_FILE_EXTENSION].asString();
+    textFileExtension      = json[ER_MEDIA_FILES][ER_TEXT_FILE_EXTENSION].asString();
 }
 
 string erSettings::getComputerName(){

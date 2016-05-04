@@ -35,7 +35,9 @@
 #define ER_BREATHING_SOUND_PATH "breathing-sound-path"
 #define ER_LIVE_DIR "live-dir"
 #define ER_PREVIEW_DIR "preview-dir"
-#define ER_ALLOWED_VIDEO_EXTENSIONS "allowed-video-extensions"
+#define ER_TEXT_DIR "text-dir"
+#define ER_VIDEO_FILE_EXTENSION "video-file-extension"
+#define ER_TEXT_FILE_EXTENSION "text-file-extension"
 
 class erSettings{
 
@@ -67,7 +69,9 @@ public:
     string breathingSoundPath;
     string liveMediaDir;
     string previewMediaDir;
-    string allowedVideoExtensions;
+    string textMediaDir;
+    string videoFileExtension;
+    string textFileExtension;
 
     bool serverDrawingEnabled;
     bool clientDrawingEnabled;
