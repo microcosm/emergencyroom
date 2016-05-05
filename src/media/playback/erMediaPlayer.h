@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "erChannelRenderer.h"
 #include "erSoundRenderer.h"
+#include "erTextRenderer.h"
 #include "erNetwork.h"
 #include "erSettings.h"
 
@@ -25,12 +26,14 @@ public:
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
+    void setTexts(map<string, vector<string>>* texts);
     void useSoundRendererFor(vector<string>& audibleVideos);
-    void calculateGlitchPlaybackVariables(erPlayParams params);
+    void calculatePlaybackVariables(erPlayParams params);
 
 protected:
     erChannelRenderer channelRenderer;
     erSoundRenderer soundRenderer;
+    erTextRenderer textRenderer;
     erNetwork* network;
 
     erSyncedSoundPlayer* testSoundPlayer;

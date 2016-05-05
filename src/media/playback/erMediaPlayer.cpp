@@ -3,6 +3,7 @@
 void erMediaPlayer::setup(erNetwork* _network){
     network = _network;
     channelRenderer.setup(network);
+    textRenderer.setup();
     ofAddListener(ofEvents().update, this, &erMediaPlayer::update);
     ofAddListener(ofEvents().draw, this, &erMediaPlayer::draw);
     ofAddListener(ofEvents().keyReleased, this, &erMediaPlayer::keyReleased);
@@ -47,16 +48,17 @@ void erMediaPlayer::playTest(erPlayParams params){
 
 void erMediaPlayer::playClient(erPlayParams params){
     if(params.isVideoCommand()){
-        calculateGlitchPlaybackVariables(params);
+        calculatePlaybackVariables(params);
         channelRenderer.newOpeningGlitchPeriod(currentTime + halfBufferTime, halfBufferTime + videoGlitchTime);
         channelRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime + halfBufferTime);
         videoPlayer->execute(params);
+        textRenderer.execute(params, videoPlayer);
     }
 }
 
 void erMediaPlayer::playServer(int channel, erPlayParams params){
     if(params.isVideoCommand()){
-        calculateGlitchPlaybackVariables(params);
+        calculatePlaybackVariables(params);
         channelRenderer.assign(channel, params);
         channelRenderer.newOpeningGlitchPeriod(currentTime + halfBufferTime, halfBufferTime + videoGlitchTime, channel);
         channelRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime + halfBufferTime, channel);
@@ -85,6 +87,10 @@ void erMediaPlayer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _vi
     channelRenderer.setVideoPlayers(videoPlayers);
 }
 
+void erMediaPlayer::setTexts(map<string, vector<string>>* texts){
+    textRenderer.setTexts(texts);
+}
+
 void erMediaPlayer::useSoundRendererFor(vector<string>& audibleVideos){
     soundRenderer.setupVideo(audibleVideos);
 
@@ -93,7 +99,7 @@ void erMediaPlayer::useSoundRendererFor(vector<string>& audibleVideos){
     }
 }
 
-void erMediaPlayer::calculateGlitchPlaybackVariables(erPlayParams params){
+void erMediaPlayer::calculatePlaybackVariables(erPlayParams params){
     videoPlayer = videoPlayers->at(params.getPath());
     currentTime = ofGetElapsedTimeMillis();
 

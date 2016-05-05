@@ -14,6 +14,7 @@ void ofApp::setup(){
     player.setTestSoundPlayer(&loader.testSoundPlayer);
     player.setTestVideoPlayer(&loader.testVideoPlayer);
     player.setVideoPlayers(&loader.videoPlayers);
+    player.setTexts(&loader.texts);
 
     if(settings.isEcg){
         player.setupEcgMode(&network);
