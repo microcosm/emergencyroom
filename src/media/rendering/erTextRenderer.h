@@ -4,6 +4,7 @@
 #include "erSyncedVideoPlayer.h"
 #include "erSettings.h"
 #include "erNetwork.h"
+#include "ofxLayerMask.h"
 
 class erTextRenderer{
 
@@ -16,10 +17,12 @@ public:
 protected:
     bool withinTextPeriod();
     bool withinOverlayPeriod();
+    void drawText();
     map<string, vector<string>>* texts;
     vector<string>* currentTexts;
     ofPtr<erSyncedVideoPlayer> currentVideoPlayer;
     u_int64_t now, startTextAt, endTextAt, startOverlayAt, endOverlayAt;
     int videoDuration, padding;
     erNetwork* network;
+    ofxLayerMask masker;
 };
