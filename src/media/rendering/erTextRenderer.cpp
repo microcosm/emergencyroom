@@ -5,7 +5,7 @@ void erTextRenderer::setup(){
 }
 
 void erTextRenderer::draw(ofEventArgs& args){
-    if(!settings.clientDrawingEnabled && currentVideoPlayer != NULL && currentVideoPlayer->isPlaying()){
+    if(currentTexts != NULL && !settings.clientDrawingEnabled && withinGlitchPeriod()){
         ofSetColor(ofColor::black, 50);
         ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
         ofSetColor(ofColor::white);
@@ -20,7 +20,13 @@ void erTextRenderer::setTexts(map<string, vector<string>>* _texts){
     texts = _texts;
 }
 
-void erTextRenderer::execute(erPlayParams params, ofPtr<erSyncedVideoPlayer> _videoPlayer){
+void erTextRenderer::newTextPeriod(u_int64_t from, float duration, erPlayParams params){
+    startAt = from;
+    endAt = from + duration;
     currentTexts = &texts->at(params.getPath());
-    currentVideoPlayer = _videoPlayer;
+}
+
+bool erTextRenderer::withinGlitchPeriod(){
+    now = ofGetElapsedTimeMillis();
+    return now > startAt && now < endAt;
 }

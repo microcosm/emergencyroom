@@ -48,22 +48,30 @@ void erMediaPlayer::playTest(erPlayParams params){
 
 void erMediaPlayer::playClient(erPlayParams params){
     if(params.isVideoCommand()){
-        calculatePlaybackVariables(params);
-        channelRenderer.newOpeningGlitchPeriod(currentTime + halfBufferTime, halfBufferTime + videoGlitchTime);
-        channelRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime + halfBufferTime);
+        calculateVideoPlaybackVariables(params);
+
+        channelRenderer.newOpeningGlitchPeriod(startOpeningGlitch, openingGlitchDuration);
+        channelRenderer.newClosingGlitchPeriod(startClosingGlitch, closingGlitchDuration);
+
+        if(renderText){
+            textRenderer.newTextPeriod(startText, textDuration, params);
+        }
+
         videoPlayer->execute(params);
-        textRenderer.execute(params, videoPlayer);
     }
 }
 
 void erMediaPlayer::playServer(int channel, erPlayParams params){
     if(params.isVideoCommand()){
-        calculatePlaybackVariables(params);
+        calculateVideoPlaybackVariables(params);
         channelRenderer.assign(channel, params);
-        channelRenderer.newOpeningGlitchPeriod(currentTime + halfBufferTime, halfBufferTime + videoGlitchTime, channel);
-        channelRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime + halfBufferTime, channel);
-        soundRenderer.newOpeningGlitchPeriod(currentTime + bufferTime, videoGlitchTime, channel);
-        soundRenderer.newClosingGlitchPeriod(currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT, videoGlitchTime, channel);
+
+        channelRenderer.newOpeningGlitchPeriod(startOpeningGlitch, openingGlitchDuration, channel);
+        channelRenderer.newClosingGlitchPeriod(startClosingGlitch, closingGlitchDuration, channel);
+
+        calculateSoundPlaybackVariables();
+        soundRenderer.newOpeningGlitchPeriod(startOpeningGlitch, openingGlitchDuration, channel);
+        soundRenderer.newClosingGlitchPeriod(startClosingGlitch, closingGlitchDuration, channel);
         videoPlayer->execute(params);
     }
 }
@@ -99,7 +107,7 @@ void erMediaPlayer::useSoundRendererFor(vector<string>& audibleVideos){
     }
 }
 
-void erMediaPlayer::calculatePlaybackVariables(erPlayParams params){
+void erMediaPlayer::calculateVideoPlaybackVariables(erPlayParams params){
     videoPlayer = videoPlayers->at(params.getPath());
     currentTime = ofGetElapsedTimeMillis();
 
@@ -108,4 +116,24 @@ void erMediaPlayer::calculatePlaybackVariables(erPlayParams params){
 
     videoDuration = videoPlayer->getDuration() * 1000;
     videoGlitchTime = ofClamp(videoDuration * 0.2, 50, halfBufferTime);
+
+    startOpeningGlitch = currentTime + halfBufferTime;
+    openingGlitchDuration = halfBufferTime + videoGlitchTime;
+
+    startClosingGlitch = currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT;
+    closingGlitchDuration = videoGlitchTime + halfBufferTime;
+
+    if(network->isRunningClient() && videoDuration > 7000){
+        startText = currentTime + bufferTime + videoGlitchTime + videoDuration * 0.17;
+        textDuration = videoDuration * 0.5;
+        renderText = true;
+    }else{
+        renderText = false;
+    }
+}
+
+void erMediaPlayer::calculateSoundPlaybackVariables(){
+    startOpeningGlitch = currentTime + bufferTime;
+    openingGlitchDuration = videoGlitchTime;
+    closingGlitchDuration = videoGlitchTime;
 }

@@ -28,7 +28,8 @@ public:
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
     void setTexts(map<string, vector<string>>* texts);
     void useSoundRendererFor(vector<string>& audibleVideos);
-    void calculatePlaybackVariables(erPlayParams params);
+    void calculateVideoPlaybackVariables(erPlayParams params);
+    void calculateSoundPlaybackVariables();
 
 protected:
     erChannelRenderer channelRenderer;
@@ -41,6 +42,8 @@ protected:
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     ofPtr<erSyncedVideoPlayer> videoPlayer;
 
-    u_int64_t currentTime;
+    u_int64_t currentTime, startOpeningGlitch, startClosingGlitch, startText;
+    float openingGlitchDuration, closingGlitchDuration, textDuration;
     float videoDuration, videoGlitchTime, bufferTime, halfBufferTime;
+    bool renderText;
 };
