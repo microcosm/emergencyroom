@@ -42,8 +42,8 @@ protected:
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     ofPtr<erSyncedVideoPlayer> videoPlayer;
 
-    u_int64_t currentTime, startOpeningGlitch, startClosingGlitch, startText;
-    float openingGlitchDuration, closingGlitchDuration, textDuration;
+    u_int64_t currentTime, startOpeningGlitch, startClosingGlitch, startText, startTextOverlay;
+    float openingGlitchDuration, closingGlitchDuration, textDuration, textOverlayDuration;
     float videoDuration, videoGlitchTime, bufferTime, halfBufferTime;
     bool renderText;
 };

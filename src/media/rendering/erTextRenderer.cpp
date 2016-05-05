@@ -5,13 +5,17 @@ void erTextRenderer::setup(){
 }
 
 void erTextRenderer::draw(ofEventArgs& args){
-    if(currentTexts != NULL && !settings.clientDrawingEnabled && withinGlitchPeriod()){
-        ofSetColor(ofColor::black, 50);
-        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
-        ofSetColor(ofColor::white);
-        int i = 0;
-        for(auto text : *currentTexts) {
-            ofDrawBitmapString(text, 50, i+=50);
+    if(currentTexts != NULL && !settings.clientDrawingEnabled){
+        if(withinOverlayPeriod()){
+            ofSetColor(ofColor::black, 46);
+            ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+        }
+        if(withinTextPeriod()){
+            ofSetColor(ofColor::white);
+            int i = 0;
+            for(auto text : *currentTexts) {
+                ofDrawBitmapString(text, 50, i+=50);
+            }
         }
     }
 }
@@ -21,12 +25,22 @@ void erTextRenderer::setTexts(map<string, vector<string>>* _texts){
 }
 
 void erTextRenderer::newTextPeriod(u_int64_t from, float duration, erPlayParams params){
-    startAt = from;
-    endAt = from + duration;
+    startTextAt = from;
+    endTextAt = from + duration;
     currentTexts = &texts->at(params.getPath());
 }
 
-bool erTextRenderer::withinGlitchPeriod(){
+void erTextRenderer::newOverlayPeriod(u_int64_t from, float duration){
+    startOverlayAt = from;
+    endOverlayAt = from + duration;
+}
+
+bool erTextRenderer::withinTextPeriod(){
     now = ofGetElapsedTimeMillis();
-    return now > startAt && now < endAt;
+    return now > startTextAt && now < endTextAt;
+}
+
+bool erTextRenderer::withinOverlayPeriod(){
+    now = ofGetElapsedTimeMillis();
+    return now > startOverlayAt && now < endOverlayAt;
 }

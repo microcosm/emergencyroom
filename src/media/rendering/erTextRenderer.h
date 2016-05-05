@@ -12,12 +12,14 @@ public:
     virtual void draw(ofEventArgs& args);
     void setTexts(map<string, vector<string>>* _texts);
     void newTextPeriod(u_int64_t from, float duration, erPlayParams params);
+    void newOverlayPeriod(u_int64_t from, float duration);
 protected:
-    bool withinGlitchPeriod();
+    bool withinTextPeriod();
+    bool withinOverlayPeriod();
     map<string, vector<string>>* texts;
     vector<string>* currentTexts;
     ofPtr<erSyncedVideoPlayer> currentVideoPlayer;
-    u_int64_t now, startAt, endAt;
+    u_int64_t now, startTextAt, endTextAt, startOverlayAt, endOverlayAt;
     int videoDuration, padding;
     erNetwork* network;
 };

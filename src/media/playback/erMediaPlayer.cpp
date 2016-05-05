@@ -54,6 +54,7 @@ void erMediaPlayer::playClient(erPlayParams params){
         channelRenderer.newClosingGlitchPeriod(startClosingGlitch, closingGlitchDuration);
 
         if(renderText){
+            textRenderer.newOverlayPeriod(startTextOverlay, textOverlayDuration);
             textRenderer.newTextPeriod(startText, textDuration, params);
         }
 
@@ -126,6 +127,8 @@ void erMediaPlayer::calculateVideoPlaybackVariables(erPlayParams params){
     if(network->isRunningClient() && videoDuration > 7000){
         startText = currentTime + bufferTime + videoGlitchTime + videoDuration * 0.17;
         textDuration = videoDuration * 0.5;
+        startTextOverlay = currentTime + bufferTime;
+        textOverlayDuration = videoDuration;
         renderText = true;
     }else{
         renderText = false;
