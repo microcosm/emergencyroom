@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "erPlayParams.h"
 #include "erSyncedVideoPlayer.h"
+#include "erSettings.h"
 
 class erTextRenderer{
 

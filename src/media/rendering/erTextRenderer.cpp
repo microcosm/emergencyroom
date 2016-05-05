@@ -5,7 +5,9 @@ void erTextRenderer::setup(){
 }
 
 void erTextRenderer::draw(ofEventArgs& args){
-    if(currentVideoPlayer != NULL && currentVideoPlayer->isPlaying()){
+    if(!settings.clientDrawingEnabled && currentVideoPlayer != NULL && currentVideoPlayer->isPlaying()){
+        ofSetColor(ofColor::black, 50);
+        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
         ofSetColor(ofColor::white);
         int i = 0;
         for(auto text : *currentTexts) {
