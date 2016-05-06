@@ -6,7 +6,9 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     player = _player;
 
     currentCollection = "";
+    currentCollectionIndex = -1;
     queuesLoaded = false;
+    collectionsLoaded = false;
 
     currentChannel = 1;
     translater = network->getTranslater();
@@ -22,13 +24,8 @@ void erSequencer::setupEcgMode(erNetwork* _network, erMediaPlayer* _player){
 }
 
 void erSequencer::update(ofEventArgs& updateArgs){
-    if(!queuesLoaded && loader->isLoaded()){
-        for(auto collection : loader->videoCollections){
-            queues[collection] = queue;
-            queues[collection].setup(loader, collection);
-        }
-        queuesLoaded = true;
-    }
+    attemptToLoadMediaQueues();
+    attemptToLoadCollections();
     if(network->isRunningServer() && ofGetFrameNum() % ER_VIDEO_LENGTH == 0){
         playNewVideo();
     }
@@ -63,10 +60,31 @@ void erSequencer::playNewVideo(){
 }
 
 void erSequencer::chooseNewTheme(){
-    if(loader->isLoaded()){
-        //Todo: make into a queue instead of random choice
-        int collectionIndex = floor(ofRandom(loader->videoCollections.size() - 0.0001));
-        currentCollection = loader->videoCollections.at(collectionIndex);
+    if(collectionsLoaded){
+        if(currentCollectionIndex < 0 || currentCollectionIndex >= loader->videoCollections.size()){
+            currentCollectionIndex = 0;
+            random_shuffle(shuffledCollectionIndices.begin(), shuffledCollectionIndices.end());
+        }
+        currentCollection = loader->videoCollections.at(shuffledCollectionIndices.at(currentCollectionIndex++));
+    }
+}
+
+void erSequencer::attemptToLoadCollections(){
+    if(loader->isLoaded() && shuffledCollectionIndices.size() == 0){
+        for(int i = 0; i < loader->videoCollections.size(); i++){
+            shuffledCollectionIndices.push_back(i);
+        }
+        collectionsLoaded = true;
+    }
+}
+
+void erSequencer::attemptToLoadMediaQueues(){
+    if(!queuesLoaded && loader->isLoaded()){
+        for(auto collection : loader->videoCollections){
+            queues[collection] = queue;
+            queues[collection].setup(loader, collection);
+        }
+        queuesLoaded = true;
     }
 }
 

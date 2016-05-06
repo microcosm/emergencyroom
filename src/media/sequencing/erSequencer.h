@@ -22,6 +22,8 @@ public:
 protected:
     void playNewVideo();
     void chooseNewTheme();
+    void attemptToLoadCollections();
+    void attemptToLoadMediaQueues();
     bool isAudioPlaying();
     int incrementCurrentChannel();
 
@@ -35,7 +37,10 @@ protected:
     erMediaQueue queue;
     map<string, erMediaQueue> queues;
     string currentCollection;
-    bool queuesLoaded;
+    bool queuesLoaded, collectionsLoaded;
+
+    vector<int> shuffledCollectionIndices;
+    int currentCollectionIndex;
 
     int currentChannel;
     float speed;
