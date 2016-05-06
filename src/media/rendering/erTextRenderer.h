@@ -22,7 +22,7 @@ protected:
     bool withinAnimationPeriod();
     void drawText();
 
-    int animationPeriodLength, textHeight, indentX;
+    int animationPeriodLength, textHeight, indentX, numLines;
     ofxAnimatableFloat textOffsetY;
     map<string, vector<string>>* texts;
     vector<string>* currentTexts;

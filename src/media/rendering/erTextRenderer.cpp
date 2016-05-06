@@ -4,6 +4,7 @@ void erTextRenderer::setup(){
     animationPeriodLength = 500;
     textHeight = 16;
     indentX = 24;
+    numLines = 3;
     textOffsetY.setRepeatType(PLAY_ONCE);
     textOffsetY.setCurve(EASE_IN_EASE_OUT);
     textOffsetY.setDuration(0.1);
@@ -84,7 +85,7 @@ void erTextRenderer::drawText(){
     {
         ofBackground(ofColor::black);
         ofSetColor(ofColor::white);
-        ofDrawRectangle(0, 0, 900, 240);
+        ofDrawRectangle(0, 0, 900, numLines * textHeight);
     }
     masker.endMask();
 
