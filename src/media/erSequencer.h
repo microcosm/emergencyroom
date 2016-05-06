@@ -14,10 +14,13 @@ class erSequencer{
 public:
     void setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlayer* _player);
     void setupEcgMode(erNetwork* _network, erMediaPlayer* _player);
+    void setupShuffledIndexing();
     virtual void update(ofEventArgs& updateArgs);
     void messageReceived(string& messageStr);
 protected:
     void playNewVideo();
+    string getNextSilent();
+    string getNextAudible();
     string chooseVideo();
     string chooseRandom(vector<string>* videos);
     bool isAudioPlaying();
@@ -29,6 +32,9 @@ protected:
     erMediaPlayer* player;
     erPlayParams params;
     erEcgVisualization ecg;
+    vector<int> shuffledAudibleVideoIndices, shuffledSilentVideoIndices;
+    int currentAudibleVideoIndex, currentSilentVideoIndex;
+    bool shuffledIndexingSetup;
 
     int currentChannel;
     float speed;
