@@ -24,7 +24,7 @@ public:
     map<string, vector<string>> texts;
     vector<string> allVideos, audibleVideos, silentVideos, videoCollections;
     vector<string> missingVideos, missingTexts, spacedPathVideos;
-    map<string,vector<string>> collectionsToVideos;
+    map<string, vector<string>> collectionsToVideos, collectionsToAudibleVideos, collectionsToSilentVideos;
 protected:
     void discoverErrors();
     void validateMedia();

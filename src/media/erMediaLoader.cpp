@@ -147,9 +147,17 @@ void erMediaLoader::registerVideo(string& collection, const ofFile& video){
     videoPlayers[path]->load(video.getAbsolutePath());
     videoPlayers[path]->setVolume(0);
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
+
     collectionsToVideos[collection].push_back(path);
-    volume == 0 ? silentVideos.push_back(path) : audibleVideos.push_back(path);
     allVideos.push_back(path);
+
+    if(volume == 0){
+        silentVideos.push_back(path);
+        collectionsToSilentVideos[collection].push_back(path);
+    }else{
+        audibleVideos.push_back(path);
+        collectionsToAudibleVideos[collection].push_back(path);
+    }
 }
 
 void erMediaLoader::registerText(const ofFile& liveVideo){
@@ -162,6 +170,8 @@ void erMediaLoader::registerCollection(string& collection){
     videoCollections.push_back(collection);
     vector<string> videos;
     collectionsToVideos[collection] = videos;
+    collectionsToSilentVideos[collection] = videos;
+    collectionsToAudibleVideos[collection] = videos;
 }
 
 ofDirectory& erMediaLoader::loadCollectionDir(string path){

@@ -9,6 +9,7 @@
 #include "erEcgVisualization.h"
 
 #define ER_VIDEO_LENGTH 120
+#define ER_THEME_LENGTH 1800
 
 class erSequencer{
 
@@ -20,6 +21,7 @@ public:
     void messageReceived(string& messageStr);
 protected:
     void playNewVideo();
+    void chooseNewTheme();
     bool isAudioPlaying();
     int incrementCurrentChannel();
 
@@ -29,11 +31,11 @@ protected:
     erMediaPlayer* player;
     erPlayParams params;
     erEcgVisualization ecg;
-    erMediaQueue queue;
 
-    vector<int> shuffledAudibleVideoIndices, shuffledSilentVideoIndices;
-    int currentAudibleVideoIndex, currentSilentVideoIndex;
-    bool shuffledIndexingSetup;
+    erMediaQueue queue;
+    map<string, erMediaQueue> queues;
+    string currentCollection;
+    bool queuesLoaded;
 
     int currentChannel;
     float speed;
