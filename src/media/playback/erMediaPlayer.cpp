@@ -53,6 +53,10 @@ void erMediaPlayer::playClient(erPlayParams params){
         channelRenderer.newOpeningGlitchPeriod(startOpeningGlitch, openingGlitchDuration);
         channelRenderer.newClosingGlitchPeriod(startClosingGlitch, closingGlitchDuration);
 
+        for(int i = 1; i <= intermediateGlitches.size(); i++){
+            channelRenderer.newIntermediateGlitchPeriod(i, intermediateGlitches.at(i-1), ofRandom(300, 1000));
+        }
+
         if(renderText){
             textRenderer.newOverlayPeriod(startTextOverlay, textOverlayDuration);
             textRenderer.newTextPeriod(startText, textDuration, params);
@@ -123,6 +127,13 @@ void erMediaPlayer::calculateVideoPlaybackVariables(erPlayParams params){
 
     startClosingGlitch = currentTime + bufferTime + videoDuration - videoGlitchTime + COSMOLOGICAL_CONSTANT;
     closingGlitchDuration = videoGlitchTime + halfBufferTime;
+
+    intermediateGlitches.clear();
+    intermediateGlitchDurations.clear();
+    for(int i = 0; i < 3; i++){
+        intermediateGlitches.push_back(currentTime + bufferTime + ofRandom(videoDuration));
+        intermediateGlitchDurations.push_back(ofClamp(ofRandom(videoDuration * 0.03, videoDuration * 0.5), 50, 2000));
+    }
 
     if(network->isRunningClient() && videoDuration > 7000){
         startText = currentTime + bufferTime + videoGlitchTime + videoDuration * 0.17;

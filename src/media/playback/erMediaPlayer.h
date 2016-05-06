@@ -46,4 +46,7 @@ protected:
     float openingGlitchDuration, closingGlitchDuration, textDuration, textOverlayDuration;
     float videoDuration, videoGlitchTime, bufferTime, halfBufferTime;
     bool renderText;
+
+    vector<u_int64_t> intermediateGlitches;
+    vector<float> intermediateGlitchDurations;
 };

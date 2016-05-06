@@ -45,6 +45,10 @@ void erChannelRenderer::newClosingGlitchPeriod(u_int64_t from, float duration, i
     mediaRenderer.newClosingGlitchPeriod(from, duration, channel);
 }
 
+void erChannelRenderer::newIntermediateGlitchPeriod(int i, u_int64_t from, float duration, int channel){
+    mediaRenderer.newIntermediateGlitchPeriod(i, from, duration, channel);
+}
+
 bool erChannelRenderer::isChannelPlaying(int channel){
     return hasChannel(channel) && channelsToPlayers[channel].get()->isOrWillBePlaying();
 }
