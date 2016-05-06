@@ -5,9 +5,10 @@ void erTextRenderer::setup(){
     textHeight = 16;
     indentX = 24;
     numLines = 3;
-    textOffsetY.setRepeatType(PLAY_ONCE);
-    textOffsetY.setCurve(EASE_IN_EASE_OUT);
-    textOffsetY.setDuration(0.1);
+    textOffset = -4;
+    textY.setRepeatType(PLAY_ONCE);
+    textY.setCurve(EASE_IN_EASE_OUT);
+    textY.setDuration(0.1);
     masker.setup(ofClamp(ofGetWidth(), 0, 900), 900);
     masker.newLayer();
     masker.toggleOverlay();
@@ -17,7 +18,7 @@ void erTextRenderer::setup(){
 
 void erTextRenderer::update(ofEventArgs& args){
     now = ofGetElapsedTimeMillis();
-    textOffsetY.update(ofGetLastFrameTime());
+    textY.update(ofGetLastFrameTime());
 }
 
 void erTextRenderer::draw(ofEventArgs& args){
@@ -33,7 +34,7 @@ void erTextRenderer::draw(ofEventArgs& args){
             drawText();
 
             if(withinAnimationPeriod()){
-                textOffsetY.animateTo(textOffsetY.val() - textHeight);
+                textY.animateTo(textY.val() - textHeight);
                 nextAnimationBeginsAt += animationPeriodLength;
             }
         }
@@ -49,7 +50,9 @@ void erTextRenderer::newTextPeriod(u_int64_t from, float duration, erPlayParams 
     endTextAt = from + duration;
     currentTexts = &texts->at(params.getPath());
     nextAnimationBeginsAt = startTextAt + animationPeriodLength;
-    textOffsetY.reset(-4);
+
+    int randomLineOffset = ofClamp(floor(ofRandom(currentTexts->size() - 5)), 0, 1000);
+    textY.reset(textOffset + -(randomLineOffset * textHeight));
 }
 
 void erTextRenderer::newOverlayPeriod(u_int64_t from, float duration){
@@ -74,7 +77,7 @@ void erTextRenderer::drawText(){
     {
         ofClear(ofColor(ofColor::white, 0));
         ofSetColor(ofColor::white);
-        int i = textOffsetY.val();
+        int i = textY.val();
         for(auto text : *currentTexts){
             ofDrawBitmapString(text, indentX, i+=textHeight);
         }

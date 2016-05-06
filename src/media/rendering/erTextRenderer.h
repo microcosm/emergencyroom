@@ -22,8 +22,8 @@ protected:
     bool withinAnimationPeriod();
     void drawText();
 
-    int animationPeriodLength, textHeight, indentX, numLines;
-    ofxAnimatableFloat textOffsetY;
+    int animationPeriodLength, textHeight, indentX, numLines, textOffset;
+    ofxAnimatableFloat textY;
     map<string, vector<string>>* texts;
     vector<string>* currentTexts;
     ofPtr<erSyncedVideoPlayer> currentVideoPlayer;
