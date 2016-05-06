@@ -43,14 +43,14 @@ void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width,
 }
 
 void erMediaRenderer::drawStatic(int x, int y, int width, int height){
-    if(bufferEmpty || ofRandom(1) < 0.05){
+    if(bufferEmpty || ofRandom(1) < 0.02){
         fbo.begin();
         {
             ofClear(ofColor::black);
-            for(int i = 0; i < 50; i++){
-                ofSetColor(ofColor::white, ofRandom(160));
-                x = ofRandomWidth();
-                y = ofRandomHeight();
+            for(int i = 0; i < 20; i++){
+                ofSetColor(ofRandom(230, 255), ofRandom(230, 255), ofRandom(230, 255), ofRandom(1, 5) * 50);
+                x = ofRandom(ofGetWidth() * 2) - ofGetWidth() * 0.5;
+                y = ofRandom(ofGetHeight() * 2) - ofGetHeight() * 0.5;
                 ofDrawRectangle(x, y, ofRandom(ofGetWidth() - x), ofRandom(ofGetHeight() - y));
             }
         }
