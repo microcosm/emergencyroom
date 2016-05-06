@@ -1,20 +1,40 @@
 #include "erTextRenderer.h"
 
 void erTextRenderer::setup(){
-    ofAddListener(ofEvents().draw, this, &erTextRenderer::draw);
+    animationPeriodLength = 500;
+    textHeight = 16;
+    indentX = 24;
+    textOffsetY.setRepeatType(PLAY_ONCE);
+    textOffsetY.setCurve(EASE_IN_EASE_OUT);
+    textOffsetY.setDuration(0.1);
     masker.setup(ofClamp(ofGetWidth(), 0, 900), 900);
     masker.newLayer();
     masker.toggleOverlay();
+    ofAddListener(ofEvents().draw, this, &erTextRenderer::draw);
+    ofAddListener(ofEvents().update, this, &erTextRenderer::update);
+}
+
+void erTextRenderer::update(ofEventArgs& args){
+    now = ofGetElapsedTimeMillis();
+    textOffsetY.update(ofGetLastFrameTime());
 }
 
 void erTextRenderer::draw(ofEventArgs& args){
     if(currentTexts != NULL){
+        now = ofGetElapsedTimeMillis();
+
         if(withinOverlayPeriod()){
             ofSetColor(ofColor::black, 46);
             ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
         }
+
         if(withinTextPeriod()){
             drawText();
+
+            if(withinAnimationPeriod()){
+                textOffsetY.animateTo(textOffsetY.val() - textHeight);
+                nextAnimationBeginsAt += animationPeriodLength;
+            }
         }
     }
 }
@@ -27,6 +47,8 @@ void erTextRenderer::newTextPeriod(u_int64_t from, float duration, erPlayParams 
     startTextAt = from;
     endTextAt = from + duration;
     currentTexts = &texts->at(params.getPath());
+    nextAnimationBeginsAt = startTextAt + animationPeriodLength;
+    textOffsetY.reset(-4);
 }
 
 void erTextRenderer::newOverlayPeriod(u_int64_t from, float duration){
@@ -35,22 +57,25 @@ void erTextRenderer::newOverlayPeriod(u_int64_t from, float duration){
 }
 
 bool erTextRenderer::withinTextPeriod(){
-    now = ofGetElapsedTimeMillis();
     return now > startTextAt && now < endTextAt;
 }
 
 bool erTextRenderer::withinOverlayPeriod(){
-    now = ofGetElapsedTimeMillis();
     return now > startOverlayAt && now < endOverlayAt;
+}
+
+bool erTextRenderer::withinAnimationPeriod(){
+    return now >= nextAnimationBeginsAt;
 }
 
 void erTextRenderer::drawText(){
     masker.beginLayer();
     {
+        ofClear(ofColor(ofColor::white, 0));
         ofSetColor(ofColor::white);
-        int i = 0;
-        for(auto text : *currentTexts) {
-            ofDrawBitmapString(text, 50, i+=50);
+        int i = textOffsetY.val();
+        for(auto text : *currentTexts){
+            ofDrawBitmapString(text, indentX, i+=textHeight);
         }
     }
     masker.endLayer();
@@ -59,7 +84,7 @@ void erTextRenderer::drawText(){
     {
         ofBackground(ofColor::black);
         ofSetColor(ofColor::white);
-        ofDrawRectangle(0, 0, 800, 240);
+        ofDrawRectangle(0, 0, 900, 240);
     }
     masker.endMask();
 
