@@ -5,6 +5,7 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     loader = _loader;
     player = _player;
 
+    queue.setup(loader);
     shuffledIndexingSetup = false;
     currentChannel = 1;
     translater = network->getTranslater();
@@ -17,23 +18,6 @@ void erSequencer::setupEcgMode(erNetwork* _network, erMediaPlayer* _player){
     network = _network;
     player = _player;
     ecg.setup(network);
-}
-
-void erSequencer::setupShuffledIndexing(){
-    currentAudibleVideoIndex = -1;
-    currentSilentVideoIndex = -1;
-
-    shuffledAudibleVideoIndices.clear();
-    for(int i = 0; i < loader->audibleVideos.size(); i++){
-        shuffledAudibleVideoIndices.push_back(i);
-    }
-
-    shuffledSilentVideoIndices.clear();
-    for(int i = 0; i < loader->silentVideos.size(); i++){
-        shuffledSilentVideoIndices.push_back(i);
-    }
-
-    shuffledIndexingSetup = true;
 }
 
 void erSequencer::update(ofEventArgs& updateArgs){
@@ -52,12 +36,10 @@ void erSequencer::messageReceived(string& message){
 
 void erSequencer::playNewVideo(){
     if(loader->isLoaded()){
-        if(!shuffledIndexingSetup){
-            setupShuffledIndexing();
-        }
+        queue.ensureQueuesLoaded();
         if(!player->isChannelPlaying(currentChannel)){
             params.newVideoCommand();
-            params.setPath(isAudioPlaying() ? getNextSilent() : getNextAudible());
+            params.setPath(isAudioPlaying() ? queue.getNextSilent() : queue.getNextAudible());
             params.setSpeed(1);
             network->target(currentChannel, params);
             player->playServer(currentChannel, params);
@@ -65,36 +47,6 @@ void erSequencer::playNewVideo(){
         }
         incrementCurrentChannel();
     }
-}
-
-string erSequencer::getNextSilent(){
-    if(currentSilentVideoIndex < 0 || currentSilentVideoIndex >= loader->silentVideos.size()){
-        currentSilentVideoIndex = 0;
-        random_shuffle(shuffledSilentVideoIndices.begin(), shuffledSilentVideoIndices.end());
-    }
-    return loader->silentVideos.at(shuffledSilentVideoIndices.at(currentSilentVideoIndex++));
-}
-
-string erSequencer::getNextAudible(){
-    if(currentAudibleVideoIndex < 0 || currentAudibleVideoIndex >= loader->audibleVideos.size()){
-        currentAudibleVideoIndex = 0;
-        random_shuffle(shuffledAudibleVideoIndices.begin(), shuffledAudibleVideoIndices.end());
-    }
-    return loader->audibleVideos.at(shuffledAudibleVideoIndices.at(currentAudibleVideoIndex++));
-}
-
-string erSequencer::chooseVideo(){
-    string path;
-    do{
-        path = chooseRandom(isAudioPlaying() ? &loader->silentVideos : &loader->audibleVideos);
-    }while(loader->videoPlayers[path]->isOrWillBePlaying());
-    return path;
-}
-
-string erSequencer::chooseRandom(vector<string>* videos){
-    int index = (int)floor(ofRandom(videos->size()));
-    index = index == videos->size() ? index - 1 : index;
-    return videos->at(index);
 }
 
 bool erSequencer::isAudioPlaying(){

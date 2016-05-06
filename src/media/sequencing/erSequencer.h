@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "erNetwork.h"
 #include "erMediaLoader.h"
+#include "erMediaQueue.h"
 #include "erMediaPlayer.h"
 #include "erPlayParams.h"
 #include "erLogger.h"
@@ -19,10 +20,6 @@ public:
     void messageReceived(string& messageStr);
 protected:
     void playNewVideo();
-    string getNextSilent();
-    string getNextAudible();
-    string chooseVideo();
-    string chooseRandom(vector<string>* videos);
     bool isAudioPlaying();
     int incrementCurrentChannel();
 
@@ -32,6 +29,8 @@ protected:
     erMediaPlayer* player;
     erPlayParams params;
     erEcgVisualization ecg;
+    erMediaQueue queue;
+
     vector<int> shuffledAudibleVideoIndices, shuffledSilentVideoIndices;
     int currentAudibleVideoIndex, currentSilentVideoIndex;
     bool shuffledIndexingSetup;
