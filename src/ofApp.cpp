@@ -3,6 +3,7 @@
 erSettings settings;
 
 void ofApp::setup(){
+    ofSetFrameRate(60);
     ofSetWindowShape(1200, 800);
     font.load("font/klima-medium-web.ttf", 100);
     videoSoundAssigned = false;
