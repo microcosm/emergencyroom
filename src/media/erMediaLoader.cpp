@@ -105,6 +105,7 @@ void erMediaLoader::loadTestMedia(){
 }
 
 void erMediaLoader::eraseMedia(){
+    allVideos.clear();
     audibleVideos.clear();
     silentVideos.clear();
     videoCollections.clear();
@@ -148,6 +149,7 @@ void erMediaLoader::registerVideo(string& collection, const ofFile& video){
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
     collectionsToVideos[collection].push_back(path);
     volume == 0 ? silentVideos.push_back(path) : audibleVideos.push_back(path);
+    allVideos.push_back(path);
 }
 
 void erMediaLoader::registerText(const ofFile& liveVideo){

@@ -49,6 +49,10 @@ void erChannelRenderer::newIntermediateGlitchPeriod(int i, u_int64_t from, float
     mediaRenderer.newIntermediateGlitchPeriod(i, from, duration, channel);
 }
 
+void erChannelRenderer::assignDecoyGlitch(ofPtr<erSyncedVideoPlayer> _videoPlayer){
+    mediaRenderer.assignDecoyGlitch(_videoPlayer.get());
+}
+
 bool erChannelRenderer::isChannelPlaying(int channel){
     return hasChannel(channel) && channelsToPlayers[channel].get()->isOrWillBePlaying();
 }

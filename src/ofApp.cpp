@@ -13,6 +13,7 @@ void ofApp::setup(){
 
     player.setTestSoundPlayer(&loader.testSoundPlayer);
     player.setTestVideoPlayer(&loader.testVideoPlayer);
+    player.setVideoPaths(&loader.allVideos);
     player.setVideoPlayers(&loader.videoPlayers);
     player.setTexts(&loader.texts);
 

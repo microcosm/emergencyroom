@@ -22,7 +22,7 @@ public:
 
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
     map<string, vector<string>> texts;
-    vector<string> audibleVideos, silentVideos, videoCollections;
+    vector<string> allVideos, audibleVideos, silentVideos, videoCollections;
     vector<string> missingVideos, missingTexts, spacedPathVideos;
     map<string,vector<string>> collectionsToVideos;
 protected:

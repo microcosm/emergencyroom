@@ -42,4 +42,3 @@ protected:
     float speed;
     string path;
 };
-

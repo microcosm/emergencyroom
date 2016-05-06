@@ -25,6 +25,7 @@ public:
 
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
+    void setVideoPaths(vector<string>* _videoPaths);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
     void setTexts(map<string, vector<string>>* texts);
     void useSoundRendererFor(vector<string>& audibleVideos);
@@ -32,6 +33,7 @@ public:
     void calculateSoundPlaybackVariables();
 
 protected:
+    ofPtr<erSyncedVideoPlayer> getDecoyPlayer();
     erChannelRenderer channelRenderer;
     erSoundRenderer soundRenderer;
     erTextRenderer textRenderer;
@@ -39,6 +41,7 @@ protected:
 
     erSyncedSoundPlayer* testSoundPlayer;
     erSyncedVideoPlayer* testVideoPlayer;
+    vector<string>* allVideoPaths;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     ofPtr<erSyncedVideoPlayer> videoPlayer;
 

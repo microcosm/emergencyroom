@@ -22,6 +22,7 @@ public:
     void newOpeningGlitchPeriod(u_int64_t from, float duration, int channel=1);
     void newClosingGlitchPeriod(u_int64_t from, float duration, int channel=1);
     void newIntermediateGlitchPeriod(int i, u_int64_t from, float duration, int channel=1);
+    void assignDecoyGlitch(ofPtr<erSyncedVideoPlayer> _videoPlayer);
     bool isChannelPlaying(int channel);
     void assign(int channel, erPlayParams params);
 

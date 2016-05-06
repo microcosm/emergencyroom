@@ -4,6 +4,7 @@ void erMediaRenderer::setup(erNetwork* _network){
     erGlitchRenderer::setup();
     network = _network;
     bufferEmpty = true;
+    decoyFramesRemaining = 0;
     fbo.allocate(ofGetWidth(), ofGetHeight());
     fboGlitch.allocate(ofGetWidth(), ofGetHeight());
     ofAddListener(ofEvents().update, this, &erMediaRenderer::update);
@@ -26,6 +27,11 @@ void erMediaRenderer::setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer){
 
 void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){
     videoPlayers = _videoPlayers;
+}
+
+void erMediaRenderer::assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer){
+    decoyGlitchPlayer = _videoPlayer;
+    decoyGlitchPlayer->play();
 }
 
 void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel){
@@ -61,7 +67,17 @@ void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int 
 void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height){
     fbo.begin();
     {
-        player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+        if(decoyFramesRemaining > 0 && decoyGlitchPlayer->isPlaying()){
+            decoyGlitchPlayer->update();
+            decoyGlitchPlayer->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+            decoyFramesRemaining--;
+        }else{
+            player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+        }
+
+        if(decoyFramesRemaining == 0 && ofRandom(1) < 0.05){
+            decoyFramesRemaining = floor(ofRandom(2, 5));
+        }
     }
     fbo.end();
     fboGlitch.draw(fbo, x, y, width, height);

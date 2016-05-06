@@ -57,6 +57,9 @@ void erMediaPlayer::playClient(erPlayParams params){
             channelRenderer.newIntermediateGlitchPeriod(i, intermediateGlitches.at(i-1), ofRandom(300, 1000));
         }
 
+        string& decoyPath = allVideoPaths->at(floor(ofRandom(allVideoPaths->size() - 0.0001)));
+        channelRenderer.assignDecoyGlitch(videoPlayers->at(decoyPath));
+
         if(renderText){
             textRenderer.newOverlayPeriod(startTextOverlay, textOverlayDuration);
             textRenderer.newTextPeriod(startText, textDuration, params);
@@ -93,6 +96,10 @@ void erMediaPlayer::setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer){
 void erMediaPlayer::setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer){
     testVideoPlayer = _testVideoPlayer;
     channelRenderer.setTestVideoPlayer(testVideoPlayer);
+}
+
+void erMediaPlayer::setVideoPaths(vector<string> *_videoPaths){
+    allVideoPaths = _videoPaths;
 }
 
 void erMediaPlayer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){

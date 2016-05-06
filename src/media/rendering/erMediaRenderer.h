@@ -15,17 +15,20 @@ public:
     void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
     void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
+    void assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer);
 
     void draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel=1);
     void drawStatic(int x, int y, int width, int height);
-
-protected:
     void drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height);
     void drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height);
 
+protected:
     erSyncedSoundPlayer* testSoundPlayer;
     erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
+
+    erSyncedVideoPlayer* decoyGlitchPlayer;
+    int decoyFramesRemaining;
 
     erNetwork* network;
     ofFbo fbo;
