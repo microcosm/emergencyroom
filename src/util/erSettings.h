@@ -75,6 +75,7 @@ public:
 
     bool serverDrawingEnabled;
     bool clientDrawingEnabled;
+    string computerName;
 
 protected:
     void initSettings();
@@ -82,7 +83,6 @@ protected:
     string getComputerName();
 
     ofxJSONElement json;
-    string computerName;
 
     FILE *fp;
     int status;

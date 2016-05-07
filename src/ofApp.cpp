@@ -58,6 +58,11 @@ void ofApp::draw(ofEventArgs& args){
         ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nD            toggle client display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, ofGetHeight() - 168);
         font.drawString("fps: " + ofToString(int(ofGetFrameRate())), 490, ofGetHeight() - 60);
     }
+
+    if(network.isRunningClient() && settings.clientDrawingEnabled){
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString("Computer name: '" + settings.computerName + "'", ofGetWidth() - 300, ofGetHeight() - 40);
+    }
 }
 
 void ofApp::keyReleased(int key){
