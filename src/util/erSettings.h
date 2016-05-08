@@ -23,7 +23,9 @@
 #define ER_STATIC "static"
 
 #define ER_ECG_BEEP "ecg-beep"
-#define ER_BPM "bpm"
+#define ER_HIGHEST_BPM "highest-bpm"
+#define ER_LOWEST_BPM "lowest-bpm"
+#define ER_BPM_PERIOD_SECS "bpm-period-secs"
 #define ER_BEGIN_AT "begin-at"
 #define ER_END_AT "end-at"
 
@@ -57,8 +59,9 @@ public:
     int numChannels;
     bool isServer;
     bool isEcg;
-    float ecgPeriod;
-    float ecgBpm;
+    float ecgHighestBpm;
+    float ecgLowestBpm;
+    int ecgBpmPeriodSecs;
     float ecgBeginBeepAt;
     float ecgEndBeepAt;
 

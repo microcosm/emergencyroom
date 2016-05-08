@@ -8,6 +8,7 @@
 #include "ofxShapeSystem.h"
 #include "erSyncedMediaPlayer.h"
 #include "erNetwork.h"
+#include "erEcgTimer.h"
 
 #define ECG_DATA_SOURCE "ecg.csv"
 #define ECG_NUM_COLS 2
@@ -41,6 +42,8 @@ public:
 
 protected:
     void beginPlayback(){
+        isPlaying = true;
+        ecgTimer.start();
         timeOffset = ofGetElapsedTimeMillis();
     }
     void readData();
@@ -73,11 +76,13 @@ protected:
     ofxPostProcessing post;
     bool overlay;
 
-    float currentValue;
-    float timeIndex, incrementalTimeIndex, lastTimeIndex;
+    float periodPosition, nthPeriodPosition, lastPeriodPosition;//?
     ofPoint point, oldPoint, gridIncrement;
     deque<ofPoint> points;
 
     erNetwork* network;
     u_int64_t timeOffset;
+
+    bool isPlaying;
+    erEcgTimer ecgTimer;
 };

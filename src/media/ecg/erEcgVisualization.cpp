@@ -8,10 +8,12 @@ void erEcgVisualization::setup(erNetwork* _network){
     network = _network;
     timeOffset = 0;
 
-    overlay = false;
-
     width = ofGetWidth();
     height = ofGetHeight();
+
+    isPlaying = false;
+    overlay = false;
+    ecgTimer.setup();
 
     lineColor = ofColor(234, 242, 255);
     masker.setup(width, height, 3);
@@ -38,61 +40,33 @@ void erEcgVisualization::setup(erNetwork* _network){
     ofAddListener(network->clientMessageReceived(), this, &erEcgVisualization::messageReceived);
 }
 
-void erEcgVisualization::readData(){
-    stream.openReadStream(ECG_DATA_SOURCE);
-    numRows = 0;
-    int i = 0;
-    while(!stream.eof()){
-        stream.readNextLine();
-        if(i >= ECG_START_ROW && i < ECG_EXIT_ROW){
-            for(int j = 0; j < stream.getCurrentTokenSize(); j += ECG_NUM_COLS){
-                data.push_back(stream.getValue<float>(j+1));
-            }
-            numRows++;
-        }
-        i++;
-    }
-}
-
-void erEcgVisualization::loadNewPoints(){
-    for(int i = lastRow; i <= currentRow; i++){
-        currentValue = data.at(i);
-        incrementalTimeIndex = ofMap(i, lastRow, currentRow, lastTimeIndex, timeIndex);
-        point.x = ofMap(incrementalTimeIndex, 0, settings.ecgPeriod, 0, width);
-        point.y = ofMap(currentValue, ECG_HIGHEST_VALUE, ECG_LOWEST_VALUE, 0, height);
-        if(i > lastRow){
-            points.push_back(point);
-        }
-    }
-}
-
-void erEcgVisualization::trimPointsToSize(){
-    if(points.size() > ECG_MAX_POINTS){
-        points.erase(points.begin(), points.begin() + points.size() - ECG_MAX_POINTS);
-    }
-}
-
 void erEcgVisualization::update(ofEventArgs& args){
-    lastRow = currentRow;
-    lastTimeIndex = timeIndex;
-    timeIndex = fmod(ofGetElapsedTimeMillis() - timeOffset, settings.ecgPeriod);
-    currentRow = ofMap(timeIndex, 0, settings.ecgPeriod, 0, numRows-1);
+    if(isPlaying){
+        ecgTimer.update();
 
-    loadNewPoints();
-    trimPointsToSize();
+        lastRow = currentRow;
+        lastPeriodPosition = periodPosition;
+        periodPosition = ecgTimer.getPeriodPosition();
+        currentRow = ofMap(periodPosition, 0, 1, 0, numRows-1);
+
+        loadNewPoints();
+        trimPointsToSize();
+    }
 }
 
 void erEcgVisualization::draw(ofEventArgs& args){
     ofBackground(ofColor::black);
-    post.begin();
-    {
-        renderEcgLineLayer();
-        renderEcgLineMask();
-        renderRadialOverlayLayer();
-        masker.drawLayer(2);
+    if(isPlaying && points.size() > 0){
+        post.begin();
+        {
+            renderEcgLineLayer();
+            renderEcgLineMask();
+            renderRadialOverlayLayer();
+            masker.drawLayer(2);
+        }
+        post.end();
+        post.draw();
     }
-    post.end();
-    post.draw();
     if(overlay){
         masker.drawOverlay();
         ofDrawBitmapString(ofGetFrameRate(), 10, 10);
@@ -112,6 +86,39 @@ void erEcgVisualization::keyReleased(ofKeyEventArgs& args){
 void erEcgVisualization::messageReceived(string& message){
     if(message.substr(0, 7) == "ECGSYNC"){
         schedule(ECG_SYNC_DELAY);
+    }
+}
+
+void erEcgVisualization::readData(){
+    stream.openReadStream(ECG_DATA_SOURCE);
+    numRows = 0;
+    int i = 0;
+    while(!stream.eof()){
+        stream.readNextLine();
+        if(i >= ECG_START_ROW && i < ECG_EXIT_ROW){
+            for(int j = 0; j < stream.getCurrentTokenSize(); j += ECG_NUM_COLS){
+                data.push_back(stream.getValue<float>(j+1));
+            }
+            numRows++;
+        }
+        i++;
+    }
+}
+
+void erEcgVisualization::loadNewPoints(){
+    for(int n = lastRow; n <= currentRow; n++){
+        nthPeriodPosition = ofMap(n, lastRow, currentRow, lastPeriodPosition, periodPosition);
+        point.x = ofMap(nthPeriodPosition, 0, 1, 0, width);
+        point.y = ofMap(data.at(n), ECG_HIGHEST_VALUE, ECG_LOWEST_VALUE, 0, height);
+        if(n > lastRow){
+            points.push_back(point);
+        }
+    }
+}
+
+void erEcgVisualization::trimPointsToSize(){
+    if(points.size() > ECG_MAX_POINTS){
+        points.erase(points.begin(), points.begin() + points.size() - ECG_MAX_POINTS);
     }
 }
 

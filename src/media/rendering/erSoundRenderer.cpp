@@ -2,9 +2,10 @@
 
 void erSoundRenderer::setup(){
     isSetup = true;
+    syncing = false;
     erGlitchRenderer::setup();
-    syncing = syncedBefore = false;
 
+    ecgTimer.setup();
     manager.setup();
     setupEcg();
     setupStatic();
@@ -15,10 +16,7 @@ void erSoundRenderer::setup(){
 }
 
 void erSoundRenderer::setupEcg(){
-    startOffset = settings.ecgPeriod * settings.ecgBeginBeepAt;
-    endOffset = settings.ecgPeriod * settings.ecgEndBeepAt;
     syncTime = 0;
-
     ecgSynth.setup("ECG", AUDIOUNIT_MASSIVE);
     manager.createChain(&ecgChain, "ecg").link(&ecgSynth).toMixer();
     ecgChain.sendMidiOn(60);
@@ -74,8 +72,11 @@ void erSoundRenderer::ensureSetup(){
 
 void erSoundRenderer::update(ofEventArgs& args){
     currentTime = ofGetElapsedTimeMillis();
-    currentEcgPosition = getCurrentEcgPosition();
-    ecgSynth.set(Massive_master_volume, withinEcgBeepPeriod(currentEcgPosition) ? settings.ecgVolume : 0);
+
+    if(ecgTimer.isStarted()){
+        ecgTimer.update();
+        ecgSynth.set(Massive_master_volume, ecgTimer.isWithinEcgBeepPeriod() ? settings.ecgVolume : 0);
+    }
 
     for(int channel = 1; channel <= settings.numChannels; channel++){
         float volume = withinGlitchPeriod(channel, currentTime) ? settings.staticVolume : 0;
@@ -84,14 +85,17 @@ void erSoundRenderer::update(ofEventArgs& args){
 }
 
 void erSoundRenderer::draw(ofEventArgs& args){
-    if(settings.serverDrawingEnabled && hasSyncedBefore()){
+    if(settings.serverDrawingEnabled && ecgTimer.isStarted()){
         float progressThroughPeriod;
-        int progressOnScreen = ofMap(currentEcgPosition, 0, settings.ecgPeriod, 0, ofGetWidth());
+        int progressOnScreen = ofMap(ecgTimer.getPeriodPosition(), 0, 1, 0, ofGetWidth());
         for(int x = 0; x < progressOnScreen; x++){
-            progressThroughPeriod = ofMap(x, 0, ofGetWidth(), 0, settings.ecgPeriod);
-            ofSetColor(withinEcgBeepPeriod(progressThroughPeriod) ? ofColor::green : ofColor::white);
+            progressThroughPeriod = ofMap(x, 0, ofGetWidth(), 0, 1);
+            ofSetColor(ecgTimer.isWithinEcgBeepPeriod(progressThroughPeriod) ? ofColor::green : ofColor::white);
             ofDrawRectangle(x, ofGetHeight(), 1, -2);
         }
+        ofDrawBitmapString("Progress:         " + ofToString(ecgTimer.getPeriodPosition()), ofGetWidth() - 300, ofGetHeight() - 360);
+        ofDrawBitmapString("Current duration: " + ofToString(ecgTimer.getPeriodDuration()), ofGetWidth() - 300, ofGetHeight() - 330);
+        ofDrawBitmapString("Current ECG BPM:  " + ofToString(ecgTimer.getCurrentBpm()), ofGetWidth() - 300, ofGetHeight() - 300);
     }
 }
 
@@ -100,27 +104,14 @@ void erSoundRenderer::syncEcg(float delay){
     syncing = true;
 }
 
-bool erSoundRenderer::withinEcgBeepPeriod(float position){
-    if(hasSyncedBefore()){
-        return position > startOffset && position < endOffset;
-    }
-    return false;
-}
-
 bool erSoundRenderer::isSyncing(){
     return syncing;
 }
 
-bool erSoundRenderer::hasSyncedBefore(){
-    return syncedBefore;
+bool erSoundRenderer::hasSynced(){
+    return ecgTimer.isStarted();
 }
 
 void erSoundRenderer::playSound(string videoPath){
     videoPlayers[videoPath].play();
-}
-
-float erSoundRenderer::getCurrentEcgPosition(){
-    timeSinceSync = currentTime - syncTime;
-    currentEcgPosition = fmod(timeSinceSync, settings.ecgPeriod);
-    return currentEcgPosition;
 }

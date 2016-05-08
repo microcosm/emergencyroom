@@ -17,7 +17,9 @@
     },
 
     "ecg-beep": {
-        "bpm": 38,
+        "highest-bpm": 46,
+        "lowest-bpm": 30,
+        "bpm-period-secs": 180,
         "begin-at": 0.34,
         "end-at": 0.44
     },

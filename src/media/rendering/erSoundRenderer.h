@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erSettings.h"
+#include "erEcgTimer.h"
 #include "erFileUtils.h"
 #include "ofxAudioUnit.h"
 #include "ofxAudioUnitManager.h"
@@ -20,20 +21,16 @@ public:
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     void syncEcg(float delay);
-    bool withinEcgBeepPeriod(float position);
     bool isSyncing();
-    bool hasSyncedBefore();
+    bool hasSynced();
     void playSound(string videoPath);
 
 protected:
     void beginPlayback(){
-        manager.bpm.reset();
-        syncTime = ofGetElapsedTimeMillis();
         syncing = false;
-        syncedBefore = true;
+        syncTime = ofGetElapsedTimeMillis();
+        ecgTimer.start();
     }
-
-    float getCurrentEcgPosition();
 
     ofxAudioUnitManager manager;
     ofxManagedAudioUnit ecgSynth;
@@ -55,8 +52,8 @@ protected:
     ofxManagedAudioUnitMixer videoMixer;
 
     u_int64_t currentTime, syncTime, timeSinceSync;
-    float startOffset, endOffset, currentEcgPosition;
 
     bool isSetup = false;
-    bool syncing, syncedBefore;
+    bool syncing;
+    erEcgTimer ecgTimer;
 };

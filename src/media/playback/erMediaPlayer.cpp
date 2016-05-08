@@ -24,7 +24,7 @@ void erMediaPlayer::draw(ofEventArgs& args){
     if(network->isRunningServer() && settings.serverDrawingEnabled){
         if(soundRenderer.isSyncing()){
             ofDrawBitmapString("SYNCING...", 130, ofGetHeight() - 208);
-        }else if(soundRenderer.hasSyncedBefore()){
+        }else if(soundRenderer.hasSynced()){
             ofDrawBitmapString("SYNCED", 130, ofGetHeight() - 208);
         }else{
             ofDrawBitmapString("NOT SYNCED", 130, ofGetHeight() - 208);

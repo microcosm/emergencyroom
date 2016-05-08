@@ -31,8 +31,9 @@ void erSettings::initSettings(){
     isServer = false;
     isEcg = false;
 
-    ecgPeriod = 1000;
-    ecgBpm = 60;
+    ecgHighestBpm = 60;
+    ecgLowestBpm = 30;
+    ecgBpmPeriodSecs = 1;
     ecgBeginBeepAt = 0.15;
     ecgEndBeepAt = 0.3;
 
@@ -67,21 +68,22 @@ void erSettings::applySettings(ofxJSONElement& json){
     ecgVolume       = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_ECG].asFloat(), 0, 1);
     staticVolume    = masterVolume * ofClamp(json[ER_SERVER_VOLUMES][ER_STATIC].asFloat(), 0, 1);
 
-    ecgBpm         = json[ER_ECG_BEEP][ER_BPM].asFloat();
-    ecgBeginBeepAt = json[ER_ECG_BEEP][ER_BEGIN_AT].asFloat();
-    ecgEndBeepAt   = json[ER_ECG_BEEP][ER_END_AT].asFloat();
-    ecgPeriod      = 60000 / ecgBpm;
+    ecgHighestBpm    = json[ER_ECG_BEEP][ER_HIGHEST_BPM].asFloat();
+    ecgLowestBpm     = json[ER_ECG_BEEP][ER_LOWEST_BPM].asFloat();
+    ecgBpmPeriodSecs = json[ER_ECG_BEEP][ER_BPM_PERIOD_SECS].asInt();
+    ecgBeginBeepAt   = json[ER_ECG_BEEP][ER_BEGIN_AT].asFloat();
+    ecgEndBeepAt     = json[ER_ECG_BEEP][ER_END_AT].asFloat();
 
-    liveMediaPath          = json[ER_MEDIA_FILES][ER_LIVE_PATH].asString();
-    previewMediaPath       = json[ER_MEDIA_FILES][ER_PREVIEW_PATH].asString();
-    testSoundPath          = json[ER_MEDIA_FILES][ER_TEST_SOUND_PATH].asString();
-    testVideoPath          = json[ER_MEDIA_FILES][ER_TEST_VIDEO_PATH].asString();
-    breathingSoundPath     = json[ER_MEDIA_FILES][ER_BREATHING_SOUND_PATH].asString();
-    liveMediaDir           = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
-    previewMediaDir        = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();
-    textMediaDir           = json[ER_MEDIA_FILES][ER_TEXT_DIR].asString();
-    videoFileExtension     = json[ER_MEDIA_FILES][ER_VIDEO_FILE_EXTENSION].asString();
-    textFileExtension      = json[ER_MEDIA_FILES][ER_TEXT_FILE_EXTENSION].asString();
+    liveMediaPath      = json[ER_MEDIA_FILES][ER_LIVE_PATH].asString();
+    previewMediaPath   = json[ER_MEDIA_FILES][ER_PREVIEW_PATH].asString();
+    testSoundPath      = json[ER_MEDIA_FILES][ER_TEST_SOUND_PATH].asString();
+    testVideoPath      = json[ER_MEDIA_FILES][ER_TEST_VIDEO_PATH].asString();
+    breathingSoundPath = json[ER_MEDIA_FILES][ER_BREATHING_SOUND_PATH].asString();
+    liveMediaDir       = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
+    previewMediaDir    = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();
+    textMediaDir       = json[ER_MEDIA_FILES][ER_TEXT_DIR].asString();
+    videoFileExtension = json[ER_MEDIA_FILES][ER_VIDEO_FILE_EXTENSION].asString();
+    textFileExtension  = json[ER_MEDIA_FILES][ER_TEXT_FILE_EXTENSION].asString();
 }
 
 string erSettings::getComputerName(){
