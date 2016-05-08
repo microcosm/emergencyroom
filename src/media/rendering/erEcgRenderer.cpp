@@ -67,8 +67,6 @@ void erEcgRenderer::draw(ofEventArgs& args){
     }
     if(settings.clientDrawingEnabled){
         masker.drawOverlay();
-        ofDrawBitmapString(ofGetFrameRate(), 10, 10);
-        ofDrawBitmapString(ofToString(width) + " x " + ofToString(height), 10, 36);
         if(scheduled){
             ofDrawBitmapString("SYNCING...", 10, 72);
         }

@@ -27,11 +27,15 @@ void ofApp::setup(){
         player.setup(&network);
         network.setup();
         sequencer.setup(&network, &loader, &player);
-        ofAddListener(ofEvents().draw, this, &ofApp::draw);
     }
+
+    ofAddListener(ofEvents().draw, this, &ofApp::draw);
 }
 
 void ofApp::update(){
+    width = ofGetWidth();
+    height = ofGetHeight();
+
     if(loader.isLoaded() && !videoSoundAssigned){
         player.useSoundRendererFor(loader.audibleVideos);
         videoSoundAssigned = true;
@@ -49,20 +53,25 @@ void ofApp::update(){
 }
 
 void ofApp::draw(ofEventArgs& args){
+    ofSetColor(ofColor::white);
+
     if(loader.hasErrors()){
         loader.drawErrors();
     }
 
     if(network.isRunningServer() && settings.serverDrawingEnabled){
-        ofSetColor(ofColor::white);
-        ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nD            toggle client display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, ofGetHeight() - 168);
-        font.drawString("fps: " + ofToString(int(ofGetFrameRate())), 490, ofGetHeight() - 60);
+        ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nD            toggle client display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, height - 168);
+        drawFps(490, height - 60);
     }
 
-    if(network.isRunningClient() && settings.clientDrawingEnabled){
-        ofSetColor(ofColor::white);
-        ofDrawBitmapString("Computer name: '" + settings.computerName + "'", ofGetWidth() - 300, ofGetHeight() - 40);
+    if((network.isRunningClient() || settings.isEcg) && settings.clientDrawingEnabled){
+        ofDrawBitmapString("Computer name: '" + settings.computerName + "'\nDimensions:    " + ofToString(width) + " x " + ofToString(height), width - 250, 40);
+        drawFps(320, height - 46);
     }
+}
+
+void ofApp::drawFps(int x, int y){
+    font.drawString("fps: " + ofToString(int(ofGetFrameRate())), x, y);
 }
 
 void ofApp::keyReleased(int key){

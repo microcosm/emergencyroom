@@ -11,6 +11,7 @@ public:
     void setup();
     void update();
     void draw(ofEventArgs& args);
+    void drawFps(int x, int y);
     void keyReleased(int key);
 
 protected:
@@ -21,4 +22,5 @@ protected:
     erSequencer sequencer;
     erPlayParams params;
     bool videoSoundAssigned;
+    int width, height;
 };
