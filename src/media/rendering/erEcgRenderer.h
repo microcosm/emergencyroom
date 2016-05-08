@@ -37,7 +37,6 @@ public:
     void setup(erNetwork* _network);
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
-    virtual void keyReleased(ofKeyEventArgs& args);
     void messageReceived(string& messageStr);
 
 protected:
@@ -74,7 +73,6 @@ protected:
     ofPtr<ofxShivaVGRenderer> shivaRenderer;
     ofPtr<ofBaseRenderer> defaultRenderer;
     ofxPostProcessing post;
-    bool overlay;
 
     float periodPosition, nthPeriodPosition, lastPeriodPosition;//?
     ofPoint point, oldPoint, gridIncrement;

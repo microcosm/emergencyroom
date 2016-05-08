@@ -12,7 +12,6 @@ void erEcgRenderer::setup(erNetwork* _network){
     height = ofGetHeight();
 
     isPlaying = false;
-    overlay = false;
     ecgTimer.setup();
 
     lineColor = ofColor(234, 242, 255);
@@ -36,7 +35,6 @@ void erEcgRenderer::setup(erNetwork* _network){
 
     ofAddListener(ofEvents().update, this, &erEcgRenderer::update);
     ofAddListener(ofEvents().draw, this, &erEcgRenderer::draw);
-    ofAddListener(ofEvents().keyReleased, this, &erEcgRenderer::keyReleased);
     ofAddListener(network->clientMessageReceived(), this, &erEcgRenderer::messageReceived);
 }
 
@@ -67,19 +65,13 @@ void erEcgRenderer::draw(ofEventArgs& args){
         post.end();
         post.draw();
     }
-    if(overlay){
+    if(settings.clientDrawingEnabled){
         masker.drawOverlay();
         ofDrawBitmapString(ofGetFrameRate(), 10, 10);
         ofDrawBitmapString(ofToString(width) + " x " + ofToString(height), 10, 36);
         if(scheduled){
             ofDrawBitmapString("SYNCING...", 10, 72);
         }
-    }
-}
-
-void erEcgRenderer::keyReleased(ofKeyEventArgs& args){
-    if(args.key == 'o'){
-        overlay = !overlay;
     }
 }
 
