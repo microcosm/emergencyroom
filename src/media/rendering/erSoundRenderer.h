@@ -6,9 +6,9 @@
 #include "ofxAudioUnit.h"
 #include "ofxAudioUnitManager.h"
 #include "erSyncedMediaPlayer.h"
-#include "erGlitchRenderer.h"
+#include "erGlitchTimer.h"
 
-class erSoundRenderer : erSyncedMediaPlayer, public erGlitchRenderer{
+class erSoundRenderer : erSyncedMediaPlayer, public erGlitchTimer{
 
 public:
     void setup();

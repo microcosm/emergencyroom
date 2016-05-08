@@ -3,7 +3,7 @@
 void erSoundRenderer::setup(){
     isSetup = true;
     syncing = false;
-    erGlitchRenderer::setup();
+    erGlitchTimer::setup();
 
     ecgTimer.setup();
     manager.setup();

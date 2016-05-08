@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "erSettings.h"
 
-class erGlitchRenderer{
+class erGlitchTimer{
 
 public:
     void setup();

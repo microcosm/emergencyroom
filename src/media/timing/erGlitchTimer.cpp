@@ -1,20 +1,20 @@
-#include "erGlitchRenderer.h"
+#include "erGlitchTimer.h"
 
-void erGlitchRenderer::setup(){
+void erGlitchTimer::setup(){
     initializeChannels();
 }
 
-void erGlitchRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration, int channel){
+void erGlitchTimer::newOpeningGlitchPeriod(u_int64_t from, float duration, int channel){
     channelsToOpeningGlitchStarts[channel] = from;
     channelsToOpeningGlitchEnds[channel] = from + duration;
 }
 
-void erGlitchRenderer::newClosingGlitchPeriod(u_int64_t from, float duration, int channel){
+void erGlitchTimer::newClosingGlitchPeriod(u_int64_t from, float duration, int channel){
     channelsToClosingGlitchStarts[channel] = from;
     channelsToClosingGlitchEnds[channel] = from + duration;
 }
 
-void erGlitchRenderer::newIntermediateGlitchPeriod(int i, u_int64_t from, float duration, int channel){
+void erGlitchTimer::newIntermediateGlitchPeriod(int i, u_int64_t from, float duration, int channel){
     if(i == 1){
         channelsToIntermediateGlitchStarts1[channel] = from;
         channelsToIntermediateGlitchEnds1[channel] = from + duration;
@@ -27,7 +27,7 @@ void erGlitchRenderer::newIntermediateGlitchPeriod(int i, u_int64_t from, float 
     }
 }
 
-bool erGlitchRenderer::withinGlitchPeriod(int channel, u_int64_t time){
+bool erGlitchTimer::withinGlitchPeriod(int channel, u_int64_t time){
     if(time > channelsToOpeningGlitchStarts[channel] && time < channelsToOpeningGlitchEnds[channel]){
         return true;
     }
@@ -51,7 +51,7 @@ bool erGlitchRenderer::withinGlitchPeriod(int channel, u_int64_t time){
     return false;
 }
 
-void erGlitchRenderer::initializeChannels(){
+void erGlitchTimer::initializeChannels(){
     for(int i = 1; i <= settings.numChannels; i++){
         channelsToOpeningGlitchStarts[i] = 0;
         channelsToOpeningGlitchEnds[i] = 0;

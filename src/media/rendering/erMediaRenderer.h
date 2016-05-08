@@ -2,11 +2,11 @@
 #include "ofMain.h"
 #include "erSyncedSoundPlayer.h"
 #include "erSyncedVideoPlayer.h"
-#include "erGlitchRenderer.h"
+#include "erGlitchTimer.h"
 #include "erNetwork.h"
 #include "ofxEasyFboGlitch.h"
 
-class erMediaRenderer : public erGlitchRenderer{
+class erMediaRenderer : public erGlitchTimer{
 
 public:
     void setup(erNetwork* _network);

@@ -1,10 +1,10 @@
-#include "erEcgVisualization.h"
+#include "erEcgRenderer.h"
 
 //Common resolutions
 //MBP retina: 1440 x 900
 //Monoprice: 2560 x 1600 / 2048 x 1280 / 1600 x 1000 / 1280 x 800
 
-void erEcgVisualization::setup(erNetwork* _network){
+void erEcgRenderer::setup(erNetwork* _network){
     network = _network;
     timeOffset = 0;
 
@@ -34,13 +34,13 @@ void erEcgVisualization::setup(erNetwork* _network){
 
     readData();
 
-    ofAddListener(ofEvents().update, this, &erEcgVisualization::update);
-    ofAddListener(ofEvents().draw, this, &erEcgVisualization::draw);
-    ofAddListener(ofEvents().keyReleased, this, &erEcgVisualization::keyReleased);
-    ofAddListener(network->clientMessageReceived(), this, &erEcgVisualization::messageReceived);
+    ofAddListener(ofEvents().update, this, &erEcgRenderer::update);
+    ofAddListener(ofEvents().draw, this, &erEcgRenderer::draw);
+    ofAddListener(ofEvents().keyReleased, this, &erEcgRenderer::keyReleased);
+    ofAddListener(network->clientMessageReceived(), this, &erEcgRenderer::messageReceived);
 }
 
-void erEcgVisualization::update(ofEventArgs& args){
+void erEcgRenderer::update(ofEventArgs& args){
     if(isPlaying){
         ecgTimer.update();
 
@@ -54,7 +54,7 @@ void erEcgVisualization::update(ofEventArgs& args){
     }
 }
 
-void erEcgVisualization::draw(ofEventArgs& args){
+void erEcgRenderer::draw(ofEventArgs& args){
     ofBackground(ofColor::black);
     if(isPlaying && points.size() > 0){
         post.begin();
@@ -77,19 +77,19 @@ void erEcgVisualization::draw(ofEventArgs& args){
     }
 }
 
-void erEcgVisualization::keyReleased(ofKeyEventArgs& args){
+void erEcgRenderer::keyReleased(ofKeyEventArgs& args){
     if(args.key == 'o'){
         overlay = !overlay;
     }
 }
 
-void erEcgVisualization::messageReceived(string& message){
+void erEcgRenderer::messageReceived(string& message){
     if(message.substr(0, 7) == "ECGSYNC"){
         schedule(ECG_SYNC_DELAY);
     }
 }
 
-void erEcgVisualization::readData(){
+void erEcgRenderer::readData(){
     stream.openReadStream(ECG_DATA_SOURCE);
     numRows = 0;
     int i = 0;
@@ -105,7 +105,7 @@ void erEcgVisualization::readData(){
     }
 }
 
-void erEcgVisualization::loadNewPoints(){
+void erEcgRenderer::loadNewPoints(){
     for(int n = lastRow; n <= currentRow; n++){
         nthPeriodPosition = ofMap(n, lastRow, currentRow, lastPeriodPosition, periodPosition);
         point.x = ofMap(nthPeriodPosition, 0, 1, 0, width);
@@ -116,13 +116,13 @@ void erEcgVisualization::loadNewPoints(){
     }
 }
 
-void erEcgVisualization::trimPointsToSize(){
+void erEcgRenderer::trimPointsToSize(){
     if(points.size() > ECG_MAX_POINTS){
         points.erase(points.begin(), points.begin() + points.size() - ECG_MAX_POINTS);
     }
 }
 
-void erEcgVisualization::createLinearMaskImage(){
+void erEcgRenderer::createLinearMaskImage(){
     linearMaskImage.allocate(width, height, OF_IMAGE_COLOR);
     for(int x = 0; x < width; x++){
         for(int y = 0; y < height; y++){
@@ -136,20 +136,20 @@ void erEcgVisualization::createLinearMaskImage(){
     linearMaskImage.update();
 }
 
-void erEcgVisualization::createRadialMaskShape(){
+void erEcgRenderer::createRadialMaskShape(){
     radialShapeSystem.setup();
     radialShape.setupGradientRing(60, -(height * ECG_RADIAL_MULTIPLIER), height * ECG_RADIAL_MULTIPLIER);
     radialShape.setPosition(width * 0.5, height * 0.5);
     radialShapeSystem.add(radialShape);
 }
 
-void erEcgVisualization::createLineHeadShape(){
+void erEcgRenderer::createLineHeadShape(){
     lineHeadShapeSystem.setup();
     lineHeadShape.setupGradientRing(20, -ECG_LINE_HEAD_SIZE, ECG_LINE_HEAD_SIZE);
     lineHeadShapeSystem.add(lineHeadShape);
 }
 
-void erEcgVisualization::renderGridLayer(){
+void erEcgRenderer::renderGridLayer(){
     currentRow = 0;
     gridIncrement.x = width / ECG_GRID_DIVISIONS_X;
     gridIncrement.y = height / ECG_GRID_DIVISIONS_Y;
@@ -169,7 +169,7 @@ void erEcgVisualization::renderGridLayer(){
     masker.endLayer(0);
 }
 
-void erEcgVisualization::renderEcgLineLayer(){
+void erEcgRenderer::renderEcgLineLayer(){
     masker.beginLayer(1);
     {
         ofClear(ofColor(ofColor::black, 0));
@@ -190,7 +190,7 @@ void erEcgVisualization::renderEcgLineLayer(){
     masker.endLayer(1);
 }
 
-void erEcgVisualization::renderEcgLineMask(){
+void erEcgRenderer::renderEcgLineMask(){
     masker.beginMask(1);
     {
         ofBackground(ofColor::black);
@@ -201,7 +201,7 @@ void erEcgVisualization::renderEcgLineMask(){
     masker.endMask(1);
 }
 
-void erEcgVisualization::renderRadialOverlayLayer(){
+void erEcgRenderer::renderRadialOverlayLayer(){
     masker.beginLayer(2);
     {
         ofBackground(ofColor::black);
@@ -214,7 +214,7 @@ void erEcgVisualization::renderRadialOverlayLayer(){
     masker.endLayer(2);
 }
 
-void erEcgVisualization::renderRadialOverlayMask(){
+void erEcgRenderer::renderRadialOverlayMask(){
     masker.beginMask(2);
     {
         ofBackground(ofColor::black);

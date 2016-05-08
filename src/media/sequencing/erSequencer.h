@@ -6,7 +6,7 @@
 #include "erMediaPlayer.h"
 #include "erPlayParams.h"
 #include "erLogger.h"
-#include "erEcgVisualization.h"
+#include "erEcgRenderer.h"
 
 #define ER_VIDEO_LENGTH 120
 #define ER_THEME_LENGTH 1800
@@ -32,7 +32,7 @@ protected:
     erMediaLoader* loader;
     erMediaPlayer* player;
     erPlayParams params;
-    erEcgVisualization ecg;
+    erEcgRenderer ecg;
 
     erMediaQueue queue;
     map<string, erMediaQueue> queues;

@@ -1,7 +1,7 @@
 #include "erMediaRenderer.h"
 
 void erMediaRenderer::setup(erNetwork* _network){
-    erGlitchRenderer::setup();
+    erGlitchTimer::setup();
     network = _network;
     bufferEmpty = true;
     decoyFramesRemaining = 0;

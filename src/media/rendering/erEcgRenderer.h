@@ -31,7 +31,7 @@
 
 #define ECG_SYNC_DELAY 3000
 
-class erEcgVisualization : erSyncedMediaPlayer{
+class erEcgRenderer : erSyncedMediaPlayer{
 
 public:
     void setup(erNetwork* _network);
