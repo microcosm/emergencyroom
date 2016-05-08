@@ -19,6 +19,7 @@ public:
     void setupShuffledIndexing();
     virtual void update(ofEventArgs& updateArgs);
     void messageReceived(string& messageStr);
+    string getCurrentCollection();
 protected:
     void playNewVideo();
     void chooseNewTheme();

@@ -42,6 +42,10 @@ void erSequencer::messageReceived(string& message){
     }
 }
 
+string erSequencer::getCurrentCollection(){
+    return currentCollection;
+}
+
 void erSequencer::playNewVideo(){
     if(queuesLoaded && currentCollection.length() > 0){
         for(auto& queue : queues){

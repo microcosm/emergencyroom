@@ -5,7 +5,8 @@ erSettings settings;
 void ofApp::setup(){
     ofSetFrameRate(60);
     ofSetWindowShape(1200, 800);
-    font.load("font/klima-medium-web.ttf", 100);
+    bigFont.load(ER_FONT_PATH, 100);
+    smallFont.load(ER_FONT_PATH, 50);
     videoSoundAssigned = false;
     settings.load();
     if(settings.fullscreenByDefault){
@@ -62,6 +63,7 @@ void ofApp::draw(ofEventArgs& args){
     if(network.isRunningServer() && settings.serverDrawingEnabled){
         ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nD            toggle client display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, height - 168);
         drawFps(490, height - 60);
+        smallFont.drawString(sequencer.getCurrentCollection(), 490, height - 220);
     }
 
     if((network.isRunningClient() || settings.isEcg) && settings.clientDrawingEnabled){
@@ -71,7 +73,7 @@ void ofApp::draw(ofEventArgs& args){
 }
 
 void ofApp::drawFps(int x, int y){
-    font.drawString("fps: " + ofToString(int(ofGetFrameRate())), x, y);
+    bigFont.drawString("fps: " + ofToString(int(ofGetFrameRate())), x, y);
 }
 
 void ofApp::keyReleased(int key){

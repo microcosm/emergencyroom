@@ -4,6 +4,7 @@
 #include "erMediaPlayer.h"
 #include "erLogger.h"
 #include "erSettings.h"
+#define ER_FONT_PATH "font/klima-medium-web.ttf"
 
 class ofApp : public ofBaseApp{
 
@@ -15,7 +16,7 @@ public:
     void keyReleased(int key);
 
 protected:
-    ofTrueTypeFont font;
+    ofTrueTypeFont bigFont, smallFont;
     erMediaLoader loader;
     erMediaPlayer player;
     erNetwork network;
