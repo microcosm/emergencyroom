@@ -93,9 +93,6 @@ void erSoundRenderer::draw(ofEventArgs& args){
             ofSetColor(ecgTimer.isWithinEcgBeepPeriod(progressThroughPeriod) ? ofColor::green : ofColor::white);
             ofDrawRectangle(x, ofGetHeight(), 1, -2);
         }
-        ofDrawBitmapString("Progress:         " + ofToString(ecgTimer.getPeriodPosition()), ofGetWidth() - 300, ofGetHeight() - 360);
-        ofDrawBitmapString("Current duration: " + ofToString(ecgTimer.getPeriodDuration()), ofGetWidth() - 300, ofGetHeight() - 330);
-        ofDrawBitmapString("Current ECG BPM:  " + ofToString(ecgTimer.getCurrentBpm()), ofGetWidth() - 300, ofGetHeight() - 300);
     }
 }
 
@@ -114,4 +111,8 @@ bool erSoundRenderer::hasSynced(){
 
 void erSoundRenderer::playSound(string videoPath){
     videoPlayers[videoPath].play();
+}
+
+erEcgTimer* erSoundRenderer::getEcgTimer(){
+    return &ecgTimer;
 }

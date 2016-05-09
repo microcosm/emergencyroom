@@ -4,6 +4,7 @@
 #include "erSoundRenderer.h"
 #include "erTextRenderer.h"
 #include "erNetwork.h"
+#include "erEcgTimer.h"
 #include "erSettings.h"
 
 #define COSMOLOGICAL_CONSTANT 500
@@ -29,6 +30,7 @@ public:
     void calculateVideoPlaybackVariables(erPlayParams params);
     void calculateSoundPlaybackVariables();
     string getClientVideoState();
+    erEcgTimer* getEcgTimer();
 
 protected:
     ofPtr<erSyncedVideoPlayer> getDecoyPlayer();

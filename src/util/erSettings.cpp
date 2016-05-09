@@ -47,6 +47,9 @@ void erSettings::initSettings(){
     videoFileExtension = "";
     textFileExtension = "";
 
+    shortestSequenceDelay = 500;
+    longestSequenceDelay = 1000;
+
     serverDrawingEnabled = true;
     clientDrawingEnabled = true;
 }
@@ -73,6 +76,9 @@ void erSettings::applySettings(ofxJSONElement& json){
     ecgBpmPeriodSecs = json[ER_ECG_BEEP][ER_BPM_PERIOD_SECS].asInt();
     ecgBeginBeepAt   = json[ER_ECG_BEEP][ER_BEGIN_AT].asFloat();
     ecgEndBeepAt     = json[ER_ECG_BEEP][ER_END_AT].asFloat();
+
+    shortestSequenceDelay = json[ER_MEDIA_SEQUENCING][ER_SHORTEST_DELAY].asInt();
+    longestSequenceDelay  = json[ER_MEDIA_SEQUENCING][ER_LONGEST_DELAY].asInt();
 
     liveMediaPath      = json[ER_MEDIA_FILES][ER_LIVE_PATH].asString();
     previewMediaPath   = json[ER_MEDIA_FILES][ER_PREVIEW_PATH].asString();

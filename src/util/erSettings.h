@@ -30,6 +30,10 @@
 #define ER_BEGIN_AT "begin-at"
 #define ER_END_AT "end-at"
 
+#define ER_MEDIA_SEQUENCING "media-sequencing"
+#define ER_SHORTEST_DELAY "shortest-delay"
+#define ER_LONGEST_DELAY "longest-delay"
+
 #define ER_MEDIA_FILES "media-files"
 #define ER_LIVE_PATH "live-path"
 #define ER_PREVIEW_PATH "preview-path"
@@ -64,6 +68,9 @@ public:
     int ecgBpmPeriodSecs;
     float ecgBeginBeepAt;
     float ecgEndBeepAt;
+
+    int shortestSequenceDelay;
+    int longestSequenceDelay;
 
     string liveMediaPath;
     string previewMediaPath;

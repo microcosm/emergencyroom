@@ -24,6 +24,7 @@ public:
     bool isSyncing();
     bool hasSynced();
     void playSound(string videoPath);
+    erEcgTimer* getEcgTimer();
 
 protected:
     void beginPlayback(){

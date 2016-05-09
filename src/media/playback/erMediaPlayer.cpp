@@ -151,3 +151,7 @@ void erMediaPlayer::calculateSoundPlaybackVariables(){
 string erMediaPlayer::getClientVideoState(){
     return channelRenderer.getClientVideoState();
 }
+
+erEcgTimer* erMediaPlayer::getEcgTimer(){
+    return soundRenderer.getEcgTimer();
+}

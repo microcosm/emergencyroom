@@ -4,6 +4,9 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     network = _network;
     loader = _loader;
     player = _player;
+    ecgTimer = player->getEcgTimer();
+    currentSequencerDelay = -1;
+    nextTriggerTime = 0;
 
     currentCollection = "";
     currentCollectionIndex = -1;
@@ -14,6 +17,7 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     translater = network->getTranslater();
 
     ofAddListener(ofEvents().update, this, &erSequencer::update);
+    ofAddListener(ofEvents().draw, this, &erSequencer::draw);
     ofAddListener(network->clientMessageReceived(), this, &erSequencer::messageReceived);
 }
 
@@ -23,14 +27,25 @@ void erSequencer::setupEcgMode(erNetwork* _network, erMediaPlayer* _player){
     ecg.setup(network);
 }
 
-void erSequencer::update(ofEventArgs& updateArgs){
+void erSequencer::update(ofEventArgs& args){
+    setSequencerDelay();
     attemptToLoadMediaQueues();
     attemptToLoadCollections();
-    if(network->isRunningServer() && ofGetFrameNum() % ER_VIDEO_LENGTH == 0){
+    if(network->isRunningServer() && ofGetElapsedTimeMillis() > nextTriggerTime && currentSequencerDelay != -1){
+        nextTriggerTime += currentSequencerDelay;
         playNewVideo();
     }
     if(network->isRunningServer() && (ofGetFrameNum() % ER_THEME_LENGTH == 0 || currentCollection == "")){
         chooseNewTheme();
+    }
+}
+
+void erSequencer::draw(ofEventArgs& args){
+    if(ecgTimer != NULL && ecgTimer->isStarted()){
+        ofDrawBitmapString("Progress:         " + ofToString(ecgTimer->getPeriodPosition()), ofGetWidth() - 260, ofGetHeight() - 360);
+        ofDrawBitmapString("Current duration: " + ofToString(ecgTimer->getPeriodDuration()), ofGetWidth() - 260, ofGetHeight() - 330);
+        ofDrawBitmapString("Current ECG BPM:  " + ofToString(ecgTimer->getCurrentBpm()), ofGetWidth() - 260, ofGetHeight() - 300);
+        ofDrawBitmapString("Current delay:    " + ofToString(currentSequencerDelay), ofGetWidth() - 260, ofGetHeight() - 270);
     }
 }
 
@@ -39,6 +54,12 @@ void erSequencer::messageReceived(string& message){
     params = translater->toParams(message);
     if(network->isRunningClient() && params.isPlayable()){
         player->playClient(params);
+    }
+}
+
+void erSequencer::setSequencerDelay(){
+    if(ecgTimer != NULL && ecgTimer->isStarted()){
+        currentSequencerDelay = ofMap(ecgTimer->getCurrentBpm(), settings.ecgLowestBpm, settings.ecgHighestBpm, settings.longestSequenceDelay, settings.shortestSequenceDelay);
     }
 }
 
