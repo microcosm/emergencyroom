@@ -26,7 +26,7 @@ protected:
 
     void beginPlayback(){
         setSpeed(params.getSpeed());
-        play();
+        if(!isPlaying()) play();
 
         if(useSoundRenderer){
             ofSleepMillis(soundDelay);

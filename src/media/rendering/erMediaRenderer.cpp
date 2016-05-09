@@ -5,6 +5,8 @@ void erMediaRenderer::setup(erNetwork* _network){
     network = _network;
     bufferEmpty = true;
     decoyFramesRemaining = 0;
+    minDecoyFrames = 3;
+    maxDecoyFrames = 7;
     fbo.allocate(ofGetWidth(), ofGetHeight());
     fboGlitch.allocate(ofGetWidth(), ofGetHeight());
     ofAddListener(ofEvents().update, this, &erMediaRenderer::update);
@@ -14,6 +16,9 @@ void erMediaRenderer::update(ofEventArgs& args){
     testVideoPlayer->update();
     for(auto const& player : *videoPlayers){
         player.second->update();
+    }
+    if(network->isRunningClient() && decoyGlitchPlayer != NULL){
+        updateDecoyPlayer();
     }
 }
 
@@ -31,7 +36,6 @@ void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _
 
 void erMediaRenderer::assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer){
     decoyGlitchPlayer = _videoPlayer;
-    decoyGlitchPlayer->play();
 }
 
 void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel){
@@ -58,27 +62,44 @@ void erMediaRenderer::drawStatic(int x, int y, int width, int height){
         bufferEmpty = false;
     }
     fboGlitch.draw(fbo, x, y, width, height);
+    playbackState = ER_PLAYBACK_STATIC;
 }
 
 void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height){
     player->draw(x, y, width, height);
+    playbackState = ER_PLAYBACK_NORMAL;
 }
 
 void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height){
     fbo.begin();
     {
-        if(decoyFramesRemaining > 0 && decoyGlitchPlayer->isPlaying()){
+        if(decoyFramesRemaining > 0){
+            decoyGlitchPlayer->play();
             decoyGlitchPlayer->update();
             decoyGlitchPlayer->draw(0, 0, fbo.getWidth(), fbo.getHeight());
-            decoyFramesRemaining--;
+            playbackState = ER_PLAYBACK_DECOY;
         }else{
             player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+            playbackState = ER_PLAYBACK_GLITCH;
         }
 
-        if(decoyFramesRemaining == 0 && ofRandom(1) < 0.05){
-            decoyFramesRemaining = floor(ofRandom(2, 5));
+        float rand = ofRandom(1);
+        if(decoyFramesRemaining == 0 && rand < 0.8){
+            decoyFramesRemaining = floor(ofRandom(minDecoyFrames, maxDecoyFrames));
         }
     }
     fbo.end();
     fboGlitch.draw(fbo, x, y, width, height);
+}
+
+string erMediaRenderer::getPlaybackState(){
+    return playbackState;
+}
+
+void erMediaRenderer::updateDecoyPlayer(){
+    if(decoyFramesRemaining > 0){
+        decoyFramesRemaining--;
+    }else if (decoyFramesRemaining == 0){
+        decoyGlitchPlayer->stop();
+    }
 }

@@ -61,6 +61,10 @@ void erChannelRenderer::assign(int channel, erPlayParams params){
     channelsToPlayers[channel] = videoPlayers->at(params.getPath());
 }
 
+string erChannelRenderer::getClientVideoState(){
+    return mediaRenderer.getPlaybackState();
+}
+
 void erChannelRenderer::calculatePreviewSize(){
     previewWidth = (ofGetWidth() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;
     previewHeight = (ofGetHeight() - SCREEN_MARGIN) / 3 - SCREEN_MARGIN;

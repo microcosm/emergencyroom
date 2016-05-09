@@ -25,6 +25,7 @@ public:
     void assignDecoyGlitch(ofPtr<erSyncedVideoPlayer> _videoPlayer);
     bool isChannelPlaying(int channel);
     void assign(int channel, erPlayParams params);
+    string getClientVideoState();
 
 protected:
     void calculatePreviewSize();

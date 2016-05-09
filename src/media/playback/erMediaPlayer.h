@@ -31,6 +31,7 @@ public:
     void useSoundRendererFor(vector<string>& audibleVideos);
     void calculateVideoPlaybackVariables(erPlayParams params);
     void calculateSoundPlaybackVariables();
+    string getClientVideoState();
 
 protected:
     ofPtr<erSyncedVideoPlayer> getDecoyPlayer();

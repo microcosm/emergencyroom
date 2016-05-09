@@ -70,6 +70,10 @@ void ofApp::draw(ofEventArgs& args){
         ofDrawBitmapString("Computer name: '" + settings.computerName + "'\nDimensions:    " + ofToString(width) + " x " + ofToString(height), width - 250, 40);
         drawFps(320, height - 46);
     }
+
+    if(network.isRunningClient() && settings.clientDrawingEnabled){
+        ofDrawBitmapString(player.getClientVideoState(), 50, height - 220);
+    }
 }
 
 void ofApp::drawFps(int x, int y){

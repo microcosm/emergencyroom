@@ -57,7 +57,12 @@ void erMediaPlayer::playClient(erPlayParams params){
             channelRenderer.newIntermediateGlitchPeriod(i, intermediateGlitches.at(i-1), ofRandom(300, 1000));
         }
 
-        string& decoyPath = allVideoPaths->at(floor(ofRandom(allVideoPaths->size() - 0.0001)));
+        string decoyPath;
+        do{
+            decoyPath = allVideoPaths->at(floor(ofRandom(allVideoPaths->size() - 0.0001)));
+        }
+        while(videoPlayers->at(decoyPath)->isOrWillBePlaying());
+
         channelRenderer.assignDecoyGlitch(videoPlayers->at(decoyPath));
 
         if(renderText){
@@ -157,4 +162,8 @@ void erMediaPlayer::calculateSoundPlaybackVariables(){
     startOpeningGlitch = currentTime + bufferTime;
     openingGlitchDuration = videoGlitchTime;
     closingGlitchDuration = videoGlitchTime;
+}
+
+string erMediaPlayer::getClientVideoState(){
+    return channelRenderer.getClientVideoState();
 }
