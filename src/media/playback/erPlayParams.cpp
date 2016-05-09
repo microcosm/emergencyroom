@@ -89,7 +89,7 @@ float erPlayParams::getSpeed(){
 }
 
 string erPlayParams::getArgumentStr(){
-    return "path=" + path + ",speed=" + ofToString(speed);
+    return "path:" + path + ",speed:" + ofToString(speed);
 }
 
 void erPlayParams::reset(){
