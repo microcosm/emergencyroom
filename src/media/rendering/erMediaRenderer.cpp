@@ -17,7 +17,9 @@ void erMediaRenderer::setup(erNetwork* _network){
 
 void erMediaRenderer::update(ofEventArgs& args){
     for(auto const& player : *videoPlayers){
-        player.second->update();
+        if(player.second->isPlaying()){
+            player.second->update();
+        }
     }
 }
 

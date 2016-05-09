@@ -92,4 +92,7 @@ void ofApp::keyReleased(int key){
         settings.toggleClientDrawing();
         settings.clientDrawingEnabled ? network.clientDisplaysOn() : network.clientDisplaysOff();
     }
+    if(key == ' '){
+        sequencer.stopAll();
+    }
 }

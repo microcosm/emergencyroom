@@ -141,6 +141,12 @@ void erNetwork::syncEcg(int delay){
     }
 }
 
+void erNetwork::clientStopAll(){
+    for(auto& client : server.getClients()) {
+        client->send("STOP ALL");
+    }
+}
+
 void erNetwork::clientDisplaysOn(){
     for(auto& client : server.getClients()) {
         client->send("DISPLAY ON");

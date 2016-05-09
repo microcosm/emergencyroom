@@ -83,6 +83,14 @@ void erMediaPlayer::playServer(int channel, erPlayParams params){
     }
 }
 
+void erMediaPlayer::stopAll(){
+    for(const auto& videoPlayer : *videoPlayers){
+        if(videoPlayer.second->isPlaying()){
+            videoPlayer.second->stop();
+        }
+    }
+}
+
 bool erMediaPlayer::isChannelPlaying(int channel){
     return channelRenderer.isChannelPlaying(channel);
 }

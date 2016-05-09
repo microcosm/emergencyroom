@@ -19,6 +19,7 @@ public:
     void setupShuffledIndexing();
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
+    void stopAll();
     void messageReceived(string& messageStr);
     string getCurrentCollection();
 protected:

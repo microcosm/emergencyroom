@@ -22,6 +22,7 @@ public:
     void playClient(erPlayParams params);
     void playServer(int channel, erPlayParams params);
     bool isChannelPlaying(int channel);
+    void stopAll();
 
     void setVideoPaths(vector<string>* _videoPaths);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);

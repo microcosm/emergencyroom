@@ -50,11 +50,22 @@ void erSequencer::draw(ofEventArgs& args){
     }
 }
 
+void erSequencer::stopAll(){
+    network->clientStopAll();
+    player->stopAll();
+}
+
 void erSequencer::messageReceived(string& message){
     erLog("erSequencer::messageReceived(string& message)", message);
-    params = translater->toParams(message);
-    if(network->isRunningClient() && params.isPlayable()){
-        player->playClient(params);
+    if(network->isRunningClient()){
+        if(message.substr(0, 8) == "STOP ALL"){
+            player->stopAll();
+        }else{
+            params = translater->toParams(message);
+            if(params.isPlayable()){
+                player->playClient(params);
+            }
+        }
     }
 }
 
