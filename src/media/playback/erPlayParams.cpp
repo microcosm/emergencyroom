@@ -6,16 +6,9 @@ void erPlayParams::newCommand(string commandStr){
         command = ER_COMMAND_VIDEO;
     }else if(commandStr == ER_COMMAND_STR_GRAPHIC){
         command = ER_COMMAND_GRAPHIC;
-    }else if(commandStr == ER_COMMAND_STR_TEST){
-        command = ER_COMMAND_TEST;
     }else{
         command = ER_COMMAND_UNKNOWN;
     }
-}
-
-void erPlayParams::newTestCommand(){
-    reset();
-    command = ER_COMMAND_TEST;
 }
 
 void erPlayParams::newGraphicCommand(){
@@ -26,10 +19,6 @@ void erPlayParams::newGraphicCommand(){
 void erPlayParams::newVideoCommand(){
     reset();
     command = ER_COMMAND_VIDEO;
-}
-
-bool erPlayParams::isTestCommand(){
-    return command == ER_COMMAND_TEST;
 }
 
 bool erPlayParams::isVideoCommand(){
@@ -45,7 +34,7 @@ bool erPlayParams::isKnownCommand(){
 }
 
 bool erPlayParams::isPlayable(){
-    return isTestCommand() || isVideoCommand();
+    return isVideoCommand();
 }
 
 erCommand erPlayParams::getCommand(){
@@ -57,8 +46,6 @@ string erPlayParams::getCommandStr(){
         return ER_COMMAND_STR_VIDEO;
     }else if(command == ER_COMMAND_GRAPHIC){
         return ER_COMMAND_STR_GRAPHIC;
-    }else if(command == ER_COMMAND_TEST){
-        return ER_COMMAND_STR_TEST;
     }else{
         return ER_COMMAND_STR_UNKNOWN;
     }

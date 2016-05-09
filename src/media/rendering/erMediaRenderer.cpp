@@ -13,21 +13,12 @@ void erMediaRenderer::setup(erNetwork* _network){
 }
 
 void erMediaRenderer::update(ofEventArgs& args){
-    testVideoPlayer->update();
     for(auto const& player : *videoPlayers){
         player.second->update();
     }
     if(network->isRunningClient() && decoyGlitchPlayer != NULL){
         updateDecoyPlayer();
     }
-}
-
-void erMediaRenderer::setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer){
-    testSoundPlayer = _testSoundPlayer;
-}
-
-void erMediaRenderer::setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer){
-    testVideoPlayer = _testVideoPlayer;
 }
 
 void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){

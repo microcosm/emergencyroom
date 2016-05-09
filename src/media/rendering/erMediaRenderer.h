@@ -17,8 +17,6 @@ public:
     void setup(erNetwork* _network);
     virtual void update(ofEventArgs& args);
 
-    void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
-    void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
     void assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer);
 
@@ -30,8 +28,6 @@ public:
 
 protected:
     void updateDecoyPlayer();
-    erSyncedSoundPlayer* testSoundPlayer;
-    erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
 
     erSyncedVideoPlayer* decoyGlitchPlayer;

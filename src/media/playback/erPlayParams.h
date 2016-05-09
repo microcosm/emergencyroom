@@ -3,7 +3,6 @@
 
 #define ER_COMMAND_STR_VIDEO "VIDEO"
 #define ER_COMMAND_STR_GRAPHIC "GRAPHIC"
-#define ER_COMMAND_STR_TEST "TEST"
 #define ER_COMMAND_STR_UNKNOWN "UNKNOWN"
 
 enum erCommand{
@@ -17,10 +16,8 @@ class erPlayParams{
 
 public:
     void newCommand(string commandStr);
-    void newTestCommand();
     void newGraphicCommand();
     void newVideoCommand();
-    bool isTestCommand();
     bool isVideoCommand();
     bool isGraphicCommand();
     bool isKnownCommand();

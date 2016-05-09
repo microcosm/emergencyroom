@@ -17,9 +17,6 @@ public:
     bool hasErrors();
     bool isLoaded();
 
-    erSyncedSoundPlayer testSoundPlayer;
-    erSyncedVideoPlayer testVideoPlayer;
-
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
     map<string, vector<string>> texts;
     vector<string> allVideos, audibleVideos, silentVideos, videoCollections;
@@ -31,7 +28,6 @@ protected:
     void validateCollectionDir(string path);
     void validateAssetConsistency(const ofFile previewVideo);
     void findMissing(string expectedPath, vector<string>& pushToIfMissing);
-    void loadTestMedia();
     void eraseMedia();
     void loadMedia();
     void loadDirectory(string path);

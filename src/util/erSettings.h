@@ -32,8 +32,6 @@
 #define ER_MEDIA_FILES "media-files"
 #define ER_LIVE_PATH "live-path"
 #define ER_PREVIEW_PATH "preview-path"
-#define ER_TEST_SOUND_PATH "test-sound-path"
-#define ER_TEST_VIDEO_PATH "test-video-path"
 #define ER_BREATHING_SOUND_PATH "breathing-sound-path"
 #define ER_LIVE_DIR "live-dir"
 #define ER_PREVIEW_DIR "preview-dir"
@@ -67,8 +65,6 @@ public:
 
     string liveMediaPath;
     string previewMediaPath;
-    string testSoundPath;
-    string testVideoPath;
     string breathingSoundPath;
     string liveMediaDir;
     string previewMediaDir;

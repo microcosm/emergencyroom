@@ -3,7 +3,6 @@
 void erMediaLoader::setup(erNetwork* _network){
     network = _network;
     mediaIsLoaded = false;
-    loadTestMedia();
     validateMedia();
     discoverErrors();
     ofAddListener(ofEvents().update, this, &erMediaLoader::update);
@@ -94,14 +93,6 @@ void erMediaLoader::findMissing(string expectedPath, vector<string>& pushToIfMis
     if(!targetPath.exists()){
         pushToIfMissing.push_back(getRelativePath(targetPath));
     }
-}
-
-void erMediaLoader::loadTestMedia(){
-    testSoundPlayer.load(settings.testSoundPath);
-    testSoundPlayer.setLoop(false);
-
-    testVideoPlayer.load(settings.testVideoPath);
-    testVideoPlayer.setLoopState(OF_LOOP_NONE);
 }
 
 void erMediaLoader::eraseMedia(){

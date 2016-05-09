@@ -39,13 +39,6 @@ void erMediaPlayer::keyReleased(ofKeyEventArgs &args){
     }
 }
 
-void erMediaPlayer::playTest(erPlayParams params){
-    if(params.isTestCommand()){
-        testSoundPlayer->execute(params);
-        testVideoPlayer->execute(params);
-    }
-}
-
 void erMediaPlayer::playClient(erPlayParams params){
     if(params.isVideoCommand()){
         calculateVideoPlaybackVariables(params);
@@ -91,16 +84,6 @@ void erMediaPlayer::playServer(int channel, erPlayParams params){
 
 bool erMediaPlayer::isChannelPlaying(int channel){
     return channelRenderer.isChannelPlaying(channel);
-}
-
-void erMediaPlayer::setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer){
-    testSoundPlayer = _testSoundPlayer;
-    channelRenderer.setTestSoundPlayer(testSoundPlayer);
-}
-
-void erMediaPlayer::setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer){
-    testVideoPlayer = _testVideoPlayer;
-    channelRenderer.setTestVideoPlayer(testVideoPlayer);
 }
 
 void erMediaPlayer::setVideoPaths(vector<string> *_videoPaths){

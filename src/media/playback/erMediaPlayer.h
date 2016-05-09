@@ -18,13 +18,10 @@ public:
     virtual void draw(ofEventArgs& args);
     virtual void keyReleased(ofKeyEventArgs& args);
 
-    void playTest(erPlayParams params);
     void playClient(erPlayParams params);
     void playServer(int channel, erPlayParams params);
     bool isChannelPlaying(int channel);
 
-    void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
-    void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPaths(vector<string>* _videoPaths);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
     void setTexts(map<string, vector<string>>* texts);
@@ -40,8 +37,6 @@ protected:
     erTextRenderer textRenderer;
     erNetwork* network;
 
-    erSyncedSoundPlayer* testSoundPlayer;
-    erSyncedVideoPlayer* testVideoPlayer;
     vector<string>* allVideoPaths;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     ofPtr<erSyncedVideoPlayer> videoPlayer;

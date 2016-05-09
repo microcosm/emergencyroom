@@ -22,16 +22,6 @@ void erChannelRenderer::draw(ofEventArgs& args){
     }
 }
 
-void erChannelRenderer::setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer){
-    testSoundPlayer = _testSoundPlayer;
-    mediaRenderer.setTestSoundPlayer(testSoundPlayer);
-}
-
-void erChannelRenderer::setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer){
-    testVideoPlayer = _testVideoPlayer;
-    mediaRenderer.setTestVideoPlayer(testVideoPlayer);
-}
-
 void erChannelRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){
     videoPlayers = _videoPlayers;
     mediaRenderer.setVideoPlayers(videoPlayers);
@@ -100,7 +90,6 @@ void erChannelRenderer::drawClient(){
     if(!anyPlayerIsPlaying){
         mediaRenderer.drawStatic(0, 0, ofGetWidth(), ofGetHeight());
     }
-    mediaRenderer.draw(testVideoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
 }
 
 void erChannelRenderer::drawServer(){
@@ -126,7 +115,6 @@ void erChannelRenderer::drawServer(){
             currentChannel++;
         }
     }
-    mediaRenderer.draw(testVideoPlayer, SCREEN_MARGIN, SCREEN_MARGIN, ofGetWidth() - DOUBLE_SCREEN_MARGIN, ofGetHeight() - DOUBLE_SCREEN_MARGIN);
 
     if(settings.serverDrawingEnabled){
         ofFill();

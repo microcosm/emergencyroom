@@ -14,9 +14,6 @@ public:
     void setup(erNetwork* _network);
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
-
-    void setTestSoundPlayer(erSyncedSoundPlayer* _testSoundPlayer);
-    void setTestVideoPlayer(erSyncedVideoPlayer* _testVideoPlayer);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
 
     void newOpeningGlitchPeriod(u_int64_t from, float duration, int channel=1);
@@ -39,8 +36,6 @@ protected:
 
     erMediaRenderer mediaRenderer;
     erNetwork* network;
-    erSyncedSoundPlayer* testSoundPlayer;
-    erSyncedVideoPlayer* testVideoPlayer;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     erSyncedVideoPlayer* videoPlayer;
 
