@@ -25,10 +25,11 @@ protected:
     void setSequencerDelay();
     void playNewVideo();
     void chooseNewTheme();
+    int chooseNewChannel();
+    void loadChannels();
     void attemptToLoadCollections();
     void attemptToLoadMediaQueues();
     bool isAudioPlaying();
-    int incrementCurrentChannel();
 
     erNetwork* network;
     erTranslater* translater;
@@ -43,11 +44,8 @@ protected:
     string currentCollection;
     bool queuesLoaded, collectionsLoaded;
 
-    vector<int> shuffledCollectionIndices;
-    int currentCollectionIndex;
-    int currentSequencerDelay;
+    vector<int> shuffledCollectionIndices, shuffledChannels;
+    int currentCollectionIndex, currentSequencerDelay, currentChannelIndex, currentChannel;
     u_int64_t nextTriggerTime;
-
-    int currentChannel;
     float speed;
 };

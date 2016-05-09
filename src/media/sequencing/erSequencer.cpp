@@ -13,8 +13,9 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     queuesLoaded = false;
     collectionsLoaded = false;
 
-    currentChannel = 1;
+    currentChannelIndex = -1;
     translater = network->getTranslater();
+    loadChannels();
 
     ofAddListener(ofEvents().update, this, &erSequencer::update);
     ofAddListener(ofEvents().draw, this, &erSequencer::draw);
@@ -72,6 +73,7 @@ void erSequencer::playNewVideo(){
         for(auto& queue : queues){
             queue.second.ensureLoaded();
         }
+        currentChannel = chooseNewChannel();
         if(!player->isChannelPlaying(currentChannel)){
             params.newVideoCommand();
             params.setPath(isAudioPlaying() ? queues[currentCollection].getNextSilent() : queues[currentCollection].getNextAudible());
@@ -80,7 +82,6 @@ void erSequencer::playNewVideo(){
             player->playServer(currentChannel, params);
             erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
         }
-        incrementCurrentChannel();
     }
 }
 
@@ -91,6 +92,20 @@ void erSequencer::chooseNewTheme(){
             random_shuffle(shuffledCollectionIndices.begin(), shuffledCollectionIndices.end());
         }
         currentCollection = loader->videoCollections.at(shuffledCollectionIndices.at(currentCollectionIndex++));
+    }
+}
+
+int erSequencer::chooseNewChannel(){
+    if(currentChannelIndex < 0 || currentChannelIndex >= settings.numChannels){
+        currentChannelIndex = 0;
+        random_shuffle(shuffledChannels.begin(), shuffledChannels.end());
+    }
+    return shuffledChannels.at(currentChannelIndex++);
+}
+
+void erSequencer::loadChannels(){
+    for(int i = 1; i <= settings.numChannels; i++){
+        shuffledChannels.push_back(i);
     }
 }
 
@@ -120,12 +135,4 @@ bool erSequencer::isAudioPlaying(){
         }
     }
     return false;
-}
-
-int erSequencer::incrementCurrentChannel(){
-    currentChannel++;
-    if(currentChannel > settings.numChannels){
-        currentChannel = 1;
-    }
-    return currentChannel;
 }
