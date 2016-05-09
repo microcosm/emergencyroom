@@ -6,6 +6,14 @@
 class erSyncedVideoPlayer : public ofVideoPlayer, public erSyncedMediaPlayer{
 
 public:
+    void setPath(string _path){
+        path = _path;
+    }
+
+    string getPath(){
+        return path;
+    }
+
     bool isOrWillBePlaying(){
         return scheduled || isPlaying();
     }
@@ -19,6 +27,7 @@ protected:
     bool useSoundRenderer = false;
     erSoundRenderer* soundRenderer;
     int soundDelay = 103;
+    string path;
 
     void beforeSleep(){
         stop();

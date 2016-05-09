@@ -56,6 +56,7 @@ void erMediaPlayer::playClient(erPlayParams params){
         }
         while(videoPlayers->at(decoyPath)->isOrWillBePlaying());
 
+        channelRenderer.setCurrentPlayerPath(params.getPath());
         channelRenderer.assignDecoyGlitch(videoPlayers->at(decoyPath));
 
         if(renderText){

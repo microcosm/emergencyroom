@@ -15,6 +15,7 @@ public:
     virtual void update(ofEventArgs& args);
     virtual void draw(ofEventArgs& args);
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
+    void setCurrentPlayerPath(string path);
 
     void newOpeningGlitchPeriod(u_int64_t from, float duration, int channel=1);
     void newClosingGlitchPeriod(u_int64_t from, float duration, int channel=1);
@@ -43,6 +44,6 @@ protected:
     vector<int> toErase;
 
     int previewWidth, previewHeight, x, y, currentChannel;
-    string currentChannelStr;
+    string currentChannelStr, currentPlayerPath;
     bool anyPlayerIsPlaying;
 };

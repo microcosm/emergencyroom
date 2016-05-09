@@ -25,9 +25,9 @@ public:
     void drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height);
     void drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height);
     string getPlaybackState();
+    void stopDecoyPlayer();
 
 protected:
-    void updateDecoyPlayer();
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
 
     erSyncedVideoPlayer* decoyGlitchPlayer;
@@ -37,6 +37,6 @@ protected:
     ofFbo fbo;
     ofxEasyFboGlitch fboGlitch;
     bool bufferEmpty;
-    int x, y;
+    int x, y, fboWidth, fboHeight;
     string playbackState;
 };

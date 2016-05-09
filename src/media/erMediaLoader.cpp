@@ -137,6 +137,7 @@ void erMediaLoader::registerVideo(string& collection, const ofFile& video){
     videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
     videoPlayers[path]->load(video.getAbsolutePath());
     videoPlayers[path]->setVolume(0);
+    videoPlayers[path]->setPath(path);
     videoPlayers[path]->setLoopState(OF_LOOP_NONE);
 
     collectionsToVideos[collection].push_back(path);

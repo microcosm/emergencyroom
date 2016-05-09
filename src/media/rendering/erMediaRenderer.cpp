@@ -7,17 +7,16 @@ void erMediaRenderer::setup(erNetwork* _network){
     decoyFramesRemaining = 0;
     minDecoyFrames = 3;
     maxDecoyFrames = 7;
-    fbo.allocate(ofGetWidth(), ofGetHeight());
-    fboGlitch.allocate(ofGetWidth(), ofGetHeight());
+    fboWidth = ofGetWidth() * 0.3;
+    fboHeight = ofGetHeight() * 0.3;
+    fbo.allocate(fboWidth, fboHeight);
+    fboGlitch.allocate(fboWidth, fboHeight);
     ofAddListener(ofEvents().update, this, &erMediaRenderer::update);
 }
 
 void erMediaRenderer::update(ofEventArgs& args){
     for(auto const& player : *videoPlayers){
         player.second->update();
-    }
-    if(network->isRunningClient() && decoyGlitchPlayer != NULL){
-        updateDecoyPlayer();
     }
 }
 
@@ -26,6 +25,7 @@ void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _
 }
 
 void erMediaRenderer::assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer){
+    stopDecoyPlayer();
     decoyGlitchPlayer = _videoPlayer;
 }
 
@@ -65,9 +65,10 @@ void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, in
     fbo.begin();
     {
         if(decoyFramesRemaining > 0){
-            decoyGlitchPlayer->play();
+            if(!decoyGlitchPlayer->isPlaying()) decoyGlitchPlayer->play();
             decoyGlitchPlayer->update();
             decoyGlitchPlayer->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+            decoyFramesRemaining--;
             playbackState = ER_PLAYBACK_DECOY;
         }else{
             player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
@@ -75,7 +76,7 @@ void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, in
         }
 
         float rand = ofRandom(1);
-        if(decoyFramesRemaining == 0 && rand < 0.8){
+        if(decoyFramesRemaining == 0 && rand < 0.6){
             decoyFramesRemaining = floor(ofRandom(minDecoyFrames, maxDecoyFrames));
         }
     }
@@ -87,10 +88,10 @@ string erMediaRenderer::getPlaybackState(){
     return playbackState;
 }
 
-void erMediaRenderer::updateDecoyPlayer(){
-    if(decoyFramesRemaining > 0){
-        decoyFramesRemaining--;
-    }else if (decoyFramesRemaining == 0){
-        decoyGlitchPlayer->stop();
+void erMediaRenderer::stopDecoyPlayer(){
+    if(decoyGlitchPlayer != NULL){
+        if(decoyGlitchPlayer->isPlaying()){
+            decoyGlitchPlayer->stop();
+        }
     }
 }

@@ -27,6 +27,10 @@ void erChannelRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>*
     mediaRenderer.setVideoPlayers(videoPlayers);
 }
 
+void erChannelRenderer::setCurrentPlayerPath(string path){
+    currentPlayerPath = path;
+}
+
 void erChannelRenderer::newOpeningGlitchPeriod(u_int64_t from, float duration, int channel){
     mediaRenderer.newOpeningGlitchPeriod(from, duration, channel);
 }
@@ -82,12 +86,13 @@ void erChannelRenderer::drawClient(){
     anyPlayerIsPlaying = false;
     for(auto const& player : *videoPlayers){
         videoPlayer = player.second.get();
-        if(videoPlayer->isPlaying()){
+        if(videoPlayer->isPlaying() && videoPlayer->getPath() == currentPlayerPath){
             anyPlayerIsPlaying = true;
             mediaRenderer.draw(videoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
         }
     }
     if(!anyPlayerIsPlaying){
+        mediaRenderer.stopDecoyPlayer();
         mediaRenderer.drawStatic(0, 0, ofGetWidth(), ofGetHeight());
     }
 }
