@@ -2,6 +2,7 @@
     "fullscreen-by-default": true,
     "enable-log-to-file": false,
     "number-of-video-channels": 3,
+    "min-decoy-duration-secs": 7.5,
 
     "machine-names": {
         "server": "machine-name-1",

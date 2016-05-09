@@ -65,7 +65,7 @@ void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int 
 void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height){
     fbo.begin();
     {
-        if(decoyFramesRemaining > 0){
+        if(player->getDuration() > settings.minDecoyDuration && decoyFramesRemaining > 0){
             if(!decoyGlitchPlayer->isPlaying()) decoyGlitchPlayer->play();
             decoyGlitchPlayer->update();
             decoyGlitchPlayer->draw(0, 0, fbo.getWidth(), fbo.getHeight());
@@ -77,7 +77,7 @@ void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, in
         }
 
         float rand = ofRandom(1);
-        if(decoyFramesRemaining == 0 && rand < 0.6){
+        if(decoyFramesRemaining == 0 && rand < 0.5){
             decoyFramesRemaining = floor(ofRandom(minDecoyFrames, maxDecoyFrames));
         }
     }

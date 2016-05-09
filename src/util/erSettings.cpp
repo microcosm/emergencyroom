@@ -21,6 +21,7 @@ void erSettings::initSettings(){
     fullscreenByDefault = false;
     logToFileEnabled = true;
     numChannels = 1;
+    minDecoyDuration = 1;
 
     masterVolume = 0.95;
     breathingVolume = 1;
@@ -56,6 +57,7 @@ void erSettings::applySettings(ofxJSONElement& json){
     fullscreenByDefault = json[ER_FULLSCREEN_BY_DEFAULT].asBool();
     logToFileEnabled    = json[ER_LOG_TO_FILE_ENABLED].asBool();
     numChannels         = json[ER_NUMBER_OF_VIDEO_CHANNELS].asInt();
+    minDecoyDuration    = json[ER_MIN_DECOY_DURATION].asFloat();
 
     isServer = computerName == json[ER_MACHINE_NAMES][ER_SERVER].asString();
     isEcg    = computerName == json[ER_MACHINE_NAMES][ER_ECG].asString();

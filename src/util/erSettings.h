@@ -10,6 +10,7 @@
 #define ER_FULLSCREEN_BY_DEFAULT "fullscreen-by-default"
 #define ER_LOG_TO_FILE_ENABLED "enable-log-to-file"
 #define ER_NUMBER_OF_VIDEO_CHANNELS "number-of-video-channels"
+#define ER_MIN_DECOY_DURATION "min-decoy-duration-secs"
 
 #define ER_MACHINE_NAMES "machine-names"
 #define ER_SERVER "server"
@@ -55,6 +56,7 @@ public:
     bool fullscreenByDefault;
     bool logToFileEnabled;
     int numChannels;
+    float minDecoyDuration;
     bool isServer;
     bool isEcg;
     float ecgHighestBpm;
