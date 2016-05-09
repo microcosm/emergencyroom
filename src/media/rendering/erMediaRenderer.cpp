@@ -11,6 +11,7 @@ void erMediaRenderer::setup(erNetwork* _network){
     fboHeight = ofGetHeight() * 0.3;
     fbo.allocate(fboWidth, fboHeight);
     fboGlitch.allocate(fboWidth, fboHeight);
+    fboGlitch.setGlichResetProbability(0.2);
     ofAddListener(ofEvents().update, this, &erMediaRenderer::update);
 }
 
