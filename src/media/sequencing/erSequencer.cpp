@@ -5,6 +5,7 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     loader = _loader;
     player = _player;
     ecgTimer = player->getEcgTimer();
+    ecgTimerStarted = false;
     currentSequencerDelay = -1;
     nextTriggerTime = 0;
 
@@ -20,6 +21,7 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     ofAddListener(ofEvents().update, this, &erSequencer::update);
     ofAddListener(ofEvents().draw, this, &erSequencer::draw);
     ofAddListener(network->clientMessageReceived(), this, &erSequencer::messageReceived);
+    ofAddListener(ecgTimer->bpmLooped(), this, &erSequencer::ecgBpmLooped);
 }
 
 void erSequencer::setupEcgMode(erNetwork* _network, erMediaPlayer* _player){
@@ -29,6 +31,7 @@ void erSequencer::setupEcgMode(erNetwork* _network, erMediaPlayer* _player){
 }
 
 void erSequencer::update(ofEventArgs& args){
+    ecgTimerStarted = ecgTimer != NULL && ecgTimer->isStarted();
     setSequencerDelay();
     attemptToLoadMediaQueues();
     attemptToLoadCollections();
@@ -42,7 +45,7 @@ void erSequencer::update(ofEventArgs& args){
 }
 
 void erSequencer::draw(ofEventArgs& args){
-    if(ecgTimer != NULL && ecgTimer->isStarted()){
+    if(ecgTimerStarted){
         ofDrawBitmapString("Progress:         " + ofToString(ecgTimer->getPeriodPosition()), ofGetWidth() - 260, ofGetHeight() - 360);
         ofDrawBitmapString("Current duration: " + ofToString(ecgTimer->getPeriodDuration()), ofGetWidth() - 260, ofGetHeight() - 330);
         ofDrawBitmapString("Current ECG BPM:  " + ofToString(ecgTimer->getCurrentBpm()), ofGetWidth() - 260, ofGetHeight() - 300);
@@ -70,13 +73,17 @@ void erSequencer::messageReceived(string& message){
 }
 
 void erSequencer::setSequencerDelay(){
-    if(ecgTimer != NULL && ecgTimer->isStarted()){
+    if(ecgTimerStarted){
         currentSequencerDelay = ofMap(ecgTimer->getCurrentBpm(), settings.ecgLowestBpm, settings.ecgHighestBpm, settings.longestSequenceDelay, settings.shortestSequenceDelay);
     }
 }
 
 string erSequencer::getCurrentCollection(){
     return currentCollection;
+}
+
+void erSequencer::ecgBpmLooped(ofxAnimatable::AnimationEvent& args){
+    cout << "DIRECTION " << args.direction << endl;
 }
 
 void erSequencer::playNewVideo(){

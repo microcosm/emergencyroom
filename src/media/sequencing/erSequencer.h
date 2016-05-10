@@ -8,6 +8,7 @@
 #include "erLogger.h"
 #include "erEcgRenderer.h"
 #include "erEcgTimer.h"
+#include "ofxAnimatable.h"
 
 #define ER_THEME_LENGTH 1800
 
@@ -22,6 +23,7 @@ public:
     void stopAll();
     void messageReceived(string& messageStr);
     string getCurrentCollection();
+    void ecgBpmLooped(ofxAnimatable::AnimationEvent& args);
 protected:
     void setSequencerDelay();
     void playNewVideo();
@@ -43,7 +45,7 @@ protected:
     erMediaQueue queue;
     map<string, erMediaQueue> queues;
     string currentCollection;
-    bool queuesLoaded, collectionsLoaded;
+    bool queuesLoaded, collectionsLoaded, ecgTimerStarted;
 
     vector<int> shuffledCollectionIndices, shuffledChannels;
     int currentCollectionIndex, currentSequencerDelay, currentChannelIndex, currentChannel;
