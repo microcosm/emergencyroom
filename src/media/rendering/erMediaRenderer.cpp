@@ -18,11 +18,11 @@ void erMediaRenderer::setup(erNetwork* _network){
 
 void erMediaRenderer::update(ofEventArgs& args){
     for(auto const& player : *videoPlayers){
+        player.second->lock();
         if(player.second->isPlaying()){
-            player.second->lock();
             player.second->update();
-            player.second->unlock();
         }
+        player.second->unlock();
     }
 }
 
@@ -77,7 +77,10 @@ void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, in
     fbo.begin();
     {
         player->lock();
-        if(player->getDuration() > settings.minDecoyDuration && decoyFramesRemaining > 0){
+        float playerDuration = player->getDuration();
+        player->unlock();
+
+        if(player != decoyGlitchPlayer && playerDuration > settings.minDecoyDuration && decoyFramesRemaining > 0){
             decoyGlitchPlayer->lock();
             if(!decoyGlitchPlayer->isPlaying()) decoyGlitchPlayer->play();
             decoyGlitchPlayer->update();
@@ -86,10 +89,11 @@ void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, in
             decoyFramesRemaining--;
             playbackState = ER_PLAYBACK_DECOY;
         }else{
+            player->lock();
             player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+            player->unlock();
             playbackState = ER_PLAYBACK_GLITCH;
         }
-        player->unlock();
 
         float rand = ofRandom(1);
         if(decoyFramesRemaining == 0 && rand < 0.5){
