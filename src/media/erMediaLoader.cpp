@@ -150,6 +150,10 @@ void erMediaLoader::registerVideo(string& collection, const ofFile& video){
         audibleVideos.push_back(path);
         collectionsToAudibleVideos[collection].push_back(path);
     }
+
+    if(erIsFocusVideo(path)){
+        focusVideos.push_back(path);
+    }
 }
 
 void erMediaLoader::registerText(const ofFile& liveVideo){

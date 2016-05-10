@@ -14,3 +14,10 @@ float erGetVolume(string path){
     }
     return 0;
 }
+
+bool erIsFocusVideo(string path){
+    int argsIndex = path.find("(focus)");
+    if(argsIndex != -1){
+        return 1;
+    }
+}

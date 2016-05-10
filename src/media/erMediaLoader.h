@@ -20,7 +20,7 @@ public:
     map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
     map<string, vector<string>> texts;
     vector<string> allVideos, audibleVideos, silentVideos, videoCollections;
-    vector<string> missingVideos, missingTexts, spacedPathVideos;
+    vector<string> missingVideos, missingTexts, spacedPathVideos, focusVideos;
     map<string, vector<string>> collectionsToVideos, collectionsToAudibleVideos, collectionsToSilentVideos;
 protected:
     void discoverErrors();
