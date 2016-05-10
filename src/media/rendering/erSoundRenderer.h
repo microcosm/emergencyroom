@@ -8,7 +8,7 @@
 #include "erSyncedMediaPlayer.h"
 #include "erGlitchTimer.h"
 
-class erSoundRenderer : erSyncedMediaPlayer, public erGlitchTimer{
+class erSoundRenderer : public erSyncedMediaPlayer, public erGlitchTimer{
 
 public:
     void setup();

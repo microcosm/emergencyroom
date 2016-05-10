@@ -41,7 +41,12 @@ void erSequencer::update(ofEventArgs& args){
     attemptToLoadCollections();
 
     if(focusTime){
-        if(loader->videoPlayers.at(focusVideoPath).get()->getIsMovieDone()){
+        erSyncedVideoPlayer* player = loader->videoPlayers.at(focusVideoPath).get();
+        player->lock();
+        bool isMovieDone = player->getIsMovieDone();
+        player->unlock();
+
+        if(isMovieDone){
             focusTime = false;
             focusVideoPath = "";
             ecgTimer->resumeBpmAnimation();
@@ -172,8 +177,13 @@ void erSequencer::attemptToLoadMediaQueues(){
 }
 
 bool erSequencer::isAudioPlaying(){
+    ofPtr<erSyncedVideoPlayer> videoPlayer;
     for(auto const& path : loader->audibleVideos){
-        if(loader->videoPlayers[path]->isOrWillBePlaying()){
+        videoPlayer = loader->videoPlayers[path];
+        videoPlayer->lock();
+        bool playing = loader->videoPlayers[path]->isOrWillBePlaying();
+        videoPlayer->unlock();
+        if(playing){
             return true;
         }
     }

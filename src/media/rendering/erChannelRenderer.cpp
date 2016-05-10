@@ -48,7 +48,14 @@ void erChannelRenderer::assignDecoyGlitch(ofPtr<erSyncedVideoPlayer> _videoPlaye
 }
 
 bool erChannelRenderer::isChannelPlaying(int channel){
-    return hasChannel(channel) && channelsToPlayers[channel].get()->isOrWillBePlaying();
+    if(hasChannel(channel)){
+        erSyncedVideoPlayer* player = channelsToPlayers[channel].get();
+        player->lock();
+        bool isPlaying = player->isOrWillBePlaying();
+        player->unlock();
+        return isPlaying;
+    }
+    return false;
 }
 
 void erChannelRenderer::assign(int channel, erPlayParams params){
@@ -71,9 +78,12 @@ bool erChannelRenderer::hasChannel(int channel){
 void erChannelRenderer::eraseCompletedVideosFromChannels(){
     toErase.clear();
     for(auto const& channelToPlayer : channelsToPlayers){
-        if(!channelToPlayer.second.get()->isOrWillBePlaying()){
+        erSyncedVideoPlayer* player = channelToPlayer.second.get();
+        player->lock();
+        if(!player->isOrWillBePlaying()){
             toErase.push_back(channelToPlayer.first);
         }
+        player->unlock();
     }
 
     for(auto const& i : toErase){
@@ -86,7 +96,10 @@ void erChannelRenderer::drawClient(){
     anyPlayerIsPlaying = false;
     for(auto const& player : *videoPlayers){
         videoPlayer = player.second.get();
-        if(videoPlayer->isPlaying() && videoPlayer->getPath() == currentPlayerPath){
+        videoPlayer->lock();
+        bool draw = videoPlayer->isPlaying() && videoPlayer->getPath() == currentPlayerPath;
+        videoPlayer->unlock();
+        if(draw){
             anyPlayerIsPlaying = true;
             mediaRenderer.draw(videoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
         }

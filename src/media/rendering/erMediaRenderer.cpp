@@ -18,7 +18,9 @@ void erMediaRenderer::setup(erNetwork* _network){
 void erMediaRenderer::update(ofEventArgs& args){
     for(auto const& player : *videoPlayers){
         if(player.second->isPlaying()){
+            player.second->lock();
             player.second->update();
+            player.second->unlock();
         }
     }
 }
@@ -33,7 +35,10 @@ void erMediaRenderer::assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer){
 }
 
 void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel){
-    if(player->isPlaying()){
+    player->lock();
+    bool isPlaying = player->isPlaying();
+    player->unlock();
+    if(isPlaying){
         withinGlitchPeriod(channel) && network->isRunningClient() ?
             drawGlitched(player, x, y, width, height) :
             drawNormal(player, x, y, width, height);
@@ -60,23 +65,29 @@ void erMediaRenderer::drawStatic(int x, int y, int width, int height){
 }
 
 void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height){
+    player->lock();
     player->draw(x, y, width, height);
+    player->unlock();
     playbackState = ER_PLAYBACK_NORMAL;
 }
 
 void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height){
     fbo.begin();
     {
+        player->lock();
         if(player->getDuration() > settings.minDecoyDuration && decoyFramesRemaining > 0){
+            decoyGlitchPlayer->lock();
             if(!decoyGlitchPlayer->isPlaying()) decoyGlitchPlayer->play();
             decoyGlitchPlayer->update();
             decoyGlitchPlayer->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+            decoyGlitchPlayer->unlock();
             decoyFramesRemaining--;
             playbackState = ER_PLAYBACK_DECOY;
         }else{
             player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
             playbackState = ER_PLAYBACK_GLITCH;
         }
+        player->unlock();
 
         float rand = ofRandom(1);
         if(decoyFramesRemaining == 0 && rand < 0.5){
@@ -93,8 +104,10 @@ string erMediaRenderer::getPlaybackState(){
 
 void erMediaRenderer::stopDecoyPlayer(){
     if(decoyGlitchPlayer != NULL){
+        decoyGlitchPlayer->lock();
         if(decoyGlitchPlayer->isPlaying()){
             decoyGlitchPlayer->stop();
         }
+        decoyGlitchPlayer->unlock();
     }
 }

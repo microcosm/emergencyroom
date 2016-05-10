@@ -35,7 +35,7 @@ public:
     erEcgTimer* getEcgTimer();
 
 protected:
-    ofPtr<erSyncedVideoPlayer> getDecoyPlayer();
+    string selectDecoyPath();
     erChannelRenderer channelRenderer;
     erSoundRenderer soundRenderer;
     erTextRenderer textRenderer;
@@ -44,6 +44,7 @@ protected:
     vector<string>* allVideoPaths;
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
     ofPtr<erSyncedVideoPlayer> videoPlayer;
+    string decoyPath;
 
     u_int64_t currentTime, startOpeningGlitch, startClosingGlitch, startText, startTextOverlay;
     float openingGlitchDuration, closingGlitchDuration, textDuration, textOverlayDuration;
