@@ -30,7 +30,9 @@ protected:
     string path;
 
     void beforeSleep(){
+        lock();
         stop();
+        unlock();
     }
 
     void beginPlayback(){
@@ -39,9 +41,9 @@ protected:
 
         if(useSoundRenderer){
             ofSleepMillis(soundDelay);
-            lock();
+            //soundRenderer->lock();
             soundRenderer->playVideoSound(params.getPath());
-            unlock();
+            //soundRenderer->unlock();
         }
     }
 };
