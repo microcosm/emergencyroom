@@ -14,6 +14,10 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     queuesLoaded = false;
     collectionsLoaded = false;
 
+    focusIndex = 0;
+    focusVideoPath = "";
+    focusTime = false;
+
     currentChannelIndex = -1;
     translater = network->getTranslater();
     loadChannels();
@@ -35,12 +39,23 @@ void erSequencer::update(ofEventArgs& args){
     setSequencerDelay();
     attemptToLoadMediaQueues();
     attemptToLoadCollections();
-    if(network->isRunningServer() && ofGetElapsedTimeMillis() > nextTriggerTime && currentSequencerDelay != -1){
-        nextTriggerTime += currentSequencerDelay;
-        playNewVideo();
+
+    if(focusTime){
+        if(loader->videoPlayers.at(focusVideoPath).get()->getIsMovieDone()){
+            focusTime = false;
+            focusVideoPath = "";
+            ecgTimer->resumeBpmAnimation();
+        }
     }
-    if(network->isRunningServer() && (ofGetFrameNum() % ER_THEME_LENGTH == 0 || currentCollection == "")){
-        chooseNewTheme();
+
+    if(!focusTime){
+        if(network->isRunningServer() && ofGetElapsedTimeMillis() > nextTriggerTime && currentSequencerDelay != -1){
+            nextTriggerTime += currentSequencerDelay;
+            playNewVideo();
+        }
+        if(network->isRunningServer() && (ofGetFrameNum() % ER_THEME_LENGTH == 0 || currentCollection == "")){
+            chooseNewTheme();
+        }
     }
 }
 
@@ -83,7 +98,19 @@ string erSequencer::getCurrentCollection(){
 }
 
 void erSequencer::ecgBpmLooped(ofxAnimatable::AnimationEvent& args){
-    cout << "DIRECTION " << args.direction << endl;
+    if(args.direction == 1){
+        focusTime = true;
+        stopAll();
+        ecgTimer->pauseBpmAnimation();
+        if(focusIndex >= loader->focusVideos.size()){
+            focusIndex = 0;
+        }
+        focusVideoPath = loader->focusVideos.at(focusIndex);
+        prepareParams(focusVideoPath, 1);
+        network->flood(params);
+        player->floodServer(params);
+        focusIndex++;
+    }
 }
 
 void erSequencer::playNewVideo(){
@@ -93,9 +120,7 @@ void erSequencer::playNewVideo(){
         }
         currentChannel = chooseNewChannel();
         if(!player->isChannelPlaying(currentChannel)){
-            params.newVideoCommand();
-            params.setPath(isAudioPlaying() ? queues[currentCollection].getNextSilent() : queues[currentCollection].getNextAudible());
-            params.setSpeed(1);
+            prepareParams(isAudioPlaying() ? queues[currentCollection].getNextSilent() : queues[currentCollection].getNextAudible(), 1);
             network->target(currentChannel, params);
             player->playServer(currentChannel, params);
             erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
@@ -153,4 +178,10 @@ bool erSequencer::isAudioPlaying(){
         }
     }
     return false;
+}
+
+void erSequencer::prepareParams(string path, int speed){
+    params.newVideoCommand();
+    params.setPath(path);
+    params.setSpeed(speed);
 }

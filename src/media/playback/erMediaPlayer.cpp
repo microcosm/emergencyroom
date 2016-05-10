@@ -83,6 +83,12 @@ void erMediaPlayer::playServer(int channel, erPlayParams params){
     }
 }
 
+void erMediaPlayer::floodServer(erPlayParams params){
+    for(int i = 1; i <= settings.numChannels; i++){
+        playServer(i, params);
+    }
+}
+
 void erMediaPlayer::stopAll(){
     for(const auto& videoPlayer : *videoPlayers){
         if(videoPlayer.second->isPlaying()){

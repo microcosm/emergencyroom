@@ -21,6 +21,7 @@ public:
 
     void playClient(erPlayParams params);
     void playServer(int channel, erPlayParams params);
+    void floodServer(erPlayParams params);
     bool isChannelPlaying(int channel);
     void stopAll();
 

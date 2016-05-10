@@ -33,6 +33,7 @@ protected:
     void attemptToLoadCollections();
     void attemptToLoadMediaQueues();
     bool isAudioPlaying();
+    void prepareParams(string path, int speed);
 
     erNetwork* network;
     erTranslater* translater;
@@ -44,11 +45,11 @@ protected:
 
     erMediaQueue queue;
     map<string, erMediaQueue> queues;
-    string currentCollection;
-    bool queuesLoaded, collectionsLoaded, ecgTimerStarted;
+    string currentCollection, focusVideoPath;
+    bool queuesLoaded, collectionsLoaded, ecgTimerStarted, focusTime;
 
     vector<int> shuffledCollectionIndices, shuffledChannels;
-    int currentCollectionIndex, currentSequencerDelay, currentChannelIndex, currentChannel;
+    int currentCollectionIndex, currentSequencerDelay, currentChannelIndex, currentChannel, focusIndex;
     u_int64_t nextTriggerTime;
     float speed;
 };

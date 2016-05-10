@@ -16,6 +16,8 @@ public:
     bool isWithinEcgBeepPeriod(float position);
     bool isStarted();
     ofEvent<ofxAnimatable::AnimationEvent>& bpmLooped();
+    void pauseBpmAnimation();
+    void resumeBpmAnimation();
 
 protected:
     void setDurationFromBpm();

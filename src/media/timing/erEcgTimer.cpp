@@ -56,6 +56,14 @@ ofEvent<ofxAnimatable::AnimationEvent>& erEcgTimer::bpmLooped(){
     return currentBpm.animLooped;
 }
 
+void erEcgTimer::pauseBpmAnimation(){
+    currentBpm.pause();
+}
+
+void erEcgTimer::resumeBpmAnimation(){
+    currentBpm.resume();
+}
+
 void erEcgTimer::setDurationFromBpm(){
     currentPeriodDuration = 60000 / currentBpm.val();
 }
