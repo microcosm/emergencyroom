@@ -23,7 +23,8 @@ public:
     void syncEcg(float delay);
     bool isSyncing();
     bool hasSynced();
-    void playSound(string videoPath);
+    void playVideoSound(string videoPath);
+    void stopVideoSound();
     erEcgTimer* getEcgTimer();
 
 protected:
@@ -51,6 +52,7 @@ protected:
     map<string, ofxAudioUnitFilePlayer> videoPlayers;
     map<string, ofxAudioUnitChain> videoChains;
     ofxManagedAudioUnitMixer videoMixer;
+    string lastPathPlayed;
 
     u_int64_t currentTime, syncTime, timeSinceSync;
 

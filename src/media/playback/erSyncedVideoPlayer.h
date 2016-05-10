@@ -40,7 +40,7 @@ protected:
         if(useSoundRenderer){
             ofSleepMillis(soundDelay);
             lock();
-            soundRenderer->playSound(params.getPath());
+            soundRenderer->playVideoSound(params.getPath());
             unlock();
         }
     }

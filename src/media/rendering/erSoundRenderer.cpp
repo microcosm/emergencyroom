@@ -3,6 +3,7 @@
 void erSoundRenderer::setup(){
     isSetup = true;
     syncing = false;
+    lastPathPlayed = "";
     erGlitchTimer::setup();
 
     ecgTimer.setup();
@@ -109,8 +110,16 @@ bool erSoundRenderer::hasSynced(){
     return ecgTimer.isStarted();
 }
 
-void erSoundRenderer::playSound(string videoPath){
+void erSoundRenderer::playVideoSound(string videoPath){
     videoPlayers[videoPath].play();
+    lastPathPlayed = videoPath;
+}
+
+void erSoundRenderer::stopVideoSound(){
+    if(lastPathPlayed.length() > 0){
+        videoPlayers[lastPathPlayed].stop();
+        lastPathPlayed = "";
+    }
 }
 
 erEcgTimer* erSoundRenderer::getEcgTimer(){

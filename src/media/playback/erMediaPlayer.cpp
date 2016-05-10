@@ -89,6 +89,7 @@ void erMediaPlayer::stopAll(){
             videoPlayer.second->stop();
         }
     }
+    soundRenderer.stopVideoSound();
 }
 
 bool erMediaPlayer::isChannelPlaying(int channel){
