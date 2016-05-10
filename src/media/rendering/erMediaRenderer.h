@@ -36,7 +36,7 @@ protected:
     erNetwork* network;
     ofFbo fbo;
     ofxEasyFboGlitch fboGlitch;
-    bool bufferEmpty;
+    bool bufferEmpty, decoyAssigned;
     int x, y, fboWidth, fboHeight;
     string playbackState;
 };

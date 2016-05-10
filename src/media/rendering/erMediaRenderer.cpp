@@ -3,6 +3,7 @@
 void erMediaRenderer::setup(erNetwork* _network){
     erGlitchTimer::setup();
     network = _network;
+    decoyAssigned = false;
     bufferEmpty = true;
     decoyFramesRemaining = 0;
     minDecoyFrames = 3;
@@ -32,6 +33,7 @@ void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _
 void erMediaRenderer::assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer){
     stopDecoyPlayer();
     decoyGlitchPlayer = _videoPlayer;
+    decoyAssigned = true;
 }
 
 void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel){
@@ -103,7 +105,7 @@ string erMediaRenderer::getPlaybackState(){
 }
 
 void erMediaRenderer::stopDecoyPlayer(){
-    if(decoyGlitchPlayer != NULL){
+    if(decoyGlitchPlayer != NULL && decoyAssigned){
         decoyGlitchPlayer->lock();
         if(decoyGlitchPlayer->isPlaying()){
             decoyGlitchPlayer->stop();
