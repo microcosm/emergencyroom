@@ -54,7 +54,7 @@ void erMediaPlayer::playClient(erPlayParams params){
             channelRenderer.newIntermediateGlitchPeriod(i, intermediateGlitches.at(i-1), ofRandom(300, 1000));
         }
 
-        decoyPath = selectDecoyPath();
+        decoyPath = selectDecoyPath(params);
         channelRenderer.setCurrentPlayerPath(params.getPath());
         channelRenderer.assignDecoyGlitch(videoPlayers->at(decoyPath));
 
@@ -187,16 +187,18 @@ erEcgTimer* erMediaPlayer::getEcgTimer(){
     return soundRenderer.getEcgTimer();
 }
 
-string erMediaPlayer::selectDecoyPath(){
+string erMediaPlayer::selectDecoyPath(erPlayParams params){
     bool found = false;
     do{
         int decoyIndex = floor(ofRandom(allVideoPaths->size() - 0.0001));
         decoyPath = allVideoPaths->at(decoyIndex);
-        videoPlayers->at(decoyPath)->lock();
-        if(!videoPlayers->at(decoyPath)->isOrWillBePlaying()){
-            found = true;
+        if(decoyPath != params.getPath()){
+            videoPlayers->at(decoyPath)->lock();
+            if(!videoPlayers->at(decoyPath)->isOrWillBePlaying()){
+                found = true;
+            }
+            videoPlayers->at(decoyPath)->unlock();
         }
-        videoPlayers->at(decoyPath)->unlock();
     }
     while(!found);
     return decoyPath;

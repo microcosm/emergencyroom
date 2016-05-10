@@ -35,7 +35,7 @@ public:
     erEcgTimer* getEcgTimer();
 
 protected:
-    string selectDecoyPath();
+    string selectDecoyPath(erPlayParams params);
     erChannelRenderer channelRenderer;
     erSoundRenderer soundRenderer;
     erTextRenderer textRenderer;
