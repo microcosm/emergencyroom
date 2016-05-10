@@ -141,6 +141,13 @@ void erNetwork::syncEcg(int delay){
     }
 }
 
+int erNetwork::getClientId(){
+    if(client.isConnected()){
+        return client.getClientId();
+    }
+    return -1;
+}
+
 void erNetwork::clientStopAll(){
     for(auto& client : server.getClients()) {
         client->send("STOP ALL");

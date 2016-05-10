@@ -70,6 +70,7 @@ void ofApp::draw(ofEventArgs& args){
     }
 
     if(network.isRunningClient() && settings.clientDrawingEnabled){
+        smallFont.drawString("#" + ofToString(network.getClientId()), 50, height - 90);
         ofDrawBitmapString(player.getClientVideoState(), 50, height - 220);
     }
 }

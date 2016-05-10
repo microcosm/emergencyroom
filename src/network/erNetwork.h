@@ -23,6 +23,7 @@ public:
     virtual void draw(ofEventArgs& args);
     virtual void keyReleased(ofKeyEventArgs& args);
     void syncEcg(int delay);
+    int getClientId();
     void clientStopAll();
     void clientDisplaysOn();
     void clientDisplaysOff();
