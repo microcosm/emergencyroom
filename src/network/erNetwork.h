@@ -46,6 +46,7 @@ public:
 
 protected:
     void send(erPlayParams& params, ofxNetworkSyncClientState* client);
+    void send(string message, ofxNetworkSyncClientState* client);
     void sendChannelUpdates();
     void setLogLevels(ofLogLevel level);
     void drawBlackOverlay();

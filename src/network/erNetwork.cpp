@@ -198,7 +198,7 @@ void erNetwork::syncEcg(int delay){
     if(isRunningServer() && clients.size() > 0 && ecgIndex < clients.size()){
         string message = "ECGSYNC";
         erLog(method, "Sending '" + message + "' to client " + ofToString(clients.at(ecgIndex)->getClientID()));
-        clients.at(ecgIndex)->send(message);
+        send(message, clients.at(ecgIndex));
     }
     erLog(method, "Done.");
 }
@@ -219,7 +219,7 @@ void erNetwork::clientStopAll(){
         if(client->isCalibrated()){
             string message = "STOP ALL";
             erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
-            client->send(message);
+            send(message, client);
         }
     }
 
@@ -235,7 +235,7 @@ void erNetwork::clientDisplaysOn(){
         if(client->isCalibrated()){
             string message = "DISPLAY ON";
             erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
-            client->send(message);
+            send(message, client);
         }
     }
 
@@ -251,7 +251,7 @@ void erNetwork::clientDisplaysOff(){
         if(client->isCalibrated()){
             string message = "DISPLAY OFF";
             erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
-            client->send(message);
+            send(message, client);
         }
     }
 
@@ -364,11 +364,20 @@ void erNetwork::onClientMessageReceived(string& message){
 void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
     string method = "erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client)";
     erLog(method, "Called");
+    send(translater.toMessage(params), client);
+    erLog(method, "Done.");
+}
+
+void erNetwork::send(string message, ofxNetworkSyncClientState* client){
+    string method = "erNetwork::send(string& message, ofxNetworkSyncClientState* client)";
+    erLog(method, "Called");
     if(client->isCalibrated()){
-        success = true;
-        string message = translater.toMessage(params);
         erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
-        client->send(message);
+        try{
+            client->send(message);
+        }catch(...){
+            erLog(method, "Caught exception.");
+        }
     }
     erLog(method, "Done.");
 }
@@ -382,7 +391,7 @@ void erNetwork::sendChannelUpdates(){
         if(client->isCalibrated()){
             string message = "CHANNEL " + ofToString((i % settings.numChannels) + 1);
             erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
-            client->send(message);
+            send(message, client);
             i++;
         }
     }
