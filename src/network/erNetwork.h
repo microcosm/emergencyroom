@@ -63,4 +63,6 @@ protected:
     bool success;
     u_int64_t now;
     int ecgIndex;
+
+    std::mutex mConnectionsLock;
 };

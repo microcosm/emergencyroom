@@ -150,19 +150,28 @@ int erNetwork::getClientId(){
 
 void erNetwork::clientStopAll(){
     for(auto& client : server.getClients()) {
-        client->send("STOP ALL");
+        //std::unique_lock<std::mutex> lck( mConnectionsLock );
+        if(client->isCalibrated()){
+            client->send("STOP ALL");
+        }
     }
 }
 
 void erNetwork::clientDisplaysOn(){
     for(auto& client : server.getClients()) {
-        client->send("DISPLAY ON");
+        //std::unique_lock<std::mutex> lck( mConnectionsLock );
+        if(client->isCalibrated()){
+            client->send("DISPLAY ON");
+        }
     }
 }
 
 void erNetwork::clientDisplaysOff(){
     for(auto& client : server.getClients()) {
-        client->send("DISPLAY OFF");
+        //std::unique_lock<std::mutex> lck( mConnectionsLock );
+        if(client->isCalibrated()){
+            client->send("DISPLAY OFF");
+        }
     }
 }
 
@@ -258,6 +267,7 @@ void erNetwork::onClientMessageReceived(string& message){
 }
 
 void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
+    //std::unique_lock<std::mutex> lck( mConnectionsLock );
     if(client->isCalibrated()){
         success = true;
         client->send(translater.toMessage(params));
@@ -266,9 +276,12 @@ void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
 
 void erNetwork::sendChannelUpdates(){
     int i = 0;
+    //std::unique_lock<std::mutex> lck( mConnectionsLock );
     for(auto& client : server.getClients()) {
-        client->send("CHANNEL " + ofToString((i % settings.numChannels) + 1));
-        i++;
+        if(client->isCalibrated()){
+            client->send("CHANNEL " + ofToString((i % settings.numChannels) + 1));
+            i++;
+        }
     }
 }
 
