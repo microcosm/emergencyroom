@@ -5,6 +5,7 @@
 #include "erPlayParams.h"
 #include "erTranslater.h"
 #include "erSettings.h"
+#include "erLogger.h"
 
 #define SYNC_TCP_PORT 15001
 #define FINDER_TIMEOUT 15000
@@ -63,6 +64,4 @@ protected:
     bool success;
     u_int64_t now;
     int ecgIndex;
-
-    std::mutex mConnectionsLock;
 };
