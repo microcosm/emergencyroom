@@ -1,6 +1,7 @@
 {
     "fullscreen-by-default": true,
     "enable-log-to-file": false,
+    "test-content-mode": false,
     "number-of-video-channels": 3,
     "min-decoy-duration-secs": 7.5,
 
@@ -33,6 +34,8 @@
     "media-files": {
         "live-path": "../path-to/live/",
         "preview-path": "../path-to/preview/",
+        "test-content-live-path": "../path-to/test/live/",
+        "test-content-preview-path": "../path-to/test/preview/",
         "breathing-sound-path": "../path-to/breathing.wav",
         "live-dir": "/live/",
         "preview-dir": "/preview/",

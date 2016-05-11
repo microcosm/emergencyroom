@@ -9,6 +9,7 @@
 
 #define ER_FULLSCREEN_BY_DEFAULT "fullscreen-by-default"
 #define ER_LOG_TO_FILE_ENABLED "enable-log-to-file"
+#define ER_TEST_CONTENT_MODE "test-content-mode"
 #define ER_NUMBER_OF_VIDEO_CHANNELS "number-of-video-channels"
 #define ER_MIN_DECOY_DURATION "min-decoy-duration-secs"
 
@@ -37,6 +38,8 @@
 #define ER_MEDIA_FILES "media-files"
 #define ER_LIVE_PATH "live-path"
 #define ER_PREVIEW_PATH "preview-path"
+#define ER_TEST_CONTENT_LIVE_PATH "test-content-live-path"
+#define ER_TEST_CONTENT_PREVIEW_PATH "test-content-preview-path"
 #define ER_BREATHING_SOUND_PATH "breathing-sound-path"
 #define ER_LIVE_DIR "live-dir"
 #define ER_PREVIEW_DIR "preview-dir"
@@ -51,18 +54,21 @@ public:
     void toggleServerDrawing();
     void toggleClientDrawing();
 
+    bool fullscreenByDefault;
+    bool logToFileEnabled;
+    bool testContentMode;
+    int numChannels;
+    float minDecoyDuration;
+
+    bool isServer;
+    bool isEcg;
+
     float masterVolume;
     float breathingVolume;
     float videoVolume;
     float ecgVolume;
     float staticVolume;
 
-    bool fullscreenByDefault;
-    bool logToFileEnabled;
-    int numChannels;
-    float minDecoyDuration;
-    bool isServer;
-    bool isEcg;
     float ecgHighestBpm;
     float ecgLowestBpm;
     int ecgBpmPeriodSecs;

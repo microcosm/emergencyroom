@@ -20,6 +20,7 @@ void erSettings::toggleClientDrawing(){
 void erSettings::initSettings(){
     fullscreenByDefault = false;
     logToFileEnabled = true;
+    testContentMode = false;
     numChannels = 1;
     minDecoyDuration = 1;
 
@@ -59,6 +60,7 @@ void erSettings::applySettings(ofxJSONElement& json){
 
     fullscreenByDefault = json[ER_FULLSCREEN_BY_DEFAULT].asBool();
     logToFileEnabled    = json[ER_LOG_TO_FILE_ENABLED].asBool();
+    testContentMode     = json[ER_TEST_CONTENT_MODE].asBool();
     numChannels         = json[ER_NUMBER_OF_VIDEO_CHANNELS].asInt();
     minDecoyDuration    = json[ER_MIN_DECOY_DURATION].asFloat();
 
@@ -80,8 +82,8 @@ void erSettings::applySettings(ofxJSONElement& json){
     shortestSequenceDelay = json[ER_MEDIA_SEQUENCING][ER_SHORTEST_DELAY].asInt();
     longestSequenceDelay  = json[ER_MEDIA_SEQUENCING][ER_LONGEST_DELAY].asInt();
 
-    liveMediaPath      = json[ER_MEDIA_FILES][ER_LIVE_PATH].asString();
-    previewMediaPath   = json[ER_MEDIA_FILES][ER_PREVIEW_PATH].asString();
+    liveMediaPath      = json[ER_MEDIA_FILES][testContentMode ? ER_TEST_CONTENT_LIVE_PATH : ER_LIVE_PATH].asString();
+    previewMediaPath   = json[ER_MEDIA_FILES][testContentMode ? ER_TEST_CONTENT_PREVIEW_PATH : ER_PREVIEW_PATH].asString();
     breathingSoundPath = json[ER_MEDIA_FILES][ER_BREATHING_SOUND_PATH].asString();
     liveMediaDir       = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
     previewMediaDir    = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();
