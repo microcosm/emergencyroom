@@ -176,11 +176,9 @@ string erMediaPlayer::selectDecoyPath(erPlayParams params){
         int decoyIndex = floor(ofRandom(allVideoPaths->size() - 0.0001));
         decoyPath = allVideoPaths->at(decoyIndex);
         if(decoyPath != params.getPath()){//? string comparison ?
-            videoPlayers->at(decoyPath)->lock();
             if(!videoPlayers->at(decoyPath)->isOrWillBePlaying()){
                 found = true;
             }
-            videoPlayers->at(decoyPath)->unlock();
         }
     }
     while(!found);

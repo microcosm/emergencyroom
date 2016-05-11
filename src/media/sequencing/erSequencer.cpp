@@ -179,13 +179,7 @@ void erSequencer::attemptToLoadMediaQueues(){
 bool erSequencer::isAudioPlaying(){
     ofPtr<erSyncedVideoPlayer> videoPlayer;
     for(auto const& path : loader->audibleVideos){
-        videoPlayer = loader->videoPlayers[path];
-        videoPlayer->lock();
-        bool playing = videoPlayer->isOrWillBePlaying();
-        videoPlayer->unlock();
-        if(playing){
-            return true;
-        }
+        return loader->videoPlayers[path]->isOrWillBePlaying();
     }
     return false;
 }

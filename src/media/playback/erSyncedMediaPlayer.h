@@ -9,14 +9,6 @@ public:
     virtual void beginPlayback(){};
     virtual bool isOrWillBePlaying(){};
 
-    void schedule(u_int64_t delay){
-        scheduled = true;
-        lock();
-        playTime = ofGetElapsedTimeMillis() + delay;
-        unlock();
-        startThread(true);
-    }
-
     void execute(erPlayParams _params){
         lock();
         params = _params;
@@ -28,6 +20,12 @@ protected:
     u_int64_t playTime; //shared!
     erPlayParams params; //shared!
     bool scheduled = false; //shared, but bool and only assigned once
+
+    void schedule(u_int64_t delay){
+        scheduled = true;
+        playTime = ofGetElapsedTimeMillis() + delay;
+        startThread(true);
+    }
 
     //runs in thread
     void threadedFunction(){

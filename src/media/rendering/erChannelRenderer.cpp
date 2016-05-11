@@ -49,11 +49,7 @@ void erChannelRenderer::assignDecoyGlitch(ofPtr<erSyncedVideoPlayer> _videoPlaye
 
 bool erChannelRenderer::isChannelPlaying(int channel){
     if(hasChannel(channel)){
-        erSyncedVideoPlayer* player = channelsToPlayers[channel].get();
-        player->lock();
-        bool isPlaying = player->isOrWillBePlaying();
-        player->unlock();
-        return isPlaying;
+        return channelsToPlayers[channel].get()->isOrWillBePlaying();
     }
     return false;
 }
@@ -78,12 +74,9 @@ bool erChannelRenderer::hasChannel(int channel){
 void erChannelRenderer::eraseCompletedVideosFromChannels(){
     toErase.clear();
     for(auto const& channelToPlayer : channelsToPlayers){
-        erSyncedVideoPlayer* player = channelToPlayer.second.get();
-        player->lock();
-        if(!player->isOrWillBePlaying()){
+        if(!channelToPlayer.second.get()->isOrWillBePlaying()){
             toErase.push_back(channelToPlayer.first);
         }
-        player->unlock();
     }
 
     for(auto const& i : toErase){
