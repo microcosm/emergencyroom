@@ -30,9 +30,11 @@ public:
 
 protected:
     void beginPlayback(){
+        lock();
         syncing = false;
         syncTime = ofGetElapsedTimeMillis();
         ecgTimer.start();
+        unlock();
     }
 
     ofxAudioUnitManager manager;

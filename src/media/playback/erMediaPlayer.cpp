@@ -22,7 +22,6 @@ void erMediaPlayer::update(ofEventArgs& args){
 void erMediaPlayer::draw(ofEventArgs& args){
     ofSetColor(ofColor::white);
     if(network->isRunningServer() && settings.serverDrawingEnabled){
-        soundRenderer.lock();
         if(soundRenderer.isSyncing()){
             ofDrawBitmapString("SYNCING...", 130, ofGetHeight() - 208);
         }else if(soundRenderer.hasSynced()){
@@ -30,16 +29,13 @@ void erMediaPlayer::draw(ofEventArgs& args){
         }else{
             ofDrawBitmapString("NOT SYNCED", 130, ofGetHeight() - 208);
         }
-        soundRenderer.unlock();
     }
 }
 
 void erMediaPlayer::keyReleased(ofKeyEventArgs &args){
     if(network->isRunningServer() && args.key == '-'){
         network->syncEcg(ECG_SYNC_DELAY);
-        soundRenderer.lock();
         soundRenderer.syncEcg(ECG_SYNC_DELAY);
-        soundRenderer.unlock();
     }
 }
 
@@ -62,9 +58,7 @@ void erMediaPlayer::playClient(erPlayParams params){
             textRenderer.newOverlayPeriod(startTextOverlay, textOverlayDuration);
             textRenderer.newTextPeriod(startText, textDuration, params);
         }
-        videoPlayer->lock();
         videoPlayer->execute(params);
-        videoPlayer->unlock();
     }
 }
 
@@ -77,14 +71,10 @@ void erMediaPlayer::playServer(int channel, erPlayParams params){
         channelRenderer.newClosingGlitchPeriod(startClosingGlitch, closingGlitchDuration, channel);
 
         calculateSoundPlaybackVariables();
-        soundRenderer.lock();
         soundRenderer.newOpeningGlitchPeriod(startOpeningGlitch, openingGlitchDuration, channel);
         soundRenderer.newClosingGlitchPeriod(startClosingGlitch, closingGlitchDuration, channel);
-        soundRenderer.unlock();
 
-        videoPlayer->lock();
         videoPlayer->execute(params);
-        videoPlayer->unlock();
     }
 }
 
@@ -102,9 +92,7 @@ void erMediaPlayer::stopAll(){
         }
         videoPlayer.second->unlock();
     }
-    soundRenderer.lock();
     soundRenderer.stopVideoSound();
-    soundRenderer.unlock();
 }
 
 bool erMediaPlayer::isChannelPlaying(int channel){
@@ -125,14 +113,10 @@ void erMediaPlayer::setTexts(map<string, vector<string>>* texts){
 }
 
 void erMediaPlayer::useSoundRendererFor(vector<string>& audibleVideos){
-    soundRenderer.lock();
     soundRenderer.setupVideo(audibleVideos);
-    soundRenderer.unlock();
 
     for(const auto& video : audibleVideos){
-        videoPlayers->at(video)->lock();
         videoPlayers->at(video)->renderSoundWith(&soundRenderer);
-        videoPlayers->at(video)->unlock();
     }
 }
 
@@ -183,7 +167,6 @@ string erMediaPlayer::getClientVideoState(){
 }
 
 erEcgTimer* erMediaPlayer::getEcgTimer(){
-    //thread problem?
     return soundRenderer.getEcgTimer();
 }
 
@@ -192,7 +175,7 @@ string erMediaPlayer::selectDecoyPath(erPlayParams params){
     do{
         int decoyIndex = floor(ofRandom(allVideoPaths->size() - 0.0001));
         decoyPath = allVideoPaths->at(decoyIndex);
-        if(decoyPath != params.getPath()){
+        if(decoyPath != params.getPath()){//? string comparison ?
             videoPlayers->at(decoyPath)->lock();
             if(!videoPlayers->at(decoyPath)->isOrWillBePlaying()){
                 found = true;

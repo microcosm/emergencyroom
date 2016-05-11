@@ -1,7 +1,6 @@
 #pragma once
 #include "ofMain.h"
 #include "erPlayParams.h"
-#include "erSyncedVideoPlayer.h"
 #include "erSettings.h"
 #include "erNetwork.h"
 #include "ofxLayerMask.h"
@@ -26,7 +25,6 @@ protected:
     ofxAnimatableFloat textY;
     map<string, vector<string>>* texts;
     vector<string>* currentTexts;
-    ofPtr<erSyncedVideoPlayer> currentVideoPlayer;
     u_int64_t now, startTextAt, endTextAt, startOverlayAt, endOverlayAt, nextAnimationBeginsAt;
     int videoDuration, padding;
     erNetwork* network;

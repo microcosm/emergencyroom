@@ -3,6 +3,8 @@
 #include "erSyncedMediaPlayer.h"
 #include "erSoundRenderer.h"
 
+//functions / vars in ofVideoPlayer are shared!
+
 class erSyncedVideoPlayer : public ofVideoPlayer, public erSyncedMediaPlayer{
 
 public:
@@ -15,7 +17,10 @@ public:
     }
 
     bool isOrWillBePlaying(){
-        return scheduled || isPlaying();
+        lock();
+        bool isOrWillBe = scheduled || isPlaying();
+        unlock();
+        return isOrWillBe;
     }
 
     void renderSoundWith(erSoundRenderer* _soundRenderer){
@@ -24,26 +29,28 @@ public:
     }
 
 protected:
-    bool useSoundRenderer = false;
-    erSoundRenderer* soundRenderer;
-    int soundDelay = 103;
-    string path;
+    int soundDelay = 103; //shared, but value only assigned once
+    erSoundRenderer* soundRenderer; //shared, but pointer only assigned once
+    bool useSoundRenderer = false; //shared, but bool and only assigned once
+    string path; //not shared
 
+    //runs in thread
     void beforeSleep(){
         lock();
         stop();
         unlock();
     }
 
+    //runs in thread
     void beginPlayback(){
+        lock();
         setSpeed(params.getSpeed());
         if(!isPlaying()) play();
+        unlock();
 
         if(useSoundRenderer){
             ofSleepMillis(soundDelay);
-            //soundRenderer->lock();
             soundRenderer->playVideoSound(params.getPath());
-            //soundRenderer->unlock();
         }
     }
 };

@@ -181,7 +181,7 @@ bool erSequencer::isAudioPlaying(){
     for(auto const& path : loader->audibleVideos){
         videoPlayer = loader->videoPlayers[path];
         videoPlayer->lock();
-        bool playing = loader->videoPlayers[path]->isOrWillBePlaying();
+        bool playing = videoPlayer->isOrWillBePlaying();
         videoPlayer->unlock();
         if(playing){
             return true;
