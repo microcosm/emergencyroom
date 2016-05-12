@@ -77,9 +77,14 @@ void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, in
         float playerDuration = player->getDuration();
 
         if(player != decoyGlitchPlayer && playerDuration > settings.minDecoyDuration && decoyFramesRemaining > 0){
-            if(!decoyGlitchPlayer->isPlaying()) decoyGlitchPlayer->play();
-            decoyGlitchPlayer->update();
-            decoyGlitchPlayer->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+            //https://github.com/openframeworks/openFrameworks/issues/4485
+            if(!decoyGlitchPlayer->isPlaying()){
+                decoyGlitchPlayer->setPosition(0);
+                decoyGlitchPlayer->play();
+            }else{
+                decoyGlitchPlayer->update();
+                decoyGlitchPlayer->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+            }
             decoyFramesRemaining--;
             playbackState = ER_PLAYBACK_DECOY;
         }else{
