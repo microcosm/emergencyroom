@@ -47,7 +47,7 @@ void erSequencer::update(ofEventArgs& args){
         if(isMovieDone){
             focusTime = false;
             focusVideoPath = "";
-            ecgTimer->resumeBpmAnimation();
+            //ecgTimer->resumeBpmAnimation();
         }
     }
 
@@ -104,7 +104,7 @@ void erSequencer::ecgBpmLooped(ofxAnimatable::AnimationEvent& args){
     if(args.direction == 1){
         focusTime = true;
         stopAll();
-        ecgTimer->pauseBpmAnimation();
+        //ecgTimer->pauseBpmAnimation();
         if(focusIndex >= loader->focusVideos.size()){
             focusIndex = 0;
         }
