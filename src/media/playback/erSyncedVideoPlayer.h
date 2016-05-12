@@ -11,9 +11,13 @@ public:
     }
 
     void checkSchedule(){
-        if(scheduled && ofGetElapsedTimeMillis() > playTime){
-            beginPlayback();
-            scheduled = false;
+        if(videoScheduled && ofGetElapsedTimeMillis() > videoPlayTime){
+            beginVideoPlayback();
+            videoScheduled = false;
+        }
+        if(soundScheduled && ofGetElapsedTimeMillis() > soundPlayTime){
+            beginSoundPlayback();
+            soundScheduled = false;
         }
     }
 
@@ -29,7 +33,7 @@ public:
     }
 
     bool isOrWillBePlaying(){
-        return scheduled || isPlaying();
+        return videoScheduled || isPlaying();
     }
 
     void renderSoundWith(erSoundRenderer* _soundRenderer){
@@ -38,17 +42,17 @@ public:
     }
 
 protected:
-    int soundDelay = 103;
     erSoundRenderer* soundRenderer;
     bool useSoundRenderer = false;
     string path;
 
-    void beginPlayback(){
+    void beginVideoPlayback(){
         setSpeed(params.getSpeed());
         if(!isPlaying()) play();
+    }
 
+    void beginSoundPlayback(){
         if(useSoundRenderer){
-            //ofSleepMillis(soundDelay);
             soundRenderer->playVideoSound(params.getPath());
         }
     }

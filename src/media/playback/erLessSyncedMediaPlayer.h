@@ -6,7 +6,8 @@ class erLessSyncedMediaPlayer{
 
 public:
     virtual void before(){};
-    virtual void beginPlayback(){};
+    virtual void beginVideoPlayback(){};
+    virtual void beginSoundPlayback(){};
     virtual bool isOrWillBePlaying(){};
 
     void execute(erPlayParams _params){
@@ -15,15 +16,17 @@ public:
     }
 
 protected:
-    u_int64_t playTime;
+    u_int64_t videoPlayTime, soundPlayTime;
     erPlayParams params;
-    bool scheduled = false;
+    bool videoScheduled = false;
+    bool soundScheduled = false;
+    int soundDelay = 200;
 
     void schedule(u_int64_t delay){
-        //cout << "now is: " << ofGetElapsedTimeMillis() << endl;
-        scheduled = true;
-        playTime = ofGetElapsedTimeMillis() + delay;
-        //cout << "playTime is: " << playTime << endl;
+        videoScheduled = true;
+        soundScheduled = true;
+        videoPlayTime = ofGetElapsedTimeMillis() + delay;
+        soundPlayTime = videoPlayTime + soundDelay;
         before();
     }
 };
