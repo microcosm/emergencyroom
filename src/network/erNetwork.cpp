@@ -26,45 +26,45 @@ void erNetwork::setup(){
 }
 
 void erNetwork::update(ofEventArgs& args){
-    string method = "erNetwork::update(ofEventArgs& args)";
-    erLog(method, "Called");
+    //string method = "erNetwork::update(ofEventArgs& args)";
+    //erLog(method, "Called");
 
     previousRole = role;
     now = ofGetElapsedTimeMillis();
 
     if(!server.isConnected() && !client.isConnected() && !finder.isRunning()){
-        erLog(method, "Nothing running or connected. Trying to start finder.");
+        //erLog(method, "Nothing running or connected. Trying to start finder.");
 
         if(!finder.setup()){
-            erLog(method, "Finder couldn't start.");
+            //erLog(method, "Finder couldn't start.");
             statusText += "\nfailed to start finder";
         }
     }
 
     if(finder.isRunning()){
-        erLog(method, "Finder is running.");
+        //erLog(method, "Finder is running.");
         if(finder.doesServerFound()){
             
-            erLog(method, "Server was found.");
+            //erLog(method, "Server was found.");
             
             statusText = "server found";
             finder.close();
             if(client.setup(finder.getServerInfo().ip, finder.getServerInfo().port)){
-                erLog(method, "Client setup succeeded.");
+                //erLog(method, "Client setup succeeded.");
                 role = NETWORK_ROLE_CLIENT;
                 ofAddListener(client.connectionLost, this, &erNetwork::onClientConnectionLost);
                 ofAddListener(client.messageReceived, this, &erNetwork::onClientMessageReceived);
             }else{
                 
-                erLog(method, "Client setup failed.");
+                //erLog(method, "Client setup failed.");
             }
         }else{
             
-            erLog(method, "No server found.");
+            //erLog(method, "No server found.");
         }
 
         if(serverIsAllowed){
-            erLog(method, "Server is allowed.");
+            //erLog(method, "Server is allowed.");
             if(now > finderStartTime+FINDER_TIMEOUT || serverRequested){
                 //server finder timeout
                 serverRequested = false;
@@ -72,65 +72,65 @@ void erNetwork::update(ofEventArgs& args){
                 //i will be server
                 if(server.setup(SYNC_TCP_PORT+serverPortOffset)){
                     
-                    erLog(method, "Server setup OK.");
+                    //erLog(method, "Server setup OK.");
                     role = NETWORK_ROLE_SERVER;
                     statusText = "i am server";
                     finder.close();
 
                     if(client.isCalibrated()){
-                        erLog(method, "Client is calibrated. (?)");
+                        //erLog(method, "Client is calibrated. (?)");
                         server.setTimeOffsetMillis(client.getSyncedElapsedTimeMillis()-ofGetElapsedTimeMillis());
                     }
                 }else{
                     //failed to start server. still try to find server
                     
-                    erLog(method, "Server failed to start.");
+                    //erLog(method, "Server failed to start.");
                     statusText = "server failed to start. maybe given address is already in use?";
-                    erLog(method, "1");
+                    //erLog(method, "1");
                     finderStartTime = now;
-                    erLog(method, "2");
+                    //erLog(method, "2");
                     server.close();
-                    erLog(method, "3");
+                    //erLog(method, "3");
                     serverPortOffset++;
-                    erLog(method, "4.");
+                    //erLog(method, "4.");
                 }
             }
         }else{
-            erLog(method, "Server not allowed. Restarting timer.");
+            //erLog(method, "Server not allowed. Restarting timer.");
             finderStartTime = now;
         }
     }else if(server.isConnected()){
-        erLog(method, "Server is connected. Updating.");
+        //erLog(method, "Server is connected. Updating.");
         server.update();
-        erLog(method, "Updated.");
+        //erLog(method, "Updated.");
         numClients = server.getClients().size();
-        erLog(method, "Num clients = " + ofToString(numClients));
+        //erLog(method, "Num clients = " + ofToString(numClients));
         if(numClients != previousNumClients){
-            erLog(method, "Sending channel updates.");
+            //erLog(method, "Sending channel updates.");
             sendChannelUpdates();
         }
         previousNumClients = numClients;
     }
     
-    erLog(method, "Done.");
+    //erLog(method, "Done.");
 }
 
 void erNetwork::draw(ofEventArgs& args){
-    string method = "erNetwork::draw(ofEventArgs& args)";
-    erLog(method, "Called");
+    //string method = "erNetwork::draw(ofEventArgs& args)";
+    //erLog(method, "Called");
 
     if(finder.isRunning()){
-        erLog(method, "Finder is running. Drawing.");
+        //erLog(method, "Finder is running. Drawing.");
         drawBlackOverlay();
         ofSetColor(ofColor::white);
         ofDrawBitmapString(statusText, 50, 30);
         ofDrawBitmapString("trying to find server: " + ofToString((finderStartTime+FINDER_TIMEOUT)-ofGetElapsedTimeMillis()), 50, 50);
         ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
-        erLog(method, "Done drawing.");
+        //erLog(method, "Done drawing.");
     }else if(client.isConnected()){
-        erLog(method, "Client is connected...");
+        //erLog(method, "Client is connected...");
         if(settings.clientDrawingEnabled){
-            erLog(method, "Drawing enabled - Drawing now.");
+            //erLog(method, "Drawing enabled - Drawing now.");
             drawBlackOverlay();
             ofSetColor(ofColor::white);
             ofDrawBitmapString(statusText, 50, 30);
@@ -138,20 +138,20 @@ void erNetwork::draw(ofEventArgs& args){
             ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
             ofDrawBitmapString(clientChannel, 50, ofGetHeight()-35);
             font.drawString(clientChannel, 40, ofGetHeight() * 0.4);
-            erLog(method, "Done drawing.");
+            //erLog(method, "Done drawing.");
         }else{
-            erLog(method, "Drawing not enabled. Done.");
+            //erLog(method, "Drawing not enabled. Done.");
         }
     }else if(server.isConnected()){
-        erLog(method, "Server is connected...");
+        //erLog(method, "Server is connected...");
         if(settings.serverDrawingEnabled){
-            erLog(method, "Drawing enabled - Drawing now.");
+            //erLog(method, "Drawing enabled - Drawing now.");
             ofDrawBitmapString(statusText, 50, 30);
-            erLog(method, "1");
+            //erLog(method, "1");
             server.drawStatus(50, 50);
-            erLog(method, "2");
+            //erLog(method, "2");
             vector<ofxNetworkSyncClientState *> clients = server.getClients();
-            erLog(method, "3");
+            //erLog(method, "3");
             ostringstream ostr("");
             ostr << endl << endl;
             for(int i = 0; i < clients.size(); i++){
@@ -160,17 +160,17 @@ void erNetwork::draw(ofEventArgs& args){
                 }
                 ostr << endl << endl;
             }
-            erLog(method, "4");
+            //erLog(method, "4");
             ofDrawBitmapString(ostr.str(), 30, 50);
-            erLog(method, "5");
+            //erLog(method, "5");
             ofDrawBitmapString(ofToString(server.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
-            erLog(method, "Done drawing.");
+            //erLog(method, "Done drawing.");
         }else{
-            erLog(method, "Drawing not enabled. Done.");
+            //erLog(method, "Drawing not enabled. Done.");
         }
     }
 
-    erLog(method, "Done.");
+    //erLog(method, "Done.");
 }
 
 void erNetwork::keyReleased(ofKeyEventArgs &args){
@@ -192,16 +192,16 @@ void erNetwork::keyReleased(ofKeyEventArgs &args){
 }
 
 void erNetwork::syncEcg(int delay){
-    string method = "erNetwork::syncEcg(int delay)";
-    erLog(method, "Called");
-    erLog(method, "Ecg index = " + ofToString(ecgIndex) + ", Num clients = " + ofToString(server.getClients().size()));
+    //string method = "erNetwork::syncEcg(int delay)";
+    //erLog(method, "Called");
+    //erLog(method, "Ecg index = " + ofToString(ecgIndex) + ", Num clients = " + ofToString(server.getClients().size()));
     vector<ofxNetworkSyncClientState*>& clients = server.getClients();
     if(isRunningServer() && clients.size() > 0 && ecgIndex < clients.size()){
         string message = "ECGSYNC";
-        erLog(method, "Sending '" + message + "' to client " + ofToString(clients.at(ecgIndex)->getClientID()));
+        //erLog(method, "Sending '" + message + "' to client " + ofToString(clients.at(ecgIndex)->getClientID()));
         send(message, clients.at(ecgIndex));
     }
-    erLog(method, "Done.");
+    //erLog(method, "Done.");
 }
 
 int erNetwork::getClientId(){
@@ -212,51 +212,51 @@ int erNetwork::getClientId(){
 }
 
 void erNetwork::clientStopAll(){
-    string method = "erNetwork::clientStopAll";
-    erLog(method, "Called");
-    erLog(method, "Num clients = " + ofToString(server.getClients().size()));
+    //string method = "erNetwork::clientStopAll";
+    //erLog(method, "Called");
+    //erLog(method, "Num clients = " + ofToString(server.getClients().size()));
 
     for(auto& client : server.getClients()) {
         if(client->isCalibrated()){
             string message = "STOP ALL";
-            erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
+            //erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
             send(message, client);
         }
     }
 
-    erLog(method, "Done.");
+    //erLog(method, "Done.");
 }
 
 void erNetwork::clientDisplaysOn(){
-    string method = "erNetwork::clientDisplaysOn";
-    erLog(method, "Called");
-    erLog(method, "Num clients = " + ofToString(server.getClients().size()));
+    //string method = "erNetwork::clientDisplaysOn";
+    //erLog(method, "Called");
+    //erLog(method, "Num clients = " + ofToString(server.getClients().size()));
 
     for(auto& client : server.getClients()) {
         if(client->isCalibrated()){
             string message = "DISPLAY ON";
-            erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
+            //erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
             send(message, client);
         }
     }
 
-    erLog(method, "Done.");
+    //erLog(method, "Done.");
 }
 
 void erNetwork::clientDisplaysOff(){
-    string method = "erNetwork::clientDisplaysOff";
-    erLog(method, "Called");
-    erLog(method, "Num clients = " + ofToString(server.getClients().size()));
+    //string method = "erNetwork::clientDisplaysOff";
+    //erLog(method, "Called");
+    //erLog(method, "Num clients = " + ofToString(server.getClients().size()));
 
     for(auto& client : server.getClients()) {
         if(client->isCalibrated()){
             string message = "DISPLAY OFF";
-            erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
+            //erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
             send(message, client);
         }
     }
 
-    erLog(method, "Done.");
+    //erLog(method, "Done.");
 }
 
 void erNetwork::requestServer(){
@@ -264,23 +264,23 @@ void erNetwork::requestServer(){
 }
 
 bool erNetwork::flood(erPlayParams params){
-    string method = "erNetwork::flood(erPlayParams params)";
-    erLog(method, "Called");
-    erLog(method, "Num clients = " + ofToString(server.getClients().size()));
+    //string method = "erNetwork::flood(erPlayParams params)";
+    //erLog(method, "Called");
+    //erLog(method, "Num clients = " + ofToString(server.getClients().size()));
 
     success = false;
     for(auto& client : server.getClients()) {
         send(params, client);
     }
-    erLog(method, "Done. Returning success? (" + ofToString(success) + ")");
+    //erLog(method, "Done. Returning success? (" + ofToString(success) + ")");
     return success;
 }
 
 bool erNetwork::target(int target, erPlayParams params){
-    string method = "erNetwork::target(int target, erPlayParams params)";
-    erLog(method, "Called");
-    erLog(method, "Num clients = " + ofToString(server.getClients().size()));
-    erLog(method, "Target = " + ofToString(target) + ", Num clients = " + ofToString(server.getClients().size()));
+    //string method = "erNetwork::target(int target, erPlayParams params)";
+    //erLog(method, "Called");
+    //erLog(method, "Num clients = " + ofToString(server.getClients().size()));
+    //erLog(method, "Target = " + ofToString(target) + ", Num clients = " + ofToString(server.getClients().size()));
 
     success = false;
     vector<ofxNetworkSyncClientState*>& clients = server.getClients();
@@ -291,7 +291,7 @@ bool erNetwork::target(int target, erPlayParams params){
         }
     }
     
-    erLog(method, "Done. Returning success? (" + ofToString(success) + ")");
+    //erLog(method, "Done. Returning success? (" + ofToString(success) + ")");
     return success;
 }
 
@@ -363,40 +363,40 @@ void erNetwork::onClientMessageReceived(string& message){
 }
 
 void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
-    string method = "erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client)";
-    erLog(method, "Called");
+    //string method = "erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client)";
+    //erLog(method, "Called");
     send(translater.toMessage(params), client);
-    erLog(method, "Done.");
+    //erLog(method, "Done.");
 }
 
 void erNetwork::send(string message, ofxNetworkSyncClientState* client){
     string method = "erNetwork::send(string& message, ofxNetworkSyncClientState* client)";
-    erLog(method, "Called");
+    //erLog(method, "Called");
     if(client->isCalibrated()){
-        erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
+        //erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
         try{
             client->send(message);
         }catch(...){
             erLog(method, "Caught exception.");
         }
     }
-    erLog(method, "Done.");
+    //erLog(method, "Done.");
 }
 
 void erNetwork::sendChannelUpdates(){
-    string method = "erNetwork::sendChannelUpdates";
-    erLog(method, "Called");
-    erLog(method, "Num clients = " + ofToString(server.getClients().size()));
+    //string method = "erNetwork::sendChannelUpdates";
+    //erLog(method, "Called");
+    //erLog(method, "Num clients = " + ofToString(server.getClients().size()));
     int i = 0;
     for(auto& client : server.getClients()) {
         if(client->isCalibrated()){
             string message = "CHANNEL " + ofToString((i % settings.numChannels) + 1);
-            erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
+            //erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
             send(message, client);
             i++;
         }
     }
-    erLog(method, "Done.");
+    //erLog(method, "Done.");
 }
 
 void erNetwork::setLogLevels(ofLogLevel level){
