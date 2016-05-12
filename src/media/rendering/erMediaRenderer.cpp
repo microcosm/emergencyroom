@@ -42,8 +42,7 @@ void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width,
             drawGlitched(player, x, y, width, height) :
             drawNormal(player, x, y, width, height);
     }else{
-        ofDrawBitmapString("Player isn't playing " + player->getPath(), x, y);
-        cout << "Player isn't playing " << player->getPath() << endl;
+        ofDrawBitmapString("Scheduled...", x + 10, y + 20);// + player->getPath(), x + 10, y + 20);
     }
 }
 
@@ -68,7 +67,7 @@ void erMediaRenderer::drawStatic(int x, int y, int width, int height){
 
 void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height){
     player->draw(x, y, width, height);
-    //ofDrawBitmapString("Drawing normal: " + player->getPath(), x + 20, y + 20);
+    ofDrawBitmapString("Playing", x + 10, y + 20);// + player->getPath(), x + 10, y + 20);
     playbackState = ER_PLAYBACK_NORMAL;
 }
 
