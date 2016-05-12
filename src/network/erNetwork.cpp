@@ -1,6 +1,7 @@
 #include "erNetwork.h"
 
 void erNetwork::setup(){
+    signal(SIGPIPE, SIG_IGN);
     role = NETWORK_ROLE_UNDEFINED;
     statusText = clientChannel = "";
     serverPortOffset = 0;
