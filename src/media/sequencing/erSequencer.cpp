@@ -42,9 +42,7 @@ void erSequencer::update(ofEventArgs& args){
 
     if(focusTime){
         erSyncedVideoPlayer* player = loader->videoPlayers.at(focusVideoPath).get();
-        player->lock();
         bool isMovieDone = player->getIsMovieDone();
-        player->unlock();
 
         if(isMovieDone){
             focusTime = false;

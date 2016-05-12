@@ -1,15 +1,27 @@
 #pragma once
 #include "ofMain.h"
-#include "erSyncedMediaPlayer.h"
+#include "erLessSyncedMediaPlayer.h"
 #include "erSoundRenderer.h"
 
-//functions / vars in ofVideoPlayer are shared!
-
-class erSyncedVideoPlayer : public ofVideoPlayer, public erSyncedMediaPlayer{
+class erSyncedVideoPlayer : public ofVideoPlayer, public erLessSyncedMediaPlayer{
 
 public:
     void setPath(string _path){
         path = _path;
+    }
+
+    void checkSchedule(){
+        if(scheduled && ofGetElapsedTimeMillis() > playTime){
+            beginPlayback();
+            scheduled = false;
+        }
+    }
+
+    void before(){
+        if(isPlaying()){
+            stop();
+        }
+        setPosition(0);
     }
 
     string getPath(){
@@ -17,10 +29,7 @@ public:
     }
 
     bool isOrWillBePlaying(){
-        lock();
-        bool isOrWillBe = scheduled || isPlaying();
-        unlock();
-        return isOrWillBe;
+        return scheduled || isPlaying();
     }
 
     void renderSoundWith(erSoundRenderer* _soundRenderer){
@@ -29,27 +38,17 @@ public:
     }
 
 protected:
-    int soundDelay = 103; //shared, but value only assigned once
-    erSoundRenderer* soundRenderer; //shared, but pointer only assigned once
-    bool useSoundRenderer = false; //shared, but bool and only assigned once
-    string path; //not shared
+    int soundDelay = 103;
+    erSoundRenderer* soundRenderer;
+    bool useSoundRenderer = false;
+    string path;
 
-    //runs in thread
-    void beforeSleep(){
-        lock();
-        stop();
-        unlock();
-    }
-
-    //runs in thread
     void beginPlayback(){
-        lock();
         setSpeed(params.getSpeed());
         if(!isPlaying()) play();
-        unlock();
 
         if(useSoundRenderer){
-            ofSleepMillis(soundDelay);
+            //ofSleepMillis(soundDelay);
             soundRenderer->playVideoSound(params.getPath());
         }
     }

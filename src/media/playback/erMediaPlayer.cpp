@@ -86,11 +86,10 @@ void erMediaPlayer::floodServer(erPlayParams params){
 
 void erMediaPlayer::stopAll(){
     for(const auto& videoPlayer : *videoPlayers){
-        videoPlayer.second->lock();
         if(videoPlayer.second->isPlaying()){
             videoPlayer.second->stop();
+            videoPlayer.second->setPosition(0);
         }
-        videoPlayer.second->unlock();
     }
     soundRenderer.stopVideoSound();
 }
@@ -127,9 +126,7 @@ void erMediaPlayer::calculateVideoPlaybackVariables(erPlayParams params){
     bufferTime = params.getDelay();
     halfBufferTime = bufferTime * 0.5;
 
-    videoPlayer->lock();
     videoDuration = videoPlayer->getDuration() * 1000;
-    videoPlayer->unlock();
     videoGlitchTime = ofClamp(videoDuration * 0.2, 50, halfBufferTime);
 
     startOpeningGlitch = currentTime + halfBufferTime;

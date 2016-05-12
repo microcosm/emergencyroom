@@ -415,6 +415,7 @@
 		B4B354C91CBDC25500B8883B /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = ../../../../../../../System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<group>"; };
 		B4B354D51CBDC26200B8883B /* ofxBpm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBpm.cpp; sourceTree = "<group>"; };
 		B4B354D61CBDC26200B8883B /* ofxBpm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBpm.h; sourceTree = "<group>"; };
+		B4E017471CE42256001D4AD5 /* erLessSyncedMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erLessSyncedMediaPlayer.h; sourceTree = "<group>"; };
 		B4EAD53D1CDC0950007806CC /* ofxAnimatable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatable.cpp; sourceTree = "<group>"; };
 		B4EAD53E1CDC0950007806CC /* ofxAnimatable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAnimatable.h; sourceTree = "<group>"; };
 		B4EAD53F1CDC0950007806CC /* ofxAnimatableFloat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableFloat.cpp; sourceTree = "<group>"; };
@@ -522,6 +523,7 @@
 		B418118E1CDFCC860014D1E5 /* playback */ = {
 			isa = PBXGroup;
 			children = (
+				B4E017471CE42256001D4AD5 /* erLessSyncedMediaPlayer.h */,
 				B418118F1CDFCC860014D1E5 /* erMediaPlayer.cpp */,
 				B41811901CDFCC860014D1E5 /* erMediaPlayer.h */,
 				B41811911CDFCC860014D1E5 /* erPlayParams.cpp */,

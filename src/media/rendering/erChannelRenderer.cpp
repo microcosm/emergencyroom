@@ -89,9 +89,7 @@ void erChannelRenderer::drawClient(){
     anyPlayerIsPlaying = false;
     for(auto const& player : *videoPlayers){
         videoPlayer = player.second.get();
-        videoPlayer->lock();
         bool draw = videoPlayer->isPlaying() && videoPlayer->getPath() == currentPlayerPath;
-        videoPlayer->unlock();
         if(draw){
             anyPlayerIsPlaying = true;
             mediaRenderer.draw(videoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
@@ -108,7 +106,6 @@ void erChannelRenderer::drawServer(){
 
     ofSetColor(ofColor::white);
     ofNoFill();
-
     currentChannel = 1;
     for(int xi = 0; xi < 3; xi++){
         for(int yi = 0; yi < 3; yi++){
