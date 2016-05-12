@@ -65,7 +65,7 @@ void ofApp::draw(ofEventArgs& args){
     }
 
     if((network.isRunningClient() || settings.isEcg) && settings.clientDrawingEnabled){
-        ofDrawBitmapString("Computer name: '" + settings.computerName + "'\nDimensions:    " + ofToString(width) + " x " + ofToString(height), width - 250, 40);
+        ofDrawBitmapString("Computer name: '" + settings.computerName + "'\nDimensions:    " + ofToString(width) + " x " + ofToString(height), width - 350, 40);
         drawFps(320, height - 46);
     }
 
