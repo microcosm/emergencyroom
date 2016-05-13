@@ -21,7 +21,7 @@ void erMediaPlayer::update(){
         soundRenderer.ensureSetup();
     }
     channelRenderer.update();
-    textRenderer.update();
+    //textRenderer.update();
     if(soundRenderer.isSetup()){
         soundRenderer.update();
     }
@@ -39,7 +39,7 @@ void erMediaPlayer::draw(){
         }
     }
     channelRenderer.draw();
-    textRenderer.draw();
+    //textRenderer.draw();
     if(soundRenderer.isSetup()){
         soundRenderer.draw();
     }
