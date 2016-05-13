@@ -61,13 +61,13 @@ void ofApp::update(){
 void ofApp::draw(){
     ofSetColor(ofColor::white);
 
-    network.draw();
     if(settings.isEcg){
         ecg.draw();
     }else{
         player.draw();
         sequencer.draw();
     }
+    network.draw();
 
     if(loader.hasErrors()){
         loader.drawErrors();
