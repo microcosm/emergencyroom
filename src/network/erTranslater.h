@@ -10,8 +10,8 @@ class erTranslater{
 public:
     void setup(ofxNetworkSyncClient* _client, ofxNetworkSyncServer* _server);
     erPlayParams toParams(string& messageStr);
-    erPlayParams parseParams(erPlayParams& params, vector<string>& messageParts);
-    string toMessage(erPlayParams& params);
+    erPlayParams parseParams(erPlayParams params, vector<string>& messageParts);
+    string toMessage(erPlayParams params);
 
 protected:
     int getClientDelay(int serverDelay);

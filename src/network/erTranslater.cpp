@@ -17,14 +17,14 @@ erPlayParams erTranslater::toParams(string& messageStr){
         params.newCommand(messageParts[0]);
 
         if(params.isPlayable()){
-            parseParams(params, messageParts);
+            params = parseParams(params, messageParts);
         }
     }
 
     return params;
 }
 
-erPlayParams erTranslater::parseParams(erPlayParams& params, vector<string>& messageParts){
+erPlayParams erTranslater::parseParams(erPlayParams params, vector<string>& messageParts){
     params.setDelay(getClientDelay(ofToInt(messageParts[1])));
     if(messageParts.size() == 3){
         argumentParts = ofSplitString(messageParts[2], ",");
@@ -34,9 +34,10 @@ erPlayParams erTranslater::parseParams(erPlayParams& params, vector<string>& mes
         params.setSpeed(ofToFloat(variableParts[1]));
     }
     erLog("erTranslater::parseParams(erPlayParams& params, vector<string>& messageParts)", "[Command: " + params.getCommandStr() + " | Delay: " + ofToString(params.getDelay()) + " | Speed: " + ofToString(params.getSpeed()) + " | Path: " + params.getPath() + "]");
+    return params;
 }
 
-string erTranslater::toMessage(erPlayParams& params){
+string erTranslater::toMessage(erPlayParams params){
     string message = params.getCommandStr() + " ";
     message += ofToString(server->getSyncedElapsedTimeMillis() + params.getDelay()) + " ";
     message += params.getArgumentStr();
