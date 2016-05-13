@@ -23,9 +23,17 @@ public:
 
     void before(){
         if(isPlaying()){
-            stop();
+            try{
+                stop();
+            }catch(...){
+                erLog("erSyncedVideoPlayer::before()", "Caught player stop() exception");
+            }
         }
-        setPosition(0);
+        try{
+            setPosition(0);
+        }catch(...){
+            erLog("erSyncedVideoPlayer::before()", "Caught player setPosition(0) exception");
+        }
     }
 
     string getPath(){
