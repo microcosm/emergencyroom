@@ -27,6 +27,18 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
 }
 
 void erSequencer::update(){
+    if(bpmLooped){
+        handleBpmLooped();
+        bpmLooped = false;
+    }
+    if(stopAllReceived){
+        handleStopAll();
+        stopAllReceived = false;
+    }
+    if(aMessageReceived){
+        handleMessageReceived();
+        aMessageReceived = false;
+    }
     ecgTimerStarted = ecgTimer != NULL && ecgTimer->isStarted();
     setSequencerDelay();
     attemptToLoadMediaQueues();
@@ -69,16 +81,39 @@ void erSequencer::stopAll(){
 }
 
 void erSequencer::messageReceived(string& message){
-    erLog("erSequencer::messageReceived(string& message)", message);
+    if(message.substr(0, 8) == "STOP ALL"){
+        stopAllReceived = true;
+    }else{
+        messageContent = message;
+        aMessageReceived = true;
+    }
+}
+
+void erSequencer::handleBpmLooped(){
+    focusTime = true;
+    stopAll();
+    //ecgTimer->pauseBpmAnimation();
+    if(focusIndex >= loader->focusVideos.size()){
+        focusIndex = 0;
+    }
+    focusVideoPath = loader->focusVideos.at(focusIndex);
+    prepareParams(focusVideoPath, 1);
+    network->flood(params);
+    player->floodServer(params);
+    focusIndex++;
+}
+
+void erSequencer::handleStopAll(){
+    erLog("erSequencer::handleStopAll()", "STOP ALL");
     if(network->isRunningClient()){
-        if(message.substr(0, 8) == "STOP ALL"){
-            player->stopAll();
-        }else{
-            params = translater->toParams(message);
-            if(params.isPlayable()){
-                player->playClient(params);
-            }
-        }
+        player->stopAll();
+    }
+}
+
+void erSequencer::handleMessageReceived(){
+    params = translater->toParams(messageContent);
+    if(params.isPlayable()){
+        player->playClient(params);
     }
 }
 
@@ -94,17 +129,7 @@ string erSequencer::getCurrentCollection(){
 
 void erSequencer::ecgBpmLooped(ofxAnimatable::AnimationEvent& args){
     if(args.direction == 1){
-        focusTime = true;
-        stopAll();
-        //ecgTimer->pauseBpmAnimation();
-        if(focusIndex >= loader->focusVideos.size()){
-            focusIndex = 0;
-        }
-        focusVideoPath = loader->focusVideos.at(focusIndex);
-        prepareParams(focusVideoPath, 1);
-        network->flood(params);
-        player->floodServer(params);
-        focusIndex++;
+        bpmLooped = true;
     }
 }
 

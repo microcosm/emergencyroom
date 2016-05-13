@@ -23,6 +23,9 @@ public:
     string getCurrentCollection();
     void ecgBpmLooped(ofxAnimatable::AnimationEvent& args);
 protected:
+    void handleBpmLooped();
+    void handleStopAll();
+    void handleMessageReceived();
     void setSequencerDelay();
     void playNewVideo();
     void chooseNewTheme();
@@ -49,4 +52,8 @@ protected:
     int currentCollectionIndex, currentSequencerDelay, currentChannelIndex, currentChannel, focusIndex;
     u_int64_t nextTriggerTime;
     float speed;
+    bool bpmLooped = false;
+    bool stopAllReceived = false;
+    bool aMessageReceived = false;
+    string messageContent;
 };
