@@ -30,8 +30,8 @@ public:
 protected:
     map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
 
-    erSyncedVideoPlayer* decoyGlitchPlayer;
-    int decoyFramesRemaining, minDecoyFrames, maxDecoyFrames;
+//    erSyncedVideoPlayer* decoyGlitchPlayer;
+//    int decoyFramesRemaining, minDecoyFrames, maxDecoyFrames;
 
     erNetwork* network;
     ofFbo fbo;
