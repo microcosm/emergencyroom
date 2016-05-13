@@ -48,12 +48,13 @@ void ofApp::update(){
         settings.isServer ? network.requestServer() : network.denyServer();
     }
 
-    network.update();
     if(settings.isEcg){
         ecg.update();
+        network.update();
     }else{
         loader.update();
         player.update();
+        network.update();
         sequencer.update();
     }
 }
@@ -63,11 +64,12 @@ void ofApp::draw(){
 
     if(settings.isEcg){
         ecg.draw();
+        network.draw();
     }else{
         player.draw();
+        network.draw();
         sequencer.draw();
     }
-    network.draw();
 
     if(loader.hasErrors()){
         loader.drawErrors();
