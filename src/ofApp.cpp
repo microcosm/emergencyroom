@@ -67,6 +67,10 @@ void ofApp::draw(){
         network.draw();
     }else{
         player.draw();
+        if(network.isRunningClient()){
+            ofSetColor(ofColor::black, 150);
+            ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+        }
         network.draw();
         sequencer.draw();
     }
