@@ -15,7 +15,7 @@ class erMediaRenderer : public erGlitchTimer{
 
 public:
     void setup(erNetwork* _network);
-    virtual void update(ofEventArgs& args);
+    void update();
 
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
     void assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer);

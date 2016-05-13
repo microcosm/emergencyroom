@@ -17,9 +17,10 @@ public:
     void setupBreathing();
     void setupVideo(vector<string>& audibleVideos);
     void ensureSetup();
+    bool isSetup();
 
-    virtual void update(ofEventArgs& args);
-    virtual void draw(ofEventArgs& args);
+    void update();
+    void draw();
     void syncEcg(float delay);
     bool isSyncing();
     bool hasSynced();
@@ -58,7 +59,7 @@ protected:
 
     u_int64_t currentTime, syncTime, timeSinceSync;
 
-    bool isSetup = false;
+    bool _isSetup = false;
     bool syncing;
     erEcgTimer ecgTimer;
 };

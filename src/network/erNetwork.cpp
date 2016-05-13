@@ -20,13 +20,11 @@ void erNetwork::setup(){
         statusText = "failed to start finder";
     }
 
-    ofAddListener(ofEvents().update, this, &erNetwork::update);
-    ofAddListener(ofEvents().draw, this, &erNetwork::draw);
     ofAddListener(ofEvents().keyReleased, this, &erNetwork::keyReleased);
 }
 
-void erNetwork::update(ofEventArgs& args){
-    //string method = "erNetwork::update(ofEventArgs& args)";
+void erNetwork::update(){
+    //string method = "erNetwork::update()";
     //erLog(method, "Called");
 
     previousRole = role;
@@ -115,8 +113,8 @@ void erNetwork::update(ofEventArgs& args){
     //erLog(method, "Done.");
 }
 
-void erNetwork::draw(ofEventArgs& args){
-    //string method = "erNetwork::draw(ofEventArgs& args)";
+void erNetwork::draw(){
+    //string method = "erNetwork::draw()";
     //erLog(method, "Called");
 
     if(finder.isRunning()){

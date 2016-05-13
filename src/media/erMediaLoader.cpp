@@ -5,10 +5,9 @@ void erMediaLoader::setup(erNetwork* _network){
     mediaIsLoaded = false;
     validateMedia();
     discoverErrors();
-    ofAddListener(ofEvents().update, this, &erMediaLoader::update);
 }
 
-void erMediaLoader::update(ofEventArgs& args){
+void erMediaLoader::update(){
     if(network->justBecameClient()){
         loadLiveMedia();
     }else if(network->justBecameServer()){

@@ -33,12 +33,10 @@ void erEcgRenderer::setup(erNetwork* _network){
 
     readData();
 
-    ofAddListener(ofEvents().update, this, &erEcgRenderer::update);
-    ofAddListener(ofEvents().draw, this, &erEcgRenderer::draw);
     ofAddListener(network->clientMessageReceived(), this, &erEcgRenderer::messageReceived);
 }
 
-void erEcgRenderer::update(ofEventArgs& args){
+void erEcgRenderer::update(){
     if(isPlaying){
         ecgTimer.update();
 
@@ -52,7 +50,7 @@ void erEcgRenderer::update(ofEventArgs& args){
     }
 }
 
-void erEcgRenderer::draw(ofEventArgs& args){
+void erEcgRenderer::draw(){
     ofBackground(ofColor::black);
     if(isPlaying && points.size() > 0){
         post.begin();

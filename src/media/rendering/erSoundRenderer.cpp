@@ -1,7 +1,7 @@
 #include "erSoundRenderer.h"
 
 void erSoundRenderer::setup(){
-    isSetup = true;
+    _isSetup = true;
     syncing = false;
     erGlitchTimer::setup();
 
@@ -10,9 +10,6 @@ void erSoundRenderer::setup(){
     setupEcg();
     setupStatic();
     setupBreathing();
-
-    ofAddListener(ofEvents().update, this, &erSoundRenderer::update);
-    ofAddListener(ofEvents().draw, this, &erSoundRenderer::draw);
 }
 
 void erSoundRenderer::setupEcg(){
@@ -65,12 +62,16 @@ void erSoundRenderer::setupVideo(vector<string>& audibleVideos){
 }
 
 void erSoundRenderer::ensureSetup(){
-    if(!isSetup){
+    if(!_isSetup){
         setup();
     }
 }
 
-void erSoundRenderer::update(ofEventArgs& args){
+bool erSoundRenderer::isSetup(){
+    return _isSetup;
+}
+
+void erSoundRenderer::update(){
     currentTime = ofGetElapsedTimeMillis();
 
     if(ecgTimer.isStarted()){
@@ -84,7 +85,7 @@ void erSoundRenderer::update(ofEventArgs& args){
     }
 }
 
-void erSoundRenderer::draw(ofEventArgs& args){
+void erSoundRenderer::draw(){
     if(settings.serverDrawingEnabled && ecgTimer.isStarted()){
         float progressThroughPeriod;
         int progressOnScreen = ofMap(ecgTimer.getPeriodPosition(), 0, 1, 0, ofGetWidth());

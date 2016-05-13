@@ -10,7 +10,7 @@ class erMediaLoader{
 
 public:
     void setup(erNetwork* _network);
-    virtual void update(ofEventArgs& args);
+    void update();
     void drawErrors();
     void loadLiveMedia();
     void loadPreviewMedia();

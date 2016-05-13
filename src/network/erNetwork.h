@@ -20,8 +20,8 @@ class erNetwork{
     
 public:
     void setup();
-    virtual void update(ofEventArgs& args);
-    virtual void draw(ofEventArgs& args);
+    void update();
+    void draw();
     virtual void keyReleased(ofKeyEventArgs& args);
     void syncEcg(int delay);
     int getClientId();

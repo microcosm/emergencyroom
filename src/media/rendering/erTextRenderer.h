@@ -10,8 +10,8 @@ class erTextRenderer{
 
 public:
     void setup();
-    virtual void update(ofEventArgs& args);
-    virtual void draw(ofEventArgs& args);
+    void update();
+    void draw();
     void setTexts(map<string, vector<string>>* _texts);
     void newTextPeriod(u_int64_t from, float duration, erPlayParams params);
     void newOverlayPeriod(u_int64_t from, float duration);

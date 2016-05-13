@@ -22,19 +22,11 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     translater = network->getTranslater();
     loadChannels();
 
-    ofAddListener(ofEvents().update, this, &erSequencer::update);
-    ofAddListener(ofEvents().draw, this, &erSequencer::draw);
     ofAddListener(network->clientMessageReceived(), this, &erSequencer::messageReceived);
     ofAddListener(ecgTimer->bpmLooped(), this, &erSequencer::ecgBpmLooped);
 }
 
-void erSequencer::setupEcgMode(erNetwork* _network, erMediaPlayer* _player){
-    network = _network;
-    player = _player;
-    ecg.setup(network);
-}
-
-void erSequencer::update(ofEventArgs& args){
+void erSequencer::update(){
     ecgTimerStarted = ecgTimer != NULL && ecgTimer->isStarted();
     setSequencerDelay();
     attemptToLoadMediaQueues();
@@ -62,7 +54,7 @@ void erSequencer::update(ofEventArgs& args){
     }
 }
 
-void erSequencer::draw(ofEventArgs& args){
+void erSequencer::draw(){
     if(ecgTimerStarted){
         ofDrawBitmapString("Progress:         " + ofToString(ecgTimer->getPeriodPosition()), ofGetWidth() - 260, ofGetHeight() - 360);
         ofDrawBitmapString("Current duration: " + ofToString(ecgTimer->getPeriodDuration()), ofGetWidth() - 260, ofGetHeight() - 330);

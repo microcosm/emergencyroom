@@ -6,7 +6,6 @@
 #include "erMediaPlayer.h"
 #include "erPlayParams.h"
 #include "erLogger.h"
-#include "erEcgRenderer.h"
 #include "erEcgTimer.h"
 #include "ofxAnimatable.h"
 
@@ -16,10 +15,9 @@ class erSequencer{
 
 public:
     void setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlayer* _player);
-    void setupEcgMode(erNetwork* _network, erMediaPlayer* _player);
     void setupShuffledIndexing();
-    virtual void update(ofEventArgs& args);
-    virtual void draw(ofEventArgs& args);
+    void update();
+    void draw();
     void stopAll();
     void messageReceived(string& messageStr);
     string getCurrentCollection();
@@ -40,7 +38,6 @@ protected:
     erMediaLoader* loader;
     erMediaPlayer* player;
     erPlayParams params;
-    erEcgRenderer ecg;
     erEcgTimer* ecgTimer;
 
     erMediaQueue queue;

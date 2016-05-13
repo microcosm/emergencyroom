@@ -15,8 +15,8 @@ class erMediaPlayer{
 public:
     void setup(erNetwork* _network);
     void setupEcgMode(erNetwork* _network);
-    virtual void update(ofEventArgs& args);
-    virtual void draw(ofEventArgs& args);
+    void update();
+    void draw();
     virtual void keyReleased(ofKeyEventArgs& args);
 
     void playClient(erPlayParams params);

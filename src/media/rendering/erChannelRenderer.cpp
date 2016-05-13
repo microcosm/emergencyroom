@@ -4,15 +4,14 @@ void erChannelRenderer::setup(erNetwork* _network){
     network = _network;
     mediaRenderer.setup(network);
     calculatePreviewSize();
-    ofAddListener(ofEvents().update, this, &erChannelRenderer::update);
-    ofAddListener(ofEvents().draw, this, &erChannelRenderer::draw);
 }
 
-void erChannelRenderer::update(ofEventArgs& args){
+void erChannelRenderer::update(){
     eraseCompletedVideosFromChannels();
+    mediaRenderer.update();
 }
 
-void erChannelRenderer::draw(ofEventArgs& args){
+void erChannelRenderer::draw(){
     if(network->isRunningServer()){
         drawServer();
     }

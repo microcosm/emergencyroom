@@ -4,8 +4,6 @@ void erMediaPlayer::setup(erNetwork* _network){
     network = _network;
     channelRenderer.setup(network);
     textRenderer.setup();
-    ofAddListener(ofEvents().update, this, &erMediaPlayer::update);
-    ofAddListener(ofEvents().draw, this, &erMediaPlayer::draw);
     ofAddListener(ofEvents().keyReleased, this, &erMediaPlayer::keyReleased);
 }
 
@@ -13,13 +11,18 @@ void erMediaPlayer::setupEcgMode(erNetwork* _network){
     network = _network;
 }
 
-void erMediaPlayer::update(ofEventArgs& args){
+void erMediaPlayer::update(){
     if(network->isRunningServer()){
         soundRenderer.ensureSetup();
     }
+    channelRenderer.update();
+    textRenderer.update();
+    if(soundRenderer.isSetup()){
+        soundRenderer.update();
+    }
 }
 
-void erMediaPlayer::draw(ofEventArgs& args){
+void erMediaPlayer::draw(){
     ofSetColor(ofColor::white);
     if(network->isRunningServer() && settings.serverDrawingEnabled){
         if(soundRenderer.isSyncing()){
@@ -29,6 +32,11 @@ void erMediaPlayer::draw(ofEventArgs& args){
         }else{
             ofDrawBitmapString("NOT SYNCED", 130, ofGetHeight() - 208);
         }
+    }
+    channelRenderer.draw();
+    textRenderer.draw();
+    if(soundRenderer.isSetup()){
+        soundRenderer.draw();
     }
 }
 

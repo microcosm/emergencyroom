@@ -20,15 +20,13 @@ void ofApp::setup(){
     if(settings.isEcg){
         player.setupEcgMode(&network);
         network.setup();
-        sequencer.setupEcgMode(&network, &player);
+        ecg.setup(&network);
     }else{
         loader.setup(&network);
         player.setup(&network);
         network.setup();
         sequencer.setup(&network, &loader, &player);
     }
-
-    ofAddListener(ofEvents().draw, this, &ofApp::draw);
 }
 
 void ofApp::update(){
@@ -49,10 +47,27 @@ void ofApp::update(){
     if(ofGetFrameNum() > 0){
         settings.isServer ? network.requestServer() : network.denyServer();
     }
+
+    network.update();
+    if(settings.isEcg){
+        ecg.update();
+    }else{
+        loader.update();
+        player.update();
+        sequencer.update();
+    }
 }
 
-void ofApp::draw(ofEventArgs& args){
+void ofApp::draw(){
     ofSetColor(ofColor::white);
+
+    network.draw();
+    if(settings.isEcg){
+        ecg.draw();
+    }else{
+        player.draw();
+        sequencer.draw();
+    }
 
     if(loader.hasErrors()){
         loader.drawErrors();

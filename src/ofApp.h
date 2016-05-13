@@ -4,6 +4,7 @@
 #include "erMediaPlayer.h"
 #include "erLogger.h"
 #include "erSettings.h"
+#include "erEcgRenderer.h"
 #define ER_FONT_PATH "font/klima-medium-web.ttf"
 
 class ofApp : public ofBaseApp{
@@ -11,7 +12,7 @@ class ofApp : public ofBaseApp{
 public:
     void setup();
     void update();
-    void draw(ofEventArgs& args);
+    void draw();
     void drawFps(int x, int y);
     void keyReleased(int key);
 
@@ -22,6 +23,7 @@ protected:
     erNetwork network;
     erSequencer sequencer;
     erPlayParams params;
+    erEcgRenderer ecg;
     bool videoSoundAssigned;
     int width, height;
 };

@@ -35,8 +35,8 @@ class erEcgRenderer : erSyncedMediaPlayer{
 
 public:
     void setup(erNetwork* _network);
-    virtual void update(ofEventArgs& args);
-    virtual void draw(ofEventArgs& args);
+    void update();
+    void draw();
     void messageReceived(string& messageStr);
 
 protected:

@@ -12,8 +12,8 @@ class erChannelRenderer{
 
 public:
     void setup(erNetwork* _network);
-    virtual void update(ofEventArgs& args);
-    virtual void draw(ofEventArgs& args);
+    void update();
+    void draw();
     void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
     void setCurrentPlayerPath(string path);
 

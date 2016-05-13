@@ -12,16 +12,14 @@ void erTextRenderer::setup(){
     masker.setup(ofClamp(ofGetWidth(), 0, 900), 900);
     masker.newLayer();
     masker.toggleOverlay();
-    ofAddListener(ofEvents().draw, this, &erTextRenderer::draw);
-    ofAddListener(ofEvents().update, this, &erTextRenderer::update);
 }
 
-void erTextRenderer::update(ofEventArgs& args){
+void erTextRenderer::update(){
     now = ofGetElapsedTimeMillis();
     textY.update(ofGetLastFrameTime());
 }
 
-void erTextRenderer::draw(ofEventArgs& args){
+void erTextRenderer::draw(){
     if(currentTexts != NULL){
         now = ofGetElapsedTimeMillis();
 

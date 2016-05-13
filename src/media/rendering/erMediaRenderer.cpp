@@ -13,10 +13,9 @@ void erMediaRenderer::setup(erNetwork* _network){
     fbo.allocate(fboWidth, fboHeight);
     fboGlitch.allocate(fboWidth, fboHeight);
     fboGlitch.setGlichResetProbability(0.2);
-    ofAddListener(ofEvents().update, this, &erMediaRenderer::update);
 }
 
-void erMediaRenderer::update(ofEventArgs& args){
+void erMediaRenderer::update(){
     for(auto const& player : *videoPlayers){
         player.second->checkSchedule();
         if(player.second->isPlaying()){
