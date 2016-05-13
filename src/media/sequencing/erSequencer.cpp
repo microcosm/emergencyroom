@@ -67,7 +67,8 @@ void erSequencer::update(){
 }
 
 void erSequencer::draw(){
-    if(ecgTimerStarted){
+    if(ecgTimerStarted && settings.serverDrawingEnabled){
+        ofSetColor(ofColor::white);
         ofDrawBitmapString("Progress:         " + ofToString(ecgTimer->getPeriodPosition()), ofGetWidth() - 260, ofGetHeight() - 360);
         ofDrawBitmapString("Current duration: " + ofToString(ecgTimer->getPeriodDuration()), ofGetWidth() - 260, ofGetHeight() - 330);
         ofDrawBitmapString("Current ECG BPM:  " + ofToString(ecgTimer->getCurrentBpm()), ofGetWidth() - 260, ofGetHeight() - 300);

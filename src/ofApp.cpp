@@ -73,6 +73,7 @@ void ofApp::draw(){
         loader.drawErrors();
     }
 
+    ofSetColor(ofColor::white);
     if(network.isRunningServer() && settings.serverDrawingEnabled){
         ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nD            toggle client display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, height - 168);
         drawFps(490, height - 60);

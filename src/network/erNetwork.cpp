@@ -117,10 +117,10 @@ void erNetwork::draw(){
     //string method = "erNetwork::draw()";
     //erLog(method, "Called");
 
-    ofSetColor(ofColor::white);
     if(finder.isRunning()){
         //erLog(method, "Finder is running. Drawing.");
         drawBlackOverlay();
+        ofSetColor(ofColor::white);
         ofDrawBitmapString(statusText, 50, 30);
         ofDrawBitmapString("trying to find server: " + ofToString((finderStartTime+FINDER_TIMEOUT)-ofGetElapsedTimeMillis()), 50, 50);
         ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
@@ -130,6 +130,7 @@ void erNetwork::draw(){
         if(settings.clientDrawingEnabled){
             //erLog(method, "Drawing enabled - Drawing now.");
             drawBlackOverlay();
+            ofSetColor(ofColor::white);
             ofDrawBitmapString(statusText, 50, 30);
             client.drawStatus();
             ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
@@ -142,6 +143,7 @@ void erNetwork::draw(){
     }else if(server.isConnected()){
         //erLog(method, "Server is connected...");
         if(settings.serverDrawingEnabled){
+            ofSetColor(ofColor::white);
             //erLog(method, "Drawing enabled - Drawing now.");
             ofDrawBitmapString(statusText, 50, 30);
             //erLog(method, "1");
