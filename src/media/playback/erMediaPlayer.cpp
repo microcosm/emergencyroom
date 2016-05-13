@@ -13,6 +13,11 @@ void erMediaPlayer::setupEcgMode(erNetwork* _network){
 
 void erMediaPlayer::update(){
     if(network->isRunningServer()){
+        if(syncCommandReceived){
+            network->syncEcg(ECG_SYNC_DELAY);
+            soundRenderer.syncEcg(ECG_SYNC_DELAY);
+            syncCommandReceived = false;
+        }
         soundRenderer.ensureSetup();
     }
     channelRenderer.update();
@@ -41,9 +46,8 @@ void erMediaPlayer::draw(){
 }
 
 void erMediaPlayer::keyReleased(ofKeyEventArgs &args){
-    if(network->isRunningServer() && args.key == '-'){
-        network->syncEcg(ECG_SYNC_DELAY);
-        soundRenderer.syncEcg(ECG_SYNC_DELAY);
+    if(args.key == '-'){
+        syncCommandReceived = true;
     }
 }
 
