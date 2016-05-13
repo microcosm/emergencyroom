@@ -1,14 +1,14 @@
 #include "erTextRenderer.h"
 
 void erTextRenderer::setup(){
-    animationPeriodLength = 500;
+    animationPeriodLength = 3000;
     textHeight = 16;
     indentX = 24;
     numLines = 3;
     textOffset = -4;
     textY.setRepeatType(PLAY_ONCE);
     textY.setCurve(EASE_IN_EASE_OUT);
-    textY.setDuration(0.1);
+    textY.setDuration(1);
     masker.setup(ofClamp(ofGetWidth(), 0, 900), 900);
     masker.newLayer();
     masker.toggleOverlay();
