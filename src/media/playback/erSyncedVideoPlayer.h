@@ -1,7 +1,9 @@
 #pragma once
 #include "ofMain.h"
 #include "erLessSyncedMediaPlayer.h"
-#include "erSoundRenderer.h"
+#ifdef __APPLE__
+    #include "erSoundRenderer.h"
+#endif
 
 class erSyncedVideoPlayer : public ofVideoPlayer, public erLessSyncedMediaPlayer{
 
@@ -44,13 +46,18 @@ public:
         return videoScheduled || isPlaying();
     }
 
-    void renderSoundWith(erSoundRenderer* _soundRenderer){
-        soundRenderer = _soundRenderer;
-        useSoundRenderer = true;
-    }
+
+    #ifdef __APPLE__
+        void renderSoundWith(erSoundRenderer* _soundRenderer){
+            soundRenderer = _soundRenderer;
+            useSoundRenderer = true;
+        }
+    #endif
 
 protected:
-    erSoundRenderer* soundRenderer;
+    #ifdef __APPLE__
+        erSoundRenderer* soundRenderer;
+    #endif
     bool useSoundRenderer = false;
     string path;
 
