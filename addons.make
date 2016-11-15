@@ -1,3 +1,15 @@
-ofxCsvStream
+ofxAnimatable
+ofxShapeSystem
+ofxPostProcessing
+ofxLayerMask
+ofxShivaVG
+ofxJSON
+ofxBpm
+ofxMidi
+ofxAudioUnitManager
+ofxAudioUnit
+ofxFastFboReader
+ofxEasyFboGlitch
 ofxNetwork
+ofxCsvStream
 ofxNetworkSync
