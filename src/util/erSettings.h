@@ -1,7 +1,5 @@
 #pragma once
 #include "ofMain.h"
-#include "ofxAudioUnit.h"
-#include "ofxAudioUnitManager.h"
 #include "erLogger.h"
 #include "ofxJSON.h"
 
