@@ -17,10 +17,13 @@ public:
             beginVideoPlayback();
             videoScheduled = false;
         }
-        if(soundScheduled && ofGetElapsedTimeMillis() > soundPlayTime){
-            beginSoundPlayback();
-            soundScheduled = false;
-        }
+        
+        #ifdef __APPLE__
+            if(soundScheduled && ofGetElapsedTimeMillis() > soundPlayTime){
+                beginSoundPlayback();
+                soundScheduled = false;
+            }
+        #endif
     }
 
     void before(){
@@ -46,7 +49,6 @@ public:
         return videoScheduled || isPlaying();
     }
 
-
     #ifdef __APPLE__
         void renderSoundWith(erSoundRenderer* _soundRenderer){
             soundRenderer = _soundRenderer;
@@ -57,8 +59,8 @@ public:
 protected:
     #ifdef __APPLE__
         erSoundRenderer* soundRenderer;
+        bool useSoundRenderer = false;
     #endif
-    bool useSoundRenderer = false;
     string path;
 
     void beginVideoPlayback(){
@@ -66,9 +68,11 @@ protected:
         if(!isPlaying()) play();
     }
 
-    void beginSoundPlayback(){
-        if(useSoundRenderer){
-            soundRenderer->playVideoSound(params.getPath());
+    #ifdef __APPLE__
+        void beginSoundPlayback(){
+            if(useSoundRenderer){
+                soundRenderer->playVideoSound(params.getPath());
+            }
         }
-    }
+    #endif
 };
