@@ -1,9 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erLessSyncedMediaPlayer.h"
-#ifdef __APPLE__
-    #include "erSoundRenderer.h"
-#endif
+#include "erSoundRenderer.h"
 
 class erSyncedVideoPlayer : public ofVideoPlayer, public erLessSyncedMediaPlayer{
 
@@ -17,13 +15,11 @@ public:
             beginVideoPlayback();
             videoScheduled = false;
         }
-        
-        #ifdef __APPLE__
-            if(soundScheduled && ofGetElapsedTimeMillis() > soundPlayTime){
-                beginSoundPlayback();
-                soundScheduled = false;
-            }
-        #endif
+
+        if(soundScheduled && ofGetElapsedTimeMillis() > soundPlayTime){
+            beginSoundPlayback();
+            soundScheduled = false;
+        }
     }
 
     void before(){
@@ -49,18 +45,14 @@ public:
         return videoScheduled || isPlaying();
     }
 
-    #ifdef __APPLE__
-        void renderSoundWith(erSoundRenderer* _soundRenderer){
-            soundRenderer = _soundRenderer;
-            useSoundRenderer = true;
-        }
-    #endif
+    void renderSoundWith(erSoundRenderer* _soundRenderer){
+        soundRenderer = _soundRenderer;
+        useSoundRenderer = true;
+    }
 
 protected:
-    #ifdef __APPLE__
-        erSoundRenderer* soundRenderer;
-        bool useSoundRenderer = false;
-    #endif
+    erSoundRenderer* soundRenderer;
+    bool useSoundRenderer = false;
     string path;
 
     void beginVideoPlayback(){
@@ -68,11 +60,9 @@ protected:
         if(!isPlaying()) play();
     }
 
-    #ifdef __APPLE__
-        void beginSoundPlayback(){
-            if(useSoundRenderer){
-                soundRenderer->playVideoSound(params.getPath());
-            }
+    void beginSoundPlayback(){
+        if(useSoundRenderer){
+            soundRenderer->playVideoSound(params.getPath());
         }
-    #endif
+    }
 };

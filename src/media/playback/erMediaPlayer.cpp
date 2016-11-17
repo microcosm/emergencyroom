@@ -134,11 +134,9 @@ void erMediaPlayer::setTexts(map<string, vector<string>>* texts){
 void erMediaPlayer::useSoundRendererFor(vector<string>& audibleVideos){
     soundRenderer.setupVideo(audibleVideos);
 
-    #ifdef __APPLE__
-        for(const auto& video : audibleVideos){
-            videoPlayers->at(video)->renderSoundWith(&soundRenderer);
-        }
-    #endif
+    for(const auto& video : audibleVideos){
+        videoPlayers->at(video)->renderSoundWith(&soundRenderer);
+    }
 }
 
 void erMediaPlayer::calculateVideoPlaybackVariables(erPlayParams params){

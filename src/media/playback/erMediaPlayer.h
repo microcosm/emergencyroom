@@ -1,9 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erChannelRenderer.h"
-#ifdef __APPLE__
-    #include "erSoundRenderer.h"
-#endif
+#include "erSoundRenderer.h"
 #include "erTextRenderer.h"
 #include "erNetwork.h"
 #include "erEcgTimer.h"
@@ -39,9 +37,7 @@ public:
 protected:
     string selectDecoyPath(erPlayParams params);
     erChannelRenderer channelRenderer;
-    #ifdef __APPLE__
-        erSoundRenderer soundRenderer;
-    #endif
+    erSoundRenderer soundRenderer;
     erTextRenderer textRenderer;
     erNetwork* network;
 
