@@ -1,8 +1,6 @@
 ofxAnimatable
 ofxShapeSystem
-ofxPostProcessing
 ofxLayerMask
-ofxShivaVG
 ofxJSON
 ofxBpm
 ofxMidi

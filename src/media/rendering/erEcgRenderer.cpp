@@ -24,13 +24,16 @@ void erEcgRenderer::setup(erNetwork* _network){
     renderGridLayer();
     renderRadialOverlayMask();
 
+#ifdef __APPLE__
     shivaRenderer = ofPtr<ofxShivaVGRenderer>(new ofxShivaVGRenderer);
     defaultRenderer = ofGetCurrentRenderer();
     shivaRenderer->setLineCapStyle(VG_CAP_ROUND);
+
     post.init();
     //post.createPass<FxaaPass>();
     //post.createPass<BloomPass>();
-
+#endif
+    
     readData();
 
     ofAddListener(network->clientMessageReceived(), this, &erEcgRenderer::messageReceived);
@@ -53,15 +56,19 @@ void erEcgRenderer::update(){
 void erEcgRenderer::draw(){
     ofBackground(ofColor::black);
     if(isPlaying && points.size() > 0){
+#ifdef __APPLE__
         post.begin();
         {
+#endif
             renderEcgLineLayer();
             renderEcgLineMask();
             renderRadialOverlayLayer();
             masker.drawLayer(2);
+#ifdef __APPLE__
         }
         post.end();
         post.draw();
+#endif
     }
     if(settings.clientDrawingEnabled){
         masker.drawOverlay();
@@ -161,7 +168,10 @@ void erEcgRenderer::renderEcgLineLayer(){
     masker.beginLayer(1);
     {
         ofClear(ofColor(ofColor::black, 0));
+
+#ifdef __APPLE__
         ofSetCurrentRenderer(shivaRenderer);
+#endif
         ofSetLineWidth(9);
         ofSetColor(lineColor);
         for(int i = 0; i < points.size(); i++){
@@ -173,7 +183,9 @@ void erEcgRenderer::renderEcgLineLayer(){
                 }
             }
         }
+#ifdef __APPLE__
         ofSetCurrentRenderer(defaultRenderer);
+#endif
     }
     masker.endLayer(1);
 }

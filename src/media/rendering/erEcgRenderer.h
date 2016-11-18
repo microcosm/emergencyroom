@@ -2,13 +2,16 @@
 #include "ofMain.h"
 #include "erSettings.h"
 #include "ofxCsvStream.h"
-#include "ofxShivaVGRenderer.h"
 #include "ofxLayerMask.h"
-#include "ofxPostProcessing.h"
 #include "ofxShapeSystem.h"
 #include "erSyncedMediaPlayer.h"
 #include "erNetwork.h"
 #include "erEcgTimer.h"
+
+#ifdef __APPLE__
+#include "ofxShivaVGRenderer.h"
+#include "ofxPostProcessing.h"
+#endif
 
 #define ECG_DATA_SOURCE "ecg.csv"
 #define ECG_NUM_COLS 2
@@ -70,9 +73,12 @@ protected:
     ofxShape lineHeadShape;
 
     int width, height;
+
+#ifdef __APPLE__
     ofPtr<ofxShivaVGRenderer> shivaRenderer;
     ofPtr<ofBaseRenderer> defaultRenderer;
     ofxPostProcessing post;
+#endif
 
     float periodPosition, nthPeriodPosition, lastPeriodPosition;//?
     ofPoint point, oldPoint, gridIncrement;
