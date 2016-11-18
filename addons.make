@@ -2,10 +2,6 @@ ofxAnimatable
 ofxShapeSystem
 ofxLayerMask
 ofxJSON
-ofxBpm
-ofxMidi
-ofxAudioUnitManager
-ofxAudioUnit
 ofxFastFboReader
 ofxEasyFboGlitch
 ofxNetwork
