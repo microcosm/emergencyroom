@@ -93,6 +93,7 @@ void erSettings::applySettings(ofxJSONElement& json){
 }
 
 string erSettings::getComputerName(){
+#ifdef __APPLE__
     fp = popen("scutil --get ComputerName", "r");
     if(fp != NULL){
         fgets(path, 20, fp);
@@ -101,5 +102,6 @@ string erSettings::getComputerName(){
         pclose(fp);
         return str;
     }
+#endif
     return "";
 }
