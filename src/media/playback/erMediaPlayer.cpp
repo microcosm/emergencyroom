@@ -3,7 +3,7 @@
 void erMediaPlayer::setup(erNetwork* _network){
     network = _network;
     channelRenderer.setup(network);
-    textRenderer.setup();
+    //textRenderer.setup();
     ofAddListener(ofEvents().keyReleased, this, &erMediaPlayer::keyReleased);
 }
 
