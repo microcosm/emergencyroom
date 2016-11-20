@@ -5,7 +5,7 @@ erSettings settings;
 void ofApp::setup(){
     ofSetFrameRate(60);
     ofSetWindowShape(1200, 800);
-    bigFont.load(ER_FONT_PATH, 100);
+    bigFont.load(ER_FONT_PATH, 75);
     smallFont.load(ER_FONT_PATH, 50);
     videoSoundAssigned = false;
     settings.load();

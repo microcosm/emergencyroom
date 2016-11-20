@@ -9,7 +9,7 @@ void erNetwork::setup(){
     serverIsAllowed = true;
     numClients, previousNumClients = 0;
     ecgIndex = 0;
-    font.load("font/klima-medium-web.ttf", 100);
+    font.load("font/klima-medium-web.ttf", 75);
     setLogLevels(OF_LOG_ERROR);
     translater.setup(&client, &server);
 
