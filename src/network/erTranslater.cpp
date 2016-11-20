@@ -46,5 +46,5 @@ string erTranslater::toMessage(erPlayParams params){
 }
 
 int erTranslater::getClientDelay(int serverDelay){
-    return serverDelay - client->getSyncedElapsedTimeMillis();
+    return serverDelay - (int) client->getSyncedElapsedTimeMillis();
 }
