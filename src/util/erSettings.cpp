@@ -18,6 +18,9 @@ void erSettings::toggleClientDrawing(){
 }
 
 void erSettings::initSettings(){
+    serverIP = "";
+    serverPort = 0;
+
     fullscreenByDefault = false;
     logToFileEnabled = true;
     testContentMode = false;
@@ -58,6 +61,9 @@ void erSettings::initSettings(){
 
 void erSettings::applySettings(ofxJSONElement& json){
     computerName = getComputerName();
+
+    serverIP = json[ER_SERVER_IP].asString();
+    serverPort = json[ER_SERVER_PORT].asInt();
 
     fullscreenByDefault = json[ER_FULLSCREEN_BY_DEFAULT].asBool();
     logToFileEnabled    = json[ER_LOG_TO_FILE_ENABLED].asBool();

@@ -13,7 +13,7 @@ void erNetwork::setup(){
 
     if(settings.isServer) {
         //erLog(method, "Is server.");
-        while(!server.setup(SYNC_TCP_PORT)){
+        while(!server.setup(settings.serverPort)){
             //erLog(method, "Failed to set up server. Retrying...");
         }
     }
@@ -35,7 +35,7 @@ void erNetwork::update(){
         previousNumClients = numClients;
     } else {
         if(!client.isConnected()){
-            if(client.setup("192.168.1.134", SYNC_TCP_PORT)){
+            if(client.setup(settings.serverIP, settings.serverPort)){
                 ofAddListener(client.connectionLost, this, &erNetwork::onClientConnectionLost);
                 ofAddListener(client.messageReceived, this, &erNetwork::onClientMessageReceived);
             }

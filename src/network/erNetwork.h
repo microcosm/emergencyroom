@@ -7,8 +7,6 @@
 #include "erSettings.h"
 #include "erLogger.h"
 
-#define SYNC_TCP_PORT 15001
-
 class erNetwork{
     
 public:
