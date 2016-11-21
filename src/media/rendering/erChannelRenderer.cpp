@@ -12,11 +12,11 @@ void erChannelRenderer::update(){
 }
 
 void erChannelRenderer::draw(){
-    if(network->isRunningServer()){
+    if(settings.isServer){
         drawServer();
     }
 
-    if(network->isRunningClient()){
+    if(settings.isClient){
         drawClient();
     }
 }

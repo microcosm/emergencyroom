@@ -22,9 +22,6 @@ public:
     void requestServer();
     bool flood(erPlayParams params);
     bool target(int target, erPlayParams params);
-    bool isRunningClient();
-    bool isRunningServer();
-    bool isRunning();
     ofEvent<string>& clientMessageReceived();
     erTranslater* getTranslater();
     void onClientConnectionLost();

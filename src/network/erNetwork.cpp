@@ -97,7 +97,7 @@ void erNetwork::draw(){
 }
 
 void erNetwork::keyReleased(ofKeyEventArgs &args){
-    if(isRunningServer()){
+    if(settings.isServer){
         if(args.key == 359){
             ecgIndex++;
             if(ecgIndex >= server.getClients().size()){
@@ -119,7 +119,7 @@ void erNetwork::syncEcg(int delay){
     //erLog(method, "Called");
     //erLog(method, "Ecg index = " + ofToString(ecgIndex) + ", Num clients = " + ofToString(server.getClients().size()));
     vector<ofxNetworkSyncClientState*>& clients = server.getClients();
-    if(isRunningServer() && clients.size() > 0 && ecgIndex < clients.size()){
+    if(settings.isServer && clients.size() > 0 && ecgIndex < clients.size()){
         string message = "ECGSYNC";
         //erLog(method, "Sending '" + message + "' to client " + ofToString(clients.at(ecgIndex)->getClientID()));
         send(message, clients.at(ecgIndex));
@@ -216,18 +216,6 @@ bool erNetwork::target(int target, erPlayParams params){
     
     //erLog(method, "Done. Returning success? (" + ofToString(success) + ")");
     return success;
-}
-
-bool erNetwork::isRunningClient(){
-    return settings.isClient;
-}
-
-bool erNetwork::isRunningServer(){
-    return settings.isServer;
-}
-
-bool erNetwork::isRunning(){
-    return isRunningClient() || isRunningServer();
 }
 
 ofEvent<string>& erNetwork::clientMessageReceived(){

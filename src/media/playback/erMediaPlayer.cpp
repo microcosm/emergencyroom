@@ -12,7 +12,7 @@ void erMediaPlayer::setupEcgMode(erNetwork* _network){
 }
 
 void erMediaPlayer::update(){
-    if(network->isRunningServer()){
+    if(settings.isServer){
         if(syncCommandReceived){
             network->syncEcg(ECG_SYNC_DELAY);
             soundRenderer.syncEcg(ECG_SYNC_DELAY);
@@ -29,7 +29,7 @@ void erMediaPlayer::update(){
 
 void erMediaPlayer::draw(){
     ofSetColor(ofColor::white);
-    if(network->isRunningServer() && settings.serverDrawingEnabled){
+    if(settings.isServer && settings.serverDrawingEnabled){
         if(soundRenderer.isSyncing()){
             ofDrawBitmapString("SYNCING...", 130, ofGetHeight() - 208);
         }else if(soundRenderer.hasSynced()){
@@ -162,7 +162,7 @@ void erMediaPlayer::calculateVideoPlaybackVariables(erPlayParams params){
         intermediateGlitchDurations.push_back(ofClamp(ofRandom(videoDuration * 0.03, videoDuration * 0.5), 50, 2000));
     }
 
-    if(network->isRunningClient() && videoDuration > 7000){
+    if(settings.isClient && videoDuration > 7000){
         startText = currentTime + bufferTime + videoGlitchTime + videoDuration * 0.17;
         textDuration = videoDuration * 0.5;
         startTextOverlay = currentTime + bufferTime;

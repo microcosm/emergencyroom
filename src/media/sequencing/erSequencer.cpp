@@ -56,11 +56,11 @@ void erSequencer::update(){
     }
 
     if(!focusTime){
-        if(network->isRunningServer() && ofGetElapsedTimeMillis() > nextTriggerTime && currentSequencerDelay != -1){
+        if(settings.isServer && ofGetElapsedTimeMillis() > nextTriggerTime && currentSequencerDelay != -1){
             nextTriggerTime += currentSequencerDelay;
             playNewVideo();
         }
-        if(network->isRunningServer() && (ofGetFrameNum() % ER_THEME_LENGTH == 0 || currentCollection == "")){
+        if(settings.isServer && (ofGetFrameNum() % ER_THEME_LENGTH == 0 || currentCollection == "")){
             chooseNewTheme();
         }
     }
@@ -106,7 +106,7 @@ void erSequencer::handleBpmLooped(){
 
 void erSequencer::handleStopAll(){
     erLog("erSequencer::handleStopAll()", "STOP ALL");
-    if(network->isRunningClient()){
+    if(settings.isClient){
         player->stopAll();
     }
 }

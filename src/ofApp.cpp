@@ -39,7 +39,7 @@ void ofApp::update(){
     }
 
     if(settings.logToFileEnabled){
-        erEnableFileLogging(network.isRunningServer());
+        erEnableFileLogging(settings.isServer);
     }else{
         erDisableFileLogging();
     }
@@ -63,7 +63,7 @@ void ofApp::draw(){
         network.draw();
     }else{
         player.draw();
-        if(network.isRunningClient()){
+        if(settings.isClient){
             ofSetColor(ofColor::black, 150);
             ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
         }
@@ -76,18 +76,18 @@ void ofApp::draw(){
     }
 
     ofSetColor(ofColor::white);
-    if(network.isRunningServer() && settings.serverDrawingEnabled){
+    if(settings.isServer && settings.serverDrawingEnabled){
         ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nD            toggle client display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, height - 168);
         drawFps(490, height - 60);
         smallFont.drawString(sequencer.getCurrentCollection(), 490, height - 220);
     }
 
-    if((network.isRunningClient() || settings.isEcg) && settings.clientDrawingEnabled){
+    if((settings.isClient || settings.isEcg) && settings.clientDrawingEnabled){
         ofDrawBitmapString("Computer name: '" + settings.computerName + "'\nDimensions:    " + ofToString(width) + " x " + ofToString(height), width - 350, 40);
         drawFps(320, height - 46);
     }
 
-    if(network.isRunningClient() && settings.clientDrawingEnabled){
+    if(settings.isClient && settings.clientDrawingEnabled){
         smallFont.drawString("#" + ofToString(network.getClientId()), 50, height - 90);
         ofDrawBitmapString(player.getClientVideoState(), 50, height - 220);
     }
@@ -98,9 +98,6 @@ void ofApp::drawFps(int x, int y){
 }
 
 void ofApp::keyReleased(int key){
-    if(!network.isRunningServer() && key == 's'){
-        network.requestServer();
-    }
     if(key == 'f'){
         ofToggleFullscreen();
     }

@@ -124,7 +124,7 @@ void erMediaLoader::loadDirectory(string path){
         registerCollection(collection);
         for(auto const& video : collectionDir){
             registerVideo(collection, video);
-            if(network->isRunningClient()){
+            if(settings.isClient){
                 registerText(video);
             }
         }

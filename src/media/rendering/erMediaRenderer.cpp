@@ -37,10 +37,10 @@ void erMediaRenderer::assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer){
 void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel){
     bool isPlaying = player->isPlaying();
     if(isPlaying){
-        withinGlitchPeriod(channel) && network->isRunningClient() ?
+        withinGlitchPeriod(channel) && settings.isClient ?
             drawGlitched(player, x, y, width, height) :
             drawNormal(player, x, y, width, height);
-    }else if(network->isRunningServer()){
+    }else if(settings.isServer){
         ofDrawBitmapString("Scheduled...", x + 10, y + 20);// + player->getPath(), x + 10, y + 20);
     }
 }
@@ -66,7 +66,7 @@ void erMediaRenderer::drawStatic(int x, int y, int width, int height){
 
 void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height){
     player->draw(x, y, width, height);
-    if(network->isRunningServer()){
+    if(settings.isServer){
         ofDrawBitmapString("Playing", x + 10, y + 20);// + player->getPath(), x + 10, y + 20);
     }
     playbackState = ER_PLAYBACK_NORMAL;
