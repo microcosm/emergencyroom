@@ -67,6 +67,7 @@ public:
     float minDecoyDuration;
 
     bool isServer;
+    bool isClient;
     bool isEcg;
 
     float masterVolume;

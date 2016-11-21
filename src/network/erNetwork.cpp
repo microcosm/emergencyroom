@@ -1,23 +1,21 @@
 #include "erNetwork.h"
 
 void erNetwork::setup(){
+    //string method = "erNetwork::setup()";
     signal(SIGPIPE, SIG_IGN);
-    role = NETWORK_ROLE_UNDEFINED;
     statusText = clientChannel = "";
     serverPortOffset = 0;
-    serverRequested = false;
-    serverIsAllowed = true;
     numClients, previousNumClients = 0;
     ecgIndex = 0;
     font.load("font/klima-medium-web.ttf", 75);
-    setLogLevels(OF_LOG_ERROR);
+    setLogLevels(OF_LOG_VERBOSE);
     translater.setup(&client, &server);
 
-    if(finder.setup()){
-        finderStartTime = 0;
-    }else{
-        ofLogError("ofApp") << "failed to start finder";
-        statusText = "failed to start finder";
+    if(settings.isServer) {
+        //erLog(method, "Is server.");
+        while(!server.setup(SYNC_TCP_PORT)){
+            //erLog(method, "Failed to set up server. Retrying...");
+        }
     }
 
     ofAddListener(ofEvents().keyReleased, this, &erNetwork::keyReleased);
@@ -27,89 +25,23 @@ void erNetwork::update(){
     //string method = "erNetwork::update()";
     //erLog(method, "Called");
 
-    previousRole = role;
-    now = ofGetElapsedTimeMillis();
-
-    if(!server.isConnected() && !client.isConnected() && !finder.isRunning()){
-        //erLog(method, "Nothing running or connected. Trying to start finder.");
-
-        if(!finder.setup()){
-            //erLog(method, "Finder couldn't start.");
-            statusText += "\nfailed to start finder";
-        }
-    }
-
-    if(finder.isRunning()){
-        //erLog(method, "Finder is running.");
-        if(finder.doesServerFound()){
-            
-            //erLog(method, "Server was found.");
-            
-            statusText = "server found";
-            finder.close();
-            if(client.setup(finder.getServerInfo().ip, finder.getServerInfo().port)){
-                //erLog(method, "Client setup succeeded.");
-                role = NETWORK_ROLE_CLIENT;
-                ofAddListener(client.connectionLost, this, &erNetwork::onClientConnectionLost);
-                ofAddListener(client.messageReceived, this, &erNetwork::onClientMessageReceived);
-            }else{
-                
-                //erLog(method, "Client setup failed.");
-            }
-        }else{
-            
-            //erLog(method, "No server found.");
-        }
-
-        if(serverIsAllowed){
-            //erLog(method, "Server is allowed.");
-            if(now > finderStartTime+FINDER_TIMEOUT || serverRequested){
-                //server finder timeout
-                serverRequested = false;
-
-                //i will be server
-                if(server.setup(SYNC_TCP_PORT+serverPortOffset)){
-                    
-                    //erLog(method, "Server setup OK.");
-                    role = NETWORK_ROLE_SERVER;
-                    statusText = "i am server";
-                    finder.close();
-
-                    if(client.isCalibrated()){
-                        //erLog(method, "Client is calibrated. (?)");
-                        server.setTimeOffsetMillis(client.getSyncedElapsedTimeMillis()-ofGetElapsedTimeMillis());
-                    }
-                }else{
-                    //failed to start server. still try to find server
-                    
-                    //erLog(method, "Server failed to start.");
-                    statusText = "server failed to start. maybe given address is already in use?";
-                    //erLog(method, "1");
-                    finderStartTime = now;
-                    //erLog(method, "2");
-                    server.close();
-                    //erLog(method, "3");
-                    serverPortOffset++;
-                    //erLog(method, "4.");
-                }
-            }
-        }else{
-            //erLog(method, "Server not allowed. Restarting timer.");
-            finderStartTime = now;
-        }
-    }else if(server.isConnected()){
-        //erLog(method, "Server is connected. Updating.");
+    if(settings.isServer) {
         server.update();
-        //erLog(method, "Updated.");
         numClients = server.getClients().size();
-        //erLog(method, "Num clients = " + ofToString(numClients));
         if(numClients != previousNumClients){
             //erLog(method, "Sending channel updates.");
             sendChannelUpdates();
         }
         previousNumClients = numClients;
+    } else {
+        if(!client.isConnected()){
+            if(client.setup("192.168.1.134", SYNC_TCP_PORT)){
+                ofAddListener(client.connectionLost, this, &erNetwork::onClientConnectionLost);
+                ofAddListener(client.messageReceived, this, &erNetwork::onClientMessageReceived);
+            }
+        }
     }
-    
+
     //erLog(method, "Done.");
 }
 
@@ -117,15 +49,7 @@ void erNetwork::draw(){
     //string method = "erNetwork::draw()";
     //erLog(method, "Called");
 
-    if(finder.isRunning()){
-        //erLog(method, "Finder is running. Drawing.");
-        drawBlackOverlay();
-        ofSetColor(ofColor::white);
-        ofDrawBitmapString(statusText, 50, 30);
-        ofDrawBitmapString("trying to find server: " + ofToString((finderStartTime+FINDER_TIMEOUT)-ofGetElapsedTimeMillis()), 50, 50);
-        ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
-        //erLog(method, "Done drawing.");
-    }else if(client.isConnected()){
+    if(client.isConnected()){
         //erLog(method, "Client is connected...");
         if(settings.clientDrawingEnabled){
             //erLog(method, "Drawing enabled - Drawing now.");
@@ -294,36 +218,16 @@ bool erNetwork::target(int target, erPlayParams params){
     return success;
 }
 
-bool erNetwork::wasRunningClient(){
-    return previousRole == NETWORK_ROLE_CLIENT;
-}
-
-bool erNetwork::wasRunningServer(){
-    return previousRole == NETWORK_ROLE_SERVER;
-}
-
 bool erNetwork::isRunningClient(){
-    return role == NETWORK_ROLE_CLIENT;
+    return settings.isClient;
 }
 
 bool erNetwork::isRunningServer(){
-    return role == NETWORK_ROLE_SERVER;
+    return settings.isServer;
 }
 
 bool erNetwork::isRunning(){
     return isRunningClient() || isRunningServer();
-}
-
-bool erNetwork::justBecameClient(){
-    return isRunningClient() && !wasRunningClient();
-}
-
-void erNetwork::denyServer(){
-    serverIsAllowed = false;
-}
-
-bool erNetwork::justBecameServer(){
-    return isRunningServer() && !wasRunningServer();
 }
 
 ofEvent<string>& erNetwork::clientMessageReceived(){
@@ -369,14 +273,14 @@ void erNetwork::send(erPlayParams& params, ofxNetworkSyncClientState* client){
 }
 
 void erNetwork::send(string message, ofxNetworkSyncClientState* client){
-    string method = "erNetwork::send(string& message, ofxNetworkSyncClientState* client)";
+    //string method = "erNetwork::send(string& message, ofxNetworkSyncClientState* client)";
     //erLog(method, "Called");
     if(client->isCalibrated()){
         //erLog(method, "Sending '" + message + "' to client " + ofToString(client->getClientID()));
         try{
             client->send(message);
         }catch(...){
-            erLog(method, "Caught exception.");
+            //erLog(method, "Caught exception.");
         }
     }
     //erLog(method, "Done.");

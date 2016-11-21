@@ -5,14 +5,15 @@ void erMediaLoader::setup(erNetwork* _network){
     mediaIsLoaded = false;
     validateMedia();
     discoverErrors();
+    if(settings.isServer){
+        loadPreviewMedia();
+    } else {
+        loadLiveMedia();
+    }
 }
 
 void erMediaLoader::update(){
-    if(network->justBecameClient()){
-        loadLiveMedia();
-    }else if(network->justBecameServer()){
-        loadPreviewMedia();
-    }
+    
 }
 
 void erMediaLoader::drawErrors(){

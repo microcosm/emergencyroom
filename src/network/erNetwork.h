@@ -8,13 +8,6 @@
 #include "erLogger.h"
 
 #define SYNC_TCP_PORT 15001
-#define FINDER_TIMEOUT 15000
-
-enum erNetworkRole {
-    NETWORK_ROLE_UNDEFINED,
-    NETWORK_ROLE_CLIENT,
-    NETWORK_ROLE_SERVER
-};
 
 class erNetwork{
     
@@ -31,14 +24,9 @@ public:
     void requestServer();
     bool flood(erPlayParams params);
     bool target(int target, erPlayParams params);
-    bool wasRunningClient();
-    bool wasRunningServer();
     bool isRunningClient();
     bool isRunningServer();
     bool isRunning();
-    bool justBecameClient();
-    bool justBecameServer();
-    void denyServer();
     ofEvent<string>& clientMessageReceived();
     erTranslater* getTranslater();
     void onClientConnectionLost();
@@ -54,7 +42,6 @@ protected:
     ofxNetworkSyncServerFinder finder;
     ofxNetworkSyncClient client;
     ofxNetworkSyncServer server;
-    erNetworkRole role, previousRole;
     erTranslater translater;
 
     ofTrueTypeFont font;

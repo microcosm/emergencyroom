@@ -31,6 +31,7 @@ void erSettings::initSettings(){
     staticVolume = 1;
 
     isServer = false;
+    isClient = false;
     isEcg = false;
 
     ecgHighestBpm = 60;
@@ -65,6 +66,7 @@ void erSettings::applySettings(ofxJSONElement& json){
     minDecoyDuration    = json[ER_MIN_DECOY_DURATION].asFloat();
 
     isServer = computerName == json[ER_MACHINE_NAMES][ER_SERVER].asString();
+    isClient = !isServer;
     isEcg    = computerName == json[ER_MACHINE_NAMES][ER_ECG].asString();
 
     masterVolume    =                ofClamp(json[ER_SERVER_VOLUMES][ER_MASTER].asFloat(), 0, 1);

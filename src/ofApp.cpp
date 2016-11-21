@@ -38,14 +38,10 @@ void ofApp::update(){
         videoSoundAssigned = true;
     }
 
-    if(network.isRunning() && settings.logToFileEnabled){
+    if(settings.logToFileEnabled){
         erEnableFileLogging(network.isRunningServer());
     }else{
         erDisableFileLogging();
-    }
-
-    if(ofGetFrameNum() > 0){
-        settings.isServer ? network.requestServer() : network.denyServer();
     }
 
     if(settings.isEcg){
