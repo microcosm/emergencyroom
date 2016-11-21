@@ -15,6 +15,9 @@ enum erCommand{
 class erPlayParams{
 
 public:
+    erPlayParams() {
+        reset();
+    }
     void newCommand(string commandStr);
     void newGraphicCommand();
     void newVideoCommand();
