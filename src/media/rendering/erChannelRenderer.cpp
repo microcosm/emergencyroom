@@ -88,7 +88,7 @@ void erChannelRenderer::drawClient(){
     anyPlayerIsPlaying = false;
     for(auto const& player : *videoPlayers){
         videoPlayer = player.second.get();
-        bool draw = videoPlayer->isPlaying() && videoPlayer->getPath() == currentPlayerPath;
+        bool draw = videoPlayer->isCurrentlyPlaying() && videoPlayer->getPath() == currentPlayerPath;
         if(draw){
             anyPlayerIsPlaying = true;
             mediaRenderer.draw(videoPlayer, 0, 0, ofGetWidth(), ofGetHeight());

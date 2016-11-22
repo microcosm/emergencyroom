@@ -18,7 +18,7 @@ void erMediaRenderer::setup(erNetwork* _network){
 void erMediaRenderer::update(){
     for(auto const& player : *videoPlayers){
         player.second->checkSchedule();
-        if(player.second->isPlaying()){
+        if(player.second->isCurrentlyPlaying()){
             player.second->update();
         }
     }
@@ -35,7 +35,7 @@ void erMediaRenderer::assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer){
 }
 
 void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel){
-    bool isPlaying = player->isPlaying();
+    bool isPlaying = player->isCurrentlyPlaying();
     if(isPlaying){
         withinGlitchPeriod(channel) && settings.isClient ?
             drawGlitched(player, x, y, width, height) :
@@ -79,7 +79,7 @@ void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, in
 
         /*if(player != decoyGlitchPlayer && playerDuration > settings.minDecoyDuration && decoyFramesRemaining > 0){
             //https://github.com/openframeworks/openFrameworks/issues/4485
-            if(!decoyGlitchPlayer->isPlaying()){
+            if(!decoyGlitchPlayer->isCurrentlyPlaying()){
                 decoyGlitchPlayer->setPosition(0);
                 decoyGlitchPlayer->play();
             }else{
@@ -108,7 +108,7 @@ string erMediaRenderer::getPlaybackState(){
 
 void erMediaRenderer::stopDecoyPlayer(){
     /*if(decoyGlitchPlayer != NULL && decoyAssigned){
-        if(decoyGlitchPlayer->isPlaying()){
+        if(decoyGlitchPlayer->isCurrentlyPlaying()){
             decoyGlitchPlayer->stop();
         }
     }*/

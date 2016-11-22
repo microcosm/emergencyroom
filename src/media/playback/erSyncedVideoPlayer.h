@@ -23,7 +23,7 @@ public:
     }
 
     void before(){
-        if(isPlaying()){
+        if(isCurrentlyPlaying()){
             try{
                 stop();
             }catch(...){
@@ -42,12 +42,20 @@ public:
     }
 
     bool isOrWillBePlaying(){
-        return videoScheduled || isPlaying();
+        return videoScheduled || isCurrentlyPlaying();
     }
 
     void renderSoundWith(erSoundRenderer* _soundRenderer){
         soundRenderer = _soundRenderer;
         useSoundRenderer = true;
+    }
+
+    bool isCurrentlyPlaying() {
+#ifdef __linux__
+        return !isPaused() && !getIsMovieDone();
+#else
+        return isPlaying();
+#endif
     }
 
 protected:
@@ -57,7 +65,7 @@ protected:
 
     void beginVideoPlayback(){
         setSpeed(params.getSpeed());
-        if(!isPlaying()) play();
+        if(!isCurrentlyPlaying()) play();
     }
 
     void beginSoundPlayback(){
