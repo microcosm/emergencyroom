@@ -21,4 +21,5 @@ void erDisableFileLogging(){
 
 void erLog(string methodSignature, string message){
     ofLog(OF_LOG_NOTICE, ofGetTimestampString() + ": " + methodSignature + " " + message);
+    cout.flush();
 }
