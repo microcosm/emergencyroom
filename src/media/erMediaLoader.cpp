@@ -95,20 +95,7 @@ void erMediaLoader::findMissing(string expectedPath, vector<string>& pushToIfMis
     }
 }
 
-void erMediaLoader::eraseMedia(){
-    allVideos.clear();
-    audibleVideos.clear();
-    silentVideos.clear();
-    videoCollections.clear();
-    missingVideos.clear();
-    spacedPathVideos.clear();
-    collectionsToVideos.clear();
-    videoPlayers.clear();
-    texts.clear();
-}
-
 void erMediaLoader::loadMedia(){
-    eraseMedia();
     for(auto const& item : productionDir){
         if(item.isDirectory()){
             loadDirectory(item.getAbsolutePath());

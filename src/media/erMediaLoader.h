@@ -28,7 +28,6 @@ protected:
     void validateCollectionDir(string path);
     void validateAssetConsistency(const ofFile previewVideo);
     void findMissing(string expectedPath, vector<string>& pushToIfMissing);
-    void eraseMedia();
     void loadMedia();
     void loadDirectory(string path);
     void registerVideo(string& collection, const ofFile& video);
