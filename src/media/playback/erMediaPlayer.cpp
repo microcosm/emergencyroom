@@ -98,7 +98,7 @@ void erMediaPlayer::floodServer(erPlayParams params){
 
 void erMediaPlayer::stopAll(){
     for(const auto& videoPlayer : *videoPlayers){
-        if(videoPlayer.second->isCurentlyPlaying()){
+        if(videoPlayer.second->isCurrentlyPlaying()){
             try{
                 videoPlayer.second->stop();
             }catch(...){
