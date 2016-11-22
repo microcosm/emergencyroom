@@ -36,7 +36,6 @@ void erNetwork::update(){
     } else {
         if(!client.isConnected()){
             if(client.setup(settings.serverIP, settings.serverPort)){
-                ofAddListener(client.connectionLost, this, &erNetwork::onClientConnectionLost);
                 ofAddListener(client.messageReceived, this, &erNetwork::onClientMessageReceived);
             }
         }
@@ -224,17 +223,6 @@ ofEvent<string>& erNetwork::clientMessageReceived(){
 
 erTranslater* erNetwork::getTranslater(){
     return &translater;
-}
-
-void erNetwork::onClientConnectionLost(){
-    statusText = "lost connection to server";
-    client.close();
-    // retry to find server
-    if(finder.setup()){
-        finderStartTime = ofGetElapsedTimeMillis();
-    }else{
-        statusText += "\nfailed to start finder";
-    }
 }
 
 void erNetwork::onClientMessageReceived(string& message){

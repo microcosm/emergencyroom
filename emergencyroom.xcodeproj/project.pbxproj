@@ -69,7 +69,7 @@
 		B45EB7951CC5483E00CEFF4F /* ofxShapeSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7901CC5483E00CEFF4F /* ofxShapeSystem.cpp */; };
 		B45EB7961CC5483E00CEFF4F /* ofxTransformable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB7921CC5483E00CEFF4F /* ofxTransformable.cpp */; };
 		B47EF6BC1CA16CD8003B3B83 /* erMediaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */; };
-		B48604F11C9B90F600629452 /* erNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604E61C9B90F600629452 /* erNetwork.cpp */; };
+		B48604F11C9B90F600629452 /* erNetwork_.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604E61C9B90F600629452 /* erNetwork_.cpp */; };
 		B48604F21C9B90F600629452 /* erTranslater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604E81C9B90F600629452 /* erTranslater.cpp */; };
 		B48604F31C9B90F600629452 /* erLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604EB1C9B90F600629452 /* erLogger.cpp */; };
 		B48605011C9B911800629452 /* ofxNetworkSyncClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48604F71C9B911800629452 /* ofxNetworkSyncClient.cpp */; };
@@ -301,7 +301,7 @@
 		B45EB7931CC5483E00CEFF4F /* ofxTransformable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxTransformable.h; sourceTree = "<group>"; };
 		B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaLoader.cpp; sourceTree = "<group>"; };
 		B47EF6B91CA16CD8003B3B83 /* erMediaLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaLoader.h; sourceTree = "<group>"; };
-		B48604E61C9B90F600629452 /* erNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erNetwork.cpp; sourceTree = "<group>"; };
+		B48604E61C9B90F600629452 /* erNetwork_.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erNetwork_.cpp; sourceTree = "<group>"; };
 		B48604E71C9B90F600629452 /* erNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erNetwork.h; sourceTree = "<group>"; };
 		B48604E81C9B90F600629452 /* erTranslater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erTranslater.cpp; sourceTree = "<group>"; };
 		B48604E91C9B90F600629452 /* erTranslater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erTranslater.h; sourceTree = "<group>"; };
@@ -837,7 +837,7 @@
 		B48604E51C9B90F600629452 /* network */ = {
 			isa = PBXGroup;
 			children = (
-				B48604E61C9B90F600629452 /* erNetwork.cpp */,
+				B48604E61C9B90F600629452 /* erNetwork_.cpp */,
 				B48604E71C9B90F600629452 /* erNetwork.h */,
 				B48604E81C9B90F600629452 /* erTranslater.cpp */,
 				B48604E91C9B90F600629452 /* erTranslater.h */,
@@ -1447,7 +1447,7 @@
 				B48605041C9B911800629452 /* ofxNetworkSyncUdp.cpp in Sources */,
 				B45EB7831CC4307B00CEFF4F /* RenderPass.cpp in Sources */,
 				B41811AE1CDFCC860014D1E5 /* erEcgRenderer.cpp in Sources */,
-				B48604F11C9B90F600629452 /* erNetwork.cpp in Sources */,
+				B48604F11C9B90F600629452 /* erNetwork_.cpp in Sources */,
 				B4EAD5451CDC0950007806CC /* ofxAnimatable.cpp in Sources */,
 				B45EB7731CC4307B00CEFF4F /* ContrastPass.cpp in Sources */,
 				B4B3546D1CBDC1D500B8883B /* ofxAudioUnitFftNode.cpp in Sources */,

@@ -34,7 +34,6 @@ protected:
     void setLogLevels(ofLogLevel level);
     void drawBlackOverlay();
 
-    ofxNetworkSyncServerFinder finder;
     ofxNetworkSyncClient client;
     ofxNetworkSyncServer server;
     erTranslater translater;
