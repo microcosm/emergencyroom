@@ -98,18 +98,7 @@ void erMediaPlayer::floodServer(erPlayParams params){
 
 void erMediaPlayer::stopAll(){
     for(const auto& videoPlayer : *videoPlayers){
-        if(videoPlayer.second->isCurrentlyPlaying()){
-            try{
-                videoPlayer.second->stop();
-            }catch(...){
-                erLog("erMediaPlayer::stopAll()", "Caught player stop() exception");
-            }
-        }
-        try{
-            videoPlayer.second->setPosition(0);
-        }catch(...){
-            erLog("erMediaPlayer::stopAll()", "Caught player setPosition(0) exception");
-        }
+        videoPlayer.second->stop();
     }
     soundRenderer.stopVideoSound();
 }

@@ -3,11 +3,37 @@
 #include "erLessSyncedMediaPlayer.h"
 #include "erSoundRenderer.h"
 
-class erSyncedVideoPlayer : public ofVideoPlayer, public erLessSyncedMediaPlayer{
+class erSyncedVideoPlayer : public erLessSyncedMediaPlayer{
 
 public:
-    void setPath(string _path){
-        path = _path;
+    void setup(string absolutePath, string relativePath, int volume, ofLoopType loopType){
+        videoPlayer.load(absolutePath);
+        path = relativePath;
+        videoPlayer.setVolume(volume);
+        videoPlayer.setLoopState(loopType);
+    }
+
+    void update(){
+        videoPlayer.update();
+    }
+
+    void draw(float x, float y, float width, float height){
+        videoPlayer.draw(x, y, width, height);
+    }
+
+    void stop(){
+        if(isCurrentlyPlaying()){
+            try{
+                videoPlayer.stop();
+            }catch(...){
+                erLog("erSyncedVideoPlayer::stop()", "Caught videoPlayer.stop() exception");
+            }
+        }
+        try{
+            videoPlayer.setPosition(0);
+        }catch(...){
+            erLog("erSyncedVideoPlayer::stop()", "Caught videoPlayer.setPosition(0) exception");
+        }
     }
 
     void checkSchedule(){
@@ -23,22 +49,19 @@ public:
     }
 
     void before(){
-        if(isCurrentlyPlaying()){
-            try{
-                stop();
-            }catch(...){
-                erLog("erSyncedVideoPlayer::before()", "Caught player stop() exception");
-            }
-        }
-        try{
-            setPosition(0);
-        }catch(...){
-            erLog("erSyncedVideoPlayer::before()", "Caught player setPosition(0) exception");
-        }
+        stop();
     }
 
     string getPath(){
         return path;
+    }
+
+    float getDuration() {
+        return videoPlayer.getDuration();
+    }
+
+    bool getIsMovieDone(){
+        return videoPlayer.getIsMovieDone();
     }
 
     bool isOrWillBePlaying(){
@@ -52,20 +75,21 @@ public:
 
     bool isCurrentlyPlaying() {
 #ifdef __linux__
-        return !isPaused() && !getIsMovieDone();
+        return !videoPlayer.isPaused() && !videoPlayer.getIsMovieDone();
 #else
-        return isPlaying();
+        return videoPlayer.isPlaying();
 #endif
     }
 
 protected:
+    ofVideoPlayer videoPlayer;
     erSoundRenderer* soundRenderer;
     bool useSoundRenderer = false;
     string path;
 
     void beginVideoPlayback(){
-        setSpeed(params.getSpeed());
-        if(!isCurrentlyPlaying()) play();
+        videoPlayer.setSpeed(params.getSpeed());
+        if(!isCurrentlyPlaying()) videoPlayer.play();
     }
 
     void beginSoundPlayback(){
