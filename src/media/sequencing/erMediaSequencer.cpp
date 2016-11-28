@@ -1,10 +1,10 @@
-#include "erSequencer.h"
+#include "erMediaSequencer.h"
 
-void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlayer* _player){
+void erMediaSequencer::setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaController* _mediaController){
     network = _network;
-    loader = _loader;
-    player = _player;
-    ecgTimer = player->getEcgTimer();
+    mediaLoader = _mediaLoader;
+    mediaController = _mediaController;
+    ecgTimer = _mediaController->getEcgTimer();
     ecgTimerStarted = false;
     currentSequencerDelay = -1;
     nextTriggerTime = 0;
@@ -22,11 +22,11 @@ void erSequencer::setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlay
     translater = network->getTranslater();
     loadChannels();
 
-    ofAddListener(network->clientMessageReceived(), this, &erSequencer::messageReceived);
-    ofAddListener(ecgTimer->bpmLooped(), this, &erSequencer::ecgBpmLooped);
+    ofAddListener(network->clientMessageReceived(), this, &erMediaSequencer::messageReceived);
+    ofAddListener(ecgTimer->bpmLooped(), this, &erMediaSequencer::ecgBpmLooped);
 }
 
-void erSequencer::update(){
+void erMediaSequencer::update(){
     if(bpmLooped){
         handleBpmLooped();
         bpmLooped = false;
@@ -45,7 +45,7 @@ void erSequencer::update(){
     attemptToLoadCollections();
 
     if(focusTime){
-        erSyncedVideoPlayer* player = loader->videoPlayers.at(focusVideoPath).get();
+        erVideoPlayer* player = mediaLoader->videoPlayers.at(focusVideoPath).get();
         bool isMovieDone = player->getIsMovieDone();
 
         if(isMovieDone){
@@ -66,7 +66,7 @@ void erSequencer::update(){
     }
 }
 
-void erSequencer::draw(){
+void erMediaSequencer::draw(){
     if(ecgTimerStarted && settings.serverDrawingEnabled){
         ofSetColor(ofColor::white);
         ofDrawBitmapString("Progress:         " + ofToString(ecgTimer->getPeriodPosition()), ofGetWidth() - 260, ofGetHeight() - 360);
@@ -76,12 +76,12 @@ void erSequencer::draw(){
     }
 }
 
-void erSequencer::stopAll(){
+void erMediaSequencer::stopAll(){
     network->clientStopAll();
-    player->stopAll();
+    mediaController->stopAll();
 }
 
-void erSequencer::messageReceived(string& message){
+void erMediaSequencer::messageReceived(string& message){
     if(message.substr(0, 8) == "STOP ALL"){
         stopAllReceived = true;
     }else{
@@ -90,76 +90,76 @@ void erSequencer::messageReceived(string& message){
     }
 }
 
-void erSequencer::handleBpmLooped(){
+void erMediaSequencer::handleBpmLooped(){
     focusTime = true;
     stopAll();
     //ecgTimer->pauseBpmAnimation();
-    if(focusIndex >= loader->focusVideos.size()){
+    if(focusIndex >= mediaLoader->focusVideos.size()){
         focusIndex = 0;
     }
-    focusVideoPath = loader->focusVideos.at(focusIndex);
+    focusVideoPath = mediaLoader->focusVideos.at(focusIndex);
     prepareParams(focusVideoPath, 1);
     network->flood(params);
-    player->floodServer(params);
+    mediaController->floodServer(params);
     focusIndex++;
 }
 
-void erSequencer::handleStopAll(){
-    erLog("erSequencer::handleStopAll()", "STOP ALL");
+void erMediaSequencer::handleStopAll(){
+    erLog("erMediaSequencer::handleStopAll()", "STOP ALL");
     if(settings.isClient){
-        player->stopAll();
+        mediaController->stopAll();
     }
 }
 
-void erSequencer::handleMessageReceived(){
+void erMediaSequencer::handleMessageReceived(){
     params = translater->toParams(messageContent);
     if(params.isPlayable()){
-        player->playClient(params);
+        mediaController->playClient(params);
     }
 }
 
-void erSequencer::setSequencerDelay(){
+void erMediaSequencer::setSequencerDelay(){
     if(ecgTimerStarted){
         currentSequencerDelay = ofMap(ecgTimer->getCurrentBpm(), settings.ecgLowestBpm, settings.ecgHighestBpm, settings.longestSequenceDelay, settings.shortestSequenceDelay);
     }
 }
 
-string erSequencer::getCurrentCollection(){
+string erMediaSequencer::getCurrentCollection(){
     return currentCollection;
 }
 
-void erSequencer::ecgBpmLooped(ofxAnimatable::AnimationEvent& args){
+void erMediaSequencer::ecgBpmLooped(ofxAnimatable::AnimationEvent& args){
     if(args.direction == 1){
         bpmLooped = true;
     }
 }
 
-void erSequencer::playNewVideo(){
+void erMediaSequencer::playNewVideo(){
     if(queuesLoaded && currentCollection.length() > 0){
         for(auto& queue : queues){
             queue.second.ensureLoaded();
         }
         currentChannel = chooseNewChannel();
-        if(!player->isChannelPlaying(currentChannel)){
+        if(!mediaController->isChannelPlaying(currentChannel)){
             prepareParams(isAudioPlaying() ? queues[currentCollection].getNextSilent() : queues[currentCollection].getNextAudible(), 1);
             network->target(currentChannel, params);
-            player->playServer(currentChannel, params);
-            erLog("erSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
+            mediaController->playServer(currentChannel, params);
+            erLog("erMediaSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
         }
     }
 }
 
-void erSequencer::chooseNewTheme(){
+void erMediaSequencer::chooseNewTheme(){
     if(collectionsLoaded){
-        if(currentCollectionIndex < 0 || currentCollectionIndex >= loader->videoCollections.size()){
+        if(currentCollectionIndex < 0 || currentCollectionIndex >= mediaLoader->videoCollections.size()){
             currentCollectionIndex = 0;
             random_shuffle(shuffledCollectionIndices.begin(), shuffledCollectionIndices.end());
         }
-        currentCollection = loader->videoCollections.at(shuffledCollectionIndices.at(currentCollectionIndex++));
+        currentCollection = mediaLoader->videoCollections.at(shuffledCollectionIndices.at(currentCollectionIndex++));
     }
 }
 
-int erSequencer::chooseNewChannel(){
+int erMediaSequencer::chooseNewChannel(){
     if(currentChannelIndex < 0 || currentChannelIndex >= settings.numChannels){
         currentChannelIndex = 0;
         random_shuffle(shuffledChannels.begin(), shuffledChannels.end());
@@ -167,42 +167,42 @@ int erSequencer::chooseNewChannel(){
     return shuffledChannels.at(currentChannelIndex++);
 }
 
-void erSequencer::loadChannels(){
+void erMediaSequencer::loadChannels(){
     for(int i = 1; i <= settings.numChannels; i++){
         shuffledChannels.push_back(i);
     }
 }
 
-void erSequencer::attemptToLoadCollections(){
-    if(loader->isLoaded() && shuffledCollectionIndices.size() == 0){
-        for(int i = 0; i < loader->videoCollections.size(); i++){
+void erMediaSequencer::attemptToLoadCollections(){
+    if(mediaLoader->isLoaded() && shuffledCollectionIndices.size() == 0){
+        for(int i = 0; i < mediaLoader->videoCollections.size(); i++){
             shuffledCollectionIndices.push_back(i);
         }
         collectionsLoaded = true;
     }
 }
 
-void erSequencer::attemptToLoadMediaQueues(){
-    if(!queuesLoaded && loader->isLoaded()){
-        for(auto collection : loader->videoCollections){
+void erMediaSequencer::attemptToLoadMediaQueues(){
+    if(!queuesLoaded && mediaLoader->isLoaded()){
+        for(auto collection : mediaLoader->videoCollections){
             queues[collection] = queue;
-            queues[collection].setup(loader, collection);
+            queues[collection].setup(mediaLoader, collection);
         }
         queuesLoaded = true;
     }
 }
 
-bool erSequencer::isAudioPlaying(){
-    ofPtr<erSyncedVideoPlayer> videoPlayer;
-    for(auto const& path : loader->audibleVideos){
-        if(loader->videoPlayers[path]->isOrWillBePlaying()){
+bool erMediaSequencer::isAudioPlaying(){
+    ofPtr<erVideoPlayer> videoPlayer;
+    for(auto const& path : mediaLoader->audibleVideos){
+        if(mediaLoader->videoPlayers[path]->isOrWillBePlaying()){
             return true;
         }
     }
     return false;
 }
 
-void erSequencer::prepareParams(string path, int speed){
+void erMediaSequencer::prepareParams(string path, int speed){
     params.newVideoCommand();
     params.setPath(path);
     params.setSpeed(speed);

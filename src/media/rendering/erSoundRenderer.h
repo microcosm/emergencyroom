@@ -3,14 +3,14 @@
 #include "erSettings.h"
 #include "erEcgTimer.h"
 #include "erFileUtils.h"
-#include "erSyncedMediaPlayer.h"
+#include "erThreadedPlayer.h"
 #include "erGlitchTimer.h"
 
 #ifdef __APPLE__
 #include "ofxAudioUnitManager.h"
 #endif
 
-class erSoundRenderer : public erSyncedMediaPlayer, public erGlitchTimer{
+class erSoundRenderer : public erThreadedPlayer, public erGlitchTimer{
 
 public:
     void setup();

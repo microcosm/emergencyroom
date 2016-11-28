@@ -13,19 +13,19 @@ void ofApp::setup(){
         ofToggleFullscreen();
     }
 
-    player.setVideoPaths(&loader.allVideos);
-    player.setVideoPlayers(&loader.videoPlayers);
-    player.setTexts(&loader.texts);
+    mediaController.setVideoPaths(&mediaLoader.allVideos);
+    mediaController.setVideoPlayers(&mediaLoader.videoPlayers);
+    mediaController.setTexts(&mediaLoader.texts);
 
     if(settings.isEcg){
-        player.setupEcgMode(&network);
+        mediaController.setupEcgMode(&network);
         network.setup();
         ecg.setup(&network);
     }else{
-        loader.setup(&network);
-        player.setup(&network);
+        mediaLoader.setup(&network);
+        mediaController.setup(&network);
         network.setup();
-        sequencer.setup(&network, &loader, &player);
+        mediaSequencer.setup(&network, &mediaLoader, &mediaController);
     }
 }
 
@@ -33,8 +33,8 @@ void ofApp::update(){
     width = ofGetWidth();
     height = ofGetHeight();
 
-    if(loader.isLoaded() && !videoSoundAssigned){
-        player.useSoundRendererFor(loader.audibleVideos);
+    if(mediaLoader.isLoaded() && !videoSoundAssigned){
+        mediaController.useSoundRendererFor(mediaLoader.audibleVideos);
         videoSoundAssigned = true;
     }
 
@@ -48,10 +48,10 @@ void ofApp::update(){
         ecg.update();
         network.update();
     }else{
-        loader.update();
-        player.update();
+        mediaLoader.update();
+        mediaController.update();
         network.update();
-        sequencer.update();
+        mediaSequencer.update();
     }
 }
 
@@ -62,24 +62,24 @@ void ofApp::draw(){
         ecg.draw();
         network.draw();
     }else{
-        player.draw();
+        mediaController.draw();
         if(settings.isClient){
             ofSetColor(ofColor::black, 150);
             ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
         }
         network.draw();
-        sequencer.draw();
+        mediaSequencer.draw();
     }
 
-    if(loader.hasErrors()){
-        loader.drawErrors();
+    if(mediaLoader.hasErrors()){
+        mediaLoader.drawErrors();
     }
 
     ofSetColor(ofColor::white);
     if(settings.isServer && settings.serverDrawingEnabled){
         ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nD            toggle client display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, height - 168);
         drawFps(490, height - 60);
-        smallFont.drawString(sequencer.getCurrentCollection(), 490, height - 220);
+        smallFont.drawString(mediaSequencer.getCurrentCollection(), 490, height - 220);
     }
 
     if((settings.isClient || settings.isEcg) && settings.clientDrawingEnabled){
@@ -89,7 +89,7 @@ void ofApp::draw(){
 
     if(settings.isClient && settings.clientDrawingEnabled){
         smallFont.drawString("#" + ofToString(network.getClientId()), 50, height - 90);
-        ofDrawBitmapString(player.getClientVideoState(), 50, height - 220);
+        ofDrawBitmapString(mediaController.getClientVideoState(), 50, height - 220);
     }
 }
 
@@ -109,6 +109,6 @@ void ofApp::keyReleased(int key){
         settings.clientDrawingEnabled ? network.clientDisplaysOn() : network.clientDisplaysOff();
     }
     if(key == ' '){
-        sequencer.stopAll();
+        mediaSequencer.stopAll();
     }
 }

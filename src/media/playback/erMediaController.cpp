@@ -1,17 +1,17 @@
-#include "erMediaPlayer.h"
+#include "erMediaController.h"
 
-void erMediaPlayer::setup(erNetwork* _network){
+void erMediaController::setup(erNetwork* _network){
     network = _network;
     channelRenderer.setup(network);
     //textRenderer.setup();
-    ofAddListener(ofEvents().keyReleased, this, &erMediaPlayer::keyReleased);
+    ofAddListener(ofEvents().keyReleased, this, &erMediaController::keyReleased);
 }
 
-void erMediaPlayer::setupEcgMode(erNetwork* _network){
+void erMediaController::setupEcgMode(erNetwork* _network){
     network = _network;
 }
 
-void erMediaPlayer::update(){
+void erMediaController::update(){
     if(settings.isServer){
         if(syncCommandReceived){
             network->syncEcg(ECG_SYNC_DELAY);
@@ -27,7 +27,7 @@ void erMediaPlayer::update(){
     }
 }
 
-void erMediaPlayer::draw(){
+void erMediaController::draw(){
     ofSetColor(ofColor::white);
     if(settings.isServer && settings.serverDrawingEnabled){
         if(soundRenderer.isSyncing()){
@@ -45,13 +45,13 @@ void erMediaPlayer::draw(){
     }
 }
 
-void erMediaPlayer::keyReleased(ofKeyEventArgs &args){
+void erMediaController::keyReleased(ofKeyEventArgs &args){
     if(args.key == '-'){
         syncCommandReceived = true;
     }
 }
 
-void erMediaPlayer::playClient(erPlayParams params){
+void erMediaController::playClient(erPlayParams params){
     if(params.isVideoCommand()){
         calculateVideoPlaybackVariables(params);
 
@@ -74,7 +74,7 @@ void erMediaPlayer::playClient(erPlayParams params){
     }
 }
 
-void erMediaPlayer::playServer(int channel, erPlayParams params){
+void erMediaController::playServer(int channel, erPlayParams params){
     if(params.isVideoCommand()){
         calculateVideoPlaybackVariables(params);
         channelRenderer.assign(channel, params);
@@ -90,37 +90,37 @@ void erMediaPlayer::playServer(int channel, erPlayParams params){
     }
 }
 
-void erMediaPlayer::floodServer(erPlayParams params){
+void erMediaController::floodServer(erPlayParams params){
     for(int i = 1; i <= settings.numChannels; i++){
         playServer(i, params);
     }
 }
 
-void erMediaPlayer::stopAll(){
+void erMediaController::stopAll(){
     for(const auto& videoPlayer : *videoPlayers){
         videoPlayer.second->stop();
     }
     soundRenderer.stopVideoSound();
 }
 
-bool erMediaPlayer::isChannelPlaying(int channel){
+bool erMediaController::isChannelPlaying(int channel){
     return channelRenderer.isChannelPlaying(channel);
 }
 
-void erMediaPlayer::setVideoPaths(vector<string> *_videoPaths){
+void erMediaController::setVideoPaths(vector<string> *_videoPaths){
     allVideoPaths = _videoPaths;
 }
 
-void erMediaPlayer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){
+void erMediaController::setVideoPlayers(map<string, ofPtr<erVideoPlayer>>* _videoPlayers){
     videoPlayers = _videoPlayers;
     channelRenderer.setVideoPlayers(videoPlayers);
 }
 
-void erMediaPlayer::setTexts(map<string, vector<string>>* texts){
+void erMediaController::setTexts(map<string, vector<string>>* texts){
     textRenderer.setTexts(texts);
 }
 
-void erMediaPlayer::useSoundRendererFor(vector<string>& audibleVideos){
+void erMediaController::useSoundRendererFor(vector<string>& audibleVideos){
     soundRenderer.setupVideo(audibleVideos);
 
     for(const auto& video : audibleVideos){
@@ -128,7 +128,7 @@ void erMediaPlayer::useSoundRendererFor(vector<string>& audibleVideos){
     }
 }
 
-void erMediaPlayer::calculateVideoPlaybackVariables(erPlayParams params){
+void erMediaController::calculateVideoPlaybackVariables(erPlayParams params){
     videoPlayer = videoPlayers->at(params.getPath());
     currentTime = ofGetElapsedTimeMillis();
 
@@ -162,21 +162,21 @@ void erMediaPlayer::calculateVideoPlaybackVariables(erPlayParams params){
     }
 }
 
-void erMediaPlayer::calculateSoundPlaybackVariables(){
+void erMediaController::calculateSoundPlaybackVariables(){
     startOpeningGlitch = currentTime + bufferTime;
     openingGlitchDuration = videoGlitchTime;
     closingGlitchDuration = videoGlitchTime;
 }
 
-string erMediaPlayer::getClientVideoState(){
+string erMediaController::getClientVideoState(){
     return channelRenderer.getClientVideoState();
 }
 
-erEcgTimer* erMediaPlayer::getEcgTimer(){
+erEcgTimer* erMediaController::getEcgTimer(){
     return soundRenderer.getEcgTimer();
 }
 
-string erMediaPlayer::selectDecoyPath(erPlayParams params){
+string erMediaController::selectDecoyPath(erPlayParams params){
     bool found = false;
     do{
         int decoyIndex = floor(ofRandom(allVideoPaths->size() - 0.0001));

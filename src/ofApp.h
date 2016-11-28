@@ -1,7 +1,7 @@
 #pragma once
 #include "ofMain.h"
-#include "erSequencer.h"
-#include "erMediaPlayer.h"
+#include "erMediaSequencer.h"
+#include "erMediaController.h"
 #include "erLogger.h"
 #include "erSettings.h"
 #include "erEcgRenderer.h"
@@ -18,10 +18,10 @@ public:
 
 protected:
     ofTrueTypeFont bigFont, smallFont;
-    erMediaLoader loader;
-    erMediaPlayer player;
+    erMediaLoader mediaLoader;
+    erMediaController mediaController;
+    erMediaSequencer mediaSequencer;
     erNetwork network;
-    erSequencer sequencer;
     erPlayParams params;
     erEcgRenderer ecg;
     bool videoSoundAssigned;

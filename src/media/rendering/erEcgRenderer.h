@@ -4,7 +4,7 @@
 #include "ofxCsvStream.h"
 #include "ofxLayerMask.h"
 #include "ofxShapeSystem.h"
-#include "erSyncedMediaPlayer.h"
+#include "erThreadedPlayer.h"
 #include "erNetwork.h"
 #include "erEcgTimer.h"
 
@@ -34,7 +34,7 @@
 
 #define ECG_SYNC_DELAY 3000
 
-class erEcgRenderer : erSyncedMediaPlayer{
+class erEcgRenderer : erThreadedPlayer{
 
 public:
     void setup(erNetwork* _network);

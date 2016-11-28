@@ -3,8 +3,8 @@
 #include "erSettings.h"
 #include "erNetwork.h"
 #include "erFileUtils.h"
-#include "erSyncedSoundPlayer.h"
-#include "erSyncedVideoPlayer.h"
+#include "erSoundPlayer.h"
+#include "erVideoPlayer.h"
 
 class erMediaLoader{
 
@@ -17,7 +17,7 @@ public:
     bool hasErrors();
     bool isLoaded();
 
-    map<string, ofPtr<erSyncedVideoPlayer>> videoPlayers;
+    map<string, ofPtr<erVideoPlayer>> videoPlayers;
     map<string, vector<string>> texts;
     vector<string> allVideos, audibleVideos, silentVideos, videoCollections;
     vector<string> missingVideos, missingTexts, spacedPathVideos, focusVideos;

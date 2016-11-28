@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "erPlayParams.h"
 
-class erSyncedMediaPlayer : public ofThread{
+class erThreadedPlayer : public ofThread{
 
 public:
     virtual void beforeSleep(){};

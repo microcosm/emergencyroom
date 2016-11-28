@@ -1,9 +1,9 @@
 #pragma once
 #include "ofMain.h"
-#include "erLessSyncedMediaPlayer.h"
+#include "erTimedPlayer.h"
 #include "erSoundRenderer.h"
 
-class erSyncedVideoPlayer : public erLessSyncedMediaPlayer{
+class erVideoPlayer : public erTimedPlayer{
 
 public:
     void setup(string absolutePath, string relativePath, int volume, ofLoopType loopType){
@@ -26,13 +26,13 @@ public:
             try{
                 videoPlayer.stop();
             }catch(...){
-                erLog("erSyncedVideoPlayer::stop()", "Caught videoPlayer.stop() exception");
+                erLog("erVideoPlayer::stop()", "Caught videoPlayer.stop() exception");
             }
         }
         try{
             videoPlayer.setPosition(0);
         }catch(...){
-            erLog("erSyncedVideoPlayer::stop()", "Caught videoPlayer.setPosition(0) exception");
+            erLog("erVideoPlayer::stop()", "Caught videoPlayer.setPosition(0) exception");
         }
     }
 

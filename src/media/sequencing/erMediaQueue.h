@@ -5,14 +5,14 @@
 class erMediaQueue{
 
 public:
-    void setup(erMediaLoader* _loader, string _collection);
+    void setup(erMediaLoader* _mediaLoader, string _collection);
     void ensureLoaded();
     string getNextSilent();
     string getNextAudible();
 
 protected:
     void loadQueues();
-    erMediaLoader* loader;
+    erMediaLoader* mediaLoader;
     string collection;
     vector<string>* audibleVideosForCollection;
     vector<string>* silentVideosForCollection;

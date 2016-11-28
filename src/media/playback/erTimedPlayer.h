@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "erPlayParams.h"
 
-class erLessSyncedMediaPlayer{
+class erTimedPlayer{
 
 public:
     virtual void before(){};

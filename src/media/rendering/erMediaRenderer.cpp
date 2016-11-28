@@ -24,17 +24,17 @@ void erMediaRenderer::update(){
     }
 }
 
-void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){
+void erMediaRenderer::setVideoPlayers(map<string, ofPtr<erVideoPlayer>>* _videoPlayers){
     videoPlayers = _videoPlayers;
 }
 
-void erMediaRenderer::assignDecoyGlitch(erSyncedVideoPlayer* _videoPlayer){
+void erMediaRenderer::assignDecoyGlitch(erVideoPlayer* _videoPlayer){
     /*stopDecoyPlayer();
     decoyGlitchPlayer = _videoPlayer;
     decoyAssigned = true;*/
 }
 
-void erMediaRenderer::draw(erSyncedVideoPlayer* player, int x, int y, int width, int height, int channel){
+void erMediaRenderer::draw(erVideoPlayer* player, int x, int y, int width, int height, int channel){
     bool isPlaying = player->isCurrentlyPlaying();
     if(isPlaying){
         withinGlitchPeriod(channel) && settings.isClient ?
@@ -64,7 +64,7 @@ void erMediaRenderer::drawStatic(int x, int y, int width, int height){
     playbackState = ER_PLAYBACK_STATIC;
 }
 
-void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int width, int height){
+void erMediaRenderer::drawNormal(erVideoPlayer* player, int x, int y, int width, int height){
     player->draw(x, y, width, height);
     if(settings.isServer){
         ofDrawBitmapString("Playing", x + 10, y + 20);// + player->getPath(), x + 10, y + 20);
@@ -72,7 +72,7 @@ void erMediaRenderer::drawNormal(erSyncedVideoPlayer* player, int x, int y, int 
     playbackState = ER_PLAYBACK_NORMAL;
 }
 
-void erMediaRenderer::drawGlitched(erSyncedVideoPlayer* player, int x, int y, int width, int height){
+void erMediaRenderer::drawGlitched(erVideoPlayer* player, int x, int y, int width, int height){
     fbo.begin();
     {
         /*float playerDuration = player->getDuration();

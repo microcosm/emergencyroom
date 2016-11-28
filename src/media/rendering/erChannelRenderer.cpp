@@ -21,7 +21,7 @@ void erChannelRenderer::draw(){
     }
 }
 
-void erChannelRenderer::setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers){
+void erChannelRenderer::setVideoPlayers(map<string, ofPtr<erVideoPlayer>>* _videoPlayers){
     videoPlayers = _videoPlayers;
     mediaRenderer.setVideoPlayers(videoPlayers);
 }
@@ -42,7 +42,7 @@ void erChannelRenderer::newIntermediateGlitchPeriod(int i, u_int64_t from, float
     mediaRenderer.newIntermediateGlitchPeriod(i, from, duration, channel);
 }
 
-void erChannelRenderer::assignDecoyGlitch(ofPtr<erSyncedVideoPlayer> _videoPlayer){
+void erChannelRenderer::assignDecoyGlitch(ofPtr<erVideoPlayer> _videoPlayer){
     mediaRenderer.assignDecoyGlitch(_videoPlayer.get());
 }
 

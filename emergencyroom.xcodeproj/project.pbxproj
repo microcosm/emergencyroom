@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82580C3F1DECA87100FAD114 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82580C3D1DECA87100FAD114 /* ofxFastFboReader.cpp */; };
 		B40442B11CBE8F580071C074 /* ofxJSONElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442A71CBE8F580071C074 /* ofxJSONElement.cpp */; };
 		B40442B21CBE8F580071C074 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B01CBE8F580071C074 /* jsoncpp.cpp */; };
 		B40442B91CBEA39E0071C074 /* erSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B71CBEA39E0071C074 /* erSettings.cpp */; };
-		B41811AB1CDFCC860014D1E5 /* erMediaPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B418118F1CDFCC860014D1E5 /* erMediaPlayer.cpp */; };
+		B41811AB1CDFCC860014D1E5 /* erMediaController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B418118F1CDFCC860014D1E5 /* erMediaController.cpp */; };
 		B41811AC1CDFCC860014D1E5 /* erPlayParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811911CDFCC860014D1E5 /* erPlayParams.cpp */; };
 		B41811AD1CDFCC860014D1E5 /* erChannelRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811971CDFCC860014D1E5 /* erChannelRenderer.cpp */; };
 		B41811AE1CDFCC860014D1E5 /* erEcgRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811991CDFCC860014D1E5 /* erEcgRenderer.cpp */; };
@@ -18,7 +19,7 @@
 		B41811B01CDFCC870014D1E5 /* erSoundRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B418119D1CDFCC860014D1E5 /* erSoundRenderer.cpp */; };
 		B41811B11CDFCC870014D1E5 /* erTextRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B418119F1CDFCC860014D1E5 /* erTextRenderer.cpp */; };
 		B41811B21CDFCC870014D1E5 /* erMediaQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811A21CDFCC860014D1E5 /* erMediaQueue.cpp */; };
-		B41811B31CDFCC870014D1E5 /* erSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811A41CDFCC860014D1E5 /* erSequencer.cpp */; };
+		B41811B31CDFCC870014D1E5 /* erMediaSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811A41CDFCC860014D1E5 /* erMediaSequencer.cpp */; };
 		B41811B41CDFCC870014D1E5 /* erEcgTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811A71CDFCC860014D1E5 /* erEcgTimer.cpp */; };
 		B41811B51CDFCC870014D1E5 /* erGlitchTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811A91CDFCC860014D1E5 /* erGlitchTimer.cpp */; };
 		B43B842E1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B43B842C1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp */; };
@@ -159,6 +160,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		82580C3D1DECA87100FAD114 /* ofxFastFboReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFastFboReader.cpp; sourceTree = "<group>"; };
+		82580C3E1DECA87100FAD114 /* ofxFastFboReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFastFboReader.h; sourceTree = "<group>"; };
 		B40442A61CBE8F580071C074 /* ofxJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxJSON.h; sourceTree = "<group>"; };
 		B40442A71CBE8F580071C074 /* ofxJSONElement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxJSONElement.cpp; sourceTree = "<group>"; };
 		B40442A81CBE8F580071C074 /* ofxJSONElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxJSONElement.h; sourceTree = "<group>"; };
@@ -167,13 +170,13 @@
 		B40442B01CBE8F580071C074 /* jsoncpp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jsoncpp.cpp; sourceTree = "<group>"; };
 		B40442B71CBEA39E0071C074 /* erSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSettings.cpp; sourceTree = "<group>"; };
 		B40442B81CBEA39E0071C074 /* erSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSettings.h; sourceTree = "<group>"; };
-		B418118F1CDFCC860014D1E5 /* erMediaPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaPlayer.cpp; sourceTree = "<group>"; };
-		B41811901CDFCC860014D1E5 /* erMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaPlayer.h; sourceTree = "<group>"; };
+		B418118F1CDFCC860014D1E5 /* erMediaController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = erMediaController.cpp; path = playback/erMediaController.cpp; sourceTree = "<group>"; };
+		B41811901CDFCC860014D1E5 /* erMediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = erMediaController.h; path = playback/erMediaController.h; sourceTree = "<group>"; };
 		B41811911CDFCC860014D1E5 /* erPlayParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erPlayParams.cpp; sourceTree = "<group>"; };
 		B41811921CDFCC860014D1E5 /* erPlayParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erPlayParams.h; sourceTree = "<group>"; };
-		B41811931CDFCC860014D1E5 /* erSyncedMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedMediaPlayer.h; sourceTree = "<group>"; };
-		B41811941CDFCC860014D1E5 /* erSyncedSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedSoundPlayer.h; sourceTree = "<group>"; };
-		B41811951CDFCC860014D1E5 /* erSyncedVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSyncedVideoPlayer.h; sourceTree = "<group>"; };
+		B41811931CDFCC860014D1E5 /* erThreadedPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erThreadedPlayer.h; sourceTree = "<group>"; };
+		B41811941CDFCC860014D1E5 /* erSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSoundPlayer.h; sourceTree = "<group>"; };
+		B41811951CDFCC860014D1E5 /* erVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erVideoPlayer.h; sourceTree = "<group>"; };
 		B41811971CDFCC860014D1E5 /* erChannelRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erChannelRenderer.cpp; sourceTree = "<group>"; };
 		B41811981CDFCC860014D1E5 /* erChannelRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erChannelRenderer.h; sourceTree = "<group>"; };
 		B41811991CDFCC860014D1E5 /* erEcgRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erEcgRenderer.cpp; sourceTree = "<group>"; };
@@ -184,10 +187,10 @@
 		B418119E1CDFCC860014D1E5 /* erSoundRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSoundRenderer.h; sourceTree = "<group>"; };
 		B418119F1CDFCC860014D1E5 /* erTextRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erTextRenderer.cpp; sourceTree = "<group>"; };
 		B41811A01CDFCC860014D1E5 /* erTextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erTextRenderer.h; sourceTree = "<group>"; };
-		B41811A21CDFCC860014D1E5 /* erMediaQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaQueue.cpp; sourceTree = "<group>"; };
-		B41811A31CDFCC860014D1E5 /* erMediaQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaQueue.h; sourceTree = "<group>"; };
-		B41811A41CDFCC860014D1E5 /* erSequencer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSequencer.cpp; sourceTree = "<group>"; };
-		B41811A51CDFCC860014D1E5 /* erSequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSequencer.h; sourceTree = "<group>"; };
+		B41811A21CDFCC860014D1E5 /* erMediaQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = erMediaQueue.cpp; path = sequencing/erMediaQueue.cpp; sourceTree = "<group>"; };
+		B41811A31CDFCC860014D1E5 /* erMediaQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = erMediaQueue.h; path = sequencing/erMediaQueue.h; sourceTree = "<group>"; };
+		B41811A41CDFCC860014D1E5 /* erMediaSequencer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = erMediaSequencer.cpp; path = sequencing/erMediaSequencer.cpp; sourceTree = "<group>"; };
+		B41811A51CDFCC860014D1E5 /* erMediaSequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = erMediaSequencer.h; path = sequencing/erMediaSequencer.h; sourceTree = "<group>"; };
 		B41811A71CDFCC860014D1E5 /* erEcgTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erEcgTimer.cpp; sourceTree = "<group>"; };
 		B41811A81CDFCC860014D1E5 /* erEcgTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erEcgTimer.h; sourceTree = "<group>"; };
 		B41811A91CDFCC860014D1E5 /* erGlitchTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erGlitchTimer.cpp; sourceTree = "<group>"; };
@@ -412,7 +415,7 @@
 		B4B354C91CBDC25500B8883B /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = ../../../../../../../System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<group>"; };
 		B4B354D51CBDC26200B8883B /* ofxBpm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBpm.cpp; sourceTree = "<group>"; };
 		B4B354D61CBDC26200B8883B /* ofxBpm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBpm.h; sourceTree = "<group>"; };
-		B4E017471CE42256001D4AD5 /* erLessSyncedMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erLessSyncedMediaPlayer.h; sourceTree = "<group>"; };
+		B4E017471CE42256001D4AD5 /* erTimedPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erTimedPlayer.h; sourceTree = "<group>"; };
 		B4EAD53D1CDC0950007806CC /* ofxAnimatable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatable.cpp; sourceTree = "<group>"; };
 		B4EAD53E1CDC0950007806CC /* ofxAnimatable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAnimatable.h; sourceTree = "<group>"; };
 		B4EAD53F1CDC0950007806CC /* ofxAnimatableFloat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableFloat.cpp; sourceTree = "<group>"; };
@@ -452,6 +455,24 @@
 			children = (
 			);
 			name = local_addons;
+			sourceTree = "<group>";
+		};
+		82580C3B1DECA87100FAD114 /* ofxFastFboReader */ = {
+			isa = PBXGroup;
+			children = (
+				82580C3C1DECA87100FAD114 /* src */,
+			);
+			name = ofxFastFboReader;
+			sourceTree = "<group>";
+		};
+		82580C3C1DECA87100FAD114 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				82580C3D1DECA87100FAD114 /* ofxFastFboReader.cpp */,
+				82580C3E1DECA87100FAD114 /* ofxFastFboReader.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxFastFboReader/src;
 			sourceTree = "<group>";
 		};
 		B40442A41CBE8F580071C074 /* ofxJSON */ = {
@@ -520,16 +541,15 @@
 		B418118E1CDFCC860014D1E5 /* playback */ = {
 			isa = PBXGroup;
 			children = (
-				B4E017471CE42256001D4AD5 /* erLessSyncedMediaPlayer.h */,
-				B418118F1CDFCC860014D1E5 /* erMediaPlayer.cpp */,
-				B41811901CDFCC860014D1E5 /* erMediaPlayer.h */,
 				B41811911CDFCC860014D1E5 /* erPlayParams.cpp */,
 				B41811921CDFCC860014D1E5 /* erPlayParams.h */,
-				B41811931CDFCC860014D1E5 /* erSyncedMediaPlayer.h */,
-				B41811941CDFCC860014D1E5 /* erSyncedSoundPlayer.h */,
-				B41811951CDFCC860014D1E5 /* erSyncedVideoPlayer.h */,
+				B41811931CDFCC860014D1E5 /* erThreadedPlayer.h */,
+				B4E017471CE42256001D4AD5 /* erTimedPlayer.h */,
+				B41811941CDFCC860014D1E5 /* erSoundPlayer.h */,
+				B41811951CDFCC860014D1E5 /* erVideoPlayer.h */,
 			);
-			path = playback;
+			name = playback;
+			path = media/playback;
 			sourceTree = "<group>";
 		};
 		B41811961CDFCC860014D1E5 /* rendering */ = {
@@ -546,18 +566,8 @@
 				B418119F1CDFCC860014D1E5 /* erTextRenderer.cpp */,
 				B41811A01CDFCC860014D1E5 /* erTextRenderer.h */,
 			);
-			path = rendering;
-			sourceTree = "<group>";
-		};
-		B41811A11CDFCC860014D1E5 /* sequencing */ = {
-			isa = PBXGroup;
-			children = (
-				B41811A21CDFCC860014D1E5 /* erMediaQueue.cpp */,
-				B41811A31CDFCC860014D1E5 /* erMediaQueue.h */,
-				B41811A41CDFCC860014D1E5 /* erSequencer.cpp */,
-				B41811A51CDFCC860014D1E5 /* erSequencer.h */,
-			);
-			path = sequencing;
+			name = rendering;
+			path = media/rendering;
 			sourceTree = "<group>";
 		};
 		B41811A61CDFCC860014D1E5 /* timing */ = {
@@ -568,7 +578,8 @@
 				B41811A91CDFCC860014D1E5 /* erGlitchTimer.cpp */,
 				B41811AA1CDFCC860014D1E5 /* erGlitchTimer.h */,
 			);
-			path = timing;
+			name = timing;
+			path = media/timing;
 			sourceTree = "<group>";
 		};
 		B45DF9BA1CB9D714004F0AD3 /* ofxEasyFboGlitch */ = {
@@ -803,12 +814,14 @@
 		B48604D71C9B90F600629452 /* media */ = {
 			isa = PBXGroup;
 			children = (
+				B41811A21CDFCC860014D1E5 /* erMediaQueue.cpp */,
+				B41811A31CDFCC860014D1E5 /* erMediaQueue.h */,
+				B41811A41CDFCC860014D1E5 /* erMediaSequencer.cpp */,
+				B41811A51CDFCC860014D1E5 /* erMediaSequencer.h */,
 				B47EF6B81CA16CD8003B3B83 /* erMediaLoader.cpp */,
 				B47EF6B91CA16CD8003B3B83 /* erMediaLoader.h */,
-				B418118E1CDFCC860014D1E5 /* playback */,
-				B41811961CDFCC860014D1E5 /* rendering */,
-				B41811A11CDFCC860014D1E5 /* sequencing */,
-				B41811A61CDFCC860014D1E5 /* timing */,
+				B418118F1CDFCC860014D1E5 /* erMediaController.cpp */,
+				B41811901CDFCC860014D1E5 /* erMediaController.h */,
 			);
 			path = media;
 			sourceTree = "<group>";
@@ -1165,6 +1178,7 @@
 				B48605081C9B911F00629452 /* ofxNetwork */,
 				B48605051C9B911C00629452 /* ofxCsvStream */,
 				B48604F41C9B911800629452 /* ofxNetworkSync */,
+				82580C3B1DECA87100FAD114 /* ofxFastFboReader */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -1194,6 +1208,9 @@
 			isa = PBXGroup;
 			children = (
 				B48604D71C9B90F600629452 /* media */,
+				B418118E1CDFCC860014D1E5 /* playback */,
+				B41811961CDFCC860014D1E5 /* rendering */,
+				B41811A61CDFCC860014D1E5 /* timing */,
 				B48604E51C9B90F600629452 /* network */,
 				B48604EA1C9B90F600629452 /* util */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
@@ -1351,6 +1368,7 @@
 				B4EAD5481CDC0950007806CC /* ofxAnimatableOfPoint.cpp in Sources */,
 				B45EB7751CC4307B00CEFF4F /* DofAltPass.cpp in Sources */,
 				B4B354681CBDC1D500B8883B /* CAAUParameter.cpp in Sources */,
+				82580C3F1DECA87100FAD114 /* ofxFastFboReader.cpp in Sources */,
 				B45EB77F1CC4307B00CEFF4F /* LUTPass.cpp in Sources */,
 				B45EB7711CC4307B00CEFF4F /* BleachBypassPass.cpp in Sources */,
 				B45EB7881CC4307B00CEFF4F /* VerticalTiltShifPass.cpp in Sources */,
@@ -1406,9 +1424,9 @@
 				B4B354D71CBDC26200B8883B /* ofxBpm.cpp in Sources */,
 				B45EB7771CC4307B00CEFF4F /* EdgePass.cpp in Sources */,
 				B4B354CD1CBDC25500B8883B /* ofxMidi.cpp in Sources */,
-				B41811AB1CDFCC860014D1E5 /* erMediaPlayer.cpp in Sources */,
+				B41811AB1CDFCC860014D1E5 /* erMediaController.cpp in Sources */,
 				B45EB7781CC4307B00CEFF4F /* FakeSSSPass.cpp in Sources */,
-				B41811B31CDFCC870014D1E5 /* erSequencer.cpp in Sources */,
+				B41811B31CDFCC870014D1E5 /* erMediaSequencer.cpp in Sources */,
 				B4B354751CBDC1D500B8883B /* ofxAudioUnitNetSend.cpp in Sources */,
 				B45EB7821CC4307B00CEFF4F /* PostProcessing.cpp in Sources */,
 				B45EB70F1CC3F6A600CEFF4F /* shImage.c in Sources */,

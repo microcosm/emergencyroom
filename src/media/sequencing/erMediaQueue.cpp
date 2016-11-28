@@ -1,7 +1,7 @@
 #include "erMediaQueue.h"
 
-void erMediaQueue::setup(erMediaLoader* _loader, string _collection){
-    loader = _loader;
+void erMediaQueue::setup(erMediaLoader* _mediaLoader, string _collection){
+    mediaLoader = _mediaLoader;
     collection = _collection;
     queuesLoaded = false;
     currentAudibleVideoIndex = -1;
@@ -31,8 +31,8 @@ string erMediaQueue::getNextAudible(){
 }
 
 void erMediaQueue::loadQueues(){
-    audibleVideosForCollection = &loader->collectionsToAudibleVideos[collection];
-    silentVideosForCollection = &loader->collectionsToSilentVideos[collection];
+    audibleVideosForCollection = &mediaLoader->collectionsToAudibleVideos[collection];
+    silentVideosForCollection = &mediaLoader->collectionsToSilentVideos[collection];
     shuffledAudibleVideoIndices.clear();
     shuffledSilentVideoIndices.clear();
 

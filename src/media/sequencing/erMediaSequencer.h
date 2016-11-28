@@ -3,7 +3,7 @@
 #include "erNetwork.h"
 #include "erMediaLoader.h"
 #include "erMediaQueue.h"
-#include "erMediaPlayer.h"
+#include "erMediaController.h"
 #include "erPlayParams.h"
 #include "erLogger.h"
 #include "erEcgTimer.h"
@@ -11,10 +11,10 @@
 
 #define ER_THEME_LENGTH 1800
 
-class erSequencer{
+class erMediaSequencer{
 
 public:
-    void setup(erNetwork* _network, erMediaLoader* _loader, erMediaPlayer* _player);
+    void setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaController* _mediaController);
     void setupShuffledIndexing();
     void update();
     void draw();
@@ -38,8 +38,8 @@ protected:
 
     erNetwork* network;
     erTranslater* translater;
-    erMediaLoader* loader;
-    erMediaPlayer* player;
+    erMediaLoader* mediaLoader;
+    erMediaController* mediaController;
     erPlayParams params;
     erEcgTimer* ecgTimer;
 

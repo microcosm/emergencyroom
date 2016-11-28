@@ -10,7 +10,7 @@
 #define COSMOLOGICAL_CONSTANT 500
 #define ECG_SYNC_DELAY 3000
 
-class erMediaPlayer{
+class erMediaController{
 
 public:
     void setup(erNetwork* _network);
@@ -26,7 +26,7 @@ public:
     void stopAll();
 
     void setVideoPaths(vector<string>* _videoPaths);
-    void setVideoPlayers(map<string, ofPtr<erSyncedVideoPlayer>>* _videoPlayers);
+    void setVideoPlayers(map<string, ofPtr<erVideoPlayer>>* _videoPlayers);
     void setTexts(map<string, vector<string>>* texts);
     void useSoundRendererFor(vector<string>& audibleVideos);
     void calculateVideoPlaybackVariables(erPlayParams params);
@@ -42,8 +42,8 @@ protected:
     erNetwork* network;
 
     vector<string>* allVideoPaths;
-    map<string, ofPtr<erSyncedVideoPlayer>>* videoPlayers;
-    ofPtr<erSyncedVideoPlayer> videoPlayer;
+    map<string, ofPtr<erVideoPlayer>>* videoPlayers;
+    ofPtr<erVideoPlayer> videoPlayer;
     string decoyPath;
 
     u_int64_t currentTime, startOpeningGlitch, startClosingGlitch, startText, startTextOverlay;

@@ -1,8 +1,8 @@
 #pragma once
 #include "ofMain.h"
-#include "erSyncedMediaPlayer.h"
+#include "erThreadedPlayer.h"
 
-class erSyncedSoundPlayer : public ofSoundPlayer, public erSyncedMediaPlayer{
+class erSoundPlayer : public ofSoundPlayer, public erThreadedPlayer{
 
 public:
     bool isOrWillBePlaying(){

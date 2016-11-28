@@ -121,7 +121,7 @@ void erMediaLoader::loadDirectory(string path){
 void erMediaLoader::registerVideo(string& collection, const ofFile& video){
     path = getRelativePath(video);
     volume = erGetVolume(path);
-    videoPlayers[path] = ofPtr<erSyncedVideoPlayer>(new erSyncedVideoPlayer);
+    videoPlayers[path] = ofPtr<erVideoPlayer>(new erVideoPlayer);
     videoPlayers[path]->setup(video.getAbsolutePath(), path, 0, OF_LOOP_NONE);
 
     collectionsToVideos[collection].push_back(path);
