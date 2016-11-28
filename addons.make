@@ -2,7 +2,6 @@ ofxAnimatable
 ofxShapeSystem
 ofxLayerMask
 ofxJSON
-ofxFastFboReader
 ofxEasyFboGlitch
 ofxNetwork
 ofxCsvStream

@@ -24,7 +24,6 @@
 		B43B842E1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B43B842C1CD80C95006623E9 /* ofxManagedAudioUnitMixer.cpp */; };
 		B43B84521CD821E5006623E9 /* erFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B43B84501CD821E5006623E9 /* erFileUtils.cpp */; };
 		B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */; };
-		B45DF9C31CB9D719004F0AD3 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */; };
 		B45EB7081CC3F6A600CEFF4F /* ofxShivaVGRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6E21CC3F6A600CEFF4F /* ofxShivaVGRenderer.cpp */; };
 		B45EB7091CC3F6A600CEFF4F /* simpleVGContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6E41CC3F6A600CEFF4F /* simpleVGContext.cpp */; };
 		B45EB70A1CC3F6A600CEFF4F /* simpleVGPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B45EB6E61CC3F6A600CEFF4F /* simpleVGPath.cpp */; };
@@ -199,8 +198,6 @@
 		B43B84511CD821E5006623E9 /* erFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erFileUtils.h; sourceTree = "<group>"; };
 		B45DF9BC1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasyFboGlitch.cpp; sourceTree = "<group>"; };
 		B45DF9BD1CB9D714004F0AD3 /* ofxEasyFboGlitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxEasyFboGlitch.h; sourceTree = "<group>"; };
-		B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFastFboReader.cpp; sourceTree = "<group>"; };
-		B45DF9C21CB9D719004F0AD3 /* ofxFastFboReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFastFboReader.h; sourceTree = "<group>"; };
 		B45EB6E21CC3F6A600CEFF4F /* ofxShivaVGRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShivaVGRenderer.cpp; sourceTree = "<group>"; };
 		B45EB6E31CC3F6A600CEFF4F /* ofxShivaVGRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShivaVGRenderer.h; sourceTree = "<group>"; };
 		B45EB6E41CC3F6A600CEFF4F /* simpleVGContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = simpleVGContext.cpp; sourceTree = "<group>"; };
@@ -590,24 +587,6 @@
 			);
 			name = src;
 			path = ../../../addons/ofxEasyFboGlitch/src;
-			sourceTree = "<group>";
-		};
-		B45DF9BF1CB9D719004F0AD3 /* ofxFastFboReader */ = {
-			isa = PBXGroup;
-			children = (
-				B45DF9C01CB9D719004F0AD3 /* src */,
-			);
-			name = ofxFastFboReader;
-			sourceTree = "<group>";
-		};
-		B45DF9C01CB9D719004F0AD3 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				B45DF9C11CB9D719004F0AD3 /* ofxFastFboReader.cpp */,
-				B45DF9C21CB9D719004F0AD3 /* ofxFastFboReader.h */,
-			);
-			name = src;
-			path = ../../../addons/ofxFastFboReader/src;
 			sourceTree = "<group>";
 		};
 		B45EB6E01CC3F6A600CEFF4F /* ofxShivaVG */ = {
@@ -1182,7 +1161,6 @@
 				B4B3549C1CBDC25500B8883B /* ofxMidi */,
 				B4B3547F1CBDC1D800B8883B /* ofxAudioUnitManager */,
 				B4B354341CBDC1D400B8883B /* ofxAudioUnit */,
-				B45DF9BF1CB9D719004F0AD3 /* ofxFastFboReader */,
 				B45DF9BA1CB9D714004F0AD3 /* ofxEasyFboGlitch */,
 				B48605081C9B911F00629452 /* ofxNetwork */,
 				B48605051C9B911C00629452 /* ofxCsvStream */,
@@ -1357,7 +1335,6 @@
 				B4B354761CBDC1D500B8883B /* ofxAudioUnitOutput.cpp in Sources */,
 				B40442B11CBE8F580071C074 /* ofxJSONElement.cpp in Sources */,
 				B4B354991CBDC1D800B8883B /* UIHandler.cpp in Sources */,
-				B45DF9C31CB9D719004F0AD3 /* ofxFastFboReader.cpp in Sources */,
 				B45EB77C1CC4307B00CEFF4F /* HsbShiftPass.cpp in Sources */,
 				B48604F31C9B90F600629452 /* erLogger.cpp in Sources */,
 				B41811AF1CDFCC860014D1E5 /* erMediaRenderer.cpp in Sources */,
