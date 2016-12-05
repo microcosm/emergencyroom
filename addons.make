@@ -6,3 +6,4 @@ ofxEasyFboGlitch
 ofxNetwork
 ofxCsvStream
 ofxNetworkSync
+ofxOMXPlayer

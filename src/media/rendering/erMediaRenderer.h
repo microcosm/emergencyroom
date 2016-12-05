@@ -1,7 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erSoundPlayer.h"
-#include "erVideoPlayer.h"
+#include "erVideoPlayer_.h"
 #include "erGlitchTimer.h"
 #include "erNetwork.h"
 #include "ofxEasyFboGlitch.h"

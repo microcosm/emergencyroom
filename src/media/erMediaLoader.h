@@ -4,7 +4,7 @@
 #include "erNetwork.h"
 #include "erFileUtils.h"
 #include "erSoundPlayer.h"
-#include "erVideoPlayer.h"
+#include "erVideoPlayer_.h"
 
 class erMediaLoader{
 

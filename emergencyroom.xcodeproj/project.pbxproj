@@ -176,7 +176,7 @@
 		B41811921CDFCC860014D1E5 /* erPlayParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erPlayParams.h; sourceTree = "<group>"; };
 		B41811931CDFCC860014D1E5 /* erThreadedPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erThreadedPlayer.h; sourceTree = "<group>"; };
 		B41811941CDFCC860014D1E5 /* erSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSoundPlayer.h; sourceTree = "<group>"; };
-		B41811951CDFCC860014D1E5 /* erVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erVideoPlayer.h; sourceTree = "<group>"; };
+		B41811951CDFCC860014D1E5 /* erVideoPlayer_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erVideoPlayer_.h; sourceTree = "<group>"; };
 		B41811971CDFCC860014D1E5 /* erChannelRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erChannelRenderer.cpp; sourceTree = "<group>"; };
 		B41811981CDFCC860014D1E5 /* erChannelRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erChannelRenderer.h; sourceTree = "<group>"; };
 		B41811991CDFCC860014D1E5 /* erEcgRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erEcgRenderer.cpp; sourceTree = "<group>"; };
@@ -546,7 +546,7 @@
 				B41811931CDFCC860014D1E5 /* erThreadedPlayer.h */,
 				B4E017471CE42256001D4AD5 /* erTimedPlayer.h */,
 				B41811941CDFCC860014D1E5 /* erSoundPlayer.h */,
-				B41811951CDFCC860014D1E5 /* erVideoPlayer.h */,
+				B41811951CDFCC860014D1E5 /* erVideoPlayer_.h */,
 			);
 			name = playback;
 			path = media/playback;
@@ -1538,7 +1538,7 @@
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
-				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxShivaVG/libs/ShivaVG/include/ ../../../addons/ofxJSON/libs/jsoncpp/include/";
+				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxOMXPlayer/libs/ffmpeg/include/ ../../../addons/ofxShivaVG/libs/ShivaVG/include/ ../../../addons/ofxJSON/libs/jsoncpp/include/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1562,7 +1562,7 @@
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxShivaVG/libs/ShivaVG/include/ ../../../addons/ofxJSON/libs/jsoncpp/include/";
+				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxOMXPlayer/libs/ffmpeg/include/ ../../../addons/ofxShivaVG/libs/ShivaVG/include/ ../../../addons/ofxJSON/libs/jsoncpp/include/";
 				WRAPPER_EXTENSION = app;
 				baseConfigurationReference = E4EB6923138AFD0F00A09F29;
 			};
