@@ -47,8 +47,7 @@ public:
 
     void stop(){
 #ifdef __linux__
-        omxPlayer.restartMovie();
-        omxPlayer.setPaused(true);
+        //Nothing
 #else
         if(isCurrentlyPlaying()){
             try{
@@ -130,6 +129,7 @@ protected:
 
     void beginVideoPlayback(){
 #ifdef __linux__
+        omxPlayer.restartMovie();
         omxPlayer.setPaused(false);
 #else
         videoPlayer.setSpeed(params.getSpeed());
