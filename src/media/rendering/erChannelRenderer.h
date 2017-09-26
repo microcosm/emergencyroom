@@ -3,7 +3,7 @@
 #include "erMediaRenderer.h"
 #include "erNetwork.h"
 #include "erSoundPlayer.h"
-#include "erVideoPlayer_.h"
+#include "erVideoPlayer.h"
 
 #define SCREEN_MARGIN 10
 #define DOUBLE_SCREEN_MARGIN 20
