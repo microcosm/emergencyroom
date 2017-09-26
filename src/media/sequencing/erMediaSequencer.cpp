@@ -143,7 +143,6 @@ void erMediaSequencer::playNewVideo(){
             prepareParams(isAudioPlaying() ? queues[currentCollection].getNextSilent() : queues[currentCollection].getNextAudible(), 1);
             network->target(currentChannel, params);
             mediaController->playServer(currentChannel, params);
-            erLog("erMediaSequencer::playNewVideo()", "Target channel " + ofToString(currentChannel) + " " + params.getArgumentStr());
         }
     }
 }
