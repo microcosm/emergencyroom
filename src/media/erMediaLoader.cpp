@@ -29,10 +29,6 @@ void erMediaLoader::drawErrors(){
     for(const auto video : missingVideos){
         ofDrawBitmapString(video, 20, 60 + 20 * i++);
     }
-    ofDrawBitmapString("Missing from text folder", 20, 90 + 20 * i++);
-    for(const auto text : missingTexts){
-        ofDrawBitmapString(text, 20, 90 + 20 * i++);
-    }
 }
 
 void erMediaLoader::loadLiveMedia(){
@@ -54,7 +50,7 @@ bool erMediaLoader::isLoaded(){
 }
 
 void erMediaLoader::discoverErrors(){
-    hasMediaErrors = missingVideos.size() > 0 || spacedPathVideos.size() > 0 || missingTexts.size() > 0;
+    hasMediaErrors = missingVideos.size() > 0 || spacedPathVideos.size() > 0;
 }
 
 void erMediaLoader::validateMedia(){
@@ -83,9 +79,6 @@ void erMediaLoader::validateAssetConsistency(const ofFile previewVideo){
     }
     ofStringReplace(path, settings.previewMediaDir, settings.liveMediaDir);
     findMissing(path, missingVideos);
-
-    path = liveVideoPathToTextPath(path);
-    findMissing(path, missingTexts);
 }
 
 void erMediaLoader::findMissing(string expectedPath, vector<string>& pushToIfMissing){
@@ -111,9 +104,6 @@ void erMediaLoader::loadDirectory(string path){
         registerCollection(collection);
         for(auto const& video : collectionDir){
             registerVideo(collection, video);
-            if(settings.isClient){
-                registerText(video);
-            }
         }
     }
 }
@@ -140,12 +130,6 @@ void erMediaLoader::registerVideo(string& collection, const ofFile& video){
     }
 }
 
-void erMediaLoader::registerText(const ofFile& liveVideo){
-    videoPath = getRelativePath(liveVideo);
-    textPath = liveVideoPathToTextPath(liveVideo.getAbsolutePath());
-    texts[videoPath] = ofSplitString(ofBufferFromFile(textPath).getText(), "\n", true);
-}
-
 void erMediaLoader::registerCollection(string& collection){
     videoCollections.push_back(collection);
     vector<string> videos;
@@ -168,10 +152,4 @@ string erMediaLoader::getRelativePath(const ofFile file){
 string erMediaLoader::getCollectionName(const ofDirectory directory){
     vector<string> components = ofSplitString(directory.getAbsolutePath(), "/");
     return components.at(components.size() - 1);
-}
-
-string erMediaLoader::liveVideoPathToTextPath(string liveVideoPath){
-    ofStringReplace(liveVideoPath, settings.liveMediaDir, settings.textMediaDir);
-    ofStringReplace(liveVideoPath, "." + settings.videoFileExtension, "." + settings.textFileExtension);
-    return liveVideoPath;
 }

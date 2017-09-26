@@ -3,7 +3,6 @@
 void erMediaController::setup(erNetwork* _network){
     network = _network;
     channelRenderer.setup(network);
-    //textRenderer.setup();
     ofAddListener(ofEvents().keyReleased, this, &erMediaController::keyReleased);
 }
 
@@ -20,8 +19,9 @@ void erMediaController::update(){
         }
         soundRenderer.ensureSetup();
     }
+
     channelRenderer.update();
-    //textRenderer.update();
+
     if(soundRenderer.isSetup()){
         soundRenderer.update();
     }
@@ -38,8 +38,9 @@ void erMediaController::draw(){
             ofDrawBitmapString("NOT SYNCED", 130, ofGetHeight() - 208);
         }
     }
+
     channelRenderer.draw();
-    //textRenderer.draw();
+
     if(soundRenderer.isSetup()){
         soundRenderer.draw();
     }
@@ -66,10 +67,6 @@ void erMediaController::playClient(erPlayParams params){
         channelRenderer.setCurrentPlayerPath(params.getPath());
         channelRenderer.assignDecoyGlitch(videoPlayers->at(decoyPath));
 
-        if(renderText){
-            textRenderer.newOverlayPeriod(startTextOverlay, textOverlayDuration);
-            textRenderer.newTextPeriod(startText, textDuration, params);
-        }
         videoPlayer->execute(params);
     }
 }
@@ -116,10 +113,6 @@ void erMediaController::setVideoPlayers(map<string, ofPtr<erVideoPlayer>>* _vide
     channelRenderer.setVideoPlayers(videoPlayers);
 }
 
-void erMediaController::setTexts(map<string, vector<string>>* texts){
-    textRenderer.setTexts(texts);
-}
-
 void erMediaController::useSoundRendererFor(vector<string>& audibleVideos){
     soundRenderer.setupVideo(audibleVideos);
 
@@ -149,16 +142,6 @@ void erMediaController::calculateVideoPlaybackVariables(erPlayParams params){
     for(int i = 0; i < 3; i++){
         intermediateGlitches.push_back(currentTime + bufferTime + ofRandom(videoDuration));
         intermediateGlitchDurations.push_back(ofClamp(ofRandom(videoDuration * 0.03, videoDuration * 0.5), 50, 2000));
-    }
-
-    if(settings.isClient && videoDuration > 7000){
-        startText = currentTime + bufferTime + videoGlitchTime + videoDuration * 0.17;
-        textDuration = videoDuration * 0.5;
-        startTextOverlay = currentTime + bufferTime;
-        textOverlayDuration = videoDuration;
-        renderText = true;
-    }else{
-        renderText = false;
     }
 }
 

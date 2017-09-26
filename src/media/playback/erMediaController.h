@@ -2,7 +2,6 @@
 #include "ofMain.h"
 #include "erChannelRenderer.h"
 #include "erSoundRenderer.h"
-#include "erTextRenderer.h"
 #include "erNetwork.h"
 #include "erEcgTimer.h"
 #include "erSettings.h"
@@ -27,7 +26,6 @@ public:
 
     void setVideoPaths(vector<string>* _videoPaths);
     void setVideoPlayers(map<string, ofPtr<erVideoPlayer>>* _videoPlayers);
-    void setTexts(map<string, vector<string>>* texts);
     void useSoundRendererFor(vector<string>& audibleVideos);
     void calculateVideoPlaybackVariables(erPlayParams params);
     void calculateSoundPlaybackVariables();
@@ -38,7 +36,6 @@ protected:
     string selectDecoyPath(erPlayParams params);
     erChannelRenderer channelRenderer;
     erSoundRenderer soundRenderer;
-    erTextRenderer textRenderer;
     erNetwork* network;
 
     vector<string>* allVideoPaths;
@@ -46,10 +43,9 @@ protected:
     ofPtr<erVideoPlayer> videoPlayer;
     string decoyPath;
 
-    u_int64_t currentTime, startOpeningGlitch, startClosingGlitch, startText, startTextOverlay;
-    float openingGlitchDuration, closingGlitchDuration, textDuration, textOverlayDuration;
+    u_int64_t currentTime, startOpeningGlitch, startClosingGlitch;
+    float openingGlitchDuration, closingGlitchDuration;
     float videoDuration, videoGlitchTime, bufferTime, halfBufferTime;
-    bool renderText;
     bool syncCommandReceived = false;
 
     vector<u_int64_t> intermediateGlitches;

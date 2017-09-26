@@ -18,9 +18,8 @@ public:
     bool isLoaded();
 
     map<string, ofPtr<erVideoPlayer>> videoPlayers;
-    map<string, vector<string>> texts;
     vector<string> allVideos, audibleVideos, silentVideos, videoCollections;
-    vector<string> missingVideos, missingTexts, spacedPathVideos, focusVideos;
+    vector<string> missingVideos, spacedPathVideos, focusVideos;
     map<string, vector<string>> collectionsToVideos, collectionsToAudibleVideos, collectionsToSilentVideos;
 protected:
     void discoverErrors();
@@ -31,15 +30,13 @@ protected:
     void loadMedia();
     void loadDirectory(string path);
     void registerVideo(string& collection, const ofFile& video);
-    void registerText(const ofFile& liveVideo);
     void registerCollection(string& collection);
     ofDirectory& loadCollectionDir(string path);
     string getRelativePath(const ofFile file);
     string getCollectionName(const ofDirectory directory);
-    string liveVideoPathToTextPath(string liveVideoPath);
 
     ofDirectory productionDir, collectionDir;
-    string path, videoPath, textPath, collection;
+    string path, videoPath, collection;
     erNetwork* network;
     bool hasMediaErrors, mediaIsLoaded;
     float volume;

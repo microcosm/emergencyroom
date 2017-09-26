@@ -42,8 +42,6 @@
         "breathing-sound-path": "../path-to/breathing.wav",
         "live-dir": "/live/",
         "preview-dir": "/preview/",
-        "text-dir": "/texts/",
-        "video-file-extension": "mp4",
-        "text-file-extension": "txt"
+        "video-file-extension": "mp4"
     }
 }

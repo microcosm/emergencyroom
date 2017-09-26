@@ -15,7 +15,6 @@ void ofApp::setup(){
 
     mediaController.setVideoPaths(&mediaLoader.allVideos);
     mediaController.setVideoPlayers(&mediaLoader.videoPlayers);
-    mediaController.setTexts(&mediaLoader.texts);
 
     if(settings.isEcg){
         mediaController.setupEcgMode(&network);

@@ -48,9 +48,7 @@ void erSettings::initSettings(){
     breathingSoundPath = "";
     liveMediaDir = "";
     previewMediaDir = "";
-    textMediaDir = "";
     videoFileExtension = "";
-    textFileExtension = "";
 
     shortestSequenceDelay = 500;
     longestSequenceDelay = 1000;
@@ -102,9 +100,7 @@ void erSettings::applySettings(ofxJSONElement& json){
 
     liveMediaDir       = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
     previewMediaDir    = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();
-    textMediaDir       = json[ER_MEDIA_FILES][ER_TEXT_DIR].asString();
     videoFileExtension = json[ER_MEDIA_FILES][ER_VIDEO_FILE_EXTENSION].asString();
-    textFileExtension  = json[ER_MEDIA_FILES][ER_TEXT_FILE_EXTENSION].asString();
 }
 
 string erSettings::getComputerName(){

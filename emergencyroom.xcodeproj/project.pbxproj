@@ -17,7 +17,6 @@
 		B41811AE1CDFCC860014D1E5 /* erEcgRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811991CDFCC860014D1E5 /* erEcgRenderer.cpp */; };
 		B41811AF1CDFCC860014D1E5 /* erMediaRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B418119B1CDFCC860014D1E5 /* erMediaRenderer.cpp */; };
 		B41811B01CDFCC870014D1E5 /* erSoundRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B418119D1CDFCC860014D1E5 /* erSoundRenderer.cpp */; };
-		B41811B11CDFCC870014D1E5 /* erTextRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B418119F1CDFCC860014D1E5 /* erTextRenderer.cpp */; };
 		B41811B21CDFCC870014D1E5 /* erMediaQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811A21CDFCC860014D1E5 /* erMediaQueue.cpp */; };
 		B41811B31CDFCC870014D1E5 /* erMediaSequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811A41CDFCC860014D1E5 /* erMediaSequencer.cpp */; };
 		B41811B41CDFCC870014D1E5 /* erEcgTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B41811A71CDFCC860014D1E5 /* erEcgTimer.cpp */; };
@@ -185,8 +184,6 @@
 		B418119C1CDFCC860014D1E5 /* erMediaRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaRenderer.h; sourceTree = "<group>"; };
 		B418119D1CDFCC860014D1E5 /* erSoundRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erSoundRenderer.cpp; sourceTree = "<group>"; };
 		B418119E1CDFCC860014D1E5 /* erSoundRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSoundRenderer.h; sourceTree = "<group>"; };
-		B418119F1CDFCC860014D1E5 /* erTextRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erTextRenderer.cpp; sourceTree = "<group>"; };
-		B41811A01CDFCC860014D1E5 /* erTextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erTextRenderer.h; sourceTree = "<group>"; };
 		B41811A21CDFCC860014D1E5 /* erMediaQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = erMediaQueue.cpp; path = sequencing/erMediaQueue.cpp; sourceTree = "<group>"; };
 		B41811A31CDFCC860014D1E5 /* erMediaQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = erMediaQueue.h; path = sequencing/erMediaQueue.h; sourceTree = "<group>"; };
 		B41811A41CDFCC860014D1E5 /* erMediaSequencer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = erMediaSequencer.cpp; path = sequencing/erMediaSequencer.cpp; sourceTree = "<group>"; };
@@ -563,8 +560,6 @@
 				B418119C1CDFCC860014D1E5 /* erMediaRenderer.h */,
 				B418119D1CDFCC860014D1E5 /* erSoundRenderer.cpp */,
 				B418119E1CDFCC860014D1E5 /* erSoundRenderer.h */,
-				B418119F1CDFCC860014D1E5 /* erTextRenderer.cpp */,
-				B41811A01CDFCC860014D1E5 /* erTextRenderer.h */,
 			);
 			name = rendering;
 			path = media/rendering;
@@ -1418,7 +1413,6 @@
 				B4B354CB1CBDC25500B8883B /* ofxRtMidiOut.cpp in Sources */,
 				B45EB7801CC4307B00CEFF4F /* NoiseWarpPass.cpp in Sources */,
 				B45DF9BE1CB9D714004F0AD3 /* ofxEasyFboGlitch.cpp in Sources */,
-				B41811B11CDFCC870014D1E5 /* erTextRenderer.cpp in Sources */,
 				B4B3547A1CBDC1D500B8883B /* ofxAudioUnitTap.cpp in Sources */,
 				B48605011C9B911800629452 /* ofxNetworkSyncClient.cpp in Sources */,
 				B4B354D71CBDC26200B8883B /* ofxBpm.cpp in Sources */,
