@@ -105,7 +105,6 @@ void erMediaSequencer::handleBpmLooped(){
 }
 
 void erMediaSequencer::handleStopAll(){
-    erLog("erMediaSequencer::handleStopAll()", "STOP ALL");
     if(settings.isClient){
         mediaController->stopAll();
     }

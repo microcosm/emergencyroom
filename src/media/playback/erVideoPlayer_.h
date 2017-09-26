@@ -36,13 +36,10 @@ public:
 
     void draw(float x, float y, float width, float height){
 #ifdef __linux__
-        erLog("erVideoPlayer::draw(float x, float y, float width, float height)", "called with " + ofToString(x) + " " + ofToString(y) + " " + ofToString(width) + " " + ofToString(height));
         if(!omxPlayer.isTextureEnabled()){
-            erLog("erVideoPlayer::draw(etc)","here");
             return;
         }
         omxPlayer.draw(x, y, width, height);
-        erLog("erVideoPlayer::draw(float x, float y, float width, float height)", "done");
 #else
         videoPlayer.draw(x, y, width, height);
 #endif
@@ -50,11 +47,8 @@ public:
 
     void stop(){
 #ifdef __linux__
-        erLog("erVideoPlayer::stop()", "called 1");
         omxPlayer.restartMovie();
-        erLog("erVideoPlayer::stop()", "called 2");
         omxPlayer.setPaused(true);
-        erLog("erVideoPlayer::stop()", "called 3");
 #else
         if(isCurrentlyPlaying()){
             try{
@@ -93,7 +87,6 @@ public:
 
     float getDuration() {
 #ifdef __linux__
-        erLog("erVideoPlayer::getDurationInSeconds()", "called and " + ofToString(omxPlayer.getDurationInSeconds()));
         return omxPlayer.getDurationInSeconds();
 #else
         return videoPlayer.getDuration();
@@ -119,7 +112,6 @@ public:
 
     bool isCurrentlyPlaying() {
 #ifdef __linux__
-        erLog("erVideoPlayer::isCurrentlyPlaying()", "called and " + ofToString(!omxPlayer.isPaused()));
         return !omxPlayer.isPaused();
 #else
         return videoPlayer.isPlaying();
@@ -137,14 +129,12 @@ protected:
     string path;
 
     void beginVideoPlayback(){
-        erLog("erVideoPlayer::beginVideoPlayback()", "called");
 #ifdef __linux__
         omxPlayer.setPaused(false);
 #else
         videoPlayer.setSpeed(params.getSpeed());
         if(!isCurrentlyPlaying()) videoPlayer.play();
 #endif
-        erLog("erVideoPlayer::beginVideoPlayback()", "done");
     }
 
     void beginSoundPlayback(){

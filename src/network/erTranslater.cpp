@@ -33,8 +33,6 @@ erPlayParams erTranslater::parseParams(erPlayParams params, vector<string>& mess
         variableParts = ofSplitString(argumentParts[1], ":");
         params.setSpeed(ofToFloat(variableParts[1]));
     }
-    //This line was causing a compilation timeout on RPi:
-    //erLog("erTranslater::parseParams(erPlayParams& params, vector<string>& messageParts)", "[Command: " + params.getCommandStr() + " | Delay: " + ofToString(params.getDelay()) + " | Speed: " + ofToString(params.getSpeed()) + " | Path: " + params.getPath() + "]");
     return params;
 }
 
