@@ -88,8 +88,13 @@ void ofApp::draw(){
     }
 
     if(settings.isClient && settings.clientDrawingEnabled){
-        smallFont.drawString("#" + ofToString(network.getClientId()), 50, height - 90);
-        ofDrawBitmapString(mediaController.getClientVideoState(), 50, height - 220);
+        int clientId = network.getClientId();
+        if(clientId != -1){
+            ofDrawBitmapString("Client ID:", 50, height - 148);
+            smallFont.drawString("#" + ofToString(network.getClientId()), 50, height - 90);
+            ofDrawBitmapString("Playback state:", 50, height - 236);
+            ofDrawBitmapString(mediaController.getClientVideoState(), 50, height - 220);
+        }
     }
 }
 
