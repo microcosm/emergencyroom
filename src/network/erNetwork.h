@@ -13,6 +13,10 @@ public:
     void setup();
     void update();
     void draw();
+    void drawClient();
+    void drawServer();
+    void drawClientList();
+    void drawOverlay();
     virtual void keyReleased(ofKeyEventArgs& args);
     void syncEcg(int delay);
     int getClientId();
@@ -32,7 +36,6 @@ protected:
     void send(string message, ofxNetworkSyncClientState* client);
     void sendChannelUpdates();
     void setLogLevels(ofLogLevel level);
-    void drawBlackOverlay();
 
     ofxNetworkSyncClient client;
     ofxNetworkSyncServer server;

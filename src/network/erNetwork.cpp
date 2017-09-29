@@ -37,34 +37,58 @@ void erNetwork::update(){
 }
 
 void erNetwork::draw(){
-    if(client.isConnected()){
-        if(settings.clientDrawingEnabled){
-            drawBlackOverlay();
-            ofSetColor(ofColor::white);
-            ofDrawBitmapString(statusText, 50, 30);
-            client.drawStatus();
-            ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
-            ofDrawBitmapString(clientChannel, 50, ofGetHeight()-35);
-            font.drawString(clientChannel, 40, ofGetHeight() * 0.4);
-        }
-    }else if(server.isConnected()){
-        if(settings.serverDrawingEnabled){
-            ofSetColor(ofColor::white);
-            ofDrawBitmapString(statusText, 50, 30);
-            server.drawStatus(50, 50);
-            vector<ofxNetworkSyncClientState *> clients = server.getClients();
-            ostringstream ostr("");
-            ostr << endl << endl;
-            for(int i = 0; i < clients.size(); i++){
-                if(i == ecgIndex){
-                    ostr << "ECG>";
-                }
-                ostr << endl << endl;
-            }
-            ofDrawBitmapString(ostr.str(), 30, 50);
-            ofDrawBitmapString(ofToString(server.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
-        }
+    if(settings.isClient && settings.clientDrawingEnabled){
+        drawOverlay();
+        drawClient();
     }
+    if(settings.isServer && settings.serverDrawingEnabled){
+        drawOverlay();
+        drawServer();
+    }
+}
+
+void erNetwork::drawClient(){
+    if(client.isConnected()){
+        ofDrawBitmapString(statusText, 50, 30);
+        client.drawStatus();
+        ofDrawBitmapString(ofToString(client.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
+        ofDrawBitmapString(clientChannel, 50, ofGetHeight()-35);
+        font.drawString(clientChannel, 40, ofGetHeight() * 0.4);
+    }else{
+        ofDrawBitmapString("Waiting for server...", 50, 30);
+    }
+}
+
+void erNetwork::drawServer(){
+    if(server.isConnected()){
+        ofSetColor(ofColor::white);
+        ofDrawBitmapString(statusText, 50, 30);
+        server.drawStatus(50, 50);
+        drawClientList();
+        ofDrawBitmapString(ofToString(server.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
+    }else{
+        ofDrawBitmapString("Setting up server network connection...", 50, 30);
+    }
+}
+
+void erNetwork::drawClientList(){
+    vector<ofxNetworkSyncClientState *> clients = server.getClients();
+    ostringstream ostr("");
+    ostr << endl << endl;
+    for(int i = 0; i < clients.size(); i++){
+        if(i == ecgIndex){
+            ostr << "ECG>";
+        }
+        ostr << endl << endl;
+    }
+    ofDrawBitmapString(ostr.str(), 30, 50);
+}
+
+void erNetwork::drawOverlay(){
+    ofSetColor(ofColor::black, 127);
+    ofFill();
+    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+    ofSetColor(ofColor::white);
 }
 
 void erNetwork::keyReleased(ofKeyEventArgs &args){
@@ -207,10 +231,4 @@ void erNetwork::setLogLevels(ofLogLevel level){
     ofSetLogLevel("ofxNetworkSyncServer", level);
     ofSetLogLevel("ofxNetworkSyncServerFinder", level);
     ofSetLogLevel("ofxNetworkSyncUdp", level);
-}
-
-void erNetwork::drawBlackOverlay(){
-    ofSetColor(ofColor::black, 127);
-    ofFill();
-    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
 }
