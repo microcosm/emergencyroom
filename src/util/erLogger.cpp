@@ -3,6 +3,12 @@
 string erProgramId;
 bool erFileLoggingEnabled = false;
 
+void erSetLogLevels(){
+    ofSetLogLevel("ofImage", OF_LOG_SILENT);
+    ofSetLogLevel("ofxTCPClient", OF_LOG_SILENT);
+    ofSetLogLevel("ofxNetworkSyncClient", OF_LOG_SILENT);
+}
+
 void erEnableFileLogging(bool isServer){
     if(!erFileLoggingEnabled){
         erProgramId = ofToString(ofRandom(1000, 9999));

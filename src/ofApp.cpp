@@ -3,8 +3,7 @@
 erSettings settings;
 
 void ofApp::setup(){
-    ofSetLogLevel("ofImage", OF_LOG_FATAL_ERROR);
-
+    erSetLogLevels();
     ofSetFrameRate(60);
     ofSetWindowShape(1200, 800);
     bigFont.load(ER_FONT_PATH, 75);
