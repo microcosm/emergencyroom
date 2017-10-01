@@ -6,7 +6,7 @@
 #define ER_SETTINGS_FILE "settings.json"
 
 #define ER_SERVER_IP "server-ip"
-#define ER_SERVER_PORT "server-port"
+#define ER_SERVER_PORT "of-port"
 
 #define ER_FULLSCREEN_BY_DEFAULT "fullscreen-by-default"
 #define ER_LOG_TO_FILE_ENABLED "enable-log-to-file"
