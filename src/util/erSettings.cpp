@@ -105,7 +105,7 @@ void erSettings::applySettings(ofxJSONElement& json){
 
 string erSettings::getComputerName(){
 #ifdef __APPLE__
-    fp = popen("scutil --get ComputerName", "r");
+    fp = popen("scutil --get HostName", "r");
     if(fp != NULL){
         fgets(path, 20, fp);
         string str(path);
