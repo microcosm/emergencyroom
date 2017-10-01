@@ -2,7 +2,7 @@ var fs = require('fs');
 var os = require('os');
 var http = require('http');
 var spawn = require('child_process').spawn;
-var settings, machineType, port;
+var settings, machineType, port, proc;
 
 run();
 
@@ -43,18 +43,7 @@ function setMachineType(){
 
 /* server */
 function startManagementServer(){
-	const requestHandler = function(request, response){
-		var isStartRequest = request.url.includes('startOF');
-		var action = isStartRequest ? 'Starting openFrameworks app now.' : 'Unrecognized request.';
-		console.log('Recieved \'' + request.url + '\', responding with \'' + action + '\'');
-		if(isStartRequest){
-			startOF();
-		}
-		response.end(action);
-	}
-
 	const server = http.createServer(requestHandler)
-
 	server.listen(port, function(err){
 		if(err){
 			return console.log('Error caught: ', err);
@@ -64,17 +53,48 @@ function startManagementServer(){
 	});
 }
 
+function requestHandler(request, response){
+	var action = interpretRequest(request.url);
+	var responseStr = 'Recieved \'' + request.url + '\', interpreted action \'' + action + '\'';
+	console.log(responseStr);
+
+	switch(action){
+		case 'start':
+			startOF();
+			break;
+		case 'stop':
+			stopOF();
+			break;
+	}
+
+	response.end(responseStr);
+}
+
+function interpretRequest(url){
+	if(url.includes('startOF')){
+		return 'start';
+	}else if(url.includes('stopOF')){
+		return 'stop';
+	}else{
+		return 'unknown';
+	}
+}
+
 /* command execution */
 function startOF(){
-	var command = spawn('../bin/emergencyroom');
+	proc = spawn('../bin/emergencyroom');
 
-	command.stdout.on('data', function(data) {
+	proc.stdout.on('data', function(data) {
 	  console.log('stdout: ' + data.toString());
 	});
 
-	command.stderr.on('data', function(data) {
+	proc.stderr.on('data', function(data) {
 	  console.log('stderr: ' + data.toString());
 	});
+}
+
+function stopOF(){
+	proc.kill('SIGINT');
 }
 
 /* util */
