@@ -1,6 +1,7 @@
 var fs = require('fs');
 var os = require('os');
 var http = require('http');
+var spawn = require('child_process').spawn;
 var settings, machineType, port;
 
 run();
@@ -42,20 +43,37 @@ function setMachineType(){
 
 /* server */
 function startManagementServer(){
-	const requestHandler = (request, response) => {
-		var action = request.url.includes('startOF') ? 'Starting openFrameworks app now.' : 'Unrecognized request.';
+	const requestHandler = function(request, response){
+		var isStartRequest = request.url.includes('startOF');
+		var action = isStartRequest ? 'Starting openFrameworks app now.' : 'Unrecognized request.';
 		console.log('Recieved \'' + request.url + '\', responding with \'' + action + '\'');
+		if(isStartRequest){
+			startOF();
+		}
 		response.end(action);
 	}
 
 	const server = http.createServer(requestHandler)
 
-	server.listen(port, (err) => {
+	server.listen(port, function(err){
 		if(err){
-			return console.log('Error caught: ', err)
+			return console.log('Error caught: ', err);
 		}
 
 		console.log('Management server is listening on ' + port + '...');
+	});
+}
+
+/* command execution */
+function startOF(){
+	var command = spawn('../bin/emergencyroom');
+
+	command.stdout.on('data', function(data) {
+	  console.log('stdout: ' + data.toString());
+	});
+
+	command.stderr.on('data', function(data) {
+	  console.log('stderr: ' + data.toString());
 	});
 }
 
