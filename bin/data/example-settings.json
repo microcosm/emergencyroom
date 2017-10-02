@@ -1,6 +1,7 @@
 {
     "server-ip": "192.168.0.1",
-    "server-port": 15001,
+    "of-port": 1001,
+    "manage-port": 1002,
 
     "fullscreen-by-default": true,
     "enable-log-to-file": false,
