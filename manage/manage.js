@@ -3,6 +3,7 @@ var os = require('os');
 var http = require('http');
 var spawn = require('child_process').spawn;
 var settings, machineType, port, proc;
+var started = false;
 
 run();
 
@@ -82,19 +83,25 @@ function interpretRequest(url){
 
 /* command execution */
 function startOF(){
-	proc = spawn('../bin/emergencyroom');
+	if(!started){
+		proc = spawn('../bin/emergencyroom');
+		started = true;
 
-	proc.stdout.on('data', function(data) {
-	  console.log('stdout: ' + data.toString());
-	});
+		proc.stdout.on('data', function(data) {
+		  console.log('stdout: ' + data.toString());
+		});
 
-	proc.stderr.on('data', function(data) {
-	  console.log('stderr: ' + data.toString());
-	});
+		proc.stderr.on('data', function(data) {
+		  console.log('stderr: ' + data.toString());
+		});
+	}
 }
 
 function stopOF(){
-	proc.kill('SIGINT');
+	if(started){
+		proc.kill('SIGINT');
+		started = false;
+	}
 }
 
 /* util */
