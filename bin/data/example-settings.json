@@ -3,7 +3,9 @@
     "of-port": 1001,
     "manage-port": 1002,
 
-    "fullscreen-by-default": true,
+    "fullscreen-server": false,
+    "fullscreen-clients": true,
+
     "enable-log-to-file": false,
     "test-content-mode": false,
     "number-of-video-channels": 3,

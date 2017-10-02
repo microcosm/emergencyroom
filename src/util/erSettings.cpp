@@ -21,7 +21,9 @@ void erSettings::initSettings(){
     serverIP = "";
     serverPort = 0;
 
-    fullscreenByDefault = false;
+    fullscreenServer = false;
+    fullscreenClient = false;
+
     logToFileEnabled = true;
     testContentMode = false;
     numChannels = 1;
@@ -63,7 +65,9 @@ void erSettings::applySettings(ofxJSONElement& json){
     serverIP = json[ER_SERVER_IP].asString();
     serverPort = json[ER_SERVER_PORT].asInt();
 
-    fullscreenByDefault = json[ER_FULLSCREEN_BY_DEFAULT].asBool();
+    fullscreenServer = json[ER_FULLSCREEN_SERVER].asBool();
+    fullscreenClient = json[ER_FULLSCREEN_CLIENT].asBool();
+
     logToFileEnabled    = json[ER_LOG_TO_FILE_ENABLED].asBool();
     testContentMode     = json[ER_TEST_CONTENT_MODE].asBool();
     numChannels         = json[ER_NUMBER_OF_VIDEO_CHANNELS].asInt();

@@ -8,7 +8,9 @@
 #define ER_SERVER_IP "server-ip"
 #define ER_SERVER_PORT "of-port"
 
-#define ER_FULLSCREEN_BY_DEFAULT "fullscreen-by-default"
+#define ER_FULLSCREEN_SERVER "fullscreen-server"
+#define ER_FULLSCREEN_CLIENT "fullscreen-client"
+
 #define ER_LOG_TO_FILE_ENABLED "enable-log-to-file"
 #define ER_TEST_CONTENT_MODE "test-content-mode"
 #define ER_NUMBER_OF_VIDEO_CHANNELS "number-of-video-channels"
@@ -58,7 +60,9 @@ public:
     string serverIP;
     int serverPort;
 
-    bool fullscreenByDefault;
+    bool fullscreenServer;
+    bool fullscreenClient;
+
     bool logToFileEnabled;
     bool testContentMode;
     int numChannels;

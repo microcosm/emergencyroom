@@ -10,9 +10,8 @@ void ofApp::setup(){
     smallFont.load(ER_FONT_PATH, 50);
     videoSoundAssigned = false;
     settings.load();
-    if(settings.fullscreenByDefault){
-        ofToggleFullscreen();
-    }
+
+    toggleFullscreen();
 
     mediaController.setVideoPaths(&mediaLoader.allVideos);
     mediaController.setVideoPlayers(&mediaLoader.videoPlayers);
@@ -115,5 +114,15 @@ void ofApp::keyReleased(int key){
     }
     if(key == ' '){
         mediaSequencer.stopAll();
+    }
+}
+
+void ofApp::toggleFullscreen(){
+    if(settings.isServer){
+        if(settings.fullscreenServer){
+            ofToggleFullscreen();
+        }
+    }else if(settings.fullscreenClient){
+        ofToggleFullscreen();
     }
 }
