@@ -88,15 +88,9 @@ void erSettings::applySettings(ofxJSONElement& json){
     shortestSequenceDelay = json[ER_MEDIA_SEQUENCING][ER_SHORTEST_DELAY].asInt();
     longestSequenceDelay  = json[ER_MEDIA_SEQUENCING][ER_LONGEST_DELAY].asInt();
 
-#ifdef TARGET_OPENGLES
-    liveMediaPath      = json[ER_MEDIA_FILES][testContentMode ? ER_TEST_CONTENT_LIVE_PATH_SYNCED : ER_LIVE_PATH_SYNCED].asString();
-    previewMediaPath   = json[ER_MEDIA_FILES][testContentMode ? ER_TEST_CONTENT_PREVIEW_PATH_SYNCED : ER_PREVIEW_PATH_SYNCED].asString();
-    breathingSoundPath = json[ER_MEDIA_FILES][ER_BREATHING_SOUND_PATH_SYNCED].asString();
-#else
     liveMediaPath      = json[ER_MEDIA_FILES][testContentMode ? ER_TEST_CONTENT_LIVE_PATH : ER_LIVE_PATH].asString();
     previewMediaPath   = json[ER_MEDIA_FILES][testContentMode ? ER_TEST_CONTENT_PREVIEW_PATH : ER_PREVIEW_PATH].asString();
     breathingSoundPath = json[ER_MEDIA_FILES][ER_BREATHING_SOUND_PATH].asString();
-#endif
 
     liveMediaDir       = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
     previewMediaDir    = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();

@@ -44,12 +44,6 @@
 #define ER_TEST_CONTENT_PREVIEW_PATH "test-content-preview-path"
 #define ER_BREATHING_SOUND_PATH "breathing-sound-path"
 
-#define ER_LIVE_PATH_SYNCED "live-path-synced"
-#define ER_PREVIEW_PATH_SYNCED "preview-path-synced"
-#define ER_TEST_CONTENT_LIVE_PATH_SYNCED "test-content-live-path-synced"
-#define ER_TEST_CONTENT_PREVIEW_PATH_SYNCED "test-content-preview-path-synced"
-#define ER_BREATHING_SOUND_PATH_SYNCED "breathing-sound-path-synced"
-
 #define ER_LIVE_DIR "live-dir"
 #define ER_PREVIEW_DIR "preview-dir"
 #define ER_VIDEO_FILE_EXTENSION "video-file-extension"
