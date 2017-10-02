@@ -18,8 +18,9 @@ void erSettings::toggleClientDrawing(){
 }
 
 void erSettings::initSettings(){
-    serverIP = "";
     serverPort = 0;
+
+    serverIP = "";
 
     fullscreenServer = false;
     fullscreenClient = false;
@@ -62,8 +63,12 @@ void erSettings::initSettings(){
 void erSettings::applySettings(ofxJSONElement& json){
     computerName = getComputerName();
 
-    serverIP = json[ER_SERVER_IP].asString();
     serverPort = json[ER_SERVER_PORT].asInt();
+
+    serverIP = json[ER_SERVER_IP].asString();
+    for(int i = 0; i < json[ER_CLIENT_IPS].size(); i++){
+        clientIPs.push_back(json[ER_CLIENT_IPS][i][ER_IP].asString());
+    }
 
     fullscreenServer = json[ER_FULLSCREEN_SERVER].asBool();
     fullscreenClient = json[ER_FULLSCREEN_CLIENT].asBool();

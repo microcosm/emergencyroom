@@ -26,6 +26,8 @@ void ofApp::setup(){
         network.setup();
         mediaSequencer.setup(&network, &mediaLoader, &mediaController);
     }
+
+    clientController.launchClients();
 }
 
 void ofApp::update(){

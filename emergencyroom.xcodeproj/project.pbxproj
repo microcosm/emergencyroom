@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		82580C3F1DECA87100FAD114 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82580C3D1DECA87100FAD114 /* ofxFastFboReader.cpp */; };
 		827E6F231F79E8C6003DFD9E /* erNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 827E6F221F79E8C6003DFD9E /* erNetwork.cpp */; };
+		82CCF5DC1F82F568009CD0C9 /* erClientController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82CCF5DA1F82F568009CD0C9 /* erClientController.cpp */; };
 		B40442B11CBE8F580071C074 /* ofxJSONElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442A71CBE8F580071C074 /* ofxJSONElement.cpp */; };
 		B40442B21CBE8F580071C074 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B01CBE8F580071C074 /* jsoncpp.cpp */; };
 		B40442B91CBEA39E0071C074 /* erSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B71CBEA39E0071C074 /* erSettings.cpp */; };
@@ -163,6 +164,8 @@
 		82580C3E1DECA87100FAD114 /* ofxFastFboReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFastFboReader.h; sourceTree = "<group>"; };
 		827E6F211F79E8B1003DFD9E /* erVideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = erVideoPlayer.h; sourceTree = "<group>"; };
 		827E6F221F79E8C6003DFD9E /* erNetwork.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = erNetwork.cpp; sourceTree = "<group>"; };
+		82CCF5DA1F82F568009CD0C9 /* erClientController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = erClientController.cpp; sourceTree = "<group>"; };
+		82CCF5DB1F82F568009CD0C9 /* erClientController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = erClientController.h; sourceTree = "<group>"; };
 		B40442A61CBE8F580071C074 /* ofxJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxJSON.h; sourceTree = "<group>"; };
 		B40442A71CBE8F580071C074 /* ofxJSONElement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxJSONElement.cpp; sourceTree = "<group>"; };
 		B40442A81CBE8F580071C074 /* ofxJSONElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxJSONElement.h; sourceTree = "<group>"; };
@@ -824,6 +827,8 @@
 		B48604E51C9B90F600629452 /* network */ = {
 			isa = PBXGroup;
 			children = (
+				82CCF5DA1F82F568009CD0C9 /* erClientController.cpp */,
+				82CCF5DB1F82F568009CD0C9 /* erClientController.h */,
 				827E6F221F79E8C6003DFD9E /* erNetwork.cpp */,
 				B48604E71C9B90F600629452 /* erNetwork.h */,
 				B48604E81C9B90F600629452 /* erTranslater.cpp */,
@@ -1334,6 +1339,7 @@
 				B45EB7111CC3F6A600CEFF4F /* shParams.c in Sources */,
 				B48605151C9B911F00629452 /* ofxTCPManager.cpp in Sources */,
 				B45EB7951CC5483E00CEFF4F /* ofxShapeSystem.cpp in Sources */,
+				82CCF5DC1F82F568009CD0C9 /* erClientController.cpp in Sources */,
 				B45EB7121CC3F6A600CEFF4F /* shPath.c in Sources */,
 				B45EB77B1CC4307B00CEFF4F /* HorizontalTiltShifPass.cpp in Sources */,
 				B45EB7891CC4307B00CEFF4F /* ZoomBlurPass.cpp in Sources */,

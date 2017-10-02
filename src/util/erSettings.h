@@ -5,8 +5,11 @@
 
 #define ER_SETTINGS_FILE "settings.json"
 
-#define ER_SERVER_IP "server-ip"
 #define ER_SERVER_PORT "of-port"
+
+#define ER_SERVER_IP "server-ip"
+#define ER_CLIENT_IPS "client-ips"
+#define ER_IP "ip"
 
 #define ER_FULLSCREEN_SERVER "fullscreen-server"
 #define ER_FULLSCREEN_CLIENT "fullscreen-client"
@@ -57,8 +60,10 @@ public:
     void toggleServerDrawing();
     void toggleClientDrawing();
 
-    string serverIP;
     int serverPort;
+
+    string serverIP;
+    vector<string> clientIPs;
 
     bool fullscreenServer;
     bool fullscreenClient;

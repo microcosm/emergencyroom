@@ -5,6 +5,7 @@
 #include "erLogger.h"
 #include "erSettings.h"
 #include "erEcgRenderer.h"
+#include "erClientController.h"
 #define ER_FONT_PATH "font/klima-medium-web.ttf"
 
 class ofApp : public ofBaseApp{
@@ -25,6 +26,7 @@ protected:
     erNetwork network;
     erPlayParams params;
     erEcgRenderer ecg;
+    erClientController clientController;
     bool videoSoundAssigned;
     int width, height;
 };
