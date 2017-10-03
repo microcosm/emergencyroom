@@ -10,7 +10,8 @@ class erClientController{
     
 public:
     void setup(erNetwork* _network);
-    void launchClients();
+    void openClientApps();
+    void closeClientApps();
     
 protected:
     void request(string url);

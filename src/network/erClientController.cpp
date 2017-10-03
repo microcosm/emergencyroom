@@ -5,7 +5,7 @@ void erClientController::setup(erNetwork* _network){
     frameCounter = 0;
 }
 
-void erClientController::launchClients(){
+void erClientController::openClientApps(){
     if(frameCounter <= 0){
         cleanRequests();
         vector<string> connectedClientIPs = network->getClientIPs();
@@ -18,6 +18,15 @@ void erClientController::launchClients(){
         frameCounter = ER_FRAMECOUNTER_MAX;
     }else{
         frameCounter--;
+    }
+}
+
+void erClientController::closeClientApps(){
+    cleanRequests();
+    vector<string> connectedClientIPs = network->getClientIPs();
+    for(int i = 0; i < connectedClientIPs.size(); i++){
+        url = "http://" + connectedClientIPs.at(i) + ":" + ofToString(settings.managePort) + "/stopOF";
+        ofLoadURL(url);
     }
 }
 

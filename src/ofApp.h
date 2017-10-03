@@ -17,6 +17,7 @@ public:
     void drawFps(int x, int y);
     void keyReleased(int key);
     void toggleFullscreen();
+    void exit();
 
 protected:
     ofTrueTypeFont bigFont, smallFont;

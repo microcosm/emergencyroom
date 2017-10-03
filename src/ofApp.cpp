@@ -37,7 +37,7 @@ void ofApp::update(){
     height = ofGetHeight();
 
     if(settings.isServer){
-        clientController.launchClients();
+        clientController.openClientApps();
     }
 
     if(mediaLoader.isLoaded() && !videoSoundAssigned){
@@ -133,4 +133,8 @@ void ofApp::toggleFullscreen(){
     }else if(settings.fullscreenClient){
         ofToggleFullscreen();
     }
+}
+
+void ofApp::exit(){
+    clientController.closeClientApps();
 }
