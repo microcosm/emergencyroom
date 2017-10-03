@@ -18,7 +18,8 @@ void erSettings::toggleClientDrawing(){
 }
 
 void erSettings::initSettings(){
-    serverPort = 0;
+    ofPort = 0;
+    managePort = 1;
 
     serverIP = "";
 
@@ -63,7 +64,8 @@ void erSettings::initSettings(){
 void erSettings::applySettings(ofxJSONElement& json){
     computerName = getComputerName();
 
-    serverPort = json[ER_SERVER_PORT].asInt();
+    ofPort = json[ER_OF_PORT].asInt();
+    managePort = json[ER_MANAGE_PORT].asInt();
 
     serverIP = json[ER_SERVER_IP].asString();
     for(int i = 0; i < json[ER_CLIENT_IPS].size(); i++){

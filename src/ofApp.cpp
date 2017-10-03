@@ -27,12 +27,18 @@ void ofApp::setup(){
         mediaSequencer.setup(&network, &mediaLoader, &mediaController);
     }
 
-    clientController.launchClients();
+    if(settings.isServer){
+        clientController.setup(&network);
+    }
 }
 
 void ofApp::update(){
     width = ofGetWidth();
     height = ofGetHeight();
+
+    if(settings.isServer){
+        clientController.launchClients();
+    }
 
     if(mediaLoader.isLoaded() && !videoSoundAssigned){
         mediaController.useSoundRendererFor(mediaLoader.audibleVideos);

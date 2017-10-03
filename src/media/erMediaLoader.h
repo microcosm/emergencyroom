@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "erSettings.h"
 #include "erNetwork.h"
-#include "erFileUtils.h"
+#include "erUtils.h"
 #include "erSoundPlayer.h"
 #include "erVideoPlayer.h"
 

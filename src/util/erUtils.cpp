@@ -1,4 +1,4 @@
-#include "erFileUtils.h"
+#include "erUtils.h"
 
 float erGetVolume(string path){
     int argsIndex = path.find("(s)");
@@ -20,4 +20,8 @@ bool erIsFocusVideo(string path){
     if(argsIndex != -1){
         return 1;
     }
+}
+
+bool erContains(string& needle, vector<string>& haystack){
+    return find(haystack.begin(), haystack.end(), needle) != haystack.end();
 }

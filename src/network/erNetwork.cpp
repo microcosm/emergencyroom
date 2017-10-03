@@ -11,7 +11,7 @@ void erNetwork::setup(){
     translater.setup(&client, &server);
 
     if(settings.isServer) {
-        while(!server.setup(settings.serverPort)){
+        while(!server.setup(settings.ofPort)){
             erLog("erNetwork::setup()", "Failed to set up server. Retrying...");
         }
     }
@@ -29,7 +29,7 @@ void erNetwork::update(){
         previousNumClients = numClients;
     } else {
         if(!client.isConnected()){
-            if(client.setup(settings.serverIP, settings.serverPort)){
+            if(client.setup(settings.serverIP, settings.ofPort)){
                 ofAddListener(client.messageReceived, this, &erNetwork::onClientMessageReceived);
             }
         }
@@ -122,6 +122,15 @@ int erNetwork::getClientId(){
         return client.getClientId();
     }
     return -1;
+}
+
+vector<string> erNetwork::getClientIPs(){
+    vector<ofxNetworkSyncClientState *> clients = server.getClients();
+    vector<string> clientIPs;
+    for(int i = 0; i < clients.size(); i++){
+        clientIPs.push_back(clients.at(i)->getIpAddr());
+    }
+    return clientIPs;
 }
 
 void erNetwork::clientStopAll(){

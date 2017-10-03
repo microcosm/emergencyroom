@@ -20,6 +20,7 @@ public:
     virtual void keyReleased(ofKeyEventArgs& args);
     void syncEcg(int delay);
     int getClientId();
+    vector<string> getClientIPs();
     void clientStopAll();
     void clientDisplaysOn();
     void clientDisplaysOff();

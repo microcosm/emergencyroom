@@ -5,7 +5,8 @@
 
 #define ER_SETTINGS_FILE "settings.json"
 
-#define ER_SERVER_PORT "of-port"
+#define ER_OF_PORT "of-port"
+#define ER_MANAGE_PORT "manage-port"
 
 #define ER_SERVER_IP "server-ip"
 #define ER_CLIENT_IPS "client-ips"
@@ -59,7 +60,8 @@ public:
     void toggleServerDrawing();
     void toggleClientDrawing();
 
-    int serverPort;
+    int ofPort;
+    int managePort;
 
     string serverIP;
     vector<string> clientIPs;
