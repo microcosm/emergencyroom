@@ -9,7 +9,6 @@
 
 #define ER_SERVER_IP "server-ip"
 #define ER_CLIENT_IPS "client-ips"
-#define ER_IP "ip"
 
 #define ER_FULLSCREEN_SERVER "fullscreen-server"
 #define ER_FULLSCREEN_CLIENT "fullscreen-client"

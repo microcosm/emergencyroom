@@ -67,7 +67,7 @@ void erSettings::applySettings(ofxJSONElement& json){
 
     serverIP = json[ER_SERVER_IP].asString();
     for(int i = 0; i < json[ER_CLIENT_IPS].size(); i++){
-        clientIPs.push_back(json[ER_CLIENT_IPS][i][ER_IP].asString());
+        clientIPs.push_back(json[ER_CLIENT_IPS][i].asString());
     }
 
     fullscreenServer = json[ER_FULLSCREEN_SERVER].asBool();
