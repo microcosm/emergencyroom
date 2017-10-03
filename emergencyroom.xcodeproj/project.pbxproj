@@ -10,6 +10,7 @@
 		82580C3F1DECA87100FAD114 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82580C3D1DECA87100FAD114 /* ofxFastFboReader.cpp */; };
 		827E6F231F79E8C6003DFD9E /* erNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 827E6F221F79E8C6003DFD9E /* erNetwork.cpp */; };
 		82817CCC1F8404CC00F08CF4 /* erUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82817CCB1F8404CC00F08CF4 /* erUtils.cpp */; };
+		82817CCF1F842C7B00F08CF4 /* erHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82817CCE1F842C7B00F08CF4 /* erHttpRequest.cpp */; };
 		82CCF5DC1F82F568009CD0C9 /* erClientController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82CCF5DA1F82F568009CD0C9 /* erClientController.cpp */; };
 		B40442B11CBE8F580071C074 /* ofxJSONElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442A71CBE8F580071C074 /* ofxJSONElement.cpp */; };
 		B40442B21CBE8F580071C074 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40442B01CBE8F580071C074 /* jsoncpp.cpp */; };
@@ -166,6 +167,8 @@
 		827E6F221F79E8C6003DFD9E /* erNetwork.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = erNetwork.cpp; sourceTree = "<group>"; };
 		82817CCA1F8404CC00F08CF4 /* erUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = erUtils.h; sourceTree = "<group>"; };
 		82817CCB1F8404CC00F08CF4 /* erUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = erUtils.cpp; sourceTree = "<group>"; };
+		82817CCD1F842C7B00F08CF4 /* erHttpRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = erHttpRequest.h; path = src/network/erHttpRequest.h; sourceTree = SOURCE_ROOT; };
+		82817CCE1F842C7B00F08CF4 /* erHttpRequest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = erHttpRequest.cpp; path = src/network/erHttpRequest.cpp; sourceTree = SOURCE_ROOT; };
 		82CCF5DA1F82F568009CD0C9 /* erClientController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = erClientController.cpp; sourceTree = "<group>"; };
 		82CCF5DB1F82F568009CD0C9 /* erClientController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = erClientController.h; sourceTree = "<group>"; };
 		B40442A61CBE8F580071C074 /* ofxJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxJSON.h; sourceTree = "<group>"; };
@@ -831,6 +834,8 @@
 				82CCF5DB1F82F568009CD0C9 /* erClientController.h */,
 				827E6F221F79E8C6003DFD9E /* erNetwork.cpp */,
 				B48604E71C9B90F600629452 /* erNetwork.h */,
+				82817CCE1F842C7B00F08CF4 /* erHttpRequest.cpp */,
+				82817CCD1F842C7B00F08CF4 /* erHttpRequest.h */,
 				B48604E81C9B90F600629452 /* erTranslater.cpp */,
 				B48604E91C9B90F600629452 /* erTranslater.h */,
 			);
@@ -1411,6 +1416,7 @@
 				B48605161C9B911F00629452 /* ofxTCPServer.cpp in Sources */,
 				B4B354D01CBDC25500B8883B /* ofxMidiOut.cpp in Sources */,
 				B40442B21CBE8F580071C074 /* jsoncpp.cpp in Sources */,
+				82817CCF1F842C7B00F08CF4 /* erHttpRequest.cpp in Sources */,
 				B4B3546A1CBDC1D500B8883B /* ofxAudioUnit.cpp in Sources */,
 				B4B354CC1CBDC25500B8883B /* ofxBaseMidi.cpp in Sources */,
 				B45EB7841CC4307B00CEFF4F /* RGBShiftPass.cpp in Sources */,

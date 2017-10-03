@@ -7,14 +7,30 @@ void erClientController::setup(erNetwork* _network){
 
 void erClientController::launchClients(){
     if(frameCounter <= 0){
+        cleanRequests();
         vector<string> connectedClientIPs = network->getClientIPs();
         for(int i = 0; i < settings.clientIPs.size(); i++){
             if(!erContains(settings.clientIPs.at(i), connectedClientIPs)){
-                ofLoadURL("http://" + settings.clientIPs.at(i) + ":" + ofToString(settings.managePort) + "/startOF");
+                url = "http://" + settings.clientIPs.at(i) + ":" + ofToString(settings.managePort) + "/startOF";
+                request(url);
             }
         }
         frameCounter = ER_FRAMECOUNTER_MAX;
     }else{
         frameCounter--;
     }
+}
+
+void erClientController::request(string url){
+    erLog("erClientController::request(string url)", "Requesting: " + url);
+    erHttpRequest* httpRequest = new erHttpRequest();
+    httpRequests.push_back(httpRequest);
+    httpRequests.back()->send(url);
+}
+
+void erClientController::cleanRequests(){
+    for(int i = 0; i < httpRequests.size(); i++){
+        httpRequests.at(i)->stopThread();
+    }
+    httpRequests.clear();
 }

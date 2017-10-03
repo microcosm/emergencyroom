@@ -2,6 +2,7 @@
 #include "erSettings.h"
 #include "erNetwork.h"
 #include "erUtils.h"
+#include "erHttpRequest.h"
 
 #define ER_FRAMECOUNTER_MAX 60
 
@@ -12,6 +13,10 @@ public:
     void launchClients();
     
 protected:
+    void request(string url);
+    void cleanRequests();
     int frameCounter;
     erNetwork* network;
+    string url;
+    vector<erHttpRequest*> httpRequests;
 };
