@@ -2,6 +2,7 @@ var fs = require('fs');
 var os = require('os');
 var http = require('http');
 var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 var settings, machineType, port, proc;
 var started = false;
 
@@ -102,6 +103,8 @@ function stopOF(){
 		proc.kill('SIGINT');
 		started = false;
 	}
+
+	exec('sudo reboot');
 }
 
 /* util */
