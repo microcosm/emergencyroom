@@ -1,12 +1,10 @@
 #include "erSoundRenderer.h"
 
-void erSoundRenderer::setup(){
+void erSoundRenderer::setup(erEcgTimer* _ecgTimer){
 #ifdef __APPLE__
-    _isSetup = true;
-    syncing = false;
+    ecgTimer = _ecgTimer;
     erGlitchTimer::setup();
 
-    ecgTimer.setup();
     manager.setup();
     setupEcg();
     setupStatic();
@@ -16,7 +14,6 @@ void erSoundRenderer::setup(){
 
 void erSoundRenderer::setupEcg(){
 #ifdef __APPLE__
-    syncTime = 0;
     ecgSynth.setup("ECG", AUDIOUNIT_MASSIVE);
     manager.createChain(&ecgChain, "ecg").link(&ecgSynth).toMixer();
     ecgChain.sendMidiOn(60);
@@ -71,24 +68,10 @@ void erSoundRenderer::setupVideo(vector<string>& audibleVideos){
 #endif
 }
 
-void erSoundRenderer::ensureSetup(){
-    if(!_isSetup){
-        setup();
-    }
-}
-
-bool erSoundRenderer::isSetup(){
-    return _isSetup;
-}
-
 void erSoundRenderer::update(){
 #ifdef __APPLE__
     currentTime = ofGetElapsedTimeMillis();
-
-    if(ecgTimer.isStarted()){
-        ecgTimer.update();
-        ecgSynth.set(Massive_master_volume, ecgTimer.isWithinEcgBeepPeriod() ? settings.ecgVolume : 0);
-    }
+    ecgSynth.set(Massive_master_volume, ecgTimer->isWithinEcgBeepPeriod() ? settings.ecgVolume : 0);
 
     for(int channel = 1; channel <= settings.numChannels; channel++){
         float volume = withinGlitchPeriod(channel, currentTime) ? settings.staticVolume : 0;
@@ -99,29 +82,16 @@ void erSoundRenderer::update(){
 
 void erSoundRenderer::draw(){
 #ifdef __APPLE__
-    if(settings.serverDrawingEnabled && ecgTimer.isStarted()){
+    if(settings.serverDrawingEnabled){
         float progressThroughPeriod;
-        int progressOnScreen = ofMap(ecgTimer.getPeriodPosition(), 0, 1, 0, ofGetWidth());
+        int progressOnScreen = ofMap(ecgTimer->getPeriodPosition(), 0, 1, 0, ofGetWidth());
         for(int x = 0; x < progressOnScreen; x++){
             progressThroughPeriod = ofMap(x, 0, ofGetWidth(), 0, 1);
-            ofSetColor(ecgTimer.isWithinEcgBeepPeriod(progressThroughPeriod) ? ofColor::green : ofColor::white);
+            ofSetColor(ecgTimer->isWithinEcgBeepPeriod(progressThroughPeriod) ? ofColor::green : ofColor::white);
             ofDrawRectangle(x, ofGetHeight(), 1, -2);
         }
     }
 #endif
-}
-
-void erSoundRenderer::syncEcg(float delay){
-    schedule(delay);
-    syncing = true;
-}
-
-bool erSoundRenderer::isSyncing(){
-    return syncing;
-}
-
-bool erSoundRenderer::hasSynced(){
-    return ecgTimer.isStarted();
 }
 
 void erSoundRenderer::playVideoSound(string videoPath){
@@ -142,8 +112,4 @@ void erSoundRenderer::stopVideoSound(){
         stopVideoSound(player.first);
     }
 #endif
-}
-
-erEcgTimer* erSoundRenderer::getEcgTimer(){
-    return &ecgTimer;
 }

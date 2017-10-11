@@ -4,15 +4,12 @@
 //MBP retina: 1440 x 900
 //Monoprice: 2560 x 1600 / 2048 x 1280 / 1600 x 1000 / 1280 x 800
 
-void erEcgRenderer::setup(erNetwork* _network){
-    network = _network;
+void erEcgRenderer::setup(erEcgTimer* _ecgTimer){
+    ecgTimer = _ecgTimer;
     timeOffset = 0;
 
     width = ofGetWidth();
     height = ofGetHeight();
-
-    isPlaying = false;
-    ecgTimer.setup();
 
     lineColor = ofColor(234, 242, 255);
     masker.setup(width, height, 3);
@@ -35,27 +32,21 @@ void erEcgRenderer::setup(erNetwork* _network){
 #endif
     
     readData();
-
-    ofAddListener(network->clientMessageReceived(), this, &erEcgRenderer::messageReceived);
 }
 
 void erEcgRenderer::update(){
-    if(isPlaying){
-        ecgTimer.update();
+    lastRow = currentRow;
+    lastPeriodPosition = periodPosition;
+    periodPosition = ecgTimer->getPeriodPosition();
+    currentRow = ofMap(periodPosition, 0, 1, 0, numRows-1);
 
-        lastRow = currentRow;
-        lastPeriodPosition = periodPosition;
-        periodPosition = ecgTimer.getPeriodPosition();
-        currentRow = ofMap(periodPosition, 0, 1, 0, numRows-1);
-
-        loadNewPoints();
-        trimPointsToSize();
-    }
+    loadNewPoints();
+    trimPointsToSize();
 }
 
 void erEcgRenderer::draw(){
     ofBackground(ofColor::black);
-    if(isPlaying && points.size() > 0){
+    if(points.size() > 0){
 #ifdef __APPLE__
         post.begin();
         {
@@ -72,15 +63,6 @@ void erEcgRenderer::draw(){
     }
     if(settings.clientDrawingEnabled){
         masker.drawOverlay();
-        if(scheduled){
-            ofDrawBitmapString("SYNCING...", 10, 72);
-        }
-    }
-}
-
-void erEcgRenderer::messageReceived(string& message){
-    if(message.substr(0, 7) == "ECGSYNC"){
-        schedule(ECG_SYNC_DELAY);
     }
 }
 

@@ -4,7 +4,6 @@
 #include "erMediaController.h"
 #include "erLogger.h"
 #include "erSettings.h"
-#include "erEcgRenderer.h"
 #include "erClientController.h"
 #define ER_FONT_PATH "font/klima-medium-web.ttf"
 
@@ -26,8 +25,8 @@ protected:
     erMediaSequencer mediaSequencer;
     erNetwork network;
     erPlayParams params;
-    erEcgRenderer ecg;
     erClientController clientController;
+    erEcgTimer ecgTimer;
     bool videoSoundAssigned;
     int width, height;
 };

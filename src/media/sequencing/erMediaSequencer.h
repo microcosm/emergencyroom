@@ -14,7 +14,7 @@
 class erMediaSequencer{
 
 public:
-    void setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaController* _mediaController);
+    void setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaController* _mediaController, erEcgTimer* _ecgTimer);
     void setupShuffledIndexing();
     void update();
     void draw();
@@ -46,7 +46,7 @@ protected:
     erMediaQueue queue;
     map<string, erMediaQueue> queues;
     string currentCollection, focusVideoPath;
-    bool queuesLoaded, collectionsLoaded, ecgTimerStarted, focusTime;
+    bool queuesLoaded, collectionsLoaded, focusTime;
 
     vector<int> shuffledCollectionIndices, shuffledChannels;
     int currentCollectionIndex, currentSequencerDelay, currentChannelIndex, currentChannel, focusIndex;

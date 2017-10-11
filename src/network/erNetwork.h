@@ -15,10 +15,7 @@ public:
     void draw();
     void drawClient();
     void drawServer();
-    void drawClientList();
     void drawOverlay();
-    virtual void keyReleased(ofKeyEventArgs& args);
-    void syncEcg(int delay);
     int getClientId();
     vector<string> getClientIPs();
     void clientStopAll();
@@ -49,5 +46,4 @@ protected:
     int finderStartTime, serverPortOffset;
     bool success;
     u_int64_t now;
-    int ecgIndex;
 };

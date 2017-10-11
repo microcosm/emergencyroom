@@ -7,16 +7,13 @@
 #include "erSettings.h"
 
 #define COSMOLOGICAL_CONSTANT 500
-#define ECG_SYNC_DELAY 3000
 
 class erMediaController{
 
 public:
-    void setup(erNetwork* _network);
-    void setupEcgMode(erNetwork* _network);
+    void setup(erNetwork* _network, erEcgTimer* ecgTimer);
     void update();
     void draw();
-    virtual void keyReleased(ofKeyEventArgs& args);
 
     void playClient(erPlayParams params);
     void playServer(int channel, erPlayParams params);
@@ -30,11 +27,11 @@ public:
     void calculateVideoPlaybackVariables(erPlayParams params);
     void calculateSoundPlaybackVariables();
     string getClientVideoState();
-    erEcgTimer* getEcgTimer();
 
 protected:
     string selectDecoyPath(erPlayParams params);
     erChannelRenderer channelRenderer;
+    erEcgRenderer ecgRenderer;
     erSoundRenderer soundRenderer;
     erNetwork* network;
 
@@ -46,7 +43,6 @@ protected:
     u_int64_t currentTime, startOpeningGlitch, startClosingGlitch;
     float openingGlitchDuration, closingGlitchDuration;
     float videoDuration, videoGlitchTime, bufferTime, halfBufferTime;
-    bool syncCommandReceived = false;
 
     vector<u_int64_t> intermediateGlitches;
     vector<float> intermediateGlitchDurations;

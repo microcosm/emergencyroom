@@ -34,20 +34,14 @@
 
 #define ECG_SYNC_DELAY 3000
 
-class erEcgRenderer : erThreadedPlayer{
+class erEcgRenderer{
 
 public:
-    void setup(erNetwork* _network);
+    void setup(erEcgTimer* _ecgTimer);
     void update();
     void draw();
-    void messageReceived(string& messageStr);
 
 protected:
-    void beginPlayback(){
-        isPlaying = true;
-        ecgTimer.start();
-        timeOffset = ofGetElapsedTimeMillis();
-    }
     void readData();
     void loadNewPoints();
     void trimPointsToSize();
@@ -88,5 +82,5 @@ protected:
     u_int64_t timeOffset;
 
     bool isPlaying;
-    erEcgTimer ecgTimer;
+    erEcgTimer* ecgTimer;
 };

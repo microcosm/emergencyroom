@@ -5,7 +5,6 @@ void erNetwork::setup(){
     statusText = clientChannel = "";
     serverPortOffset = 0;
     numClients, previousNumClients = 0;
-    ecgIndex = 0;
     font.load("font/klima-medium-web.ttf", 75);
     setLogLevels(OF_LOG_VERBOSE);
     translater.setup(&client, &server);
@@ -15,8 +14,6 @@ void erNetwork::setup(){
             erLog("erNetwork::setup()", "Failed to set up server. Retrying...");
         }
     }
-
-    ofAddListener(ofEvents().keyReleased, this, &erNetwork::keyReleased);
 }
 
 void erNetwork::update(){
@@ -64,24 +61,10 @@ void erNetwork::drawServer(){
         ofSetColor(ofColor::white);
         ofDrawBitmapString(statusText, 50, 30);
         server.drawStatus(50, 50);
-        drawClientList();
         ofDrawBitmapString(ofToString(server.getSyncedElapsedTimeMillis()), 50, ofGetHeight()-70);
     }else{
         ofDrawBitmapString("Setting up server network connection...", 50, 30);
     }
-}
-
-void erNetwork::drawClientList(){
-    vector<ofxNetworkSyncClientState *> clients = server.getClients();
-    ostringstream ostr("");
-    ostr << endl << endl;
-    for(int i = 0; i < clients.size(); i++){
-        if(i == ecgIndex){
-            ostr << "ECG>";
-        }
-        ostr << endl << endl;
-    }
-    ofDrawBitmapString(ostr.str(), 30, 50);
 }
 
 void erNetwork::drawOverlay(){
@@ -89,32 +72,6 @@ void erNetwork::drawOverlay(){
     ofFill();
     ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     ofSetColor(ofColor::white);
-}
-
-void erNetwork::keyReleased(ofKeyEventArgs &args){
-    if(settings.isServer){
-        if(args.key == 359){
-            ecgIndex++;
-            if(ecgIndex >= server.getClients().size()){
-                ecgIndex = 0;
-            }
-        }
-
-        if(args.key == 357){
-            ecgIndex--;
-            if(ecgIndex < 0){
-                ecgIndex = server.getClients().size() - 1;
-            }
-        }
-    }
-}
-
-void erNetwork::syncEcg(int delay){
-    vector<ofxNetworkSyncClientState*>& clients = server.getClients();
-    if(settings.isServer && clients.size() > 0 && ecgIndex < clients.size()){
-        string message = "ECGSYNC";
-        send(message, clients.at(ecgIndex));
-    }
 }
 
 int erNetwork::getClientId(){

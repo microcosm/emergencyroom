@@ -1,11 +1,11 @@
 #include "erMediaSequencer.h"
 
-void erMediaSequencer::setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaController* _mediaController){
+void erMediaSequencer::setup(erNetwork* _network, erMediaLoader* _mediaLoader, erMediaController* _mediaController, erEcgTimer* _ecgTimer){
     network = _network;
     mediaLoader = _mediaLoader;
     mediaController = _mediaController;
-    ecgTimer = _mediaController->getEcgTimer();
-    ecgTimerStarted = false;
+    ecgTimer = _ecgTimer;
+
     currentSequencerDelay = -1;
     nextTriggerTime = 0;
 
@@ -39,7 +39,7 @@ void erMediaSequencer::update(){
         handleMessageReceived();
         aMessageReceived = false;
     }
-    ecgTimerStarted = ecgTimer != NULL && ecgTimer->isStarted();
+
     setSequencerDelay();
     attemptToLoadMediaQueues();
     attemptToLoadCollections();
@@ -67,7 +67,7 @@ void erMediaSequencer::update(){
 }
 
 void erMediaSequencer::draw(){
-    if(ecgTimerStarted && settings.serverDrawingEnabled){
+    if(settings.serverDrawingEnabled){
         ofSetColor(ofColor::white);
         ofDrawBitmapString("Progress:         " + ofToString(ecgTimer->getPeriodPosition()), ofGetWidth() - 260, ofGetHeight() - 360);
         ofDrawBitmapString("Current duration: " + ofToString(ecgTimer->getPeriodDuration()), ofGetWidth() - 260, ofGetHeight() - 330);
@@ -118,9 +118,7 @@ void erMediaSequencer::handleMessageReceived(){
 }
 
 void erMediaSequencer::setSequencerDelay(){
-    if(ecgTimerStarted){
-        currentSequencerDelay = ofMap(ecgTimer->getCurrentBpm(), settings.ecgLowestBpm, settings.ecgHighestBpm, settings.longestSequenceDelay, settings.shortestSequenceDelay);
-    }
+    currentSequencerDelay = ofMap(ecgTimer->getCurrentBpm(), settings.ecgLowestBpm, settings.ecgHighestBpm, settings.longestSequenceDelay, settings.shortestSequenceDelay);
 }
 
 string erMediaSequencer::getCurrentCollection(){

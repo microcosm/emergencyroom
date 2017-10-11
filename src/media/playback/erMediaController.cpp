@@ -1,55 +1,23 @@
 #include "erMediaController.h"
 
-void erMediaController::setup(erNetwork* _network){
+void erMediaController::setup(erNetwork* _network, erEcgTimer* ecgTimer){
     network = _network;
     channelRenderer.setup(network);
-    ofAddListener(ofEvents().keyReleased, this, &erMediaController::keyReleased);
-}
-
-void erMediaController::setupEcgMode(erNetwork* _network){
-    network = _network;
+    soundRenderer.setup(ecgTimer);
+    ecgRenderer.setup(ecgTimer);
 }
 
 void erMediaController::update(){
-    if(settings.isServer){
-        if(syncCommandReceived){
-            network->syncEcg(ECG_SYNC_DELAY);
-            soundRenderer.syncEcg(ECG_SYNC_DELAY);
-            syncCommandReceived = false;
-        }
-        soundRenderer.ensureSetup();
-    }
-
     channelRenderer.update();
-
-    if(soundRenderer.isSetup()){
-        soundRenderer.update();
-    }
+    soundRenderer.update();
+    ecgRenderer.update();
 }
 
 void erMediaController::draw(){
     ofSetColor(ofColor::white);
-    if(settings.isServer && settings.serverDrawingEnabled){
-        if(soundRenderer.isSyncing()){
-            ofDrawBitmapString("SYNCING...", 130, ofGetHeight() - 208);
-        }else if(soundRenderer.hasSynced()){
-            ofDrawBitmapString("SYNCED", 130, ofGetHeight() - 208);
-        }else{
-            ofDrawBitmapString("NOT SYNCED", 130, ofGetHeight() - 208);
-        }
-    }
-
     channelRenderer.draw();
-
-    if(soundRenderer.isSetup()){
-        soundRenderer.draw();
-    }
-}
-
-void erMediaController::keyReleased(ofKeyEventArgs &args){
-    if(args.key == '-'){
-        syncCommandReceived = true;
-    }
+    soundRenderer.draw();
+    ecgRenderer.draw();
 }
 
 void erMediaController::playClient(erPlayParams params){
@@ -153,10 +121,6 @@ void erMediaController::calculateSoundPlaybackVariables(){
 
 string erMediaController::getClientVideoState(){
     return channelRenderer.getClientVideoState();
-}
-
-erEcgTimer* erMediaController::getEcgTimer(){
-    return soundRenderer.getEcgTimer();
 }
 
 string erMediaController::selectDecoyPath(erPlayParams params){

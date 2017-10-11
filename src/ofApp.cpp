@@ -16,19 +16,14 @@ void ofApp::setup(){
     mediaController.setVideoPaths(&mediaLoader.allVideos);
     mediaController.setVideoPlayers(&mediaLoader.videoPlayers);
 
-    if(settings.isEcg){
-        mediaController.setupEcgMode(&network);
-        network.setup();
-        ecg.setup(&network);
-    }else{
-        mediaLoader.setup(&network);
-        mediaController.setup(&network);
-        network.setup();
-        mediaSequencer.setup(&network, &mediaLoader, &mediaController);
-    }
+    mediaLoader.setup(&network);
+    mediaController.setup(&network, &ecgTimer);
+    network.setup();
+    mediaSequencer.setup(&network, &mediaLoader, &mediaController, &ecgTimer);
 
     if(settings.isServer){
         clientController.setup(&network);
+        ecgTimer.setup();
     }
 }
 
@@ -51,32 +46,26 @@ void ofApp::update(){
         erDisableFileLogging();
     }
 
-    if(settings.isEcg){
-        ecg.update();
-        network.update();
-    }else{
-        mediaLoader.update();
-        mediaController.update();
-        network.update();
-        mediaSequencer.update();
+    if(settings.isServer){
+        ecgTimer.update();
     }
+
+    mediaLoader.update();
+    mediaController.update();
+    network.update();
+    mediaSequencer.update();
 }
 
 void ofApp::draw(){
     ofSetColor(ofColor::white);
 
-    if(settings.isEcg){
-        ecg.draw();
-        network.draw();
-    }else{
-        mediaController.draw();
-        if(settings.isClient){
-            ofSetColor(ofColor::black, 150);
-            ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
-        }
-        network.draw();
-        mediaSequencer.draw();
+    mediaController.draw();
+    if(settings.isClient){
+        ofSetColor(ofColor::black, 150);
+        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     }
+    network.draw();
+    mediaSequencer.draw();
 
     if(mediaLoader.hasErrors()){
         mediaLoader.drawErrors();

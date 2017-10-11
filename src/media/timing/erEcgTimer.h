@@ -8,13 +8,11 @@ class erEcgTimer{
 public:
     void setup();
     void update();
-    void start();
     float getPeriodPosition();
     float getPeriodDuration();
     float getCurrentBpm();
     bool isWithinEcgBeepPeriod();
     bool isWithinEcgBeepPeriod(float position);
-    bool isStarted();
     ofEvent<ofxAnimatable::AnimationEvent>& bpmLooped();
     void pauseBpmAnimation();
     void resumeBpmAnimation();
@@ -24,5 +22,4 @@ protected:
     bool isPlaying;
     ofxAnimatableFloat currentBpm, currentPeriodPosition;
     float currentPeriodDuration;
-    bool started;
 };

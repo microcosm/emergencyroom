@@ -13,32 +13,19 @@
 class erSoundRenderer : public erThreadedPlayer, public erGlitchTimer{
 
 public:
-    void setup();
+    void setup(erEcgTimer* _ecgTimer);
     void setupEcg();
     void setupStatic();
     void setupBreathing();
     void setupVideo(vector<string>& audibleVideos);
-    void ensureSetup();
-    bool isSetup();
 
     void update();
     void draw();
-    void syncEcg(float delay);
-    bool isSyncing();
-    bool hasSynced();
     void playVideoSound(string videoPath);
     void stopVideoSound(string videoPath);
     void stopVideoSound();
-    erEcgTimer* getEcgTimer();
 
 protected:
-    void beginPlayback(){
-        lock();
-        syncing = false;
-        syncTime = ofGetElapsedTimeMillis();
-        ecgTimer.start();
-        unlock();
-    }
     
 #ifdef __APPLE__
     ofxAudioUnitManager manager;
@@ -61,9 +48,6 @@ protected:
     ofxManagedAudioUnitMixer videoMixer;
 #endif
 
-    u_int64_t currentTime, syncTime, timeSinceSync;
-
-    bool _isSetup = false;
-    bool syncing;
-    erEcgTimer ecgTimer;
+    u_int64_t currentTime;
+    erEcgTimer* ecgTimer;
 };
