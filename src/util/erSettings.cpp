@@ -16,8 +16,6 @@ void erSettings::incrementServerViewMode(){
         serverViewMode = erAudioView;
     }else if(serverViewMode == erAudioView){
         serverViewMode = erChannelsView;
-    }else{
-        return serverViewMode;
     }
 }
 
@@ -26,8 +24,6 @@ void erSettings::incrementClientViewMode(){
         clientViewMode = erStatusView;
     }else if(clientViewMode == erStatusView){
         clientViewMode = erVideoView;
-    }else{
-        return clientViewMode;
     }
 }
 
