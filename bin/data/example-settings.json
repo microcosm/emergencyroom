@@ -12,7 +12,9 @@
     ],
 
     "fullscreen-server": false,
-    "fullscreen-clients": true,
+    "fullscreen-client": true,
+    "initial-view-mode": "channels",
+    "font-path": "font/klima-medium-web.ttf",
 
     "enable-log-to-file": false,
     "test-content-mode": false,
@@ -53,7 +55,5 @@
         "live-dir": "/live/",
         "preview-dir": "/preview/",
         "video-file-extension": "mp4"
-    },
-
-    "font": "font/klima-medium-web.ttf"
+    }
 }

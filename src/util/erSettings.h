@@ -13,6 +13,8 @@
 
 #define ER_FULLSCREEN_SERVER "fullscreen-server"
 #define ER_FULLSCREEN_CLIENT "fullscreen-client"
+#define ER_INITIAL_VIEW_MODE "initial-view-mode"
+#define ER_FONT_PATH "font-path"
 
 #define ER_LOG_TO_FILE_ENABLED "enable-log-to-file"
 #define ER_TEST_CONTENT_MODE "test-content-mode"
@@ -52,7 +54,11 @@
 #define ER_PREVIEW_DIR "preview-dir"
 #define ER_VIDEO_FILE_EXTENSION "video-file-extension"
 
-#define ER_FONT_PATH "font"
+enum erViewMode {
+    channels,
+    ecg,
+    audio
+};
 
 class erSettings{
 
@@ -69,6 +75,8 @@ public:
 
     bool fullscreenServer;
     bool fullscreenClient;
+    erViewMode viewMode;
+    string fontPath;
 
     bool logToFileEnabled;
     bool testContentMode;
@@ -100,8 +108,6 @@ public:
     string previewMediaDir;
     string videoFileExtension;
 
-    string fontPath;
-
     bool serverDrawingEnabled;
     bool clientDrawingEnabled;
     string computerName;
@@ -110,6 +116,7 @@ protected:
     void initSettings();
     void applySettings(ofxJSONElement& json);
     string getComputerName();
+    erViewMode getViewMode();
 
     ofxJSONElement json;
 

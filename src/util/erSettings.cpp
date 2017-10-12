@@ -25,6 +25,8 @@ void erSettings::initSettings(){
 
     fullscreenServer = false;
     fullscreenClient = false;
+    viewMode = channels;
+    fontPath = "";
 
     logToFileEnabled = true;
     testContentMode = false;
@@ -53,8 +55,6 @@ void erSettings::initSettings(){
     previewMediaDir = "";
     videoFileExtension = "";
 
-    fontPath = "";
-
     shortestSequenceDelay = 500;
     longestSequenceDelay = 1000;
 
@@ -75,6 +75,8 @@ void erSettings::applySettings(ofxJSONElement& json){
 
     fullscreenServer = json[ER_FULLSCREEN_SERVER].asBool();
     fullscreenClient = json[ER_FULLSCREEN_CLIENT].asBool();
+    viewMode = getViewMode();
+    fontPath = json[ER_FONT_PATH].asString();
 
     logToFileEnabled    = json[ER_LOG_TO_FILE_ENABLED].asBool();
     testContentMode     = json[ER_TEST_CONTENT_MODE].asBool();
@@ -106,8 +108,6 @@ void erSettings::applySettings(ofxJSONElement& json){
     liveMediaDir       = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
     previewMediaDir    = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();
     videoFileExtension = json[ER_MEDIA_FILES][ER_VIDEO_FILE_EXTENSION].asString();
-
-    fontPath = json[ER_FONT_PATH].asString();
 }
 
 string erSettings::getComputerName(){
@@ -122,4 +122,17 @@ string erSettings::getComputerName(){
     }
 #endif
     return "";
+}
+
+erViewMode erSettings::getViewMode(){
+    string mode = json[ER_INITIAL_VIEW_MODE].asString();
+    if(mode == "channels"){
+        return channels;
+    }else if(mode == "ecg"){
+        return ecg;
+    }else if(mode == "audio"){
+        return audio;
+    }else{
+        return viewMode;
+    }
 }
