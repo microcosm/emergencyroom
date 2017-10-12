@@ -4,6 +4,7 @@
 #include "ofxNetworkSync.h"
 #include "erPlayParams.h"
 #include "erTranslater.h"
+#include "erKillTimer.h"
 #include "erSettings.h"
 #include "erLogger.h"
 
@@ -38,6 +39,7 @@ protected:
     ofxNetworkSyncClient client;
     ofxNetworkSyncServer server;
     erTranslater translater;
+    erKillTimer killTimer;
 
     ofTrueTypeFont font;
     string statusText, clientChannel;
@@ -45,5 +47,4 @@ protected:
     int numClients, previousNumClients;
     int finderStartTime, serverPortOffset;
     bool success;
-    u_int64_t now;
 };

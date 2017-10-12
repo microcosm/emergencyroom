@@ -14,6 +14,10 @@ void erNetwork::setup(){
             erLog("erNetwork::setup()", "Failed to set up server. Retrying...");
         }
     }
+
+    if(settings.isClient) {
+        killTimer.setup();
+    }
 }
 
 void erNetwork::update(){
@@ -24,7 +28,11 @@ void erNetwork::update(){
             sendChannelUpdates();
         }
         previousNumClients = numClients;
-    } else {
+    }
+
+    if(settings.isClient){
+        killTimer.update();
+
         if(!client.isConnected()){
             if(client.setup(settings.serverIP, settings.ofPort)){
                 ofAddListener(client.messageReceived, this, &erNetwork::onClientMessageReceived);
@@ -149,6 +157,8 @@ erTranslater* erNetwork::getTranslater(){
 }
 
 void erNetwork::onClientMessageReceived(string& message){
+    killTimer.registerMessageRecieved();
+
     if(message.substr(0, 7) == "CHANNEL"){
         clientChannel = message;
     }
