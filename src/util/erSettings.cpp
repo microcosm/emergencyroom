@@ -9,12 +9,36 @@ void erSettings::load(){
     }
 }
 
-void erSettings::toggleServerDrawing(){
-    serverDrawingEnabled = !serverDrawingEnabled;
-}
-
 void erSettings::toggleClientDrawing(){
     clientDrawingEnabled = !clientDrawingEnabled;
+}
+
+void erSettings::incrementViewMode(){
+    if(viewMode == channels){
+        viewMode = ecg;
+    }else if(viewMode == ecg){
+        viewMode = audio;
+    }else if(viewMode == audio){
+        viewMode = channels;
+    }else{
+        return viewMode;
+    }
+}
+
+bool erSettings::renderChannels(){
+    return viewMode == channels;
+}
+
+bool erSettings::renderEcg(){
+    return viewMode == ecg;
+}
+
+bool erSettings::renderAudioUI(){
+    return viewMode == audio;
+}
+
+bool erSettings::renderStatus(){
+    return viewMode == channels;
 }
 
 void erSettings::initSettings(){
@@ -58,7 +82,6 @@ void erSettings::initSettings(){
     shortestSequenceDelay = 500;
     longestSequenceDelay = 1000;
 
-    serverDrawingEnabled = true;
     clientDrawingEnabled = true;
 }
 

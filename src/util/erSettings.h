@@ -64,8 +64,13 @@ class erSettings{
 
 public:
     void load();
-    void toggleServerDrawing();
     void toggleClientDrawing();
+    void incrementViewMode();
+
+    bool renderChannels();
+    bool renderEcg();
+    bool renderAudioUI();
+    bool renderStatus();
 
     int ofPort;
     int managePort;
@@ -108,7 +113,6 @@ public:
     string previewMediaDir;
     string videoFileExtension;
 
-    bool serverDrawingEnabled;
     bool clientDrawingEnabled;
     string computerName;
 

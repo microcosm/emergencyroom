@@ -8,10 +8,7 @@ void ofApp::setup(){
     ofSetWindowShape(1200, 800);
     settings.load();
 
-    bigFont.load(settings.fontPath, 75);
-    smallFont.load(settings.fontPath, 50);
     videoSoundAssigned = false;
-
     toggleFullscreen();
 
     mediaController.setVideoPaths(&mediaLoader.allVideos);
@@ -21,6 +18,7 @@ void ofApp::setup(){
     mediaController.setup(&network, &ecgTimer);
     network.setup();
     mediaSequencer.setup(&network, &mediaLoader, &mediaController, &ecgTimer);
+    statusRenderer.setup(&network, &mediaSequencer, &mediaController);
 
     if(settings.isServer){
         clientController.setup(&network);
@@ -29,9 +27,6 @@ void ofApp::setup(){
 }
 
 void ofApp::update(){
-    width = ofGetWidth();
-    height = ofGetHeight();
-
     if(settings.isServer){
         clientController.openClientApps();
     }
@@ -65,48 +60,23 @@ void ofApp::draw(){
         ofSetColor(ofColor::black, 150);
         ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     }
-    network.draw();
-    mediaSequencer.draw();
+
 
     if(mediaLoader.hasErrors()){
         mediaLoader.drawErrors();
     }
 
-    ofSetColor(ofColor::white);
-    if(settings.isServer && settings.serverDrawingEnabled){
-        ofDrawBitmapString("v            toggle audio unit manager\n\nd            toggle server display\n\nD            toggle client display\n\nup/down      select ecg client\n\n-            sync to ecg client", 130, height - 168);
-        drawFps(490, height - 60);
-        smallFont.drawString(mediaSequencer.getCurrentCollection(), 490, height - 220);
-    }
-
-    if(settings.isClient && settings.clientDrawingEnabled){
-        ofDrawBitmapString("Computer name: '" + settings.computerName + "'\nDimensions:    " + ofToString(width) + " x " + ofToString(height), width - 350, 40);
-        drawFps(320, height - 46);
-    }
-
-    if(settings.isClient && settings.clientDrawingEnabled){
-        int clientId = network.getClientId();
-        if(clientId != -1){
-            ofDrawBitmapString("Client ID:", 50, height - 148);
-            smallFont.drawString("#" + ofToString(network.getClientId()), 50, height - 90);
-            ofDrawBitmapString("Playback state:", 50, height - 236);
-            ofDrawBitmapString(mediaController.getClientVideoState(), 50, height - 220);
-        }
-    }
-}
-
-void ofApp::drawFps(int x, int y){
-    bigFont.drawString("fps: " + ofToString(int(ofGetFrameRate())), x, y);
+    statusRenderer.draw();
 }
 
 void ofApp::keyReleased(int key){
     if(key == 'f'){
         ofToggleFullscreen();
     }
-    if(key == 'd'){
-        settings.toggleServerDrawing();
+    if(key == 'n'){
+        settings.incrementViewMode();
     }
-    if(key == 'D'){
+    if(key == 'C'){
         settings.toggleClientDrawing();
         settings.clientDrawingEnabled ? network.clientDisplaysOn() : network.clientDisplaysOff();
     }

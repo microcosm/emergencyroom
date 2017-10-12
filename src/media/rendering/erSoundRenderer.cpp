@@ -82,7 +82,9 @@ void erSoundRenderer::update(){
 
 void erSoundRenderer::draw(){
 #ifdef __APPLE__
-    if(settings.serverDrawingEnabled){
+    manager.enableDebugUI(settings.renderAudioUI());
+
+    if(settings.renderAudioUI()){
         float progressThroughPeriod;
         int progressOnScreen = ofMap(ecgTimer->getPeriodPosition(), 0, 1, 0, ofGetWidth());
         for(int x = 0; x < progressOnScreen; x++){

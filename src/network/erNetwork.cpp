@@ -38,7 +38,7 @@ void erNetwork::draw(){
         drawOverlay();
         drawClient();
     }
-    if(settings.isServer && settings.serverDrawingEnabled){
+    if(settings.isServer){
         drawOverlay();
         drawServer();
     }

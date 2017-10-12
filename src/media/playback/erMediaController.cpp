@@ -1,3 +1,4 @@
+#include "erStatusRenderer.h"
 #include "erMediaController.h"
 
 void erMediaController::setup(erNetwork* _network, erEcgTimer* ecgTimer){

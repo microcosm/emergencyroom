@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8252CC411F8EFE73009E8339 /* erStatusRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8252CC3F1F8EFE73009E8339 /* erStatusRenderer.cpp */; };
 		82580C3F1DECA87100FAD114 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82580C3D1DECA87100FAD114 /* ofxFastFboReader.cpp */; };
 		827E6F231F79E8C6003DFD9E /* erNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 827E6F221F79E8C6003DFD9E /* erNetwork.cpp */; };
 		82817CCC1F8404CC00F08CF4 /* erUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82817CCB1F8404CC00F08CF4 /* erUtils.cpp */; };
@@ -161,6 +162,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8252CC3F1F8EFE73009E8339 /* erStatusRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = erStatusRenderer.cpp; sourceTree = "<group>"; };
+		8252CC401F8EFE73009E8339 /* erStatusRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = erStatusRenderer.h; sourceTree = "<group>"; };
 		82580C3D1DECA87100FAD114 /* ofxFastFboReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFastFboReader.cpp; sourceTree = "<group>"; };
 		82580C3E1DECA87100FAD114 /* ofxFastFboReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFastFboReader.h; sourceTree = "<group>"; };
 		827E6F211F79E8B1003DFD9E /* erVideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = erVideoPlayer.h; sourceTree = "<group>"; };
@@ -566,6 +569,8 @@
 				B418119C1CDFCC860014D1E5 /* erMediaRenderer.h */,
 				B418119D1CDFCC860014D1E5 /* erSoundRenderer.cpp */,
 				B418119E1CDFCC860014D1E5 /* erSoundRenderer.h */,
+				8252CC3F1F8EFE73009E8339 /* erStatusRenderer.cpp */,
+				8252CC401F8EFE73009E8339 /* erStatusRenderer.h */,
 			);
 			name = rendering;
 			path = media/rendering;
@@ -1368,6 +1373,7 @@
 				B45EB70A1CC3F6A600CEFF4F /* simpleVGPath.cpp in Sources */,
 				B41811B41CDFCC870014D1E5 /* erEcgTimer.cpp in Sources */,
 				B45EB70B1CC3F6A600CEFF4F /* shArrays.c in Sources */,
+				8252CC411F8EFE73009E8339 /* erStatusRenderer.cpp in Sources */,
 				B45EB7721CC4307B00CEFF4F /* BloomPass.cpp in Sources */,
 				B48605141C9B911F00629452 /* ofxTCPClient.cpp in Sources */,
 				B45EB7961CC5483E00CEFF4F /* ofxTransformable.cpp in Sources */,

@@ -45,25 +45,25 @@ void erEcgRenderer::update(){
 }
 
 void erEcgRenderer::draw(){
-    ofBackground(ofColor::black);
-    if(points.size() > 0){
+    if(settings.renderEcg()){
+        ofBackground(ofColor::black);
+        if(points.size() > 0){
 #ifdef __APPLE__
-        post.begin();
-        {
+            post.begin();
+            {
 #endif
-            renderEcgLineLayer();
-            renderEcgLineMask();
-            renderRadialOverlayLayer();
-            masker.drawLayer(2);
+                renderEcgLineLayer();
+                renderEcgLineMask();
+                renderRadialOverlayLayer();
+                masker.drawLayer(2);
 #ifdef __APPLE__
+            }
+            post.end();
+            post.draw();
+#endif
         }
-        post.end();
-        post.draw();
-#endif
     }
-    if(settings.clientDrawingEnabled){
-        masker.drawOverlay();
-    }
+    //masker.drawOverlay();
 }
 
 void erEcgRenderer::readData(){

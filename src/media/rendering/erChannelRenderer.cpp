@@ -101,32 +101,28 @@ void erChannelRenderer::drawClient(){
 }
 
 void erChannelRenderer::drawServer(){
-    ofClear(ofColor::black);
+    if(settings.renderChannels()){
+        ofClear(ofColor::black);
 
-    ofSetColor(ofColor::white);
-    ofNoFill();
-    currentChannel = 1;
-    for(int xi = 0; xi < 3; xi++){
-        for(int yi = 0; yi < 3; yi++){
-            x = getX(xi);
-            y = getY(yi);
-            if(hasChannel(currentChannel)) {
-                mediaRenderer.draw(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight, currentChannel);
-                if(mediaRenderer.withinGlitchPeriod(currentChannel)){
-                    ofSetColor(ofColor::red, 80);
-                    ofFill();
-                    ofDrawRectangle(x, y, previewWidth, previewHeight);
+        ofSetColor(ofColor::white);
+        ofNoFill();
+        currentChannel = 1;
+        for(int xi = 0; xi < 3; xi++){
+            for(int yi = 0; yi < 3; yi++){
+                x = getX(xi);
+                y = getY(yi);
+                if(hasChannel(currentChannel)) {
+                    mediaRenderer.draw(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight, currentChannel);
+                    if(mediaRenderer.withinGlitchPeriod(currentChannel)){
+                        ofSetColor(ofColor::red, 80);
+                        ofFill();
+                        ofDrawRectangle(x, y, previewWidth, previewHeight);
+                    }
                 }
+                drawPreviewBorder(x, y, currentChannel);
+                currentChannel++;
             }
-            drawPreviewBorder(x, y, currentChannel);
-            currentChannel++;
         }
-    }
-
-    if(settings.serverDrawingEnabled){
-        ofFill();
-        ofSetColor(ofColor::black, 100);
-        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     }
 }
 

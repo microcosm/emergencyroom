@@ -3,6 +3,7 @@
 #include "erLogger.h"
 #include "erSettings.h"
 #include "erMediaSequencer.h"
+#include "erStatusRenderer.h"
 #include "erMediaController.h"
 #include "erClientController.h"
 
@@ -12,13 +13,11 @@ public:
     void setup();
     void update();
     void draw();
-    void drawFps(int x, int y);
     void keyReleased(int key);
     void toggleFullscreen();
     void exit();
 
 protected:
-    ofTrueTypeFont bigFont, smallFont;
     erMediaLoader mediaLoader;
     erMediaController mediaController;
     erMediaSequencer mediaSequencer;
@@ -26,6 +25,6 @@ protected:
     erPlayParams params;
     erClientController clientController;
     erEcgTimer ecgTimer;
+    erStatusRenderer statusRenderer;
     bool videoSoundAssigned;
-    int width, height;
 };
