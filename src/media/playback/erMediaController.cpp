@@ -4,21 +4,27 @@
 void erMediaController::setup(erNetwork* _network, erEcgTimer* ecgTimer){
     network = _network;
     channelRenderer.setup(network);
-    soundRenderer.setup(ecgTimer);
-    ecgRenderer.setup(ecgTimer);
+    if(settings.isServer){
+        soundRenderer.setup(ecgTimer);
+        ecgRenderer.setup(ecgTimer);
+    }
 }
 
 void erMediaController::update(){
     channelRenderer.update();
-    soundRenderer.update();
-    ecgRenderer.update();
+    if(settings.isServer){
+        soundRenderer.update();
+        ecgRenderer.update();
+    }
 }
 
 void erMediaController::draw(){
     ofSetColor(ofColor::white);
     channelRenderer.draw();
-    soundRenderer.draw();
-    ecgRenderer.draw();
+    if(settings.isServer){
+        soundRenderer.draw();
+        ecgRenderer.draw();
+    }
 }
 
 void erMediaController::playClient(erPlayParams params){
