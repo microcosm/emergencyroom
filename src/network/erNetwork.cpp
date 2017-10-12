@@ -6,7 +6,7 @@ void erNetwork::setup(){
     serverPortOffset = 0;
     numClients, previousNumClients = 0;
     font.load("font/klima-medium-web.ttf", 75);
-    setLogLevels(OF_LOG_VERBOSE);
+    setLogLevels(OF_LOG_FATAL_ERROR);
     translater.setup(&client, &server);
 
     if(settings.isServer) {
