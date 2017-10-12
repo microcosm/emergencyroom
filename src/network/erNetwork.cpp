@@ -34,12 +34,11 @@ void erNetwork::update(){
 }
 
 void erNetwork::draw(){
-    if(settings.isClient && settings.clientDrawingEnabled){
-        drawOverlay();
+    drawOverlay();
+    if(settings.isClient){
         drawClient();
     }
     if(settings.isServer){
-        drawOverlay();
         drawServer();
     }
 }
@@ -99,7 +98,7 @@ void erNetwork::clientStopAll(){
     }
 }
 
-void erNetwork::clientDisplaysOn(){
+void erNetwork::clientStatusOn(){
     for(auto& client : server.getClients()) {
         if(client->isCalibrated()){
             string message = "DISPLAY ON";
@@ -108,7 +107,7 @@ void erNetwork::clientDisplaysOn(){
     }
 }
 
-void erNetwork::clientDisplaysOff(){
+void erNetwork::clientStatusOff(){
     for(auto& client : server.getClients()) {
         if(client->isCalibrated()){
             string message = "DISPLAY OFF";
@@ -155,12 +154,12 @@ void erNetwork::onClientMessageReceived(string& message){
     }
 
     if(message.substr(0, 10) == "DISPLAY ON"){
-        settings.clientDrawingEnabled = true;
+        settings.clientViewMode = erStatusView;
         ofShowCursor();
     }
 
     if(message.substr(0, 11) == "DISPLAY OFF"){
-        settings.clientDrawingEnabled = false;
+        settings.clientViewMode = erVideoView;
         ofHideCursor();
     }
 }

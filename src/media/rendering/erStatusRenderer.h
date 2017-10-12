@@ -14,6 +14,7 @@ public:
     void setup(erNetwork* _network, erMediaSequencer* _mediaSequencer, erMediaController* _mediaController);
     void draw();
     void drawFps(int x, int y);
+    void drawOverlay();
 
 protected:
     erNetwork* network;

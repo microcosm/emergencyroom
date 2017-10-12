@@ -19,8 +19,8 @@ public:
     int getClientId();
     vector<string> getClientIPs();
     void clientStopAll();
-    void clientDisplaysOn();
-    void clientDisplaysOff();
+    void clientStatusOn();
+    void clientStatusOff();
     void requestServer();
     bool flood(erPlayParams params);
     bool target(int target, erPlayParams params);

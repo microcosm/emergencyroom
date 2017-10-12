@@ -13,7 +13,8 @@
 
     "fullscreen-server": false,
     "fullscreen-client": true,
-    "initial-view-mode": "channels",
+    "server-view-mode": "channels",
+    "client-view-mode": "status",
     "font-path": "font/klima-medium-web.ttf",
 
     "enable-log-to-file": false,

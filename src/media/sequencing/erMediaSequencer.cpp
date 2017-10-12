@@ -67,7 +67,7 @@ void erMediaSequencer::update(){
 }
 
 void erMediaSequencer::draw(){
-        ofSetColor(ofColor::white);
+    ofSetColor(ofColor::white);
     ofDrawBitmapString("Progress:         " + ofToString(ecgTimer->getPeriodPosition()), ofGetWidth() - 260, ofGetHeight() - 360);
     ofDrawBitmapString("Current duration: " + ofToString(ecgTimer->getPeriodDuration()), ofGetWidth() - 260, ofGetHeight() - 330);
     ofDrawBitmapString("Current ECG BPM:  " + ofToString(ecgTimer->getCurrentBpm()), ofGetWidth() - 260, ofGetHeight() - 300);

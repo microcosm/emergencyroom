@@ -9,36 +9,46 @@ void erSettings::load(){
     }
 }
 
-void erSettings::toggleClientDrawing(){
-    clientDrawingEnabled = !clientDrawingEnabled;
+void erSettings::incrementServerViewMode(){
+    if(serverViewMode == erChannelsView){
+        serverViewMode = erEcgView;
+    }else if(serverViewMode == erEcgView){
+        serverViewMode = erAudioView;
+    }else if(serverViewMode == erAudioView){
+        serverViewMode = erChannelsView;
+    }else{
+        return serverViewMode;
+    }
 }
 
-void erSettings::incrementViewMode(){
-    if(viewMode == channels){
-        viewMode = ecg;
-    }else if(viewMode == ecg){
-        viewMode = audio;
-    }else if(viewMode == audio){
-        viewMode = channels;
+void erSettings::incrementClientViewMode(){
+    if(clientViewMode == erVideoView){
+        clientViewMode = erStatusView;
+    }else if(clientViewMode == erStatusView){
+        clientViewMode = erVideoView;
     }else{
-        return viewMode;
+        return clientViewMode;
     }
 }
 
 bool erSettings::renderChannels(){
-    return viewMode == channels;
+    return serverViewMode == erChannelsView;
 }
 
 bool erSettings::renderEcg(){
-    return viewMode == ecg;
+    return serverViewMode == erEcgView;
 }
 
 bool erSettings::renderAudioUI(){
-    return viewMode == audio;
+    return serverViewMode == erAudioView;
+}
+
+bool erSettings::renderVideo(){
+    return clientViewMode == erVideoView;
 }
 
 bool erSettings::renderStatus(){
-    return viewMode == channels;
+    return clientViewMode == erStatusView;
 }
 
 void erSettings::initSettings(){
@@ -49,7 +59,8 @@ void erSettings::initSettings(){
 
     fullscreenServer = false;
     fullscreenClient = false;
-    viewMode = channels;
+    serverViewMode = erChannelsView;
+    clientViewMode = erStatusView;
     fontPath = "";
 
     logToFileEnabled = true;
@@ -81,8 +92,6 @@ void erSettings::initSettings(){
 
     shortestSequenceDelay = 500;
     longestSequenceDelay = 1000;
-
-    clientDrawingEnabled = true;
 }
 
 void erSettings::applySettings(ofxJSONElement& json){
@@ -98,7 +107,8 @@ void erSettings::applySettings(ofxJSONElement& json){
 
     fullscreenServer = json[ER_FULLSCREEN_SERVER].asBool();
     fullscreenClient = json[ER_FULLSCREEN_CLIENT].asBool();
-    viewMode = getViewMode();
+    serverViewMode = getServerViewMode();
+    clientViewMode = getClientViewMode();
     fontPath = json[ER_FONT_PATH].asString();
 
     logToFileEnabled    = json[ER_LOG_TO_FILE_ENABLED].asBool();
@@ -147,15 +157,26 @@ string erSettings::getComputerName(){
     return "";
 }
 
-erViewMode erSettings::getViewMode(){
-    string mode = json[ER_INITIAL_VIEW_MODE].asString();
+erServerViewMode erSettings::getServerViewMode(){
+    string mode = json[ER_SERVER_VIEW_MODE].asString();
     if(mode == "channels"){
-        return channels;
+        return erChannelsView;
     }else if(mode == "ecg"){
-        return ecg;
+        return erEcgView;
     }else if(mode == "audio"){
-        return audio;
+        return erAudioView;
     }else{
-        return viewMode;
+        return serverViewMode;
+    }
+}
+
+erClientViewMode erSettings::getClientViewMode(){
+    string mode = json[ER_CLIENT_VIEW_MODE].asString();
+    if(mode == "video"){
+        return erVideoView;
+    }else if(mode == "status"){
+        return erStatusView;
+    }else{
+        return clientViewMode;
     }
 }

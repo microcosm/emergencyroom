@@ -13,7 +13,8 @@
 
 #define ER_FULLSCREEN_SERVER "fullscreen-server"
 #define ER_FULLSCREEN_CLIENT "fullscreen-client"
-#define ER_INITIAL_VIEW_MODE "initial-view-mode"
+#define ER_SERVER_VIEW_MODE "server-view-mode"
+#define ER_CLIENT_VIEW_MODE "client-view-mode"
 #define ER_FONT_PATH "font-path"
 
 #define ER_LOG_TO_FILE_ENABLED "enable-log-to-file"
@@ -54,22 +55,28 @@
 #define ER_PREVIEW_DIR "preview-dir"
 #define ER_VIDEO_FILE_EXTENSION "video-file-extension"
 
-enum erViewMode {
-    channels,
-    ecg,
-    audio
+enum erServerViewMode {
+    erChannelsView,
+    erEcgView,
+    erAudioView
+};
+
+enum erClientViewMode {
+    erVideoView,
+    erStatusView
 };
 
 class erSettings{
 
 public:
     void load();
-    void toggleClientDrawing();
-    void incrementViewMode();
+    void incrementServerViewMode();
+    void incrementClientViewMode();
 
     bool renderChannels();
     bool renderEcg();
     bool renderAudioUI();
+    bool renderVideo();
     bool renderStatus();
 
     int ofPort;
@@ -80,7 +87,8 @@ public:
 
     bool fullscreenServer;
     bool fullscreenClient;
-    erViewMode viewMode;
+    erServerViewMode serverViewMode;
+    erClientViewMode clientViewMode;
     string fontPath;
 
     bool logToFileEnabled;
@@ -113,14 +121,14 @@ public:
     string previewMediaDir;
     string videoFileExtension;
 
-    bool clientDrawingEnabled;
     string computerName;
 
 protected:
     void initSettings();
     void applySettings(ofxJSONElement& json);
     string getComputerName();
-    erViewMode getViewMode();
+    erServerViewMode getServerViewMode();
+    erClientViewMode getClientViewMode();
 
     ofxJSONElement json;
 

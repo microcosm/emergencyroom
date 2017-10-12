@@ -53,20 +53,12 @@ void ofApp::update(){
 }
 
 void ofApp::draw(){
-    ofSetColor(ofColor::white);
-
     mediaController.draw();
-    if(settings.isClient){
-        ofSetColor(ofColor::black, 150);
-        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
-    }
-
+    statusRenderer.draw();
 
     if(mediaLoader.hasErrors()){
         mediaLoader.drawErrors();
     }
-
-    statusRenderer.draw();
 }
 
 void ofApp::keyReleased(int key){
@@ -74,11 +66,11 @@ void ofApp::keyReleased(int key){
         ofToggleFullscreen();
     }
     if(key == 'n'){
-        settings.incrementViewMode();
+        settings.incrementServerViewMode();
     }
-    if(key == 'C'){
-        settings.toggleClientDrawing();
-        settings.clientDrawingEnabled ? network.clientDisplaysOn() : network.clientDisplaysOff();
+    if(key == 'N'){
+        settings.incrementClientViewMode();
+        settings.renderStatus() ? network.clientStatusOn() : network.clientStatusOff();
     }
     if(key == ' '){
         mediaSequencer.stopAll();
