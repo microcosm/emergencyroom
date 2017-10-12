@@ -21,7 +21,6 @@
 
 #define ER_MACHINE_NAMES "machine-names"
 #define ER_SERVER "server"
-#define ER_ECG "ecg"
 
 #define ER_SERVER_VOLUMES "server-volumes"
 #define ER_MASTER "master"
@@ -76,7 +75,6 @@ public:
 
     bool isServer;
     bool isClient;
-    bool isEcg;
 
     float masterVolume;
     float breathingVolume;

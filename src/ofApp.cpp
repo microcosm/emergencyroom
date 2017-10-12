@@ -78,7 +78,7 @@ void ofApp::draw(){
         smallFont.drawString(mediaSequencer.getCurrentCollection(), 490, height - 220);
     }
 
-    if((settings.isClient || settings.isEcg) && settings.clientDrawingEnabled){
+    if(settings.isClient && settings.clientDrawingEnabled){
         ofDrawBitmapString("Computer name: '" + settings.computerName + "'\nDimensions:    " + ofToString(width) + " x " + ofToString(height), width - 350, 40);
         drawFps(320, height - 46);
     }
