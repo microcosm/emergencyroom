@@ -6,10 +6,11 @@ void ofApp::setup(){
     erSetLogLevels();
     ofSetFrameRate(60);
     ofSetWindowShape(1200, 800);
-    bigFont.load(ER_FONT_PATH, 75);
-    smallFont.load(ER_FONT_PATH, 50);
-    videoSoundAssigned = false;
     settings.load();
+
+    bigFont.load(settings.fontPath, 75);
+    smallFont.load(settings.fontPath, 50);
+    videoSoundAssigned = false;
 
     toggleFullscreen();
 

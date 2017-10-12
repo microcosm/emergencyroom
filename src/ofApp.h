@@ -1,11 +1,10 @@
 #pragma once
 #include "ofMain.h"
-#include "erMediaSequencer.h"
-#include "erMediaController.h"
 #include "erLogger.h"
 #include "erSettings.h"
+#include "erMediaSequencer.h"
+#include "erMediaController.h"
 #include "erClientController.h"
-#define ER_FONT_PATH "font/klima-medium-web.ttf"
 
 class ofApp : public ofBaseApp{
 

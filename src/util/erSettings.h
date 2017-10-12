@@ -52,6 +52,8 @@
 #define ER_PREVIEW_DIR "preview-dir"
 #define ER_VIDEO_FILE_EXTENSION "video-file-extension"
 
+#define ER_FONT_PATH "font"
+
 class erSettings{
 
 public:
@@ -97,6 +99,8 @@ public:
     string liveMediaDir;
     string previewMediaDir;
     string videoFileExtension;
+
+    string fontPath;
 
     bool serverDrawingEnabled;
     bool clientDrawingEnabled;

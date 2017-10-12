@@ -53,6 +53,8 @@ void erSettings::initSettings(){
     previewMediaDir = "";
     videoFileExtension = "";
 
+    fontPath = "";
+
     shortestSequenceDelay = 500;
     longestSequenceDelay = 1000;
 
@@ -104,6 +106,8 @@ void erSettings::applySettings(ofxJSONElement& json){
     liveMediaDir       = json[ER_MEDIA_FILES][ER_LIVE_DIR].asString();
     previewMediaDir    = json[ER_MEDIA_FILES][ER_PREVIEW_DIR].asString();
     videoFileExtension = json[ER_MEDIA_FILES][ER_VIDEO_FILE_EXTENSION].asString();
+
+    fontPath = json[ER_FONT_PATH].asString();
 }
 
 string erSettings::getComputerName(){
