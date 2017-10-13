@@ -67,6 +67,9 @@ function requestHandler(request, response){
 		case 'stop':
 			stopOF();
 			break;
+		case 'compile':
+			compileOF();
+			break;
 	}
 
 	response.end(responseStr);
@@ -77,6 +80,8 @@ function interpretRequest(url){
 		return 'start';
 	}else if(url.includes('stopOF')){
 		return 'stop';
+	}else if(url.includes('compileOF')){
+		return 'compile';
 	}else{
 		return 'unknown';
 	}
@@ -99,12 +104,20 @@ function startOF(){
 }
 
 function stopOF(){
+	killRunningApp();
+	exec('sudo reboot');
+}
+
+function compileOF(){
+	killRunningApp();
+	exec('c');
+}
+
+function killRunningApp(){
 	if(started){
 		proc.kill('SIGINT');
 		started = false;
 	}
-
-	exec('sudo reboot');
 }
 
 /* util */
