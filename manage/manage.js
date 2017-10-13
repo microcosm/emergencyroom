@@ -3,7 +3,7 @@ var os = require('os');
 var http = require('http');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
-var settings, machineType, port, proc;
+var settings, machineType, port, runProc, compileProc;
 var started = false;
 
 run();
@@ -90,16 +90,8 @@ function interpretRequest(url){
 /* command execution */
 function startOF(){
 	if(!started){
-		proc = spawn('../bin/emergencyroom');
 		started = true;
-
-		proc.stdout.on('data', function(data) {
-		  console.log('stdout: ' + data.toString());
-		});
-
-		proc.stderr.on('data', function(data) {
-		  console.log('stderr: ' + data.toString());
-		});
+		spawnCmd('../bin/emergencyroom', runProc);
 	}
 }
 
@@ -110,14 +102,26 @@ function stopOF(){
 
 function compileOF(){
 	killRunningApp();
-	exec('c');
+	spawnCmd('/usr/bin/make -j2', compileProc);
 }
 
 function killRunningApp(){
 	if(started){
-		proc.kill('SIGINT');
+		runProc.kill('SIGINT');
 		started = false;
 	}
+}
+
+function spawnCmd(cmd, proc){
+	proc = spawn(cmd, {cwd: '/home/pi/emergency-room/of098/apps/myApps/emergencyroom'});
+
+	proc.stdout.on('data', function(data) {
+	  console.log('stdout: ' + data.toString());
+	});
+
+	proc.stderr.on('data', function(data) {
+	  console.log('stderr: ' + data.toString());
+	});
 }
 
 /* util */
