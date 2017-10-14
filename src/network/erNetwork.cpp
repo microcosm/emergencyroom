@@ -165,12 +165,10 @@ void erNetwork::onClientMessageReceived(string& message){
 
     if(message.substr(0, 10) == "DISPLAY ON"){
         settings.clientViewMode = erStatusView;
-        ofShowCursor();
     }
 
     if(message.substr(0, 11) == "DISPLAY OFF"){
         settings.clientViewMode = erVideoView;
-        ofHideCursor();
     }
 }
 

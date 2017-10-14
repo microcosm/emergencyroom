@@ -10,6 +10,7 @@ void ofApp::setup(){
 
     videoSoundAssigned = false;
     toggleFullscreen();
+    ofHideCursor();
 
     mediaController.setVideoPaths(&mediaLoader.allVideos);
     mediaController.setVideoPlayers(&mediaLoader.videoPlayers);
