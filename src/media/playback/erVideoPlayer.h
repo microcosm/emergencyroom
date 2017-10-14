@@ -12,13 +12,16 @@ public:
     void setup(string absolutePath, string relativePath, int volume, ofLoopType loopType){
         path = relativePath;
 #ifdef __linux__
-        ofxOMXPlayerSettings settings;
+        cout << "Setting up video: " << relativePath << endl;
         settings.videoPath = absolutePath;
         settings.enableLooping = false;
         settings.enableAudio = false;
         settings.enableTexture = true; //really? .. default is true anyway
+
         omxPlayer.setup(settings);
         omxPlayer.setPaused(true);
+        durationInSeconds = omxPlayer.getDurationInSeconds();
+        omxPlayer.close();
 #else
         videoPlayer.load(absolutePath);
         videoPlayer.setVolume(volume);
@@ -28,7 +31,9 @@ public:
 
     void update(){
 #ifdef __linux__
-        //No need for OMX
+        if(!omxPlayer.isPlaying()){
+            omxPlayer.close();
+        }
 #else
         videoPlayer.update();
 #endif
@@ -77,7 +82,12 @@ public:
     }
 
     void before(){
+#ifdef __linux__
+        omxPlayer.setup(settings);
+        omxPlayer.setPaused(true);
+#else
         stop();
+#endif
     }
 
     string getPath(){
@@ -86,7 +96,7 @@ public:
 
     float getDuration() {
 #ifdef __linux__
-        return omxPlayer.getDurationInSeconds();
+        return durationInSeconds;
 #else
         return videoPlayer.getDuration();
 #endif
@@ -120,6 +130,8 @@ public:
 protected:
 #ifdef __linux__
     ofxOMXPlayer omxPlayer;
+    ofxOMXPlayerSettings settings;
+    float durationInSeconds;
 #else
     ofVideoPlayer videoPlayer;
 #endif

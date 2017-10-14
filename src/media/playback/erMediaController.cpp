@@ -38,9 +38,9 @@ void erMediaController::playClient(erPlayParams params){
             channelRenderer.newIntermediateGlitchPeriod(i, intermediateGlitches.at(i-1), ofRandom(300, 1000));
         }
 
-        decoyPath = selectDecoyPath(params);
+        //decoyPath = selectDecoyPath(params);
         channelRenderer.setCurrentPlayerPath(params.getPath());
-        channelRenderer.assignDecoyGlitch(videoPlayers->at(decoyPath));
+        //channelRenderer.assignDecoyGlitch(videoPlayers->at(decoyPath));
 
         videoPlayer->execute(params);
     }
