@@ -13,9 +13,7 @@ void ofApp::setup(){
     ofHideCursor();
 
     mediaLoader.setup();
-    mediaController.setVideoPaths(&mediaLoader.allVideos);
-    mediaController.setVideoPlayers(&mediaLoader.videoPlayers);
-    mediaController.setup(&network, &ecgTimer);
+    mediaController.setup(&network, &ecgTimer, &mediaLoader.allVideos, &mediaLoader.videoPlayers);
 
     network.setup();
     mediaSequencer.setup(&network, &mediaLoader, &mediaController, &ecgTimer);

@@ -11,7 +11,7 @@
 class erMediaController{
 
 public:
-    void setup(erNetwork* _network, erEcgTimer* ecgTimer);
+    void setup(erNetwork* _network, erEcgTimer* ecgTimer, vector<string>* _videoPaths, map<string, ofPtr<erVideoPlayer>>* _videoPlayers);
     void update();
     void draw();
 
