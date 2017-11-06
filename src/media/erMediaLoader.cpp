@@ -12,10 +12,6 @@ void erMediaLoader::setup(erNetwork* _network){
     }
 }
 
-void erMediaLoader::update(){
-    
-}
-
 void erMediaLoader::drawErrors(){
     ofSetColor(ofColor::black);
     ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());

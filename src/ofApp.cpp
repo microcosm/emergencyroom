@@ -47,7 +47,6 @@ void ofApp::update(){
         ecgTimer.update();
     }
 
-    mediaLoader.update();
     mediaController.update();
     network.update();
     mediaSequencer.update();
