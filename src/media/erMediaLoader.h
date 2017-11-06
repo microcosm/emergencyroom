@@ -9,7 +9,7 @@
 class erMediaLoader{
 
 public:
-    void setup(erNetwork* _network);
+    void setup();
     void drawErrors();
     void loadLiveMedia();
     void loadPreviewMedia();
@@ -36,7 +36,6 @@ protected:
 
     ofDirectory productionDir, collectionDir;
     string path, videoPath, collection;
-    erNetwork* network;
     bool hasMediaErrors, mediaIsLoaded;
     float volume;
 };

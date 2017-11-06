@@ -1,7 +1,6 @@
 #include "erMediaLoader.h"
 
-void erMediaLoader::setup(erNetwork* _network){
-    network = _network;
+void erMediaLoader::setup(){
     mediaIsLoaded = false;
     validateMedia();
     discoverErrors();
