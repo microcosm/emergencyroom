@@ -25,15 +25,6 @@ void ofApp::setup(){
 }
 
 void ofApp::update(){
-    if(settings.isServer){
-        clientController.openClientApps();
-    }
-
-    if(mediaLoader.isLoaded() && !videoSoundAssigned){
-        mediaController.useSoundRendererFor(mediaLoader.audibleVideos);
-        videoSoundAssigned = true;
-    }
-
     if(settings.logToFileEnabled){
         erEnableFileLogging(settings.isServer);
     }else{
@@ -41,7 +32,13 @@ void ofApp::update(){
     }
 
     if(settings.isServer){
+        clientController.openClientApps();
         ecgTimer.update();
+
+        if(!videoSoundAssigned && mediaLoader.isLoaded()){
+            mediaController.useSoundRendererFor(mediaLoader.audibleVideos);
+            videoSoundAssigned = true;
+        }
     }
 
     mediaController.update();
