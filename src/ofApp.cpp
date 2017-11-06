@@ -12,10 +12,9 @@ void ofApp::setup(){
     toggleFullscreen();
     ofHideCursor();
 
+    network.setup();
     mediaLoader.setup();
     mediaController.setup(&network, &ecgTimer, &mediaLoader.allVideos, &mediaLoader.videoPlayers);
-
-    network.setup();
     mediaSequencer.setup(&network, &mediaLoader, &mediaController, &ecgTimer);
     statusRenderer.setup(&network, &mediaSequencer, &mediaController);
 
