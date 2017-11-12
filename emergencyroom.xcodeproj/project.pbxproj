@@ -90,6 +90,7 @@
 		82CD81BF1FA7F1B900F99CBB /* erLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82CD81A61FA7F1B900F99CBB /* erLogger.cpp */; };
 		82CD81C01FA7F1B900F99CBB /* erSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82CD81A81FA7F1B900F99CBB /* erSettings.cpp */; };
 		82CD81C11FA7F1B900F99CBB /* erUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82CD81AA1FA7F1B900F99CBB /* erUtils.cpp */; };
+		82F04D331FB1190300A1BB17 /* erOmxManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82F04D311FB1190300A1BB17 /* erOmxManager.cpp */; };
 		8332C9CAF1F847B43A86F345 /* shVectors.c in Sources */ = {isa = PBXBuildFile; fileRef = 5EA7D72DC7EC2DF57FC6194F /* shVectors.c */; };
 		83D9F930112E0944444124EE /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04F77E5C73A62E2E77C78EC6 /* ofxMidiOut.cpp */; };
 		853F053FBB0E1A5C69AE0829 /* ofxLayerMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9E4628DEE13794A92581E42 /* ofxLayerMask.cpp */; };
@@ -333,6 +334,8 @@
 		82CD81A91FA7F1B900F99CBB /* erSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erSettings.h; sourceTree = "<group>"; };
 		82CD81AA1FA7F1B900F99CBB /* erUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erUtils.cpp; sourceTree = "<group>"; };
 		82CD81AB1FA7F1B900F99CBB /* erUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erUtils.h; sourceTree = "<group>"; };
+		82F04D311FB1190300A1BB17 /* erOmxManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erOmxManager.cpp; sourceTree = "<group>"; };
+		82F04D321FB1190300A1BB17 /* erOmxManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erOmxManager.h; sourceTree = "<group>"; };
 		85A4021032286C9CBE811772 /* shArrayBase.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = shArrayBase.h; path = ../../../addons/ofxShivaVG/libs/ShivaVG/src/shArrayBase.h; sourceTree = SOURCE_ROOT; };
 		883971DDCC3F7881C2C65B50 /* ofxAudioUnitSpeechSynth.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAudioUnitSpeechSynth.h; path = ../../../addons/ofxAudioUnit/src/ofxAudioUnitSpeechSynth.h; sourceTree = SOURCE_ROOT; };
 		88CA62CC12E7D9F8BF1116BF /* UIHandler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = UIHandler.h; path = ../../../addons/ofxAudioUnitManager/src/Handlers/UIHandler.h; sourceTree = SOURCE_ROOT; };
@@ -754,6 +757,8 @@
 			children = (
 				82CD817A1FA7F1B800F99CBB /* erMediaController.cpp */,
 				82CD817B1FA7F1B800F99CBB /* erMediaController.h */,
+				82F04D311FB1190300A1BB17 /* erOmxManager.cpp */,
+				82F04D321FB1190300A1BB17 /* erOmxManager.h */,
 				82CD817C1FA7F1B800F99CBB /* erPlayParams.cpp */,
 				82CD817D1FA7F1B800F99CBB /* erPlayParams.h */,
 				82CD817E1FA7F1B800F99CBB /* erSoundPlayer.h */,
@@ -1456,6 +1461,7 @@
 				82CD81B01FA7F1B900F99CBB /* erEcgRenderer.cpp in Sources */,
 				A8CC477E84407E63FBE21942 /* shPath.c in Sources */,
 				77FCF151C0F9384474A465A3 /* shPipeline.c in Sources */,
+				82F04D331FB1190300A1BB17 /* erOmxManager.cpp in Sources */,
 				8332C9CAF1F847B43A86F345 /* shVectors.c in Sources */,
 				528756D1A6760D229052A271 /* shVgu.c in Sources */,
 			);

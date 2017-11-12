@@ -1,8 +1,9 @@
 #include "erMediaRenderer.h"
 
-void erMediaRenderer::setup(erNetwork* _network){
+void erMediaRenderer::setup(erNetwork* _network, erOmxManager* _omxManager){
     erGlitchTimer::setup();
     network = _network;
+    omxManager = _omxManager;
     //decoyAssigned = false;
     bufferEmpty = true;
     //decoyFramesRemaining = 0;
@@ -16,6 +17,7 @@ void erMediaRenderer::setup(erNetwork* _network){
 }
 
 void erMediaRenderer::update(){
+    omxManager->update();
     for(auto const& player : *videoPlayers){
         player.second->checkSchedule();
         if(player.second->isCurrentlyPlaying()){
@@ -34,15 +36,23 @@ void erMediaRenderer::assignDecoyGlitch(erVideoPlayer* _videoPlayer){
     decoyAssigned = true;*/
 }
 
-void erMediaRenderer::draw(erVideoPlayer* player, int x, int y, int width, int height, int channel){
+void erMediaRenderer::drawServer(erVideoPlayer* player, int x, int y, int width, int height, int channel){
     bool isPlaying = player->isCurrentlyPlaying();
     if(isPlaying){
-        withinGlitchPeriod(channel) && settings.isClient ?
-            drawGlitched(player, x, y, width, height) :
-            drawNormal(player, x, y, width, height);
-    }else if(settings.isServer){
+        drawNormal(player, x, y, width, height);
+    }else{
         ofDrawBitmapString("Scheduled...", x + 10, y + 20);// + player->getPath(), x + 10, y + 20);
     }
+}
+
+bool erMediaRenderer::drawClient(int x, int y, int width, int height, int channel){
+    bool isPlaying = omxManager->isActiveMoviePlaying();
+    if(isPlaying){
+        withinGlitchPeriod(channel) ?
+        drawClientGlitched(x, y, width, height) :
+        drawClientNormal(x, y, width, height);
+    }
+    return isPlaying;
 }
 
 void erMediaRenderer::drawStatic(int x, int y, int width, int height){
@@ -66,9 +76,15 @@ void erMediaRenderer::drawStatic(int x, int y, int width, int height){
 
 void erMediaRenderer::drawNormal(erVideoPlayer* player, int x, int y, int width, int height){
     player->draw(x, y, width, height);
+
     if(settings.isServer){
         ofDrawBitmapString("Playing", x + 10, y + 20);// + player->getPath(), x + 10, y + 20);
     }
+    playbackState = ER_PLAYBACK_NORMAL;
+}
+
+void erMediaRenderer::drawClientNormal(int x, int y, int width, int height){
+    omxManager->draw(0, 0, width, height);
     playbackState = ER_PLAYBACK_NORMAL;
 }
 
@@ -89,7 +105,7 @@ void erMediaRenderer::drawGlitched(erVideoPlayer* player, int x, int y, int widt
             decoyFramesRemaining--;
             playbackState = ER_PLAYBACK_DECOY;
         }else{*/
-            player->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+            player->draw(x, y, fbo.getWidth(), fbo.getHeight());
             playbackState = ER_PLAYBACK_GLITCH;
         /*}
 
@@ -97,6 +113,16 @@ void erMediaRenderer::drawGlitched(erVideoPlayer* player, int x, int y, int widt
         if(decoyFramesRemaining == 0 && rand < 0.5){
             decoyFramesRemaining = floor(ofRandom(minDecoyFrames, maxDecoyFrames));
         }*/
+    }
+    fbo.end();
+    fboGlitch.draw(fbo, x, y, width, height);
+}
+
+void erMediaRenderer::drawClientGlitched(int x, int y, int width, int height){
+    fbo.begin();
+    {
+        omxManager->draw(0, 0, fbo.getWidth(), fbo.getHeight());
+        playbackState = ER_PLAYBACK_GLITCH;
     }
     fbo.end();
     fboGlitch.draw(fbo, x, y, width, height);

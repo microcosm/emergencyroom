@@ -1,6 +1,7 @@
 #include "erMediaLoader.h"
 
-void erMediaLoader::setup(){
+void erMediaLoader::setup(erOmxManager* _omxManager){
+    omxManager = _omxManager;
     mediaIsLoaded = false;
     validateMedia();
     discoverErrors();
@@ -107,7 +108,7 @@ void erMediaLoader::registerVideo(string& collection, const ofFile& video){
     path = getRelativePath(video);
     volume = erGetVolume(path);
     videoPlayers[path] = ofPtr<erVideoPlayer>(new erVideoPlayer);
-    videoPlayers[path]->setup(video.getAbsolutePath(), path, 0, OF_LOOP_NONE);
+    videoPlayers[path]->setup(video.getAbsolutePath(), path, 0, OF_LOOP_NONE, omxManager);
 
     collectionsToVideos[collection].push_back(path);
     allVideos.push_back(path);

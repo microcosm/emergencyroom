@@ -6,6 +6,7 @@
 #include "erStatusRenderer.h"
 #include "erMediaController.h"
 #include "erClientController.h"
+#include "erOmxManager.h"
 
 class ofApp : public ofBaseApp{
 
@@ -26,5 +27,6 @@ protected:
     erClientController clientController;
     erEcgTimer ecgTimer;
     erStatusRenderer statusRenderer;
+    erOmxManager omxManager;
     bool videoSoundAssigned;
 };

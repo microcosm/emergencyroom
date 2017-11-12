@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erMediaRenderer.h"
+#include "erOmxManager.h"
 #include "erEcgRenderer.h"
 #include "erNetwork.h"
 #include "erSoundPlayer.h"
@@ -12,7 +13,7 @@
 class erChannelRenderer{
 
 public:
-    void setup(erNetwork* _network);
+    void setup(erNetwork* _network, erOmxManager* omxManager);
     void update();
     void draw();
     void setVideoPlayers(map<string, ofPtr<erVideoPlayer>>* _videoPlayers);

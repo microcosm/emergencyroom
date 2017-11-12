@@ -1,8 +1,8 @@
 #include "erChannelRenderer.h"
 
-void erChannelRenderer::setup(erNetwork* _network){
+void erChannelRenderer::setup(erNetwork* _network, erOmxManager* omxManager){
     network = _network;
-    mediaRenderer.setup(network);
+    mediaRenderer.setup(network, omxManager);
     calculatePreviewSize();
 }
 
@@ -85,15 +85,7 @@ void erChannelRenderer::eraseCompletedVideosFromChannels(){
 
 void erChannelRenderer::drawClient(){
     ofClear(ofColor::black);
-    anyPlayerIsPlaying = false;
-    for(auto const& player : *videoPlayers){
-        videoPlayer = player.second.get();
-        bool draw = videoPlayer->isCurrentlyPlaying() && videoPlayer->getPath() == currentPlayerPath;
-        if(draw){
-            anyPlayerIsPlaying = true;
-            mediaRenderer.draw(videoPlayer, 0, 0, ofGetWidth(), ofGetHeight());
-        }
-    }
+    anyPlayerIsPlaying = mediaRenderer.drawClient(0, 0, ofGetWidth(), ofGetHeight());
     if(!anyPlayerIsPlaying){
         mediaRenderer.stopDecoyPlayer();
         mediaRenderer.drawStatic(0, 0, ofGetWidth(), ofGetHeight());
@@ -112,7 +104,7 @@ void erChannelRenderer::drawServer(){
                 x = getX(xi);
                 y = getY(yi);
                 if(hasChannel(currentChannel)) {
-                    mediaRenderer.draw(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight, currentChannel);
+                    mediaRenderer.drawServer(channelsToPlayers[currentChannel].get(), x, y, previewWidth, previewHeight, currentChannel);
                     if(mediaRenderer.withinGlitchPeriod(currentChannel)){
                         ofSetColor(ofColor::red, 80);
                         ofFill();

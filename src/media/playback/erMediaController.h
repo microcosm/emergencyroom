@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "erChannelRenderer.h"
+#include "erOmxManager.h"
 #include "erSoundRenderer.h"
 #include "erNetwork.h"
 #include "erEcgTimer.h"
@@ -11,7 +12,7 @@
 class erMediaController{
 
 public:
-    void setup(erNetwork* _network, erEcgTimer* ecgTimer, vector<string>* _videoPaths, map<string, ofPtr<erVideoPlayer>>* _videoPlayers);
+    void setup(erNetwork* _network, erEcgTimer* ecgTimer, vector<string>* _videoPaths, map<string, ofPtr<erVideoPlayer>>* _videoPlayers, erOmxManager* omxManager);
     void update();
     void draw();
 

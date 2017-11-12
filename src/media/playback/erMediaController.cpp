@@ -1,12 +1,11 @@
-#include "erStatusRenderer.h"
 #include "erMediaController.h"
 
-void erMediaController::setup(erNetwork* _network, erEcgTimer* ecgTimer, vector<string>* _videoPaths, map<string, ofPtr<erVideoPlayer>>* _videoPlayers){
+void erMediaController::setup(erNetwork* _network, erEcgTimer* ecgTimer, vector<string>* _videoPaths, map<string, ofPtr<erVideoPlayer>>* _videoPlayers, erOmxManager* omxManager){
     network = _network;
     setVideoPaths(_videoPaths);
     setVideoPlayers(_videoPlayers);
 
-    channelRenderer.setup(network);
+    channelRenderer.setup(network, omxManager);
     if(settings.isServer){
         soundRenderer.setup(ecgTimer);
         ecgRenderer.setup(ecgTimer);

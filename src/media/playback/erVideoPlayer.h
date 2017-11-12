@@ -2,26 +2,17 @@
 #include "ofMain.h"
 #include "erTimedPlayer.h"
 #include "erSoundRenderer.h"
-#ifdef __linux__
-#include "ofxOMXPlayer.h"
-#endif
+#include "erOmxManager.h"
 
 class erVideoPlayer : public erTimedPlayer{
 
 public:
-    void setup(string absolutePath, string relativePath, int volume, ofLoopType loopType){
-        path = relativePath;
+    void setup(string _absolutePath, string _relativePath, int volume, ofLoopType loopType, erOmxManager* _omxManager){
+        relativePath = _relativePath;
+        absolutePath = _absolutePath;
+        omxManager = _omxManager;
 #ifdef __linux__
-        cout << "Setting up video: " << relativePath << endl;
-        settings.videoPath = absolutePath;
-        settings.enableLooping = false;
-        settings.enableAudio = false;
-        settings.enableTexture = true; //really? .. default is true anyway
-
-        omxPlayer.setup(settings);
-        omxPlayer.setPaused(true);
-        durationInSeconds = omxPlayer.getDurationInSeconds();
-        omxPlayer.close();
+        durationInSeconds = omxManager->getDuration(absolutePath);
 #else
         videoPlayer.load(absolutePath);
         videoPlayer.setVolume(volume);
@@ -31,9 +22,7 @@ public:
 
     void update(){
 #ifdef __linux__
-        if(!omxPlayer.isPlaying()){
-            omxPlayer.close();
-        }
+        
 #else
         videoPlayer.update();
 #endif
@@ -41,10 +30,7 @@ public:
 
     void draw(float x, float y, float width, float height){
 #ifdef __linux__
-        if(!omxPlayer.isTextureEnabled()){
-            return;
-        }
-        omxPlayer.draw(x, y, width, height);
+        
 #else
         videoPlayer.draw(x, y, width, height);
 #endif
@@ -83,15 +69,14 @@ public:
 
     void before(){
 #ifdef __linux__
-        omxPlayer.setup(settings);
-        omxPlayer.setPaused(true);
+        omxManager->prepare(absolutePath);
 #else
         stop();
 #endif
     }
 
     string getPath(){
-        return path;
+        return relativePath;
     }
 
     float getDuration() {
@@ -104,7 +89,7 @@ public:
 
     bool getIsMovieDone(){
 #ifdef __linux__
-        return omxPlayer.isPaused();
+        throw invalid_argument("This path should never be reached.");
 #else
         return videoPlayer.getIsMovieDone();
 #endif
@@ -121,7 +106,7 @@ public:
 
     bool isCurrentlyPlaying() {
 #ifdef __linux__
-        return !omxPlayer.isPaused();
+        throw invalid_argument("This path should never be reached.");
 #else
         return videoPlayer.isPlaying();
 #endif
@@ -129,20 +114,19 @@ public:
 
 protected:
 #ifdef __linux__
-    ofxOMXPlayer omxPlayer;
-    ofxOMXPlayerSettings settings;
     float durationInSeconds;
 #else
     ofVideoPlayer videoPlayer;
 #endif
+    erOmxManager* omxManager;
     erSoundRenderer* soundRenderer;
     bool useSoundRenderer = false;
-    string path;
+    string absolutePath;
+    string relativePath;
 
     void beginVideoPlayback(){
 #ifdef __linux__
-        omxPlayer.restartMovie();
-        omxPlayer.setPaused(false);
+        omxManager->begin();
 #else
         videoPlayer.setSpeed(params.getSpeed());
         if(!isCurrentlyPlaying()) videoPlayer.play();

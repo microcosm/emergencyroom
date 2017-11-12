@@ -13,8 +13,8 @@ void ofApp::setup(){
     ofHideCursor();
 
     network.setup();
-    mediaLoader.setup();
-    mediaController.setup(&network, &ecgTimer, &mediaLoader.allVideos, &mediaLoader.videoPlayers);
+    mediaLoader.setup(&omxManager);
+    mediaController.setup(&network, &ecgTimer, &mediaLoader.allVideos, &mediaLoader.videoPlayers, &omxManager);
     mediaSequencer.setup(&network, &mediaLoader, &mediaController, &ecgTimer);
     statusRenderer.setup(&network, &mediaSequencer, &mediaController);
 
@@ -61,6 +61,7 @@ void ofApp::keyReleased(int key){
     }
     if(key == 'n'){
         settings.incrementServerViewMode();
+        settings.incrementClientViewMode();
     }
     if(key == 'N'){
         settings.incrementClientViewMode();

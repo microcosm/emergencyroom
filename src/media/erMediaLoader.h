@@ -5,11 +5,12 @@
 #include "erUtils.h"
 #include "erSoundPlayer.h"
 #include "erVideoPlayer.h"
+#include "erOmxManager.h"
 
 class erMediaLoader{
 
 public:
-    void setup();
+    void setup(erOmxManager* _omxManager);
     void drawErrors();
     void loadLiveMedia();
     void loadPreviewMedia();
@@ -38,4 +39,6 @@ protected:
     string path, videoPath, collection;
     bool hasMediaErrors, mediaIsLoaded;
     float volume;
+
+    erOmxManager* omxManager;
 };
