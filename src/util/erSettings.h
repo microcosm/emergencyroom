@@ -11,6 +11,8 @@
 #define ER_SERVER_IP "server-ip"
 #define ER_CLIENT_IPS "client-ips"
 
+#define ER_DO_MANAGE_CLIENTS "server-do-manage-clients"
+
 #define ER_FULLSCREEN_SERVER "fullscreen-server"
 #define ER_FULLSCREEN_CLIENT "fullscreen-client"
 #define ER_SERVER_VIEW_MODE "server-view-mode"
@@ -84,6 +86,8 @@ public:
 
     string serverIP;
     vector<string> clientIPs;
+
+    bool doManageClients;
 
     bool fullscreenServer;
     bool fullscreenClient;

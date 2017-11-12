@@ -3,6 +3,7 @@
 #include "erNetwork.h"
 #include "erUtils.h"
 #include "erHttpRequest.h"
+#include "erSettings.h"
 
 #define ER_FRAMECOUNTER_MAX 60
 

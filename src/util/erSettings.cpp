@@ -53,6 +53,8 @@ void erSettings::initSettings(){
 
     serverIP = "";
 
+    doManageClients = false;
+
     fullscreenServer = false;
     fullscreenClient = false;
     serverViewMode = erChannelsView;
@@ -100,6 +102,8 @@ void erSettings::applySettings(ofxJSONElement& json){
     for(int i = 0; i < json[ER_CLIENT_IPS].size(); i++){
         clientIPs.push_back(json[ER_CLIENT_IPS][i].asString());
     }
+
+    doManageClients = json[ER_DO_MANAGE_CLIENTS].asBool();
 
     fullscreenServer = json[ER_FULLSCREEN_SERVER].asBool();
     fullscreenClient = json[ER_FULLSCREEN_CLIENT].asBool();
