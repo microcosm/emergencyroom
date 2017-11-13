@@ -56,7 +56,8 @@ void erMediaSequencer::update(){
     }
 
     if(!focusTime){
-        if(settings.isServer && ofGetElapsedTimeMillis() > nextTriggerTime && currentSequencerDelay != -1){
+        if(settings.isServer && ofGetElapsedTimeMillis() > nextTriggerTime){
+            setSequencerDelay();
             nextTriggerTime += currentSequencerDelay;
             playNewVideo();
         }
@@ -68,10 +69,36 @@ void erMediaSequencer::update(){
 
 void erMediaSequencer::draw(){
     ofSetColor(ofColor::white);
-    ofDrawBitmapString("Progress:         " + ofToString(ecgTimer->getPeriodPosition()), ofGetWidth() - 260, ofGetHeight() - 360);
-    ofDrawBitmapString("Current duration: " + ofToString(ecgTimer->getPeriodDuration()), ofGetWidth() - 260, ofGetHeight() - 330);
-    ofDrawBitmapString("Current ECG BPM:  " + ofToString(ecgTimer->getCurrentBpm()), ofGetWidth() - 260, ofGetHeight() - 300);
-    ofDrawBitmapString("Current delay:    " + ofToString(currentSequencerDelay), ofGetWidth() - 260, ofGetHeight() - 270);
+    stringstream status;
+
+    status << "=== Collection ===\n";
+    status << "Collection...................." << ofToString(currentCollection) << "\n";
+    status << "Collection change countdown..." << ER_THEME_LENGTH - (ofGetFrameNum() % ER_THEME_LENGTH) << "\n";
+    status << "\n\n";
+
+    status << "=== Video ===\n";
+    status << "Play command delay time......." << ofToString(currentSequencerDelay) << "\n";
+    status << "Play command countdown........" << ofToString(nextTriggerTime - ofGetElapsedTimeMillis()) << "\n";
+    status << "\n\n";
+
+    status << "=== Channel ===\n";
+    status << "Channel targeted.............." << (focusTime ? "ALL" : ofToString(currentChannel)) << "\n";
+    status << "Playback mode................." << (focusTime ? "FOCUS: " + focusVideoPath : "INDIVIDUATED") << "\n";
+    status << "\n\n";
+
+    status << "=== ECG Arc ===\n";
+    status << "Current BPM..................." << ofToString(ecgTimer->getCurrentBpm()) << "\n";
+    status << "Transitioning from............" << ofToString(bpmDirection == 1 ? settings.ecgLowestBpm : settings.ecgHighestBpm) << "bpm to " << ofToString(bpmDirection == 1 ? settings.ecgHighestBpm : settings.ecgLowestBpm) << "bpm\n";
+    status << "Direction....................." << (bpmDirection == 1 ? "Speeding up" : "Slowing down") << "\n";
+    status << "Transition duration..........." << settings.ecgBpmPeriodSecs << " seconds\n";
+    status << "Transition progress..........." << ecgTimer->getPercentThroughBpmArc() << "%\n";
+    status << "\n\n";
+
+    status << "=== ECG Period ===\n";
+    status << "Period duration..............." << ofToString(ecgTimer->getPeriodDuration()) << "\n";
+    status << "Progress through period......." << ofToString(ecgTimer->getPeriodPosition()) << "\n";
+
+    ofDrawBitmapString(status.str(), 50, 170);
 }
 
 void erMediaSequencer::stopAll(){
@@ -124,6 +151,8 @@ string erMediaSequencer::getCurrentCollection(){
 }
 
 void erMediaSequencer::ecgBpmLooped(ofxAnimatable::AnimationEvent& args){
+    bpmDirection = args.direction;
+
     if(args.direction == 1){
         bpmLooped = true;
     }

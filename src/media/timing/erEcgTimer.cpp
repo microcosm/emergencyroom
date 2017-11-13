@@ -17,7 +17,7 @@ void erEcgTimer::update(){
     currentPeriodPosition.update(ofGetLastFrameTime());
 
     setDurationFromBpm();
-    currentPeriodPosition.setDuration(currentPeriodDuration * 0.001);
+    currentPeriodPosition.setDuration(getPeriodDuration());
 }
 
 float erEcgTimer::getPeriodPosition(){
@@ -25,11 +25,15 @@ float erEcgTimer::getPeriodPosition(){
 }
 
 float erEcgTimer::getPeriodDuration(){
-    return currentPeriodDuration;
+    return currentPeriodDuration * 0.001;
 }
 
 float erEcgTimer::getCurrentBpm(){
     return currentBpm.val();
+}
+
+float erEcgTimer::getPercentThroughBpmArc(){
+    return currentBpm.getPercentDone();
 }
 
 bool erEcgTimer::isWithinEcgBeepPeriod(){

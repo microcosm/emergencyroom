@@ -11,6 +11,7 @@ public:
     float getPeriodPosition();
     float getPeriodDuration();
     float getCurrentBpm();
+    float getPercentThroughBpmArc();
     bool isWithinEcgBeepPeriod();
     bool isWithinEcgBeepPeriod(float position);
     ofEvent<ofxAnimatable::AnimationEvent>& bpmLooped();

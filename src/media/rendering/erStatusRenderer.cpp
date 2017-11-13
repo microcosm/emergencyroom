@@ -21,7 +21,7 @@ void erStatusRenderer::draw(){
 
         ofDrawBitmapString("n            increment server view mode\n\nN            toggle client view mode\n\n", 130, height - 168);
         drawFps(490, height - 60);
-        smallFont.drawString(mediaSequencer->getCurrentCollection(), 490, height - 220);
+        smallFont.drawString(mediaSequencer->getCurrentCollection(), 490, height - 260);
     }
 
     if(settings.isClient && settings.renderStatus()){

@@ -53,6 +53,7 @@ protected:
     u_int64_t nextTriggerTime;
     float speed;
     bool bpmLooped = false;
+    float bpmDirection = 1;
     bool stopAllReceived = false;
     bool aMessageReceived = false;
     string messageContent;
