@@ -25,3 +25,8 @@ bool erIsFocusVideo(string path){
 bool erContains(string& needle, vector<string>& haystack){
     return find(haystack.begin(), haystack.end(), needle) != haystack.end();
 }
+
+void erShuffle(vector<int>& toShuffle){
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+    shuffle (toShuffle.begin(), toShuffle.end(), default_random_engine(seed));
+}

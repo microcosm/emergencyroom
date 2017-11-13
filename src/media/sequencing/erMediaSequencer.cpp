@@ -147,7 +147,7 @@ void erMediaSequencer::chooseNewTheme(){
     if(collectionsLoaded){
         if(currentCollectionIndex < 0 || currentCollectionIndex >= mediaLoader->videoCollections.size()){
             currentCollectionIndex = 0;
-            random_shuffle(shuffledCollectionIndices.begin(), shuffledCollectionIndices.end());
+            erShuffle(shuffledCollectionIndices);
         }
         currentCollection = mediaLoader->videoCollections.at(shuffledCollectionIndices.at(currentCollectionIndex++));
     }
@@ -156,7 +156,7 @@ void erMediaSequencer::chooseNewTheme(){
 int erMediaSequencer::chooseNewChannel(){
     if(currentChannelIndex < 0 || currentChannelIndex >= settings.numChannels){
         currentChannelIndex = 0;
-        random_shuffle(shuffledChannels.begin(), shuffledChannels.end());
+        erShuffle(shuffledChannels);
     }
     return shuffledChannels.at(currentChannelIndex++);
 }

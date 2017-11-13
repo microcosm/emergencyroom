@@ -17,7 +17,7 @@ void erMediaQueue::ensureLoaded(){
 string erMediaQueue::getNextSilent(){
     if(currentSilentVideoIndex < 0 || currentSilentVideoIndex >= silentVideosForCollection->size()){
         currentSilentVideoIndex = 0;
-        random_shuffle(shuffledSilentVideoIndices.begin(), shuffledSilentVideoIndices.end());
+        erShuffle(shuffledSilentVideoIndices);
     }
     return silentVideosForCollection->at(shuffledSilentVideoIndices.at(currentSilentVideoIndex++));
 }
@@ -25,7 +25,7 @@ string erMediaQueue::getNextSilent(){
 string erMediaQueue::getNextAudible(){
     if(currentAudibleVideoIndex < 0 || currentAudibleVideoIndex >= audibleVideosForCollection->size()){
         currentAudibleVideoIndex = 0;
-        random_shuffle(shuffledAudibleVideoIndices.begin(), shuffledAudibleVideoIndices.end());
+        erShuffle(shuffledAudibleVideoIndices);
     }
     return audibleVideosForCollection->at(shuffledAudibleVideoIndices.at(currentAudibleVideoIndex++));
 }
