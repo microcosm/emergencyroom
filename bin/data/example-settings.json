@@ -44,11 +44,6 @@
         "end-at": 0.44
     },
 
-    "media-sequencing": {
-        "shortest-delay": 500,
-        "longest-delay": 8000
-    },
-
     "media-files": {
         "live-path": "../path-to/live/",
         "preview-path": "../path-to/preview/",

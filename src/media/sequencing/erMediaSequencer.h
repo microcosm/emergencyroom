@@ -10,6 +10,7 @@
 #include "ofxAnimatable.h"
 
 #define ER_THEME_LENGTH 1800
+#define ER_VIDEO_PLAY_DELAY 20
 
 class erMediaSequencer{
 
@@ -26,7 +27,6 @@ protected:
     void handleBpmLooped();
     void handleStopAll();
     void handleMessageReceived();
-    void setSequencerDelay();
     void playNewVideo();
     void chooseNewTheme();
     int chooseNewChannel();
@@ -49,7 +49,7 @@ protected:
     bool queuesLoaded, collectionsLoaded, focusTime;
 
     vector<int> shuffledCollectionIndices, shuffledChannels;
-    int currentCollectionIndex, currentSequencerDelay, currentChannelIndex, currentChannel, focusIndex;
+    int currentCollectionIndex, currentChannelIndex, currentChannel, focusIndex;
     u_int64_t nextTriggerTime;
     float speed;
     bool bpmLooped = false;

@@ -87,9 +87,6 @@ void erSettings::initSettings(){
     liveMediaDir = "";
     previewMediaDir = "";
     videoFileExtension = "";
-
-    shortestSequenceDelay = 500;
-    longestSequenceDelay = 1000;
 }
 
 void erSettings::applySettings(ofxJSONElement& json){
@@ -130,9 +127,6 @@ void erSettings::applySettings(ofxJSONElement& json){
     ecgBpmPeriodSecs = json[ER_ECG_BEEP][ER_BPM_PERIOD_SECS].asInt();
     ecgBeginBeepAt   = json[ER_ECG_BEEP][ER_BEGIN_AT].asFloat();
     ecgEndBeepAt     = json[ER_ECG_BEEP][ER_END_AT].asFloat();
-
-    shortestSequenceDelay = json[ER_MEDIA_SEQUENCING][ER_SHORTEST_DELAY].asInt();
-    longestSequenceDelay  = json[ER_MEDIA_SEQUENCING][ER_LONGEST_DELAY].asInt();
 
     liveMediaPath      = json[ER_MEDIA_FILES][testContentMode ? ER_TEST_CONTENT_LIVE_PATH : ER_LIVE_PATH].asString();
     previewMediaPath   = json[ER_MEDIA_FILES][testContentMode ? ER_TEST_CONTENT_PREVIEW_PATH : ER_PREVIEW_PATH].asString();

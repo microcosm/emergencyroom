@@ -6,7 +6,6 @@ void erMediaSequencer::setup(erNetwork* _network, erMediaLoader* _mediaLoader, e
     mediaController = _mediaController;
     ecgTimer = _ecgTimer;
 
-    currentSequencerDelay = -1;
     nextTriggerTime = 0;
 
     currentCollection = "";
@@ -40,7 +39,6 @@ void erMediaSequencer::update(){
         aMessageReceived = false;
     }
 
-    setSequencerDelay();
     attemptToLoadMediaQueues();
     attemptToLoadCollections();
 
@@ -57,8 +55,7 @@ void erMediaSequencer::update(){
 
     if(!focusTime){
         if(settings.isServer && ofGetElapsedTimeMillis() > nextTriggerTime){
-            setSequencerDelay();
-            nextTriggerTime += currentSequencerDelay;
+            nextTriggerTime += ER_VIDEO_PLAY_DELAY;
             playNewVideo();
         }
         if(settings.isServer && (ofGetFrameNum() % ER_THEME_LENGTH == 0 || currentCollection == "")){
@@ -74,11 +71,6 @@ void erMediaSequencer::draw(){
     status << "=== Collection ===\n";
     status << "Collection...................." << ofToString(currentCollection) << "\n";
     status << "Collection change countdown..." << ER_THEME_LENGTH - (ofGetFrameNum() % ER_THEME_LENGTH) << "\n";
-    status << "\n\n";
-
-    status << "=== Video ===\n";
-    status << "Play command delay time......." << ofToString(currentSequencerDelay) << "\n";
-    status << "Play command countdown........" << ofToString(nextTriggerTime - ofGetElapsedTimeMillis()) << "\n";
     status << "\n\n";
 
     status << "=== Channel ===\n";
@@ -140,10 +132,6 @@ void erMediaSequencer::handleMessageReceived(){
     if(params.isPlayable()){
         mediaController->playClient(params);
     }
-}
-
-void erMediaSequencer::setSequencerDelay(){
-    currentSequencerDelay = ofMap(ecgTimer->getCurrentBpm(), settings.ecgLowestBpm, settings.ecgHighestBpm, settings.longestSequenceDelay, settings.shortestSequenceDelay);
 }
 
 string erMediaSequencer::getCurrentCollection(){
