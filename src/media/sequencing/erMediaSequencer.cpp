@@ -14,7 +14,7 @@ void erMediaSequencer::setup(erNetwork* _network, erMediaLoader* _mediaLoader, e
     queuesLoaded = false;
     collectionsLoaded = false;
 
-    focusIndex = 0;
+    focusIndex = ofRandom(0, mediaLoader->focusVideos.size());
     focusVideoPath = "";
     focusTime = false;
 
