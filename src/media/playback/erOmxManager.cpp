@@ -26,8 +26,6 @@ void erOmxManager::update(){
 
 void erOmxManager::draw(float x, float y, float width, float height){
 #ifdef __linux__
-    ofBackground(ofColor::red);
-    ofSetBackgroundColor(ofColor::green);
     ofSetColor(ofColor::white);
     activePlayer()->draw(x, y, width, height);
 #endif
