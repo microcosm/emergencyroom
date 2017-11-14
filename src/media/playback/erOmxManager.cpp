@@ -38,7 +38,7 @@ void erOmxManager::prepare(string absolutePath){
     inactivePlayer()->loadMovie(absolutePath);
     inactivePlayer()->setPaused(true);
 #else
-    throw invalid_argument("This path should never be reached.");
+    erThrowInvalidPath("erOmxManager::prepare(string absolutePath)");
 #endif
 }
 
@@ -48,7 +48,7 @@ void erOmxManager::begin(){
     inactivePlayer()->setPaused(false);
     switchActivePlayers();
 #else
-    throw invalid_argument("This path should never be reached.");
+    erThrowInvalidPath("erOmxManager::begin()");
 #endif
 }
 
@@ -57,7 +57,7 @@ float erOmxManager::getDuration(string absolutePath){
     prepare(absolutePath);
     return inactivePlayer()->getDurationInSeconds();
 #else
-    throw invalid_argument("This path should never be reached.");
+    erThrowInvalidPath("erOmxManager::getDuration(string absolutePath)");
 #endif
 }
 
@@ -65,7 +65,7 @@ bool erOmxManager::isActiveMoviePlaying(){
 #ifdef __linux__
     return activePlayer()->isPlaying();
 #else
-    throw invalid_argument("This path should never be reached.");
+    erThrowInvalidPath("erOmxManager::isActiveMoviePlaying()");
 #endif
 }
 

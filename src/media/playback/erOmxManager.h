@@ -1,5 +1,6 @@
 #pragma once
 #include "ofMain.h"
+#include "erUtils.h"
 
 #ifdef __linux__
 #include "ofxOMXPlayer.h"

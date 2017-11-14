@@ -30,3 +30,7 @@ void erShuffle(vector<int>& toShuffle){
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     shuffle (toShuffle.begin(), toShuffle.end(), default_random_engine(seed));
 }
+
+void erThrowInvalidPath(string method){
+    throw invalid_argument("This path should never be reached. Path: " + method);
+}

@@ -3,6 +3,7 @@
 #include "erTimedPlayer.h"
 #include "erSoundRenderer.h"
 #include "erOmxManager.h"
+#include "erUtils.h"
 
 class erVideoPlayer : public erTimedPlayer{
 
@@ -89,7 +90,7 @@ public:
 
     bool getIsMovieDone(){
 #ifdef __linux__
-        throw invalid_argument("This path should never be reached.");
+        erThrowInvalidPath("erVideoPlayer::getIsMovieDone()");
 #else
         return videoPlayer.getIsMovieDone();
 #endif
@@ -106,7 +107,7 @@ public:
 
     bool isCurrentlyPlaying() {
 #ifdef __linux__
-        throw invalid_argument("This path should never be reached.");
+        erThrowInvalidPath("erVideoPlayer::isCurrentlyPlaying()");
 #else
         return videoPlayer.isPlaying();
 #endif
