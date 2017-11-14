@@ -75,7 +75,7 @@ void erMediaSequencer::draw(){
 
     status << "=== Channel ===\n";
     status << "Channel targeted.............." << (focusTime ? "ALL" : ofToString(currentChannel)) << "\n";
-    status << "Playback mode................." << (focusTime ? "FOCUS: " + focusVideoPath : "INDIVIDUATED") << "\n";
+    status << "Playback mode................." << (focusTime ? "FOCUS: \n\n  " + focusVideoPath : "INDIVIDUATED") << "\n";
     status << "\n\n";
 
     status << "=== ECG Arc ===\n";
@@ -90,7 +90,7 @@ void erMediaSequencer::draw(){
     status << "Period duration..............." << ofToString(ecgTimer->getPeriodDuration()) << "\n";
     status << "Progress through period......." << ofToString(ecgTimer->getPeriodPosition()) << "\n";
 
-    ofDrawBitmapString(status.str(), 50, 170);
+    ofDrawBitmapString(status.str(), 550, 50);
 }
 
 void erMediaSequencer::stopAll(){
