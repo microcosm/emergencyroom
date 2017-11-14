@@ -107,31 +107,36 @@ void erMediaLoader::loadDirectory(string path){
 void erMediaLoader::registerVideo(string& collection, const ofFile& video){
     path = getRelativePath(video);
     volume = erGetVolume(path);
+
     videoPlayers[path] = ofPtr<erVideoPlayer>(new erVideoPlayer);
     videoPlayers[path]->setup(video.getAbsolutePath(), path, 0, OF_LOOP_NONE, omxManager);
 
-    collectionsToVideos[collection].push_back(path);
     allVideos.push_back(path);
 
-    if(volume == 0){
-        silentVideos.push_back(path);
-        collectionsToSilentVideos[collection].push_back(path);
-    }else{
-        audibleVideos.push_back(path);
-        collectionsToAudibleVideos[collection].push_back(path);
-    }
-
-    if(erIsFocusVideo(path)){
+    if(collection == FOCUS_COLLECTION){
         focusVideos.push_back(path);
+        audibleVideos.push_back(path);
+    }else{
+        collectionsToVideos[collection].push_back(path);
+
+        if(volume == 0){
+            silentVideos.push_back(path);
+            collectionsToSilentVideos[collection].push_back(path);
+        }else{
+            audibleVideos.push_back(path);
+            collectionsToAudibleVideos[collection].push_back(path);
+        }
     }
 }
 
 void erMediaLoader::registerCollection(string& collection){
-    videoCollections.push_back(collection);
-    vector<string> videos;
-    collectionsToVideos[collection] = videos;
-    collectionsToSilentVideos[collection] = videos;
-    collectionsToAudibleVideos[collection] = videos;
+    if(collection != FOCUS_COLLECTION){
+        videoCollections.push_back(collection);
+        vector<string> videos;
+        collectionsToVideos[collection] = videos;
+        collectionsToSilentVideos[collection] = videos;
+        collectionsToAudibleVideos[collection] = videos;
+    }
 }
 
 ofDirectory& erMediaLoader::loadCollectionDir(string path){

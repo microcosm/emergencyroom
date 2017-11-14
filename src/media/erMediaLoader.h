@@ -7,6 +7,8 @@
 #include "erVideoPlayer.h"
 #include "erOmxManager.h"
 
+#define FOCUS_COLLECTION "FOCUS"
+
 class erMediaLoader{
 
 public:

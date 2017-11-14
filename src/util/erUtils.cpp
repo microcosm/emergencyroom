@@ -15,13 +15,6 @@ float erGetVolume(string path){
     return 0;
 }
 
-bool erIsFocusVideo(string path){
-    int argsIndex = path.find("(focus)");
-    if(argsIndex != -1){
-        return 1;
-    }
-}
-
 bool erContains(string& needle, vector<string>& haystack){
     return find(haystack.begin(), haystack.end(), needle) != haystack.end();
 }
