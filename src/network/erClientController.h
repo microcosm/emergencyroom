@@ -5,7 +5,7 @@
 #include "erHttpRequest.h"
 #include "erSettings.h"
 
-#define ER_FRAMECOUNTER_MAX 60
+#define ER_FRAMECOUNTER_MAX 2400 //~40 secs
 
 class erClientController{
     

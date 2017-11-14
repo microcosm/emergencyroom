@@ -3,7 +3,7 @@
 void erClientController::setup(erNetwork* _network){
     if(settings.doManageClients){
         network = _network;
-        frameCounter = 0;
+        frameCounter = 180;
     }
 }
 
