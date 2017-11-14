@@ -23,7 +23,8 @@ void erOmxManager::setup(string sampleMoviePath){
 
 void erOmxManager::update(){
 #ifdef __linux__
-
+    omxPlayer1.update();
+    omxPlayer2.update();
 #endif
 }
 
@@ -39,8 +40,7 @@ void erOmxManager::prepare(string absolutePath){
     if(!hasSetup){
         setup(absolutePath);
     }
-    inactivePlayer()->loadMovie(absolutePath);
-    inactivePlayer()->setPaused(true);
+    inactivePlayer()->prepareToPlay(absolutePath);
 #else
     erThrowInvalidPath("erOmxManager::prepare(string absolutePath)");
 #endif
@@ -48,8 +48,7 @@ void erOmxManager::prepare(string absolutePath){
 
 void erOmxManager::begin(){
 #ifdef __linux__
-    inactivePlayer()->restartMovie();
-    inactivePlayer()->setPaused(false);
+    inactivePlayer()->startPlaying();
     switchActivePlayers();
 #else
     erThrowInvalidPath("erOmxManager::begin()");
@@ -67,7 +66,7 @@ float erOmxManager::getDuration(string absolutePath){
 
 bool erOmxManager::isActiveMoviePlaying(){
 #ifdef __linux__
-    return activePlayer()->isPlaying();
+    return activePlayer()->isActuallyPlaying();
 #else
     erThrowInvalidPath("erOmxManager::isActiveMoviePlaying()");
 #endif
@@ -78,11 +77,11 @@ void erOmxManager::switchActivePlayers(){
     currentPlayer = currentPlayer == 0 ? 1 : 0;
 }
 
-ofxOMXPlayer* erOmxManager::activePlayer(){
+erOmxPlayer* erOmxManager::activePlayer(){
     return currentPlayer == 0 ? &omxPlayer1 : &omxPlayer2;
 }
 
-ofxOMXPlayer* erOmxManager::inactivePlayer(){
+erOmxPlayer* erOmxManager::inactivePlayer(){
     return currentPlayer == 0 ? &omxPlayer2 : &omxPlayer1;
 }
 #endif

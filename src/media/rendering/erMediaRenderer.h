@@ -22,7 +22,7 @@ public:
     void assignDecoyGlitch(erVideoPlayer* _videoPlayer);
 
     void drawServer(erVideoPlayer* player, int x, int y, int width, int height, int channel=1);
-    bool drawClient(int x, int y, int width, int height, int channel=1);
+    void drawClient(int x, int y, int width, int height, int channel=1);
     void drawStatic(int x, int y, int width, int height);
     void drawNormal(erVideoPlayer* player, int x, int y, int width, int height);
     void drawGlitched(erVideoPlayer* player, int x, int y, int width, int height);

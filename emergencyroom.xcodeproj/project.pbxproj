@@ -68,6 +68,7 @@
 		7F585AF2B65D8530346361B7 /* ofxNetworkSyncServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B083D03FE2DC108B2FF592D6 /* ofxNetworkSyncServer.cpp */; };
 		8072A86E35F7000F7CDEEF42 /* NoiseWarpPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BC56A60E911F7488A58830A /* NoiseWarpPass.cpp */; };
 		813E52BD790CE4AAF527DCD4 /* ToonPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E547AB568F5E5027A880C47C /* ToonPass.cpp */; };
+		8282589F1FBA94E300739DB3 /* erOmxPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8282589E1FBA94E200739DB3 /* erOmxPlayer.cpp */; };
 		82CD81AC1FA7F1B900F99CBB /* erMediaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82CD81771FA7F1B800F99CBB /* erMediaLoader.cpp */; };
 		82CD81AD1FA7F1B900F99CBB /* erMediaController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82CD817A1FA7F1B800F99CBB /* erMediaController.cpp */; };
 		82CD81AE1FA7F1B900F99CBB /* erPlayParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82CD817C1FA7F1B800F99CBB /* erPlayParams.cpp */; };
@@ -287,6 +288,8 @@
 		7FB5F74C69D4E17560BB615E /* ofxAudioUnitRecorder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAudioUnitRecorder.cpp; path = ../../../addons/ofxAudioUnit/src/ofxAudioUnitRecorder.cpp; sourceTree = SOURCE_ROOT; };
 		81436E53CC4A77E326F659C3 /* ofxMidiOut.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiOut.h; path = ../../../addons/ofxMidi/src/ofxMidiOut.h; sourceTree = SOURCE_ROOT; };
 		81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<group>"; };
+		8282589D1FBA94E200739DB3 /* erOmxPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erOmxPlayer.h; sourceTree = "<group>"; };
+		8282589E1FBA94E200739DB3 /* erOmxPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erOmxPlayer.cpp; sourceTree = "<group>"; };
 		82CD81771FA7F1B800F99CBB /* erMediaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaLoader.cpp; sourceTree = "<group>"; };
 		82CD81781FA7F1B800F99CBB /* erMediaLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erMediaLoader.h; sourceTree = "<group>"; };
 		82CD817A1FA7F1B800F99CBB /* erMediaController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = erMediaController.cpp; sourceTree = "<group>"; };
@@ -759,6 +762,8 @@
 				82CD817B1FA7F1B800F99CBB /* erMediaController.h */,
 				82F04D311FB1190300A1BB17 /* erOmxManager.cpp */,
 				82F04D321FB1190300A1BB17 /* erOmxManager.h */,
+				8282589E1FBA94E200739DB3 /* erOmxPlayer.cpp */,
+				8282589D1FBA94E200739DB3 /* erOmxPlayer.h */,
 				82CD817C1FA7F1B800F99CBB /* erPlayParams.cpp */,
 				82CD817D1FA7F1B800F99CBB /* erPlayParams.h */,
 				82CD817E1FA7F1B800F99CBB /* erSoundPlayer.h */,
@@ -1457,6 +1462,7 @@
 				4C2B9798639946BC69B1C9A0 /* shPaint.c in Sources */,
 				82CD81BC1FA7F1B900F99CBB /* erNetwork.cpp in Sources */,
 				AEFA334814D3EE4F9E6F4829 /* shParams.c in Sources */,
+				8282589F1FBA94E300739DB3 /* erOmxPlayer.cpp in Sources */,
 				82CD81BB1FA7F1B900F99CBB /* erHttpRequest.cpp in Sources */,
 				82CD81B01FA7F1B900F99CBB /* erEcgRenderer.cpp in Sources */,
 				A8CC477E84407E63FBE21942 /* shPath.c in Sources */,

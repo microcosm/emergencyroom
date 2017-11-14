@@ -86,12 +86,7 @@ void erChannelRenderer::eraseCompletedVideosFromChannels(){
 }
 
 void erChannelRenderer::drawClient(){
-    ofClear(ofColor::black);
-    anyPlayerIsPlaying = mediaRenderer.drawClient(0, 0, ofGetWidth(), ofGetHeight());
-    if(!anyPlayerIsPlaying){
-        mediaRenderer.stopDecoyPlayer();
-        mediaRenderer.drawStatic(0, 0, ofGetWidth(), ofGetHeight());
-    }
+    mediaRenderer.drawClient(0, 0, ofGetWidth(), ofGetHeight());
 }
 
 void erChannelRenderer::drawServer(){

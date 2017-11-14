@@ -45,14 +45,15 @@ void erMediaRenderer::drawServer(erVideoPlayer* player, int x, int y, int width,
     }
 }
 
-bool erMediaRenderer::drawClient(int x, int y, int width, int height, int channel){
-    bool isPlaying = omxManager->isActiveMoviePlaying();
-    if(isPlaying){
+void erMediaRenderer::drawClient(int x, int y, int width, int height, int channel){
+    ofClear(ofColor::black);
+    if(omxManager->isActiveMoviePlaying()){
         withinGlitchPeriod(channel) ?
-        drawClientGlitched(x, y, width, height) :
-        drawClientNormal(x, y, width, height);
+            drawClientGlitched(x, y, width, height) :
+            drawClientNormal(x, y, width, height);
+    }else{
+        drawStatic(x, y, width, height);
     }
-    return isPlaying;
 }
 
 void erMediaRenderer::drawStatic(int x, int y, int width, int height){

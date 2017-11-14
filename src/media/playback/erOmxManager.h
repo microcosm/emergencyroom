@@ -3,7 +3,7 @@
 #include "erUtils.h"
 
 #ifdef __linux__
-#include "ofxOMXPlayer.h"
+#include "erOmxPlayer.h"
 #endif
 
 class erOmxManager{
@@ -22,11 +22,11 @@ public:
 #ifdef __linux__
 protected:
     void switchActivePlayers();
-    ofxOMXPlayer* activePlayer();
-    ofxOMXPlayer* inactivePlayer();
+    erOmxPlayer* activePlayer();
+    erOmxPlayer* inactivePlayer();
 
-    ofxOMXPlayer omxPlayer1;
-    ofxOMXPlayer omxPlayer2;
+    erOmxPlayer omxPlayer1;
+    erOmxPlayer omxPlayer2;
     int currentPlayer;
     ofTexture texture;
     bool hasSetup = false;

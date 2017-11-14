@@ -47,5 +47,4 @@ protected:
 
     int previewWidth, previewHeight, x, y, currentChannel;
     string currentChannelStr, currentPlayerPath;
-    bool anyPlayerIsPlaying;
 };
