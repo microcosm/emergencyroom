@@ -20,7 +20,7 @@ void erMediaRenderer::update(){
     omxManager->update();
     for(auto const& player : *videoPlayers){
         player.second->checkSchedule();
-        if(player.second->isCurrentlyPlaying()){
+        if(settings.isServer && player.second->isCurrentlyPlaying()){
             player.second->update();
         }
     }

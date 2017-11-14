@@ -7,7 +7,9 @@ void erChannelRenderer::setup(erNetwork* _network, erOmxManager* omxManager){
 }
 
 void erChannelRenderer::update(){
-    eraseCompletedVideosFromChannels();
+    if(settings.isServer){
+        eraseCompletedVideosFromChannels();
+    }
     mediaRenderer.update();
 }
 
