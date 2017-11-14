@@ -9,7 +9,7 @@
 class erOmxManager{
 
 public:
-    void setup();
+    void setup(string sampleMoviePath);
     void update();
     void draw(float x, float y, float width, float height);
 
@@ -29,5 +29,6 @@ protected:
     ofxOMXPlayer omxPlayer2;
     int currentPlayer;
     ofTexture texture;
+    bool hasSetup = false;
 #endif
 };

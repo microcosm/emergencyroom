@@ -1,10 +1,11 @@
 #include "erOmxManager.h"
 
-void erOmxManager::setup(){
+void erOmxManager::setup(string sampleMoviePath){
 #ifdef __linux__
     currentPlayer = 0;
 
     ofxOMXPlayerSettings omxSettings;
+    omxSettings.videoPath = sampleMoviePath;
     omxSettings.enableLooping = false;
     omxSettings.enableAudio = false;
     omxSettings.useHDMIForAudio = false;
@@ -15,6 +16,8 @@ void erOmxManager::setup(){
 
     omxPlayer1.setPaused(true);
     omxPlayer2.setPaused(true);
+
+    hasSetup = true;
 #endif
 }
 
@@ -33,6 +36,9 @@ void erOmxManager::draw(float x, float y, float width, float height){
 
 void erOmxManager::prepare(string absolutePath){
 #ifdef __linux__
+    if(!hasSetup){
+        setup(absolutePath);
+    }
     inactivePlayer()->loadMovie(absolutePath);
     inactivePlayer()->setPaused(true);
 #else
